@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         tableView.dataSource = self
 
         tableView.register(UINib(nibName: "VideoListCell", bundle: nil), forCellReuseIdentifier: VideoListCell.identifier)
+
     }
 
 
@@ -53,6 +54,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.timeLabel.text = videoFiles[indexPath.row].playTime
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            videoFiles.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 
 }
