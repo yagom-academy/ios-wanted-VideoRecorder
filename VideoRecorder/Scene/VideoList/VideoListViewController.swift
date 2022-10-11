@@ -20,7 +20,18 @@ class VideoListViewController: UIViewController {
     
     var arr = ["Zedd", "Alan Walker", "David Guetta", "Avicii", "Marshmello", "Steve Aoki", "R3HAB", "Armin van Buuren", "Skrillex", "Illenium", "TheChainsmokerslkdjflksdjflsldkjflskd", "Don Diablo", "Afrojack", "Tiesto", "KSHMR", "DJ Snake", "Kygo", "Galantis", "Major Lazer", "Vicetone"]
 
-
+    let navigationLeftBarButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "list.triangle"), for: .normal)
+        button.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        button.setTitle("  Video List", for: .normal)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.setTitleColor( .black, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -33,6 +44,13 @@ class VideoListViewController: UIViewController {
         ])
         setCell()
         performQuery()
+        configureNavigation()
+    }
+    
+    func configureNavigation() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationLeftBarButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "video.fill.badge.plus"), style: .plain, target: self, action: .none)
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
     }
     
     func createBasicListLayout() -> UICollectionViewLayout {
@@ -69,8 +87,6 @@ class VideoListViewController: UIViewController {
         snapshot.appendItems(arr)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-
-
 }
 
 enum Section: CaseIterable {
