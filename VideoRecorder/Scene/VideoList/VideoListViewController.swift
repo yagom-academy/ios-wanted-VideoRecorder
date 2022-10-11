@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  VideoListViewController.swift
 //  VideoRecorder
 //
 //  Created by kjs on 2022/10/07.
@@ -7,34 +7,49 @@
 
 import UIKit
 
-class VideoListViewController: UIViewController {
+final class VideoListViewController: UIViewController {
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
-        collectionView.register(VideoListCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>!
     
-    var arr = ["Zedd", "Alan Walker", "David Guetta", "Avicii", "Marshmello", "Steve Aoki", "R3HAB", "Armin van Buuren", "Skrillex", "Illenium", "TheChainsmokerslkdjflksdjflsldkjflskd", "Don Diablo", "Afrojack", "Tiesto", "KSHMR", "DJ Snake", "Kygo", "Galantis", "Major Lazer", "Vicetone"]
+    var videoList: [Video] = [
+        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
+        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
+        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
+        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
+        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
+        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
+        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
+        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
+        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
+        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
+    ]
 
-    let navigationLeftBarButton: UIButton = {
+    private let navigationLeftBarButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "list.triangle"), for: .normal)
-        button.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        button.tintColor = Color.label
         
         button.setTitle("  Video List", for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+        button.titleLabel?.font = Font.title3
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.setTitleColor( .black, for: .normal)
+        button.setTitleColor(Color.label, for: .normal)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Color.systemBackground
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -42,53 +57,51 @@ class VideoListViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        setCell()
+        configureDataSource()
         performQuery()
         configureNavigation()
     }
     
-    func configureNavigation() {
+    private func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationLeftBarButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "video.fill.badge.plus"), style: .plain, target: self, action: .none)
-        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
-    func createBasicListLayout() -> UICollectionViewLayout {
+    private func createBasicListLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .fractionalHeight(1.0))
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
       
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .estimated(90))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-        let spacing = CGFloat(10)
-        group.interItemSpacing = .fixed(spacing)
-      
-        let section = NSCollectionLayoutSection(group: group)
-
+                                              heightDimension: .absolute(630))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
+                                                         subitem: item, count: 7)
+        let containerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [group])
+        let section = NSCollectionLayoutSection(group: containerGroup)
+        section.orthogonalScrollingBehavior = .paging
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
     
-    func setCell() {
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: self.collectionView) { (collectionView, indexPath, dj: String) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UICollectionViewCell() }
-            cell.videoNameLabel.text = dj
-            cell.dateLabel.text = "2022-10-11"
-            cell.runningTimeLabel.text = "1:03"
-            return cell
+    private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<VideoListCell, Video> { cell, indexPath, video in
+            cell.videoNameLabel.text = video.name
+            cell.thumbnailImageView.image = video.thumbnail
+            cell.runningTimeLabel.text = video.runningTime
+            cell.dateLabel.text = video.date
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: self.collectionView) { collectionView, indexPath, video in
+            collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: video)
         }
     }
     
-    func performQuery() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+    private func performQuery() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(arr)
+        snapshot.appendItems(videoList)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
-enum Section: CaseIterable {
-    case main
-}

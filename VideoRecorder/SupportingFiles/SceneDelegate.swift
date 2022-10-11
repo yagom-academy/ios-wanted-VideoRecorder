@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController = VideoListViewController()
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
-        window?.backgroundColor = .systemBackground
+        window?.backgroundColor = Color.systemBackground
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

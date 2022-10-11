@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VideoListCell: UICollectionViewCell {
+final class VideoListCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -20,16 +20,16 @@ class VideoListCell: UICollectionViewCell {
     
     let runningTimeView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
-        view.layer.opacity = 0.6
+        view.backgroundColor = Color.opacityBlack
         view.layer.zPosition = 1
         return view
     }()
     
     let runningTimeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 11)
+        label.textColor = Color.white
+        label.font = Font.caption2
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.zPosition = 2
         return label
@@ -46,8 +46,9 @@ class VideoListCell: UICollectionViewCell {
     
     let videoNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.textColor = Color.label
+        label.font = Font.headline
+        label.adjustsFontForContentSizeCategory = true
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,8 +57,9 @@ class VideoListCell: UICollectionViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
-        label.font = .systemFont(ofSize: 13)
+        label.textColor = Color.darkGray
+        label.font = Font.caption2
+        label.adjustsFontForContentSizeCategory = true 
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +69,7 @@ class VideoListCell: UICollectionViewCell {
     let nextImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = .gray
+        imageView.tintColor = Color.darkGray
         return imageView
     }()
     
@@ -87,16 +89,18 @@ class VideoListCell: UICollectionViewCell {
             thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 0.66),
             thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            
             runningTimeView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 5),
             runningTimeView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -5),
             runningTimeLabel.leadingAnchor.constraint(equalTo: runningTimeView.leadingAnchor, constant: 5),
             runningTimeLabel.topAnchor.constraint(equalTo: runningTimeView.topAnchor, constant: 3),
             runningTimeLabel.trailingAnchor.constraint(equalTo: runningTimeView.trailingAnchor, constant: -5),
             runningTimeLabel.bottomAnchor.constraint(equalTo: runningTimeView.bottomAnchor, constant: -3),
-            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            
+            labelStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             labelStackView.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 20),
             labelStackView.trailingAnchor.constraint(equalTo: nextImageView.leadingAnchor, constant: -10),
-            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            
             nextImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nextImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             nextImageView.widthAnchor.constraint(equalToConstant: 15),
@@ -107,11 +111,5 @@ class VideoListCell: UICollectionViewCell {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension UIView {
-    func addSubviews(_ views: UIView...) {
-        views.forEach { addSubview($0) }
     }
 }
