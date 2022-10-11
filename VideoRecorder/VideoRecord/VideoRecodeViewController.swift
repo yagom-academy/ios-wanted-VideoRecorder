@@ -9,7 +9,7 @@ import UIKit
 
 class VideoRecodeViewController: UIViewController {
 
-    @IBOutlet weak var recodeView: RecodeView!
+    @IBOutlet private weak var recordView: RecordView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

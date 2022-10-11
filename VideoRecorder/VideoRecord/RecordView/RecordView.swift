@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecodeView: UIView {
+final class RecordView: UIView {
     
     @IBOutlet private weak var thumbnailView: UIView!
     @IBOutlet private weak var recodeButton: UIButton!

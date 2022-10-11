@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecodeView" customModule="VideoRecorder" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordView" customModule="VideoRecorder" customModuleProvider="target">
             <connections>
                 <outlet property="cameraChangeButton" destination="cCI-dI-YhG" id="Qhh-LK-cpq"/>
                 <outlet property="recodeButton" destination="42E-h3-9xX" id="3Vh-6u-y5C"/>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class VideoListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
