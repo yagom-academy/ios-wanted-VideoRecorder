@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class VideoListCell: UICollectionViewCell {
+final class VideoListCell: UITableViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -73,8 +73,8 @@ final class VideoListCell: UICollectionViewCell {
         return imageView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         contentView.addSubviews(thumbnailImageView, labelStackView, nextImageView)
         thumbnailImageView.addSubview(runningTimeView)
@@ -85,10 +85,10 @@ final class VideoListCell: UICollectionViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-            thumbnailImageView.widthAnchor.constraint(equalToConstant: 80),
-            thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 0.66),
-            thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            thumbnailImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
             thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            thumbnailImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             runningTimeView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 5),
             runningTimeView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -5),

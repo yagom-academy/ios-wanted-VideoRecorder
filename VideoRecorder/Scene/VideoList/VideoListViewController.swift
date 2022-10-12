@@ -9,13 +9,16 @@ import UIKit
 
 final class VideoListViewController: UIViewController {
     
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.register(VideoListCell.self, forCellReuseIdentifier: "Cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.estimatedRowHeight = 90
+        tableView.rowHeight = UITableView.automaticDimension
+        return tableView
     }()
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>!
+    private var dataSource: UITableViewDiffableDataSource<Section, Video>!
     
     var videoList: [Video] = [
         Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
@@ -50,12 +53,12 @@ final class VideoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.systemBackground
-        view.addSubview(collectionView)
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         configureDataSource()
         performQuery()
@@ -68,32 +71,32 @@ final class VideoListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
-    private func createBasicListLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(630))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                         subitem: item, count: 7)
-        let containerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [group])
-        let section = NSCollectionLayoutSection(group: containerGroup)
-        section.orthogonalScrollingBehavior = .paging
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
-    }
+//    private func createBasicListLayout() -> UICollectionViewLayout {
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                              heightDimension: .fractionalHeight(1.0))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                              heightDimension: .absolute(630))
+//        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
+//                                                         subitem: item, count: 7)
+//        let containerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [group])
+//        let section = NSCollectionLayoutSection(group: containerGroup)
+//        section.orthogonalScrollingBehavior = .paging
+//        let layout = UICollectionViewCompositionalLayout(section: section)
+//        return layout
+//    }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<VideoListCell, Video> { cell, indexPath, video in
+        dataSource = UITableViewDiffableDataSource<Section, Video>(tableView: self.tableView) { tableView, indexPath, video in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
+            
             cell.videoNameLabel.text = video.name
             cell.thumbnailImageView.image = video.thumbnail
             cell.runningTimeLabel.text = video.runningTime
             cell.dateLabel.text = video.date
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: self.collectionView) { collectionView, indexPath, video in
-            collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: video)
+            
+            return cell
         }
     }
     
