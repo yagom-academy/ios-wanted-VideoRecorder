@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class VideoRecordViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
@@ -16,9 +17,75 @@ class VideoRecordViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var changeCameraButton: UIButton!
 
+    private enum SessionSetupResult {
+        case success
+        case notAuthorized
+        case configurationFailed
+    }
+
+    private let session = AVCaptureSession()
+    private let sessionQueue = DispatchQueue(label: "sessionQueue")
+    private var isSessionRunning = false
+    private var setupResult: SessionSetupResult = .notAuthorized
+    private var videoDeviceInput: AVCaptureDeviceInput!
+    private var movieFileOutput: AVCaptureMovieFileOutput?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        // AVCaptureSession과 카메라 미리보기 Layer 연결
+        previewView.session = session
 
+        requestPermissions()
+
+        sessionQueue.async {
+            self.configureSession()
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        sessionQueue.async {
+            switch self.setupResult {
+            case .success:
+                self.session.startRunning()
+                self.isSessionRunning = self.session.isRunning
+
+            case .notAuthorized:
+                DispatchQueue.main.async {
+                    let changePrivacySetting = "접근 권한 설정을 변경해주세요."
+                    let message = NSLocalizedString(changePrivacySetting, comment: "동영상 촬영을 위해 카메라 접근 권한이 필요합니다.")
+                    let alertController = UIAlertController(title: "VideoRecorder", message: message, preferredStyle: .alert)
+
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"),
+                                                            style: .cancel,
+                                                            handler: nil))
+
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "설정으로 이동"),
+                                                            style: .`default`,
+                                                            handler: { _ in
+                                                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,
+                                                                                          options: [:],
+                                                                                          completionHandler: nil)
+                    }))
+
+                    self.present(alertController, animated: true, completion: nil)
+                }
+
+            case .configurationFailed:
+                DispatchQueue.main.async {
+                    let alertMsg = "Alert message when something goes wrong during capture session configuration"
+                    let message = NSLocalizedString("Unable to capture media", comment: alertMsg)
+                    let alertController = UIAlertController(title: "VideoRecorder", message: message, preferredStyle: .alert)
+
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"),
+                                                            style: .cancel,
+                                                            handler: nil))
+
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
     @IBAction func closeButtonPressed(_ sender: UIButton) {
@@ -32,4 +99,120 @@ class VideoRecordViewController: UIViewController {
     @IBAction func changeButtonPressed(_ sender: UIButton) {
     }
 
+}
+
+extension VideoRecordViewController {
+    func requestPermissions() {
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: { response in
+            if response {
+                print("카메라 권한 허용")
+                self.setupResult = .success
+            } else {
+                print("카메라 권한 거부")
+                self.setupResult = .notAuthorized
+            }
+        })
+
+        AVAudioSession.sharedInstance().requestRecordPermission{ response in
+            if response {
+                print("마이크 권한 허용")
+                self.setupResult = .success
+            } else {
+                print("마이크 권한 거부")
+                self.setupResult = .notAuthorized
+            }
+        }
+
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            break
+
+        case .notDetermined:
+            sessionQueue.suspend()
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { accepted in
+                if !accepted {
+                    self.setupResult = .notAuthorized
+                }
+                self.sessionQueue.resume()
+            })
+
+        default:
+            setupResult = .notAuthorized
+        }
+    }
+
+    func configureSession() {
+        if setupResult != .success { return }
+
+        session.beginConfiguration()
+        session.sessionPreset = .high
+
+        let defaultVideoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+
+        // 비디오 입력 장치 연결
+        do {
+            guard let videoDevice = defaultVideoDevice else {
+                print("Default video device is unavailable.")
+                setupResult = .configurationFailed
+                session.commitConfiguration()
+                return
+            }
+
+            let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+
+            if session.canAddInput(videoDeviceInput) {
+                session.addInput(videoDeviceInput)
+                self.videoDeviceInput = videoDeviceInput
+
+                DispatchQueue.main.async {
+                    self.previewView.videoPreviewLayer.connection?.videoOrientation = .portrait
+                }
+            } else {
+                print("Couldn't add video device input to the session.")
+                setupResult = .configurationFailed
+                session.commitConfiguration()
+                return
+            }
+
+        } catch {
+            print("Couldn't create video device input: \(error)")
+            setupResult = .configurationFailed
+            session.commitConfiguration()
+            return
+        }
+
+        // 오디오 입력 장치 연결
+        do {
+            let audioDevice = AVCaptureDevice.default(for: .audio)
+            let audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice!)
+
+            if session.canAddInput(audioDeviceInput) {
+                session.addInput(audioDeviceInput)
+            } else {
+                print("Could not add audio device input to the session")
+            }
+        } catch {
+            print("Could not create audio device input: \(error)")
+            setupResult = .configurationFailed
+            session.commitConfiguration()
+            return
+        }
+
+        // 비디오 파일 출력 연결
+        let movieFileOutput = AVCaptureMovieFileOutput()
+
+        if self.session.canAddOutput(movieFileOutput) {
+            self.session.addOutput(movieFileOutput)
+            self.session.sessionPreset = .high
+
+            if let connection = movieFileOutput.connection(with: .video) {
+                if connection.isVideoStabilizationSupported {
+                    connection.preferredVideoStabilizationMode = .auto
+                }
+            }
+            self.movieFileOutput = movieFileOutput
+        }
+
+        session.commitConfiguration()
+    }
 }
