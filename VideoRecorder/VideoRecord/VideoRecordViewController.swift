@@ -117,9 +117,9 @@ class VideoRecordViewController: UIViewController {
                 }
 
                 // Start recording video to a temporary file.
-                let outputFileName = NSUUID().uuidString
-                let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
-                movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+                let outputFilePath = RecordFileManger.shared.createFile()
+                movieFileOutput.startRecording(to: outputFilePath, recordingDelegate: self)
+                print("🔴 recoding")
             } else {
                 movieFileOutput.stopRecording()
             }
