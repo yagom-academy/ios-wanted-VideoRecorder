@@ -1,4 +1,4 @@
-//
+        //
 //  VideoRecodeViewController.swift
 //  VideoRecorder
 //
@@ -97,6 +97,34 @@ class VideoRecordViewController: UIViewController {
     }
 
     @IBAction func recordButtonPressed(_ sender: UIButton) {
+        guard let movieFileOutput = self.movieFileOutput else {
+            return
+        }
+
+        recordButton.isEnabled = false
+        changeCameraButton.isEnabled = false
+        closeButton.isEnabled = false
+
+        sessionQueue.async {
+            if !movieFileOutput.isRecording {
+                let movieFileOutputConnection = movieFileOutput.connection(with: .video)
+                movieFileOutputConnection?.videoOrientation = .portrait
+
+                let availableVideoCodecTypes = movieFileOutput.availableVideoCodecTypes
+
+                if availableVideoCodecTypes.contains(.hevc) {
+                    movieFileOutput.setOutputSettings([AVVideoCodecKey: AVVideoCodecType.hevc], for: movieFileOutputConnection!)
+                }
+
+                // Start recording video to a temporary file.
+                let outputFileName = NSUUID().uuidString
+                let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
+                movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+            } else {
+                movieFileOutput.stopRecording()
+            }
+        }
+
     }
 
     @IBAction func changeButtonPressed(_ sender: UIButton) {
@@ -187,6 +215,7 @@ extension VideoRecordViewController {
 
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
+            self.setupResult = .success
             break
 
         case .notDetermined:
@@ -276,5 +305,33 @@ extension VideoRecordViewController {
         }
 
         session.commitConfiguration()
+    }
+}
+
+extension VideoRecordViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        DispatchQueue.main.async {
+            self.recordButton.isEnabled = true
+            self.recordButton.setImage(UIImage(named: "stop"), for: [])
+        }
+    }
+
+    func fileOutput(_ output: AVCaptureFileOutput,
+                    didFinishRecordingTo outputFileURL: URL,
+                    from connections: [AVCaptureConnection],
+                    error: Error?) {
+
+        if error != nil {
+            print("Record file finishing error: \(String(describing: error))")
+        }
+
+        // 사진 앨범에 저장하려면 여기에 코드 삽입
+
+        DispatchQueue.main.async {
+            self.recordButton.isEnabled = true
+            self.changeCameraButton.isEnabled = true
+            self.closeButton.isEnabled = true
+            self.recordButton.setImage(UIImage(named: "record"), for: [])
+        }
     }
 }
