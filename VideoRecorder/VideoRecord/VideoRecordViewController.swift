@@ -16,7 +16,8 @@ class VideoRecordViewController: UIViewController {
     @IBOutlet weak var previewView: PreviewView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var changeCameraButton: UIButton!
-
+    @IBOutlet weak var closeButton: UIButton!
+    
     private enum SessionSetupResult {
         case success
         case notAuthorized
@@ -30,6 +31,7 @@ class VideoRecordViewController: UIViewController {
     private var videoDeviceInput: AVCaptureDeviceInput!
     private var movieFileOutput: AVCaptureMovieFileOutput?
 
+    // MARK: - View-Related Notifications
     override func viewDidLoad() {
         super.viewDidLoad()
         // AVCaptureSession과 카메라 미리보기 Layer 연결
@@ -88,6 +90,7 @@ class VideoRecordViewController: UIViewController {
         }
     }
 
+    // MARK: - Button Actions
     @IBAction func closeButtonPressed(_ sender: UIButton) {
         navigationController?.isNavigationBarHidden = false
         self.dismiss(animated: true)
@@ -97,8 +100,67 @@ class VideoRecordViewController: UIViewController {
     }
 
     @IBAction func changeButtonPressed(_ sender: UIButton) {
-    }
+        recordButton.isEnabled = false
+        changeCameraButton.isEnabled = false
+        closeButton.isEnabled = false
 
+        sessionQueue.async {
+            let currentVideoDevice = self.videoDeviceInput.device
+            let currentPosition = currentVideoDevice.position
+
+            let backVideoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera],
+                                                                                       mediaType: .video, position: .back)
+            let frontVideoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera],
+                                                                                    mediaType: .video, position: .front)
+            var newVideoDevice: AVCaptureDevice? = nil
+
+            switch currentPosition {
+            case .unspecified, .front:
+                newVideoDevice = backVideoDeviceDiscoverySession.devices.first
+
+            case .back:
+                newVideoDevice = frontVideoDeviceDiscoverySession.devices.first
+
+            @unknown default:
+                print("Unknown capture position. Defaulting to back, dual-camera.")
+                newVideoDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back)
+            }
+
+            if let videoDevice = newVideoDevice {
+                do {
+                    let newVideoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+
+                    self.session.beginConfiguration()
+                    self.session.removeInput(self.videoDeviceInput)
+
+                    if self.session.canAddInput(newVideoDeviceInput) {
+                        self.session.addInput(newVideoDeviceInput)
+                        self.videoDeviceInput = newVideoDeviceInput
+                    } else {
+                        self.session.addInput(self.videoDeviceInput)
+                    }
+
+                    if let connection = self.movieFileOutput?.connection(with: .video) {
+                        self.session.sessionPreset = .high
+
+                        if connection.isVideoStabilizationSupported {
+                            connection.preferredVideoStabilizationMode = .auto
+                        }
+                    }
+
+                    self.session.commitConfiguration()
+                } catch {
+                    print("Error occurred while creating video device input: \(error)")
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.recordButton.isEnabled = self.movieFileOutput != nil
+                self.changeCameraButton.isEnabled = true
+                self.closeButton.isEnabled = true
+            }
+        }
+    }
 }
 
 extension VideoRecordViewController {
