@@ -117,11 +117,13 @@ class VideoRecordViewController: UIViewController {
                 }
 
                 // Start recording video to a temporary file.
-                let outputFilePath = RecordFileManger.shared.createFile()
-                movieFileOutput.startRecording(to: outputFilePath, recordingDelegate: self)
+                //파일 매니저에 저장
+                let outputFile = RecordFileManger.shared.createVideoFile()
+                movieFileOutput.startRecording(to: outputFile, recordingDelegate: self)
                 print("🔴 recoding")
             } else {
                 movieFileOutput.stopRecording()
+                //촬영 종료되면 이 때 파이어 스토리지에 저장한다 ?
             }
         }
 

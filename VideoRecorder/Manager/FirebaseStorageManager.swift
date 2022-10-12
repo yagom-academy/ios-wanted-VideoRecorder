@@ -9,30 +9,42 @@ import UIKit
 import FirebaseStorage
 import Firebase
 
+// TODO : error handling
+enum FirebaseError: Error {
+    case noVideoData
+    case notPutData
+    case noDownloadURL
+}
+
 class FirebaseStorageManager {
     
-    static func uploadVideo(videoData: Data, pathRoot: String, completion: @escaping (URL?) -> Void) {
-        let metaData = StorageMetadata()
-        metaData.contentType = "video/mp4"
-        let videoName = UUID().uuidString + String(Date().timeIntervalSince1970)
-        let firebaseRef = Storage.storage().reference().child("\(videoName)")
-        firebaseRef.putData(videoData, metadata: nil) { (metadata, error) in
-            firebaseRef.downloadURL { url, error in
-                completion(url)
+    static func uploadVideo(videoData: Data?, completion: @escaping (URL?) -> Void) {
+        let reference = Storage.storage().reference()
+        guard let video = videoData else { return completion(nil) }
+        reference.putData(video, metadata: nil) { metadata, error in
+            if let error = error {
+                fatalError("Firebase Storage 저장 안됨: \(error)")
+            }
+            reference.downloadURL { url, erro in
+                guard let downloadURL = url else {
+                    completion(nil)
+                    return
+                }
+                completion(downloadURL.absoluteURL)
             }
         }
+       
     }
     
-    static func downloadVideo(urlString: String, completion: @escaping (Data?) -> Void) {
-        let storageRef = Storage.storage().reference(forURL: urlString)
-        let megaByte = Int64(1 * 1024 * 1024)
-        storageRef.getData(maxSize: megaByte) { data, error in
-            guard let videoData = data else {
-                completion(nil)
-                print("비디오가 없음")
-                return
+    static func removeVideo(videoURL: String) {
+        let videoRef = Storage.storage().reference(forURL: videoURL)
+        videoRef.delete { error in
+            if let error = error {
+                print("Firestore 비디오 삭제 안됨: \(error)")
+            } else {
+                print("Firestore 비디오 삭제 완료")
             }
-            completion(videoData)
         }
     }
+
 }
