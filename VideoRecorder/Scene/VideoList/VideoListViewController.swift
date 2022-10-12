@@ -20,8 +20,10 @@ final class VideoListViewController: UIViewController {
         return tableView
     }()
     
-    private var dataSource: UITableViewDiffableDataSource<Section, Video>!
+    var isLoading = false
+    var hasNextPage = true
     
+    var cellVideoList: [Video] = []
     var videoList: [Video] = [
         Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
         Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
@@ -71,11 +73,48 @@ final class VideoListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
+    func loadMoreData() {
+        if !self.isLoading {
+            self.isLoading = true
+            let spinner = UIActivityIndicatorView(style: .medium)
+            spinner.color = UIColor.darkGray
+            spinner.hidesWhenStopped = true
+            spinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
+            tableView.tableFooterView = spinner
+            spinner.startAnimating()
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                self.fetchData()
+            }
+        }
+    }
+
+    func fetchData() {
+        let index = cellVideoList.count
+        var newVideoList: [Video] = []
+        
+        for i in index..<(index + 6) {
+            if i >= videoList.count {
+                break
+            }
+            let data = videoList[i]
+            newVideoList.append(data)
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.tableFooterView = nil
+            self.isLoading = false
+            self.cellVideoList.append(contentsOf: newVideoList)
+            self.hasNextPage = self.cellVideoList.count >= self.videoList.count ? false : true
+            self.tableView.reloadData()
+        }
+        
+    }
+    
 }
 
 extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoList.count
+        return cellVideoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,6 +124,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.thumbnailImageView.image = UIImage(named: "sample")
         cell.runningTimeLabel.text = videoList[indexPath.row].runningTime
         cell.dateLabel.text = videoList[indexPath.row].date
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -102,5 +142,16 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         return swipeActionConfiguration
     }
     
-    
+}
+
+extension VideoListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+
+        if position > tableView.contentSize.height - 100 - scrollView.frame.size.height {
+            if !isLoading && hasNextPage {
+                loadMoreData()
+            }
+        }
+    }
 }
