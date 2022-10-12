@@ -15,6 +15,8 @@ final class VideoListViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
+        tableView.dataSource = self
         return tableView
     }()
     
@@ -60,8 +62,6 @@ final class VideoListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        configureDataSource()
-        performQuery()
         configureNavigation()
     }
     
@@ -71,40 +71,36 @@ final class VideoListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
-//    private func createBasicListLayout() -> UICollectionViewLayout {
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                              heightDimension: .fractionalHeight(1.0))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                              heightDimension: .absolute(630))
-//        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-//                                                         subitem: item, count: 7)
-//        let containerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [group])
-//        let section = NSCollectionLayoutSection(group: containerGroup)
-//        section.orthogonalScrollingBehavior = .paging
-//        let layout = UICollectionViewCompositionalLayout(section: section)
-//        return layout
-//    }
-    
-    private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Video>(tableView: self.tableView) { tableView, indexPath, video in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
-            
-            cell.videoNameLabel.text = video.name
-            cell.thumbnailImageView.image = video.thumbnail
-            cell.runningTimeLabel.text = video.runningTime
-            cell.dateLabel.text = video.date
-            
-            return cell
-        }
-    }
-    
-    private func performQuery() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(videoList)
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
 }
 
+extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
+        
+        cell.videoNameLabel.text = videoList[indexPath.row].name
+        cell.thumbnailImageView.image = UIImage(named: "sample")
+        cell.runningTimeLabel.text = videoList[indexPath.row].runningTime
+        cell.dateLabel.text = videoList[indexPath.row].date
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            self.videoList.remove(at: indexPath.row)
+            tableView.reloadData()
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+        
+        let swipeActionConfiguration = UISwipeActionsConfiguration(actions:[delete])
+        swipeActionConfiguration.performsFirstActionWithFullSwipe = false
+        return swipeActionConfiguration
+    }
+    
+    
+}
