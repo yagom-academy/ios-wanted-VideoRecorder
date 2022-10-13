@@ -8,6 +8,9 @@
 import UIKit
 
 class VideoListViewController: UIViewController {
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -31,7 +34,8 @@ class VideoListViewController: UIViewController {
 
 
     @IBAction func recordButtonPressed(_ sender: UIBarButtonItem) {
-
+        navigationController?.isNavigationBarHidden = true
+        performSegue(withIdentifier: "record", sender: nil)
     }
 }
 
