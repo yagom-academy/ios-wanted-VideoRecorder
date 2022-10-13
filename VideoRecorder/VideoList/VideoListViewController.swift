@@ -80,6 +80,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
             CoreDataManager.shared.deleteData(videoList[indexPath.row])
             videoList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            offset -= 1
         }
     }
 
