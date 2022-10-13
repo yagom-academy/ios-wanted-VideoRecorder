@@ -42,6 +42,13 @@ class VideoListViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         performSegue(withIdentifier: "record", sender: nil)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let nextVC = segue.destination as? VideoRecordViewController else { return }
+
+        if videoList.isEmpty { return }
+        nextVC.thumbnailImage = ThumbnailCache.shared.object(forKey: videoList.first!.name as NSString) ?? UIImage(systemName: "photo")!
+    }
 }
 
 extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
