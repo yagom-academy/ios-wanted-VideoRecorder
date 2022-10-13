@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class VideoListViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
@@ -62,6 +63,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = videoList[i].name
         cell.dateLabel.text = videoList[i].date
         cell.timeLabel.text = videoList[i].playTime
+        cell.thumbnail.image = getThumbnail(videoList[i].name) ?? UIImage(systemName: "photo")
 
         return cell
     }
@@ -97,6 +99,23 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
             videoList += fetchedList
             offset += fetchedList.count
             tableView.reloadData()
+        }
+    }
+}
+
+extension VideoListViewController {
+    func getThumbnail(_ fileName: String) -> UIImage? {
+        let path = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((fileName as NSString).appendingPathExtension("mp4")!))
+        do {
+            let asset = AVURLAsset(url: path, options: nil)
+            let imageGenerator = AVAssetImageGenerator(asset: asset)
+            imageGenerator.appliesPreferredTrackTransform = true
+            let cgImage = try imageGenerator.copyCGImage(at: .zero, actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch {
+            print("Error generating thumbnail")
+            return nil
         }
     }
 }
