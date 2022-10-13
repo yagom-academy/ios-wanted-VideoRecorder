@@ -9,6 +9,6 @@ import Foundation
 
 struct VideoInfo {
     let name: String
-    let playTime: String
+    var playTime: String
     let date: String
 }

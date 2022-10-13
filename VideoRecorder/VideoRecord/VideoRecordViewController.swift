@@ -34,6 +34,8 @@ class VideoRecordViewController: UIViewController {
     private var setupResult: SessionSetupResult = .notAuthorized
     private var videoDeviceInput: AVCaptureDeviceInput!
     private var movieFileOutput: AVCaptureMovieFileOutput?
+    private var videoFile: VideoInfo?
+    private let dateFormatter = DateFormatter()
 
     // MARK: - View-Related Notifications
     override func viewDidLoad() {
@@ -46,6 +48,8 @@ class VideoRecordViewController: UIViewController {
         sessionQueue.async {
             self.configureSession()
         }
+
+        dateFormatter.dateFormat = "y-M-d"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -126,13 +130,28 @@ class VideoRecordViewController: UIViewController {
                 let outputFileName = NSUUID().uuidString
                 let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
                 movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+
+                DispatchQueue.main.async {
+                    self.videoFile = VideoInfo(name: outputFileName,
+                                               playTime: "",
+                                               date: self.dateFormatter.string(from: Date()))
+                }
             }
         } else {
             stopTimer()
 
+            videoFile?.playTime = timeLabel.text!
+
             sessionQueue.async {
                 movieFileOutput.stopRecording()
             }
+
+            let videoData = VideoData(context: CoreDataManager.shared.context)
+            videoData.name = videoFile!.name
+            videoData.date = videoFile!.date
+            videoData.playTime = videoFile!.playTime
+            CoreDataManager.shared.saveContext()
+            videoFile = nil
         }
     }
 
@@ -318,6 +337,7 @@ extension VideoRecordViewController {
 
     func startTimer() {
         countTime = 0
+        timeLabel.text = "00:00"
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
             self.countTime += 1
             self.timeLabel.text = self.countTime.convertTimeFormat()
@@ -327,7 +347,6 @@ extension VideoRecordViewController {
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-        timeLabel.text = "00:00"
     }
 }
 

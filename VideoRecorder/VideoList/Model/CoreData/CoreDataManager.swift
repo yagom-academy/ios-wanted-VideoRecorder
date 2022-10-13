@@ -12,6 +12,7 @@ class CoreDataManager {
     private init() {}
 
     var context: NSManagedObjectContext { return self.persistentContainer.viewContext }
+    var totalCount = 0
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "VideoModel")
@@ -25,12 +26,31 @@ class CoreDataManager {
 
     func fetchData(_ offset: Int) -> [VideoData] {
         let request = VideoData.fetchRequest()
-        request.fetchLimit = 6
-        request.fetchOffset = offset
+        do {
+            let count = try context.count(for: request)
+            print(count)
+            totalCount = count
+        } catch {
+            print("context count error")
+        }
+
+        if totalCount <= offset { return [] }
+
+        // 최신순으로 fetch하기
+        var limit = 6
+        var contextOffset = totalCount - offset - limit
+
+        if contextOffset < 0 {
+            limit += contextOffset
+            contextOffset = 0
+        }
+
+        request.fetchOffset = contextOffset
+        request.fetchLimit = limit
 
         do {
             let fetchedData = try context.fetch(request)
-            return fetchedData
+            return fetchedData.reversed()
         } catch {
             print("Error fetching data from context")
             print(error)
