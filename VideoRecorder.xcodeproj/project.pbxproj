@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4020168B28F89432006B275B /* ThumbnailCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020168A28F89432006B275B /* ThumbnailCache.swift */; };
 		406A273E28F490A700FC72F5 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406A273C28F490A700FC72F5 /* VideoListCell.swift */; };
 		406A273F28F490A700FC72F5 /* VideoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 406A273D28F490A700FC72F5 /* VideoListCell.xib */; };
 		407052B128F7B8EF003FEB3D /* Extension+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407052B028F7B8EF003FEB3D /* Extension+Int.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4020168A28F89432006B275B /* ThumbnailCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCache.swift; sourceTree = "<group>"; };
 		406A273C28F490A700FC72F5 /* VideoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListCell.swift; sourceTree = "<group>"; };
 		406A273D28F490A700FC72F5 /* VideoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoListCell.xib; sourceTree = "<group>"; };
 		407052B028F7B8EF003FEB3D /* Extension+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Int.swift"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				6CEAE18428F57F8100755122 /* AppStart */,
+				6CEAE18328F57F7900755122 /* Model */,
 				6CEAE18128F57F3D00755122 /* VideoList */,
 				6C2A237A28F53FCF0035C21B /* VideoPlay */,
 				6CAE57BB28F5312400DD7EFD /* VideoRecord */,
@@ -161,7 +164,6 @@
 		6CEAE18128F57F3D00755122 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
-				6CEAE18328F57F7900755122 /* Model */,
 				6CEAE18228F57F6D00755122 /* Cell */,
 				6321037B28F06E7200CC1609 /* VideoListViewController.swift */,
 			);
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				408CA80528F4A29E0078ACAF /* VideoInfo.swift */,
+				4020168A28F89432006B275B /* ThumbnailCache.swift */,
 				407052B228F80D37003FEB3D /* CoreData */,
 			);
 			path = Model;
@@ -280,6 +283,7 @@
 				6CAE57B728F5277B00DD7EFD /* VideoRecordViewController.swift in Sources */,
 				6CAE57BF28F531E200DD7EFD /* RecordView.swift in Sources */,
 				408CA80628F4A29E0078ACAF /* VideoInfo.swift in Sources */,
+				4020168B28F89432006B275B /* ThumbnailCache.swift in Sources */,
 				407052B928F8199D003FEB3D /* VideoData+CoreDataProperties.swift in Sources */,
 				6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */,
 				6C2A238428F5423A0035C21B /* Extenstion+UIView.swift in Sources */,

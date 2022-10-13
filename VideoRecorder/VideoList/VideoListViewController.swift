@@ -105,17 +105,25 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension VideoListViewController {
     func getThumbnail(_ fileName: String) -> UIImage? {
-        let path = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((fileName as NSString).appendingPathExtension("mp4")!))
-        do {
-            let asset = AVURLAsset(url: path, options: nil)
-            let imageGenerator = AVAssetImageGenerator(asset: asset)
-            imageGenerator.appliesPreferredTrackTransform = true
-            let cgImage = try imageGenerator.copyCGImage(at: .zero, actualTime: nil)
-            let thumbnail = UIImage(cgImage: cgImage)
-            return thumbnail
-        } catch {
-            print("Error generating thumbnail")
-            return nil
+
+        if let cachedImage = ThumbnailCache.shared.object(forKey: fileName as NSString) {
+            return cachedImage
+        } else {
+            let path = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((fileName as NSString).appendingPathExtension("mp4")!))
+            do {
+                let asset = AVURLAsset(url: path, options: nil)
+                let imageGenerator = AVAssetImageGenerator(asset: asset)
+                imageGenerator.appliesPreferredTrackTransform = true
+                let cgImage = try imageGenerator.copyCGImage(at: .zero, actualTime: nil)
+                let thumbnail = UIImage(cgImage: cgImage)
+                ThumbnailCache.shared.setObject(thumbnail, forKey: fileName as NSString)
+
+                return thumbnail
+            } catch {
+                print("Error generating thumbnail")
+                return nil
+            }
+
         }
     }
 }
