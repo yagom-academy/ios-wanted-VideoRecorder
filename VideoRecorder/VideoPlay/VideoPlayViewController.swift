@@ -6,16 +6,17 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 final class VideoPlayViewController: UIViewController {
 
-    @IBOutlet private weak var playView: PlayView!
+    @IBOutlet private weak var videoView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
     }
+    
     
 
 }

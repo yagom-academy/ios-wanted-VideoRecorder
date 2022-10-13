@@ -48,6 +48,9 @@
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="list.triangle" catalog="system" id="OJt-Wm-WX8">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="1Tw-4U-LbI" kind="show" id="xkG-yZ-fGX"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem title="VideoList" id="bog-Z3-ztJ">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,30 +80,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5BM-MH-QcU" customClass="PlayView" customModule="VideoRecorder" customModuleProvider="target">
-                                <rect key="frame" x="30" y="598" width="333" height="130"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ob2-R8-vGz" customClass="VideoView" customModule="VideoRecorder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="nxw-o4-VWH"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ORc-dF-MP8"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5BM-MH-QcU" firstAttribute="leading" secondItem="ORc-dF-MP8" secondAttribute="leading" constant="30" id="aNQ-F0-guW"/>
-                            <constraint firstItem="ORc-dF-MP8" firstAttribute="bottom" secondItem="5BM-MH-QcU" secondAttribute="bottom" constant="90" id="cPD-dw-OTh"/>
-                            <constraint firstItem="ORc-dF-MP8" firstAttribute="trailing" secondItem="5BM-MH-QcU" secondAttribute="trailing" constant="30" id="kGC-vZ-XpH"/>
+                            <constraint firstItem="Ob2-R8-vGz" firstAttribute="leading" secondItem="ORc-dF-MP8" secondAttribute="leading" id="0H7-9h-IDD"/>
+                            <constraint firstItem="ORc-dF-MP8" firstAttribute="trailing" secondItem="Ob2-R8-vGz" secondAttribute="trailing" id="2K5-GB-4pN"/>
+                            <constraint firstAttribute="bottom" secondItem="Ob2-R8-vGz" secondAttribute="bottom" id="O5q-pS-RGx"/>
+                            <constraint firstItem="Ob2-R8-vGz" firstAttribute="top" secondItem="vta-D5-jlJ" secondAttribute="top" id="cVx-4x-SHI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="InS-ag-lzm"/>
                     <connections>
-                        <outlet property="playView" destination="5BM-MH-QcU" id="9y1-Pa-3wi"/>
+                        <outlet property="videoView" destination="Ob2-R8-vGz" id="k1X-tz-KJT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acZ-Xl-Vzx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
