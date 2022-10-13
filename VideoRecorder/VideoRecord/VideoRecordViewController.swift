@@ -18,6 +18,9 @@ class VideoRecordViewController: UIViewController {
     @IBOutlet weak var changeCameraButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var recentThumbnail: UIImageView!
+
+    var thumbnailImage = UIImage()
 
     private var timer: Timer?
     private var countTime = 0
@@ -50,6 +53,7 @@ class VideoRecordViewController: UIViewController {
         }
 
         dateFormatter.dateFormat = "y-M-d"
+        recentThumbnail.image = thumbnailImage
     }
 
     override func viewWillAppear(_ animated: Bool) {

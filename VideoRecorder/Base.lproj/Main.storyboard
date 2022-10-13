@@ -136,14 +136,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7t-br-NzG" userLabel="RecordView">
                                 <rect key="frame" x="30" y="598" width="333" height="130"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNp-uz-O0R">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D9A-XB-mW9">
                                         <rect key="frame" x="20" y="45" width="40" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="NNa-tD-T4x"/>
-                                            <constraint firstAttribute="height" constant="40" id="afm-zs-40t"/>
+                                            <constraint firstAttribute="width" constant="40" id="dGP-P1-GAY"/>
+                                            <constraint firstAttribute="height" constant="40" id="x6d-QM-cot"/>
                                         </constraints>
-                                    </view>
+                                    </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LHH-xR-75W">
                                         <rect key="frame" x="127.66666666666666" y="21.999999999999993" width="77.666666666666657" height="86.333333333333314"/>
                                         <subviews>
@@ -181,10 +180,10 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xGN-TE-vfZ" secondAttribute="trailing" constant="20" id="2ot-ch-e0u"/>
                                     <constraint firstAttribute="height" constant="130" id="6Pf-Ml-6Yd"/>
-                                    <constraint firstItem="jNp-uz-O0R" firstAttribute="centerY" secondItem="M7t-br-NzG" secondAttribute="centerY" id="Acb-Lq-VE1"/>
-                                    <constraint firstItem="jNp-uz-O0R" firstAttribute="leading" secondItem="M7t-br-NzG" secondAttribute="leading" constant="20" id="NNc-rT-oqi"/>
+                                    <constraint firstItem="D9A-XB-mW9" firstAttribute="centerY" secondItem="M7t-br-NzG" secondAttribute="centerY" id="8q0-ju-6jL"/>
                                     <constraint firstItem="LHH-xR-75W" firstAttribute="centerX" secondItem="M7t-br-NzG" secondAttribute="centerX" id="TgQ-uA-847"/>
                                     <constraint firstItem="xGN-TE-vfZ" firstAttribute="centerY" secondItem="M7t-br-NzG" secondAttribute="centerY" id="Ud6-Km-xZz"/>
+                                    <constraint firstItem="D9A-XB-mW9" firstAttribute="leading" secondItem="M7t-br-NzG" secondAttribute="leading" constant="20" id="zdE-ou-aZU"/>
                                     <constraint firstItem="LHH-xR-75W" firstAttribute="centerY" secondItem="M7t-br-NzG" secondAttribute="centerY" id="zo4-Ia-jJl"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -214,6 +213,7 @@
                         <outlet property="changeCameraButton" destination="xGN-TE-vfZ" id="49F-QW-auy"/>
                         <outlet property="closeButton" destination="inn-7N-Lfn" id="kf6-jN-YOj"/>
                         <outlet property="previewView" destination="tlP-Jc-IVa" id="dMc-oD-WlK"/>
+                        <outlet property="recentThumbnail" destination="D9A-XB-mW9" id="IOa-zH-qZA"/>
                         <outlet property="recordButton" destination="0xK-sL-LFu" id="esQ-wh-EQ9"/>
                         <outlet property="timeLabel" destination="CmM-pk-Cug" id="2RQ-cs-5Sj"/>
                     </connections>
