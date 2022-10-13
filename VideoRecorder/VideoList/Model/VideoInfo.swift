@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct VideoModel {
-    let fileName: String
-    let playTime: String
+struct VideoInfo {
+    let name: String
+    var playTime: String
     let date: String
 }

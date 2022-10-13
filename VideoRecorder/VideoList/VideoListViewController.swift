@@ -14,13 +14,8 @@ class VideoListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var videoFiles = [
-        VideoModel(fileName: "Nature.mp4", playTime: "3:21", date: "2022-09-22"),
-        VideoModel(fileName: "Food.mp4", playTime: "15:50", date: "2022-09-17"),
-        VideoModel(fileName: "Building.mp4", playTime: "0:21", date: "2022-09-04"),
-        VideoModel(fileName: "Concert.mp4", playTime: "1:13:27", date: "2022-08-05"),
-        VideoModel(fileName: "Bridge.mp4", playTime: "32:03", date: "2022-07-21"),
-    ]
+    private var videoList = [VideoData]()
+    private var offset = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +24,18 @@ class VideoListViewController: UIViewController {
         tableView.dataSource = self
 
         tableView.register(UINib(nibName: "VideoListCell", bundle: nil), forCellReuseIdentifier: VideoListCell.identifier)
-
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // 가장 최근에 찍은 영상이 상단에 있어야하니까 초기화하고 다시 fetch
+        videoList.removeAll()
+        offset = 0
+        videoList = CoreDataManager.shared.fetchData(offset)
+        offset += videoList.count
+        tableView.reloadData()
+    }
 
     @IBAction func recordButtonPressed(_ sender: UIBarButtonItem) {
         navigationController?.isNavigationBarHidden = true
@@ -45,7 +49,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoFiles.count
+        return videoList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,18 +57,46 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.titleLabel.text = videoFiles[indexPath.row].fileName
-        cell.dateLabel.text = videoFiles[indexPath.row].date
-        cell.timeLabel.text = videoFiles[indexPath.row].playTime
+        let i = indexPath.row
+
+        cell.titleLabel.text = videoList[i].name
+        cell.dateLabel.text = videoList[i].date
+        cell.timeLabel.text = videoList[i].playTime
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            videoFiles.remove(at: indexPath.row)
+            CoreDataManager.shared.deleteData(videoList[indexPath.row])
+            videoList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let isReachingEnd = tableView.contentOffset.y >= 0
+//              && tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)
+////        if tableView.contentOffset.y > (tableView.contentSize.height - tableView.frame.size.height) + 80 {
+//        if tableView.contentSize.height >= tableView.frame.size.height {
+//            let fetchedList = CoreDataManager.shared.fetchData(offset)
+//            videoList += fetchedList
+//            offset += fetchedList.count
+//            tableView.reloadData()
+//        }
+//    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let isReachingEnd = scrollView.contentOffset.y >= 0
+              && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
+
+        if isReachingEnd {
+            let fetchedList = CoreDataManager.shared.fetchData(offset)
+            if fetchedList.isEmpty { return }
+
+            videoList += fetchedList
+            offset += fetchedList.count
+            tableView.reloadData()
+        }
+    }
 }
