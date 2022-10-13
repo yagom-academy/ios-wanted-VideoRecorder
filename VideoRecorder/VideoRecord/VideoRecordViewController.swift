@@ -17,7 +17,11 @@ class VideoRecordViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var changeCameraButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
-    
+    @IBOutlet weak var timeLabel: UILabel!
+
+    private var timer: Timer?
+    private var countTime = 0
+
     private enum SessionSetupResult {
         case success
         case notAuthorized
@@ -105,8 +109,10 @@ class VideoRecordViewController: UIViewController {
         changeCameraButton.isEnabled = false
         closeButton.isEnabled = false
 
-        sessionQueue.async {
-            if !movieFileOutput.isRecording {
+        if !movieFileOutput.isRecording {
+            startTimer()
+
+            sessionQueue.async {
                 let movieFileOutputConnection = movieFileOutput.connection(with: .video)
                 movieFileOutputConnection?.videoOrientation = .portrait
 
@@ -120,11 +126,14 @@ class VideoRecordViewController: UIViewController {
                 let outputFileName = NSUUID().uuidString
                 let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
                 movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
-            } else {
+            }
+        } else {
+            stopTimer()
+
+            sessionQueue.async {
                 movieFileOutput.stopRecording()
             }
         }
-
     }
 
     @IBAction func changeButtonPressed(_ sender: UIButton) {
@@ -305,6 +314,20 @@ extension VideoRecordViewController {
         }
 
         session.commitConfiguration()
+    }
+
+    func startTimer() {
+        countTime = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+            self.countTime += 1
+            self.timeLabel.text = self.countTime.convertTimeFormat()
+        })
+    }
+
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+        timeLabel.text = "00:00"
     }
 }
 

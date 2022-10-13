@@ -116,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlP-Jc-IVa" userLabel="PreviewView" customClass="PreviewView" customModule="VideoRecorder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inn-7N-Lfn">
@@ -155,7 +155,7 @@
                                                     <action selector="recordButtonPressed:" destination="tFe-tP-5Fi" eventType="touchUpInside" id="Id9-Ru-cJY"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmM-pk-Cug">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmM-pk-Cug">
                                                 <rect key="frame" x="0.0" y="73" width="77.666666666666671" height="13.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -201,12 +201,12 @@
                             <constraint firstItem="inn-7N-Lfn" firstAttribute="leading" secondItem="ceP-oV-SAf" secondAttribute="leading" constant="330" id="BBW-Ef-qZS"/>
                             <constraint firstItem="ceP-oV-SAf" firstAttribute="trailing" secondItem="tlP-Jc-IVa" secondAttribute="trailing" id="BOb-P3-7D2"/>
                             <constraint firstItem="ceP-oV-SAf" firstAttribute="trailing" secondItem="M7t-br-NzG" secondAttribute="trailing" constant="30" id="DFX-75-ToR"/>
-                            <constraint firstItem="tlP-Jc-IVa" firstAttribute="bottom" secondItem="ceP-oV-SAf" secondAttribute="bottom" id="ean-b3-IoU"/>
+                            <constraint firstItem="tlP-Jc-IVa" firstAttribute="bottom" secondItem="fuT-DX-ql8" secondAttribute="bottom" id="ean-b3-IoU"/>
                             <constraint firstItem="ceP-oV-SAf" firstAttribute="trailing" secondItem="inn-7N-Lfn" secondAttribute="trailing" constant="30" id="g8O-ZV-YLN"/>
                             <constraint firstItem="M7t-br-NzG" firstAttribute="leading" secondItem="ceP-oV-SAf" secondAttribute="leading" constant="30" id="mZO-hg-Q1L"/>
                             <constraint firstItem="tlP-Jc-IVa" firstAttribute="leading" secondItem="ceP-oV-SAf" secondAttribute="leading" id="s8K-FS-Pf2"/>
                             <constraint firstItem="inn-7N-Lfn" firstAttribute="top" secondItem="ceP-oV-SAf" secondAttribute="top" constant="20" id="ts7-Zk-WVP"/>
-                            <constraint firstItem="tlP-Jc-IVa" firstAttribute="top" secondItem="ceP-oV-SAf" secondAttribute="top" id="wT9-SH-EMm"/>
+                            <constraint firstItem="tlP-Jc-IVa" firstAttribute="top" secondItem="fuT-DX-ql8" secondAttribute="top" id="wT9-SH-EMm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HC8-kw-C2D"/>
@@ -215,6 +215,7 @@
                         <outlet property="closeButton" destination="inn-7N-Lfn" id="kf6-jN-YOj"/>
                         <outlet property="previewView" destination="tlP-Jc-IVa" id="dMc-oD-WlK"/>
                         <outlet property="recordButton" destination="0xK-sL-LFu" id="esQ-wh-EQ9"/>
+                        <outlet property="timeLabel" destination="CmM-pk-Cug" id="2RQ-cs-5Sj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GHT-8X-qsJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
