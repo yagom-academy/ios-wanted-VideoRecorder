@@ -14,12 +14,15 @@ class VideoListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    private var videoList = [VideoData]()
+    private var offset = 0
+
     var videoFiles = [
-        VideoModel(fileName: "Nature.mp4", playTime: "3:21", date: "2022-09-22"),
-        VideoModel(fileName: "Food.mp4", playTime: "15:50", date: "2022-09-17"),
-        VideoModel(fileName: "Building.mp4", playTime: "0:21", date: "2022-09-04"),
-        VideoModel(fileName: "Concert.mp4", playTime: "1:13:27", date: "2022-08-05"),
-        VideoModel(fileName: "Bridge.mp4", playTime: "32:03", date: "2022-07-21"),
+        VideoInfo(name: "Nature.mp4", playTime: "3:21", date: "2022-09-22"),
+        VideoInfo(name: "Food.mp4", playTime: "15:50", date: "2022-09-17"),
+        VideoInfo(name: "Building.mp4", playTime: "0:21", date: "2022-09-04"),
+        VideoInfo(name: "Concert.mp4", playTime: "1:13:27", date: "2022-08-05"),
+        VideoInfo(name: "Bridge.mp4", playTime: "32:03", date: "2022-07-21"),
     ]
 
     override func viewDidLoad() {
@@ -29,7 +32,8 @@ class VideoListViewController: UIViewController {
         tableView.dataSource = self
 
         tableView.register(UINib(nibName: "VideoListCell", bundle: nil), forCellReuseIdentifier: VideoListCell.identifier)
-
+        videoList = CoreDataManager.shared.fetchData(offset)
+        offset += videoList.count
     }
 
 
@@ -53,7 +57,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.titleLabel.text = videoFiles[indexPath.row].fileName
+        cell.titleLabel.text = videoFiles[indexPath.row].name
         cell.dateLabel.text = videoFiles[indexPath.row].date
         cell.timeLabel.text = videoFiles[indexPath.row].playTime
 
@@ -63,6 +67,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             videoFiles.remove(at: indexPath.row)
+//            CoreDataManager.shared.deleteData(videoList[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
