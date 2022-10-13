@@ -342,9 +342,9 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬용을 위해서 카메라 이용이 필요합니다.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬용을 위해서 마이크 이용이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 사진라이브러리 이용이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬영을 위해서 오디오 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 포토라이브러리 접근이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -373,9 +373,9 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬용을 위해서 카메라 이용이 필요합니다.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬용을 위해서 마이크 이용이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 사진라이브러리 이용이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬영을 위해서 오디오 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 포토라이브러리 접근이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

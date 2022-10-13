@@ -74,14 +74,11 @@ final class VideoListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
-<<<<<<< HEAD
     @objc
     private func addTapped() {
         VideoHelper.startRecording(delegate: self)
     }
-=======
-<<<<<<< HEAD
->>>>>>> b647636 (feat: recording video 구현)
+
     func loadMoreData() {
         if !self.isLoading {
             self.isLoading = true
@@ -116,15 +113,7 @@ final class VideoListViewController: UIViewController {
             self.hasNextPage = self.cellVideoList.count >= self.videoList.count ? false : true
             self.tableView.reloadData()
         }
-        
     }
-    
-=======
-    @objc
-    private func addTapped() {
-        VideoHelper.startRecording(delegate: self)
-    }
->>>>>>> cb1c726 (feat: recording video 구현)
 }
 
 extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -156,7 +145,6 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         swipeActionConfiguration.performsFirstActionWithFullSwipe = false
         return swipeActionConfiguration
     }
-<<<<<<< HEAD
 }
 
 extension VideoListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -178,10 +166,7 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
         }))
         picker.present(alert, animated: true)
     }
-=======
-<<<<<<< HEAD
->>>>>>> b647636 (feat: recording video 구현)
-    
+
     @objc
     private func video(_ videoPath: String,
                        didFinishSavingWithError error: Error?,
@@ -200,46 +185,11 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
 extension VideoListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-
+        
         if position > tableView.contentSize.height - 100 - scrollView.frame.size.height {
             if !isLoading && hasNextPage {
                 loadMoreData()
             }
-=======
-}
-
-extension VideoListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard
-            let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? NSString,
-            mediaType.isEqual(to: UTType.movie.identifier),
-            let movURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL,
-            UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(movURL.relativePath)
-        else { return }
-
-        UISaveVideoAtPathToSavedPhotosAlbum(movURL.relativePath, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
-
-        let alert = UIAlertController(title: "비디오 제목을 입력하세요", message: nil, preferredStyle: .alert)
-        alert.addTextField()
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            // TODO: - use textField.text
-            self.dismiss(animated: true)
-        }))
-        picker.present(alert, animated: true)
-    }
-    
-    @objc
-    private func video(_ videoPath: String,
-                       didFinishSavingWithError error: Error?,
-                       contextInfo info: AnyObject) {
-        if let error = error {
-            let alert = UIAlertController(title: "Error", message: "저장에 실패했습니다.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                self.dismiss(animated: true)
-            }))
-            print(error.localizedDescription)
-            present(alert, animated: true)
->>>>>>> cb1c726 (feat: recording video 구현)
         }
     }
 }
