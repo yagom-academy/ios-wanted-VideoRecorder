@@ -47,11 +47,11 @@ final class VideoListViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "list.triangle"), for: .normal)
         button.tintColor = Color.label
-        
-        button.setTitle("  Video List", for: .normal)
+        button.setTitle("Video List", for: .normal)
         button.titleLabel?.font = Font.title3
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitleColor(Color.label, for: .normal)
+        button.marginImageWithText(margin: 15)
         return button
     }()
     
@@ -145,6 +145,19 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         swipeActionConfiguration.performsFirstActionWithFullSwipe = false
         return swipeActionConfiguration
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        playVideo(indexPath)
+    }
+    
+    func playVideo(_ indexPath: IndexPath) {
+        let selectedVideo = videoList[indexPath.row]
+        let playVideoViewController = PlayVideoViewController()
+        playVideoViewController.navigationLeftBarButton.setTitle(selectedVideo.name, for: .normal)
+        
+        self.navigationController?.pushViewController(playVideoViewController, animated: true)
+    }
 }
 
 extension VideoListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -185,11 +198,12 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
 extension VideoListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        
-        if position > tableView.contentSize.height - 100 - scrollView.frame.size.height {
+
+        if position > tableView.contentSize.height - scrollView.frame.size.height + 100 {
             if !isLoading && hasNextPage {
                 loadMoreData()
             }
         }
     }
 }
+
