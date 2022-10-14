@@ -105,17 +105,6 @@ class VideoPlayerViewController: UIViewController {
         super.updateViewConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-    }
-    
-    
     // MARK: Setup Views
     func setupViews() {
         self.videoPlayerView.backgroundColor = .gray
@@ -222,6 +211,12 @@ class VideoPlayerViewController: UIViewController {
                     self.controlView.alpha = self.controlView.alpha == 1 ? 0 : 1
                     self.navigationView.alpha = self.navigationView.alpha == 1 ? 0 : 1
                 }
+            }.store(in: &subscriptions)
+        
+        backButton.gesture(.tap)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.navigationController?.popViewController(animated: true)
             }.store(in: &subscriptions)
     }
 }
