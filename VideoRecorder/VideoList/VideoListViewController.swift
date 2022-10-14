@@ -17,6 +17,16 @@ class VideoListViewController: UIViewController {
 
     private var videoList = [VideoData]()
     private var offset = 0
+    private var isLoading = false
+//    private let spinner = UIActivityIndicatorView(style: .large)
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.color = UIColor.darkGray
+        spinner.hidesWhenStopped = true
+        spinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
+
+        return spinner
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,15 +118,31 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         let isReachingEnd = scrollView.contentOffset.y >= 0
         && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
 
-        if isReachingEnd {
-            let fetchedList = CoreDataManager.shared.fetchData(offset)
-            if fetchedList.isEmpty { return }
+        if isReachingEnd && !isLoading {
+            self.isLoading = true
+            self.tableView.tableFooterView = self.spinner
+            self.spinner.startAnimating()
 
-            videoList += fetchedList
-            offset += fetchedList.count
-            tableView.reloadData()
+            DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1), execute: {
+                let fetchedList = CoreDataManager.shared.fetchData(self.offset)
+                if fetchedList.isEmpty {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.tableView.tableFooterView = nil
+                    }
+                } else {
+                    self.videoList += fetchedList
+                    self.offset += fetchedList.count
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.tableView.tableFooterView = nil
+                        self.tableView.reloadData()
+                    }
+                }
+            })
         }
     }
+
 }
 
 extension VideoListViewController {
@@ -140,6 +166,33 @@ extension VideoListViewController {
                 return nil
             }
 
+        }
+    }
+
+    func loadMoreData() {
+        if !self.isLoading {
+            self.isLoading = true
+            let spinner = UIActivityIndicatorView(style: .large)
+            spinner.color = UIColor.darkGray
+            spinner.hidesWhenStopped = true
+            spinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
+            self.tableView.tableFooterView = spinner
+            spinner.startAnimating()
+//            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+//                self.fetchData()
+//            }
+            let fetchedList = CoreDataManager.shared.fetchData(offset)
+            if fetchedList.isEmpty {
+                self.isLoading = false
+                self.tableView.tableFooterView = nil
+                return
+            }
+
+            videoList += fetchedList
+            offset += fetchedList.count
+            self.isLoading = false
+            self.tableView.tableFooterView = nil
+            tableView.reloadData()
         }
     }
 }
