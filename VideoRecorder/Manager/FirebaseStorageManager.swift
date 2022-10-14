@@ -20,36 +20,51 @@ final class FirebaseStorageManager {
     
     static let shared = FirebaseStorageManager()
     private let storage = Storage.storage()
-
-    func uploadVideo(url: URL, fileName: String) {
-            do {
-                let data = try Data(contentsOf: url)
-                print(data.description)
-                let storageRef = storage.reference().child(fileName + ".mp4")
-
-                if let uploadData = data as Data? {
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "video/mp4"
-                    storageRef.putData(uploadData, metadata: metaData
-                                       , completion: { (metadata, error) in
-                        if let error = error {
-                            print("metadata error: \(error)")
-                        } else {
-                            storageRef.downloadURL { (url, error) in
-                                guard let downloadURL = url else {
-                                    print("downloadURL error")
-                                    return
-                                }
-                                print("🥳🥳 \(downloadURL)")
+    
+    func uploadVideo(fileName: String) {
+        do {
+            let outputFilePath = URL(fileURLWithPath: fileName + ".mp4", relativeTo: FileManager.default.temporaryDirectory)
+            let data = try Data(contentsOf: outputFilePath)
+            print(data.description)
+            let storageRef = storage.reference().child("Videos").child(fileName + ".mov")
+            
+            if let uploadData = data as Data? {
+                let metaData = StorageMetadata()
+                metaData.contentType = "mov"
+                storageRef.putData(uploadData, metadata: metaData
+                                   , completion: { (metadata, error) in
+                    if let error = error {
+                        print("metadata error: \(error)")
+                    } else {
+                        storageRef.downloadURL { (url, error) in
+                            guard let downloadURL = url else {
+                                print("downloadURL error")
+                                return
                             }
+                            print("😆: \(downloadURL)")
                         }
-                    })
+                    }
+                })
+            }
+        } catch {
+            print("uploadData error")
+        }
+    }
+    
+    func backupVideo(fileName: String) {
+        BackgroundFetch.shared.beginBackgroundTask { (identifier) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                
+                self?.uploadVideo(fileName: fileName)
+                identifier.endBackgroundTask()
+        //                BackgroundFetch.shared.endBackgroundTask(identifier: identifier)
+                print("Task Complete")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    print("Task Complete After")
                 }
-            } catch {
-                print("uploadData error")
             }
         }
-
+    }
     
     func removeVideo(videoURL: String) {
         let videoRef = storage.reference(forURL: videoURL)
@@ -61,5 +76,5 @@ final class FirebaseStorageManager {
             }
         }
     }
-
+    
 }

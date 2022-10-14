@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseStorage
 
 class VideoRecordViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
@@ -118,9 +119,7 @@ class VideoRecordViewController: UIViewController {
         recordButton.isEnabled = false
         changeCameraButton.isEnabled = false
         closeButton.isEnabled = false
-        let outputFileName = fileManager.createVideoName()
-        let outputFilePath = fileManager.createVideoFile(videoName: outputFileName)
-         
+        
         if !movieFileOutput.isRecording {
             startTimer()
             
@@ -135,17 +134,21 @@ class VideoRecordViewController: UIViewController {
                 }
                 
                 // Start recording video to a temporary file.
-    
-                movieFileOutput.startRecording(to: outputFilePath, recordingDelegate: self)
-                
                 DispatchQueue.main.async {
+                    let outputFileName = NSUUID().uuidString
+                    let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
+                    
+                    movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
                     self.videoFile = VideoInfo(name: outputFileName,
                                                playTime: "",
                                                date: self.dateFormatter.string(from: Date()))
                 }
+                
+                
             }
         } else {
             stopTimer()
+            
             
             videoFile?.playTime = timeLabel.text!
             
@@ -154,14 +157,13 @@ class VideoRecordViewController: UIViewController {
             }
             
             let videoData = VideoData(context: CoreDataManager.shared.context)
-            videoData.name = videoFile!.name
-            videoData.date = videoFile!.date
-            videoData.playTime = videoFile!.playTime
+            videoData.name = self.videoFile?.name ?? ""
+            videoData.date = self.videoFile?.date ?? ""
+            videoData.playTime = self.videoFile?.playTime ?? ""
             CoreDataManager.shared.saveContext()
-            videoFile = nil
+            self.videoFile = nil
             //백그라운드에서 돌아가야함
-            storageManager.uploadVideo(url: outputFilePath, fileName: outputFileName)
-            
+            self.storageManager.backupVideo(fileName: videoData.name)
         }
     }
     
@@ -357,40 +359,6 @@ extension VideoRecordViewController {
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-    }
-    
-    func uploadVideo(_ fileName: String) {
-        //        let outputFilePath = URL(string: (NSTemporaryDirectory() as NSString).appendingPathComponent((fileName as NSString).appendingPathExtension("mp4")!))!
-        //        let outputFilePath = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((fileName as NSString).appendingPathExtension("mp4")!))
-        let outputFilePath = URL(fileURLWithPath: fileName + ".mp4", relativeTo: FileManager.default.temporaryDirectory)
-        print(outputFilePath)
-        
-        do {
-            let data = try Data(contentsOf: outputFilePath)
-            print(data.description)
-            let storage = Storage.storage()
-            let storageRef = storage.reference().child("Videos").child(fileName + ".mp4")
-            
-            if let uploadData = data as Data? {
-                let metaData = StorageMetadata()
-                metaData.contentType = "video/mp4"
-                storageRef.putData(uploadData, metadata: metaData
-                                   , completion: { (metadata, error) in
-                    if let error = error {
-                        print("metadata error: \(error)")
-                    } else {
-                        storageRef.downloadURL { (url, error) in
-                            guard let downloadURL = url else {
-                                print("downloadURL error")
-                                return
-                            }
-                        }
-                    }
-                })
-            }
-        } catch {
-            print("uploadData error")
-        }
     }
 }
 
