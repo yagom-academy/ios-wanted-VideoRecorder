@@ -17,7 +17,14 @@ class VideoRecordViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var changeCameraButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
-    
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var recentThumbnail: UIImageView!
+
+    var thumbnailImage = UIImage()
+
+    private var timer: Timer?
+    private var countTime = 0
+
     private enum SessionSetupResult {
         case success
         case notAuthorized
@@ -30,6 +37,8 @@ class VideoRecordViewController: UIViewController {
     private var setupResult: SessionSetupResult = .notAuthorized
     private var videoDeviceInput: AVCaptureDeviceInput!
     private var movieFileOutput: AVCaptureMovieFileOutput?
+    private var videoFile: VideoInfo?
+    private let dateFormatter = DateFormatter()
 
     // MARK: - View-Related Notifications
     override func viewDidLoad() {
@@ -42,6 +51,9 @@ class VideoRecordViewController: UIViewController {
         sessionQueue.async {
             self.configureSession()
         }
+
+        dateFormatter.dateFormat = "y-M-d"
+        recentThumbnail.image = thumbnailImage
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -105,8 +117,10 @@ class VideoRecordViewController: UIViewController {
         changeCameraButton.isEnabled = false
         closeButton.isEnabled = false
 
-        sessionQueue.async {
-            if !movieFileOutput.isRecording {
+        if !movieFileOutput.isRecording {
+            startTimer()
+
+            sessionQueue.async {
                 let movieFileOutputConnection = movieFileOutput.connection(with: .video)
                 movieFileOutputConnection?.videoOrientation = .portrait
 
@@ -117,16 +131,33 @@ class VideoRecordViewController: UIViewController {
                 }
 
                 // Start recording video to a temporary file.
-                //파일 매니저에 저장
-                let outputFile = RecordFileManger.shared.createVideoFile()
-                movieFileOutput.startRecording(to: outputFile, recordingDelegate: self)
-                print("🔴 recoding")
-            } else {
+                let outputFileName = NSUUID().uuidString
+                let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mp4")!)
+                movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+
+                DispatchQueue.main.async {
+                    self.videoFile = VideoInfo(name: outputFileName,
+                                               playTime: "",
+                                               date: self.dateFormatter.string(from: Date()))
+                }
+            }
+        } else {
+            stopTimer()
+
+            videoFile?.playTime = timeLabel.text!
+
+            sessionQueue.async {
                 movieFileOutput.stopRecording()
                 //촬영 종료되면 이 때 파이어 스토리지에 저장한다 ?
             }
-        }
 
+            let videoData = VideoData(context: CoreDataManager.shared.context)
+            videoData.name = videoFile!.name
+            videoData.date = videoFile!.date
+            videoData.playTime = videoFile!.playTime
+            CoreDataManager.shared.saveContext()
+            videoFile = nil
+        }
     }
 
     @IBAction func changeButtonPressed(_ sender: UIButton) {
@@ -307,6 +338,20 @@ extension VideoRecordViewController {
         }
 
         session.commitConfiguration()
+    }
+
+    func startTimer() {
+        countTime = 0
+        timeLabel.text = "00:00"
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+            self.countTime += 1
+            self.timeLabel.text = self.countTime.convertTimeFormat()
+        })
+    }
+
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
 }
 
