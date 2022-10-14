@@ -27,6 +27,7 @@ class VideoListViewController: UIViewController {
         view.backgroundColor = .white
         
         titleView.recodeButton.addTarget(self, action: #selector(recodeButtonPressed), for: .touchUpInside)
+        videoListView.delegate = self
         
         addSubView()
         configure()
@@ -59,5 +60,13 @@ class VideoListViewController: UIViewController {
             videoListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             videoListView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension VideoListViewController: VideoListViewDelegate {
+    func showDetail(_ metaData: VideoMetaData) {
+        let viewModel = VideoPlayerViewModel(metaData: metaData)
+        let viewController = VideoPlayerViewController(viewModel: viewModel)
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

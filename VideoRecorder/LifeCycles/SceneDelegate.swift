@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let viewController = VideoListViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = viewController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

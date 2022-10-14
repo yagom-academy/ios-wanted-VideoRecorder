@@ -12,7 +12,8 @@ class VideoListView: UIView {
     var start: Int = 0
     var isLoadOver = false
     var isLoading = false
-    var videoMataDatas = [VideoMetaData]()
+    var videoMetaDatas = [VideoMetaData]()
+    weak var delegate: VideoListViewDelegate?
     
     let formatter: DateFormatter = {
         let f = DateFormatter()
@@ -47,7 +48,7 @@ class VideoListView: UIView {
     
     func loadData(_ refresh: Bool) {
         if refresh {
-            self.videoMataDatas = []
+            self.videoMetaDatas = []
             self.start = 0
             self.isLoadOver = false
         }
@@ -57,7 +58,7 @@ class VideoListView: UIView {
         VideoManager.shared.loadVideos(start: self.start) { result in
             switch result {
             case .success(let metaDatas):
-                self.videoMataDatas.append(contentsOf: metaDatas)
+                self.videoMetaDatas.append(contentsOf: metaDatas)
                 self.videoListTableView.reloadData()
                 self.start += metaDatas.count
                 if metaDatas.count != 6 {
@@ -82,7 +83,7 @@ class VideoListView: UIView {
         videoListTableView.delegate = self
         videoListTableView.dataSource = self
         videoListTableView.register(VideoListTableViewCell.self, forCellReuseIdentifier: "cell")
-     }
+    }
     
     func addView() {
         addSubview(videoListTableView)
@@ -90,10 +91,10 @@ class VideoListView: UIView {
     
     func configure() {
         NSLayoutConstraint.activate([
-        videoListTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-        videoListTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-        videoListTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-        videoListTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            videoListTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            videoListTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            videoListTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            videoListTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -101,12 +102,12 @@ class VideoListView: UIView {
 extension VideoListView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMataDatas.count
+        return videoMetaDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! VideoListTableViewCell
-        let data = videoMataDatas[indexPath.row]
+        let data = videoMetaDatas[indexPath.row]
         cell.thumbnailImageView.image = UIImage(data: data.thumbnail!)
         cell.timelabel.text = timeString(from: data.videoLength)
         cell.videoNameLabel.text = data.name
@@ -115,23 +116,31 @@ extension VideoListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == videoMataDatas.count-1 {
+        if indexPath.row == videoMetaDatas.count-1 {
             self.loadData(false)
         }
     }
     
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                VideoManager.shared.deleteVideo(data: videoMataDatas[indexPath.row]) { result in
-                    switch result {
-                    case .success:
-                        self.videoMataDatas.remove(at: indexPath.row)
-                        break
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                    self.videoListTableView.deleteRows(at: [indexPath], with: .fade)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            VideoManager.shared.deleteVideo(data: videoMetaDatas[indexPath.row]) { result in
+                switch result {
+                case .success:
+                    self.videoMetaDatas.remove(at: indexPath.row)
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                self.videoListTableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate?.showDetail(videoMetaDatas[indexPath.row])
+    }
+}
+
+protocol VideoListViewDelegate: AnyObject {
+    func showDetail(_ metaData: VideoMetaData)
 }
