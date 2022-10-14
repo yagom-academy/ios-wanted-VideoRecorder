@@ -20,6 +20,8 @@
 		FD91763928F5953300730656 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763828F5953300730656 /* Video.swift */; };
 		FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763B28F596AE00730656 /* UIView+Extension.swift */; };
 		FDAE818428F833D000690669 /* VideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE818328F833D000690669 /* VideoHelper.swift */; };
+		FDDB5F0B28F91C1A00BDC000 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */; };
+		FDDB5F0F28F91EEC00BDC000 /* Float64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		FD91763828F5953300730656 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		FD91763B28F596AE00730656 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		FDAE818328F833D000690669 /* VideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
+		FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float64+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 			children = (
 				FD91763B28F596AE00730656 /* UIView+Extension.swift */,
 				2D11FF9628F848FA00702385 /* UIButton+Extension.swift */,
+				FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */,
+				FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -211,12 +217,14 @@
 				2D5A7E5A28F5548800A53D50 /* VideoListCell.swift in Sources */,
 				2D11FF9728F848FA00702385 /* UIButton+Extension.swift in Sources */,
 				FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */,
+				FDDB5F0B28F91C1A00BDC000 /* Date+Extension.swift in Sources */,
 				6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */,
 				FD91763728F58FE700730656 /* Section.swift in Sources */,
 				6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */,
 				FD91763928F5953300730656 /* Video.swift in Sources */,
 				2D11FF9528F8487800702385 /* PlayVideoViewController.swift in Sources */,
 				FD91763528F58C1500730656 /* Design.swift in Sources */,
+				FDDB5F0F28F91EEC00BDC000 /* Float64+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZZS5643XV6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";
@@ -371,7 +379,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.VideoRecorder;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.VideoRecorder.j;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -386,7 +394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZZS5643XV6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";

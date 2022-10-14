@@ -7,12 +7,13 @@
 
 import UIKit
 
-struct Video: Hashable {
-    private let identifier = UUID()
+struct Video: Codable {
+    var identifier = UUID()
     let name: String
-    let thumbnail: UIImage
+//    let thumbnailPath: String
     let runningTime: String
     let date: String
+    let videoPath: String 
     
     static func == (lhs: Video, rhs: Video) -> Bool {
         lhs.identifier == rhs.identifier

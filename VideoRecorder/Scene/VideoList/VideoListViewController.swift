@@ -25,23 +25,7 @@ final class VideoListViewController: UIViewController {
     var hasNextPage = true
     
     var cellVideoList: [Video] = []
-    var videoList: [Video] = [
-        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
-        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
-        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
-        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
-        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
-        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
-        Video(name: "Naure", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Food", thumbnail: UIImage(named: "sample")!, runningTime: "1:03:21", date: "2022-09-22"),
-        Video(name: "Buliding", thumbnail: UIImage(named: "sample")!, runningTime: "57:21", date: "2022-09-22"),
-        Video(name: "Concert", thumbnail: UIImage(named: "sample")!, runningTime: "3:21", date: "2022-09-22"),
-        Video(name: "Bridge", thumbnail: UIImage(named: "sample")!, runningTime: "32:21", date: "2022-09-22"),
-    ]
+    var videoList: [Video] = []
 
     private let navigationLeftBarButton: UIButton = {
         let button = UIButton()
@@ -123,12 +107,17 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
-        
-        cell.videoNameLabel.text = videoList[indexPath.row].name
-        cell.thumbnailImageView.image = UIImage(named: "sample")
-        cell.runningTimeLabel.text = videoList[indexPath.row].runningTime
-        cell.dateLabel.text = videoList[indexPath.row].date
-        cell.selectionStyle = .none
+        let video = videoList[indexPath.row]
+        DispatchQueue.global().async {
+            let image = try? VideoHelper.generateThumbnail(from: video.videoPath)
+            DispatchQueue.main.async {
+                cell.thumbnailImageView.image = image
+                cell.videoNameLabel.text = video.name
+                cell.runningTimeLabel.text = video.runningTime
+                cell.dateLabel.text = video.date
+                cell.selectionStyle = .none
+            }
+        }
         return cell
     }
     
@@ -155,7 +144,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         let selectedVideo = videoList[indexPath.row]
         let playVideoViewController = PlayVideoViewController()
         playVideoViewController.navigationLeftBarButton.setTitle(selectedVideo.name, for: .normal)
-        
+        playVideoViewController.urlString = selectedVideo.videoPath
         self.navigationController?.pushViewController(playVideoViewController, animated: true)
     }
 }
@@ -170,12 +159,23 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
         else { return }
 
         UISaveVideoAtPathToSavedPhotosAlbum(movURL.relativePath, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
-
+        
         let alert = UIAlertController(title: "비디오 제목을 입력하세요", message: nil, preferredStyle: .alert)
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            // TODO: - use textField.text
             self.dismiss(animated: true)
+            var title = String()
+            if let isTextField = alert.textFields, let firstTextField = isTextField.first {
+                title = firstTextField.text ?? "제목없음"
+            }
+            
+            // TODO: - FireStorage 비동기 백업
+            
+            let (date, time): (String, String) = VideoHelper.SearchingVideoData(from: movURL)
+            let video = Video(name: title, runningTime: time, date: date, videoPath: movURL.relativeString)
+            self.videoList.insert(video, at: 0)
+            self.fetchData()
+            self.tableView.reloadData()
         }))
         picker.present(alert, animated: true)
     }
@@ -206,4 +206,3 @@ extension VideoListViewController: UIScrollViewDelegate {
         }
     }
 }
-

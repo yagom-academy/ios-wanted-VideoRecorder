@@ -13,6 +13,7 @@ class PlayVideoViewController: UIViewController {
     
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
+    var urlString: String?
     
     lazy var navigationLeftBarButton: UIButton = {
         let button = UIButton()
@@ -55,8 +56,8 @@ class PlayVideoViewController: UIViewController {
     }
     
     private func playVideo() {
-        let videoURL = URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
-        player = AVPlayer(url: videoURL!)
+        let videoURL = URL(fileURLWithPath: urlString!)
+        player = AVPlayer(url: videoURL)
         playerViewController.player = player
         playerViewController.view.frame = self.view.bounds
         playerViewController.showsPlaybackControls = true
