@@ -20,8 +20,6 @@
 		6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321038228F06E7300CC1609 /* LaunchScreen.storyboard */; };
 		6C1A01F928F85D4200679B62 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1A01F828F85D4200679B62 /* VideoView.swift */; };
 		6C1A01FB28F8637A00679B62 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1A01FA28F8637A00679B62 /* VideoView.xib */; };
-		6C1A020028F867AB00679B62 /* PlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1A01FE28F867AB00679B62 /* PlayView.xib */; };
-		6C1A020128F867AB00679B62 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1A01FF28F867AB00679B62 /* PlayView.swift */; };
 		6C2A237C28F53FDD0035C21B /* VideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2A237B28F53FDD0035C21B /* VideoPlayViewController.swift */; };
 		6C2A238428F5423A0035C21B /* Extenstion+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2A238328F5423A0035C21B /* Extenstion+UIView.swift */; };
 		6CAE57B728F5277B00DD7EFD /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE57B628F5277B00DD7EFD /* VideoRecordViewController.swift */; };
@@ -45,8 +43,6 @@
 		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1A01F828F85D4200679B62 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		6C1A01FA28F8637A00679B62 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
-		6C1A01FE28F867AB00679B62 /* PlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayView.xib; sourceTree = "<group>"; };
-		6C1A01FF28F867AB00679B62 /* PlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		6C2A237B28F53FDD0035C21B /* VideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayViewController.swift; sourceTree = "<group>"; };
 		6C2A238328F5423A0035C21B /* Extenstion+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extenstion+UIView.swift"; sourceTree = "<group>"; };
 		6CAE57B628F5277B00DD7EFD /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
@@ -106,19 +102,9 @@
 			path = VideoView;
 			sourceTree = "<group>";
 		};
-		6C1A020228F867B600679B62 /* PlayView */ = {
-			isa = PBXGroup;
-			children = (
-				6C1A01FF28F867AB00679B62 /* PlayView.swift */,
-				6C1A01FE28F867AB00679B62 /* PlayView.xib */,
-			);
-			path = PlayView;
-			sourceTree = "<group>";
-		};
 		6C2A237A28F53FCF0035C21B /* VideoPlay */ = {
 			isa = PBXGroup;
 			children = (
-				6C1A020228F867B600679B62 /* PlayView */,
 				6C1A01F728F85D3300679B62 /* VideoView */,
 				6C2A237B28F53FDD0035C21B /* VideoPlayViewController.swift */,
 			);
@@ -250,7 +236,6 @@
 				6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */,
 				6CB788D428F534F1001C57D3 /* RecordView.xib in Resources */,
 				406A273F28F490A700FC72F5 /* VideoListCell.xib in Resources */,
-				6C1A020028F867AB00679B62 /* PlayView.xib in Resources */,
 				6C1A01FB28F8637A00679B62 /* VideoView.xib in Resources */,
 				6321038128F06E7300CC1609 /* Assets.xcassets in Resources */,
 				6321037F28F06E7200CC1609 /* Main.storyboard in Resources */,
@@ -269,7 +254,6 @@
 				406A273E28F490A700FC72F5 /* VideoListCell.swift in Sources */,
 				407D018628F6A0C400DE2C8F /* PreviewView.swift in Sources */,
 				6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */,
-				6C1A020128F867AB00679B62 /* PlayView.swift in Sources */,
 				407052B128F7B8EF003FEB3D /* Extension+Int.swift in Sources */,
 				6CAE57B728F5277B00DD7EFD /* VideoRecordViewController.swift in Sources */,
 				6CAE57BF28F531E200DD7EFD /* RecordView.swift in Sources */,

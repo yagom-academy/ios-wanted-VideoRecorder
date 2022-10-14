@@ -12,17 +12,20 @@ import AVFoundation
 final class VideoView: UIView {
     
     @IBOutlet private weak var backgroundView: UIView!
-    
-    private let url: String = "https://firebasestorage.googleapis.com/v0/b/videorecorder-a1153.appspot.com/o/0B5DE138-091E-4BB8-8F6C-2F34396A66A5.MOV?alt=media&token=c6075fb2-7372-415b-b2ff-37a41d7bd001"
+    //playView
+    @IBOutlet private weak var videoSlider: UISlider!
+    @IBOutlet private weak var nowTimeLabel: UILabel!
+    @IBOutlet private weak var totalTimeLabel: UILabel!
+    @IBOutlet private weak var playButton: UIButton!
     
     private var player = AVPlayer()
     private var playerLayer: AVPlayerLayer?
+    private let url: String = "https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8"
     
-    lazy var playView: PlayView = {
-        let view = PlayView()
-        view.cornerRadius = 10
-        return view
-    }()
+    override func layoutSubviews() {
+      super.layoutSubviews()
+      self.playerLayer?.frame = self.backgroundView.bounds
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,29 +39,32 @@ final class VideoView: UIView {
         setVideoView()
     }
     
-    private func setVideoView() {
+    func setVideoView() {
         guard let url = URL(string: self.url) else { return }
         let item = AVPlayerItem(url: url)
         self.player.replaceCurrentItem(with: item)
         let playerLayer = AVPlayerLayer(player: self.player)
-        playerLayer.frame = self.layer.bounds
+        playerLayer.frame = self.backgroundView.bounds
         playerLayer.videoGravity = .resizeAspectFill
         self.playerLayer = playerLayer
-        playView.frame = CGRect(x: 50, y: backgroundView.bounds.height - 200, width: 300, height: 120)
         self.backgroundView.layer.addSublayer(playerLayer)
-        self.backgroundView.addSubview(playView)
         self.player.play()
-    }
-    // TODO: 고정 frame 값을 Constraint로
-    private func setConstraint() {
-        playView.translatesAutoresizingMaskIntoConstraints = true
-        NSLayoutConstraint.activate([
-             self.playView.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 30),
-             self.playView.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -30),
-             self.playView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
-             self.playView.heightAnchor.constraint(equalToConstant: 120)
-        ])
+       
+        if self.player.status == .readyToPlay {
+            self.videoSlider.minimumValue = 0
+            self.videoSlider.maximumValue = Float(CMTimeGetSeconds(item.duration))
+        }
+ 
+        
+        let interval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
+        self.player.addPeriodicTimeObserver(forInterval: interval, queue: .main, using: { [weak self] elapsedSeconds in
+            let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedSeconds)
+            let totalTimeSecondsFloat = CMTimeGetSeconds(self?.player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+            self?.nowTimeLabel.text = String(elapsedTimeSecondsFloat)
+            self?.totalTimeLabel.text = String(totalTimeSecondsFloat)
+            
+            print(elapsedTimeSecondsFloat, totalTimeSecondsFloat)
+        })
     }
     
- 
 }

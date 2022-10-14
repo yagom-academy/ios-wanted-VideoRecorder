@@ -96,7 +96,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="InS-ag-lzm"/>
                     <connections>
-                        <outlet property="videoView" destination="Ob2-R8-vGz" id="k1X-tz-KJT"/>
+                        <outlet property="videoView" destination="Ob2-R8-vGz" id="J66-6o-fZh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acZ-Xl-Vzx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
