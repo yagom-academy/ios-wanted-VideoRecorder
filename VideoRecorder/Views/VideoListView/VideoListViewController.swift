@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class VideoListViewController: UIViewController {
     
     let titleView: CustomTitleView = {
        let view = CustomTitleView()

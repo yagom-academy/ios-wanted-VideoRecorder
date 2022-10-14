@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		462558EE28F582B400126D09 /* SampleVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 462558ED28F582B400126D09 /* SampleVideo.mp4 */; };
-		4680CB7928F980B200DA4E90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680CB5028F980B200DA4E90 /* ViewController.swift */; };
+		4680CB7928F980B200DA4E90 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680CB5028F980B200DA4E90 /* VideoListViewController.swift */; };
 		4680CB7A28F980B200DA4E90 /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680CB5228F980B200DA4E90 /* CustomTitleView.swift */; };
 		4680CB7B28F980B200DA4E90 /* VideoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680CB5328F980B200DA4E90 /* VideoListTableViewCell.swift */; };
 		4680CB7C28F980B200DA4E90 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680CB5428F980B200DA4E90 /* VideoListView.swift */; };
@@ -58,7 +58,7 @@
 
 /* Begin PBXFileReference section */
 		462558ED28F582B400126D09 /* SampleVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SampleVideo.mp4; sourceTree = "<group>"; };
-		4680CB5028F980B200DA4E90 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4680CB5028F980B200DA4E90 /* VideoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
 		4680CB5228F980B200DA4E90 /* CustomTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		4680CB5328F980B200DA4E90 /* VideoListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoListTableViewCell.swift; sourceTree = "<group>"; };
 		4680CB5428F980B200DA4E90 /* VideoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
@@ -154,6 +154,7 @@
 				4680CB5228F980B200DA4E90 /* CustomTitleView.swift */,
 				4680CB5328F980B200DA4E90 /* VideoListTableViewCell.swift */,
 				4680CB5428F980B200DA4E90 /* VideoListView.swift */,
+				4680CB5028F980B200DA4E90 /* VideoListViewController.swift */,
 			);
 			path = VideoListView;
 			sourceTree = "<group>";
@@ -261,7 +262,6 @@
 				4680CB6C28F980B200DA4E90 /* RecordingView */,
 				4680CB5128F980B200DA4E90 /* VideoListView */,
 				4680CB5C28F980B200DA4E90 /* VideoPlayer */,
-				4680CB5028F980B200DA4E90 /* ViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -431,7 +431,7 @@
 				4680CB8228F980B200DA4E90 /* VideoPlayerViewModel.swift in Sources */,
 				4680CB8F28F980B200DA4E90 /* RecordingView.swift in Sources */,
 				4680CB9228F980B200DA4E90 /* Model.xcdatamodeld in Sources */,
-				4680CB7928F980B200DA4E90 /* ViewController.swift in Sources */,
+				4680CB7928F980B200DA4E90 /* VideoListViewController.swift in Sources */,
 				4680CB8A28F980B200DA4E90 /* Publisher+Extension.swift in Sources */,
 				4680CB7E28F980B200DA4E90 /* UIViewBoundsPublisher.swift in Sources */,
 				4680CB9328F980B200DA4E90 /* AppDelegate.swift in Sources */,
