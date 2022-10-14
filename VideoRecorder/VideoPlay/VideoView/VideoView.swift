@@ -13,7 +13,7 @@ final class VideoView: UIView {
     
     @IBOutlet private weak var backgroundView: UIView!
     //playView
-    @IBOutlet private weak var playView: UIView!
+    @IBOutlet weak var playView: UIView!
     @IBOutlet private weak var videoSlider: UISlider!
     @IBOutlet private weak var nowTimeLabel: UILabel!
     @IBOutlet private weak var totalTimeLabel: UILabel!
@@ -29,34 +29,29 @@ final class VideoView: UIView {
         "playable",
         "hasProtectedContent"
     ]
+    private let tempCMTime = CMTimeMake(value: 1, timescale: 1)
     
-    override func layoutSubviews() {
-      super.layoutSubviews()
-      self.playerLayer?.frame = self.backgroundView.bounds
-    }
+    // MARK: - override
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadView()
-        setVideoView()
+        self.setUpVideoView()
+        self.settingIntevalPlayTime()
+        self.settingTarget()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadView()
-        setVideoView()
+        self.setUpVideoView()
+        self.settingIntevalPlayTime()
+        self.settingTarget()
     }
     
-    @IBAction func tappedPlayButton(_ sender: UIButton) {
-        self.videoIsPlay.toggle()
-        if videoIsPlay == true {
-            self.player.play()
-            self.playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        } else {
-            self.player.pause()
-            self.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        }
-
+    override func layoutSubviews() {
+      super.layoutSubviews()
+      self.playerLayer?.frame = self.backgroundView.bounds
     }
     
     override func observeValue(forKeyPath keyPath: String?,
@@ -98,7 +93,29 @@ final class VideoView: UIView {
         }
     }
     
-    private func setVideoView() {
+    // MARK: - IBAction
+    @IBAction func tappedPlayButton(_ sender: UIButton) {
+        self.videoIsPlay.toggle()
+        if videoIsPlay == true {
+            self.player.play()
+            self.playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        } else {
+            self.player.pause()
+            self.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+    }
+    
+    @IBAction func tappedBackwordButton(_ sender: UIButton) {
+        let backword10Sec = CMTimeGetSeconds(playItem?.currentTime() ?? tempCMTime) - 10
+        self.player.seek(to: CMTime(seconds: backword10Sec, preferredTimescale: Int32(NSEC_PER_SEC)))
+    }
+    
+   // MARK: - private func
+    private func settingTarget() {
+        self.videoSlider.addTarget(self, action: #selector(didChangedSliderValue), for: .valueChanged)
+    }
+    
+    private func setUpVideoView() {
         guard let url = URL(string: self.url) else { return }
         let asset = AVAsset(url: url)
         playItem = AVPlayerItem(asset: asset,
@@ -113,18 +130,17 @@ final class VideoView: UIView {
         playerLayer.videoGravity = .resize
         self.playerLayer = playerLayer
         self.backgroundView.layer.addSublayer(playerLayer)
-        self.settingIntevalPlayTime()
-        self.videoSlider.addTarget(self, action: #selector(didChangedSliderValue), for: .valueChanged)
     }
 
     private func settingIntevalPlayTime() {
         let interval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
         self.player.addPeriodicTimeObserver(forInterval: interval, queue: .main, using: { [weak self] elapsedSeconds in
+            guard let self = self else { return }
             let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedSeconds)
-            let totalTimeSecondsFloat = CMTimeGetSeconds(self?.player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+            let totalTimeSecondsFloat = CMTimeGetSeconds(self.player.currentItem?.duration ?? self.tempCMTime)
             if !elapsedTimeSecondsFloat.isNaN && !totalTimeSecondsFloat.isNaN {
-                self?.nowTimeLabel.text = self?.changeFloatToTime(elapsedTimeSecondsFloat)
-                self?.totalTimeLabel.text = self?.changeFloatToTime(totalTimeSecondsFloat)
+                self.nowTimeLabel.text = self.changeFloatToTime(elapsedTimeSecondsFloat)
+                self.totalTimeLabel.text = self.changeFloatToTime(totalTimeSecondsFloat)
             }
         })
     }
@@ -140,5 +156,7 @@ final class VideoView: UIView {
           print("\(self.videoSlider.value)")
         })
     }
+    
+ 
     
 }

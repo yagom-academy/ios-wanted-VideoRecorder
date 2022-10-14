@@ -63,6 +63,9 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="backward.end.fill" catalog="system" title=" "/>
+                            <connections>
+                                <action selector="tappedBackwordButton:" destination="-1" eventType="touchUpInside" id="3TM-zT-N5e"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGC-hL-HhI">
                             <rect key="frame" x="250" y="60" width="50" height="50"/>
