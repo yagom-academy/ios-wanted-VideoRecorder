@@ -99,7 +99,7 @@ final class VideoListViewController: UIViewController {
 
     func fetchData() {
         let request: NSFetchRequest<VideoModel> = VideoModel.fetchRequest()
-        request.fetchLimit = 6
+        request.fetchLimit = 8
         request.fetchOffset = offset
         
         do {
@@ -108,14 +108,15 @@ final class VideoListViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.tableView.tableFooterView = nil
                     self.isLoading = false
+                    self.tableView.reloadData()
                 }
             } else {
                 videoList += nextVideoList
                 offset += nextVideoList.count
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
                     self.isLoading = false
                     self.tableView.tableFooterView = nil
+                    self.tableView.reloadData()
                 }
             }
         } catch {

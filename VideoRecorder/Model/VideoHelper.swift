@@ -35,16 +35,23 @@ enum VideoHelper {
     }
     
     static func generateThumbnail(from videoURL: URL) -> UIImage {
-        do {
-            let asset = AVURLAsset(url: videoURL)
-            let generator = AVAssetImageGenerator(asset: asset)
-            generator.appliesPreferredTrackTransform = true
-            let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
-            let thumbnail = UIImage(cgImage: cgImage)
-            return thumbnail
-        } catch {
-            print("Fail to generate thumbnail")
-            return UIImage(systemName: "video.fill")!
+        let cachedKey = NSString(string: videoURL.relativeString)
+
+        if let cachedImage = CacheManager.shared.object(forKey: cachedKey) {
+            return cachedImage
+        } else {
+            do {
+                let asset = AVURLAsset(url: videoURL)
+                let generator = AVAssetImageGenerator(asset: asset)
+                generator.appliesPreferredTrackTransform = true
+                let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
+                let thumbnail = UIImage(cgImage: cgImage)
+                CacheManager.shared.setObject(thumbnail, forKey: cachedKey)
+                return thumbnail
+            } catch {
+                print("Fail to generate thumbnail")
+                return UIImage(systemName: "video.fill")!
+            }
         }
     }
 }
