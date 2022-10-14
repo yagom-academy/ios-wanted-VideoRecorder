@@ -12,7 +12,6 @@ final class VideoListCell: UITableViewCell {
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.image = UIImage(named: "sample")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         return imageView

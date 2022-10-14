@@ -24,7 +24,7 @@ final class VideoListViewController: UIViewController {
     var isLoading = false
     var hasNextPage = true
     let fireStore = FireStoreManager()
-    var cellVideoList: [Video] = []
+//    var cellVideoList: [Video] = []
     var videoList: [Video] = []
 
     private let navigationLeftBarButton: UIButton = {
@@ -50,6 +50,10 @@ final class VideoListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         configureNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         subscribeFireStore()
     }
     
@@ -61,13 +65,14 @@ final class VideoListViewController: UIViewController {
     
     private func subscribeFireStore() {
         fireStore.subscribe() { [weak self] result in
-                switch result {
-                case .success(let videos):
-                    self?.videoList = videos
-                case .failure(let error):
-                    print(error)
-                }
+            switch result {
+            case .success(let videos):
+                self?.videoList = videos
+            case .failure(let error):
+                print(error)
             }
+        }
+        tableView.reloadData()
     }
     
     @objc
@@ -75,60 +80,66 @@ final class VideoListViewController: UIViewController {
         VideoHelper.startRecording(delegate: self)
     }
 
-    func loadMoreData() {
-        if !self.isLoading {
-            self.isLoading = true
-            let spinner = UIActivityIndicatorView(style: .medium)
-            spinner.color = UIColor.darkGray
-            spinner.hidesWhenStopped = true
-            spinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
-            tableView.tableFooterView = spinner
-            spinner.startAnimating()
-            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-                self.fetchData()
-            }
-        }
-    }
+//    func loadMoreData() {
+//        if !self.isLoading {
+//            self.isLoading = true
+//            let spinner = UIActivityIndicatorView(style: .medium)
+//            spinner.color = UIColor.darkGray
+//            spinner.hidesWhenStopped = true
+//            spinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
+//            tableView.tableFooterView = spinner
+//            spinner.startAnimating()
+//            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+//                self.fetchData()
+//            }
+//        }
+//    }
 
-    func fetchData() {
-        subscribeFireStore()
-        let index = cellVideoList.count
-        var newVideoList: [Video] = []
-        
-        for i in index..<(index + 6) {
-            if i >= videoList.count {
-                break
-            }
-            let data = videoList[i]
-            newVideoList.append(data)
-        }
-        
-        DispatchQueue.main.async {
-            self.tableView.tableFooterView = nil
-            self.isLoading = false
-            self.cellVideoList.append(contentsOf: newVideoList)
-            self.hasNextPage = self.cellVideoList.count >= self.videoList.count ? false : true
-            self.tableView.reloadData()
-        }
-    }
+//    func fetchData() {
+//        subscribeFireStore()
+//        let index = cellVideoList.count
+//        var newVideoList: [Video] = []
+//
+//        for i in index..<(index + 6) {
+//            if i >= videoList.count {
+//                break
+//            }
+//            let data = videoList[i]
+//            newVideoList.append(data)
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.tableView.tableFooterView = nil
+//            self.isLoading = false
+//            self.cellVideoList.append(contentsOf: newVideoList)
+//            self.hasNextPage = self.cellVideoList.count >= self.videoList.count ? false : true
+//            self.tableView.reloadData()
+//        }
+//    }
 }
 
 extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellVideoList.count
+//        return cellVideoList.count
+        return videoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
         let video = videoList[indexPath.row]
         Task {
-            let image = try? VideoHelper.generateThumbnail(from: video.videoPath)
-            await MainActor.run {
-                cell.thumbnailImageView.image = image
-                cell.videoNameLabel.text = video.name
-                cell.runningTimeLabel.text = video.runningTime
-                cell.dateLabel.text = video.date
-                cell.selectionStyle = .none
+            do {
+                print("=========videoPath \(video.videoPath)")
+                let image = try VideoHelper.generateThumbnail(from: FileService.shared.loadVideoURL(data: video))
+                await MainActor.run {
+                    cell.thumbnailImageView.image = image
+                    cell.videoNameLabel.text = video.name
+                    cell.runningTimeLabel.text = video.runningTime
+                    cell.dateLabel.text = video.date
+                    cell.selectionStyle = .none
+                }
+            } catch {
+                print("=============image 실패================")
             }
         }
         return cell
@@ -167,12 +178,9 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
         guard
             let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? NSString,
             mediaType.isEqual(to: UTType.movie.identifier),
-            let movURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL,
-            UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(movURL.relativePath)
+            let movURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
         else { return }
 
-        UISaveVideoAtPathToSavedPhotosAlbum(movURL.relativePath, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
-        
         let alert = UIAlertController(title: "비디오 제목을 입력하세요", message: nil, preferredStyle: .alert)
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
@@ -181,15 +189,16 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
             if let isTextField = alert.textFields, let firstTextField = isTextField.first {
                 title = firstTextField.text ?? "제목없음"
             }
-            
-            // TODO: - FireStorage 비동기 백업
-            
             let (date, time): (String, String) = VideoHelper.SearchingVideoData(from: movURL)
             let video = Video(name: title, runningTime: time, date: date, videoPath: movURL.relativeString)
-            self.fireStore.save(video)
-            try? FileService.shared.saveVideo(data: video)
-            self.fetchData()
-            self.tableView.reloadData()
+            
+            Task {
+                self.fireStore.save(video)
+                try? FileService.shared.saveVideo(data: video)
+            }
+//            self.fetchData()
+//            self.subscribeFireStore()
+//            self.tableView.reloadData()
         }))
         picker.present(alert, animated: true)
     }
@@ -209,14 +218,14 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
     }
 }
 
-extension VideoListViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-
-        if position > tableView.contentSize.height - scrollView.frame.size.height + 100 {
-            if !isLoading && hasNextPage {
-                loadMoreData()
-            }
-        }
-    }
-}
+//extension VideoListViewController: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let position = scrollView.contentOffset.y
+//
+//        if position > tableView.contentSize.height - scrollView.frame.size.height + 100 {
+//            if !isLoading && hasNextPage {
+//                loadMoreData()
+//            }
+//        }
+//    }
+//}

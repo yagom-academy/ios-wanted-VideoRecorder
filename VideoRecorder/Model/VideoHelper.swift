@@ -34,12 +34,17 @@ enum VideoHelper {
         return ("촬영날짜", durationSeconds.string)
     }
     
-    static func generateThumbnail(from videoURL: String) throws -> UIImage {
-        guard let url = URL(string: videoURL) else { return UIImage() }
-        let asset = AVAsset(url: url)
-        let generator = AVAssetImageGenerator(asset: asset)
-        let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
-        let thumbnail = UIImage(cgImage: cgImage)
-        return thumbnail
+    static func generateThumbnail(from videoURL: URL) -> UIImage {
+        do {
+            let asset = AVURLAsset(url: videoURL)
+            let generator = AVAssetImageGenerator(asset: asset)
+            generator.appliesPreferredTrackTransform = true
+            let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch {
+            print("Fail to generate thumbnail")
+            return UIImage(systemName: "person")!
+        }
     }
 }
