@@ -66,8 +66,8 @@ final class FirebaseStorageManager {
         }
     }
     
-    func removeVideo(videoURL: String) {
-        let videoRef = storage.reference(forURL: videoURL)
+    func removeVideo(videoName: String) {
+        let videoRef = storage.reference().child("Videos").child(videoName + ".mov")
         videoRef.delete { error in
             if let error = error {
                 print("Firestore 비디오 삭제 안됨: \(error)")
