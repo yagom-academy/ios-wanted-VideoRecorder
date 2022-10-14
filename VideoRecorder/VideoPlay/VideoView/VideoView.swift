@@ -78,13 +78,14 @@ final class VideoView: UIView {
                 print("no playItem!!!")
                 return
             }
-            // Switch over status value
+
             switch status {
             case .readyToPlay:
                 print("ready!!!")
                 self.playView.isHidden = false
                 self.videoSlider.minimumValue = 0
                 self.videoSlider.maximumValue = Float(CMTimeGetSeconds(item.duration))
+                self.totalTimeLabel.text = changeFloatToTime(CMTimeGetSeconds(playItem?.duration ?? tempCMTime))
             case .failed:
                 debugPrint("Player item failed. See error.")
             default:
@@ -137,10 +138,8 @@ final class VideoView: UIView {
         self.player.addPeriodicTimeObserver(forInterval: interval, queue: .main, using: { [weak self] elapsedSeconds in
             guard let self = self else { return }
             let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedSeconds)
-            let totalTimeSecondsFloat = CMTimeGetSeconds(self.player.currentItem?.duration ?? self.tempCMTime)
-            if !elapsedTimeSecondsFloat.isNaN && !totalTimeSecondsFloat.isNaN {
+            if !elapsedTimeSecondsFloat.isNaN  {
                 self.nowTimeLabel.text = self.changeFloatToTime(elapsedTimeSecondsFloat)
-                self.totalTimeLabel.text = self.changeFloatToTime(totalTimeSecondsFloat)
             }
         })
     }
