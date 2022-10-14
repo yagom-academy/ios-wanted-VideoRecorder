@@ -10,7 +10,6 @@ import UIKit
 struct Video: Codable {
     var identifier = UUID()
     let name: String
-//    let thumbnailPath: String
     let runningTime: String
     let date: String
     let videoPath: String 

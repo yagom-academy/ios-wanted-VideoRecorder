@@ -23,7 +23,7 @@ final class VideoListViewController: UIViewController {
     
     var isLoading = false
     var hasNextPage = true
-    
+    let fireStore = FireStoreManager()
     var cellVideoList: [Video] = []
     var videoList: [Video] = []
 
@@ -50,12 +50,24 @@ final class VideoListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         configureNavigation()
+        subscribeFireStore()
     }
     
     private func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationLeftBarButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "video.fill.badge.plus"), style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
+    }
+    
+    private func subscribeFireStore() {
+        fireStore.subscribe() { [weak self] result in
+                switch result {
+                case .success(let videos):
+                    self?.videoList = videos
+                case .failure(let error):
+                    print(error)
+                }
+            }
     }
     
     @objc
@@ -79,6 +91,7 @@ final class VideoListViewController: UIViewController {
     }
 
     func fetchData() {
+        subscribeFireStore()
         let index = cellVideoList.count
         var newVideoList: [Video] = []
         
@@ -173,7 +186,7 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
             
             let (date, time): (String, String) = VideoHelper.SearchingVideoData(from: movURL)
             let video = Video(name: title, runningTime: time, date: date, videoPath: movURL.relativeString)
-            self.videoList.insert(video, at: 0)
+            self.fireStore.save(video)
             self.fetchData()
             self.tableView.reloadData()
         }))
