@@ -25,7 +25,6 @@ final class VideoListViewController: UIViewController {
     var isLoading = false
     var hasNextPage = true
     let fireStore = FireStoreManager()
-//    var cellVideoList: [Video] = []
     var videoList: [VideoModel] = []
     var offset = 0
 
@@ -148,7 +147,12 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            CoreDataService.shared.context.delete(self.videoList[indexPath.row])
+            FileService.shared.deleteFile(FileService.shared.loadVideoURL(data: self.videoList[indexPath.row]))
+            self.fireStore.delete(self.videoList[indexPath.row])
             self.videoList.remove(at: indexPath.row)
+            CoreDataService.shared.saveContext()
+            self.offset -= 1
             tableView.reloadData()
             success(true)
         }
@@ -203,9 +207,6 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
                 self.fireStore.save(video)
                 try? FileService.shared.saveVideo(data: video)
             }
-//            self.fetchData()
-//            self.subscribeFireStore()
-//            self.tableView.reloadData()
         }))
         picker.present(alert, animated: true)
     }
