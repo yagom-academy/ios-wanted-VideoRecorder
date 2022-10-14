@@ -12,9 +12,16 @@ final class VideoPlayViewController: UIViewController {
 
     @IBOutlet private weak var videoView: VideoView!
     private var backViewTapFlag: Bool = false
+    var url: URL? {
+            didSet {
+                guard let url = url else { return }
+            }
+        }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.videoView.url = url
         tapVideoView()
     }
     

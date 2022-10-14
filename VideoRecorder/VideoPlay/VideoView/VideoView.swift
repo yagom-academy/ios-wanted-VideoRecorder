@@ -22,7 +22,12 @@ final class VideoView: UIView {
     private var player = AVPlayer()
     private var playerLayer: AVPlayerLayer?
     private var playItem: AVPlayerItem?
-    private let url: String = "https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8"
+    var url: URL? {
+            didSet {
+                guard let url = url else { return }
+                self.setUpVideoView(url)
+            }
+        }
     private var videoIsPlay: Bool = false
     private var playerItemContext = 0
     private let requiredAssetKeys = [
@@ -36,7 +41,6 @@ final class VideoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadView()
-        self.setUpVideoView()
         self.settingIntevalPlayTime()
         self.settingTarget()
     }
@@ -44,11 +48,11 @@ final class VideoView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadView()
-        self.setUpVideoView()
         self.settingIntevalPlayTime()
         self.settingTarget()
     }
-    
+
+
     override func layoutSubviews() {
       super.layoutSubviews()
       self.playerLayer?.frame = self.backgroundView.bounds
@@ -116,8 +120,7 @@ final class VideoView: UIView {
         self.videoSlider.addTarget(self, action: #selector(didChangedSliderValue), for: .valueChanged)
     }
     
-    private func setUpVideoView() {
-        guard let url = URL(string: self.url) else { return }
+    private func setUpVideoView(_ url: URL) {
         let asset = AVAsset(url: url)
         playItem = AVPlayerItem(asset: asset,
                                 automaticallyLoadedAssetKeys: requiredAssetKeys)
