@@ -84,21 +84,29 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let isReachingEnd = tableView.contentOffset.y >= 0
-//              && tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)
-////        if tableView.contentOffset.y > (tableView.contentSize.height - tableView.frame.size.height) + 80 {
-//        if tableView.contentSize.height >= tableView.frame.size.height {
-//            let fetchedList = CoreDataManager.shared.fetchData(offset)
-//            videoList += fetchedList
-//            offset += fetchedList.count
-//            tableView.reloadData()
-//        }
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "VideoPlayViewController") as? VideoPlayViewController else {return}
+
+        let url = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((videoList[indexPath.row].name as NSString).appendingPathExtension("mp4")!))
+        nextVC.url = url
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+
+    //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    //        let isReachingEnd = tableView.contentOffset.y >= 0
+    //              && tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)
+    ////        if tableView.contentOffset.y > (tableView.contentSize.height - tableView.frame.size.height) + 80 {
+    //        if tableView.contentSize.height >= tableView.frame.size.height {
+    //            let fetchedList = CoreDataManager.shared.fetchData(offset)
+    //            videoList += fetchedList
+    //            offset += fetchedList.count
+    //            tableView.reloadData()
+    //        }
+    //    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let isReachingEnd = scrollView.contentOffset.y >= 0
-              && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
+        && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
 
         if isReachingEnd {
             let fetchedList = CoreDataManager.shared.fetchData(offset)
