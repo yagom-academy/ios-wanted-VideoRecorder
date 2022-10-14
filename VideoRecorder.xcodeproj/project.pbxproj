@@ -16,6 +16,7 @@
 		2D94ACED28F97FFE0090D7A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2D94ACEC28F97FFE0090D7A2 /* FirebaseFirestoreSwift */; };
 		2D94ACEF28F981310090D7A2 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACEE28F981310090D7A2 /* Encodable+Extension.swift */; };
 		2D94ACF128F9819C0090D7A2 /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */; };
+		2D94ACF328F98EB50090D7A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF228F98EB50090D7A2 /* FileService.swift */; };
 		6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037728F06E7200CC1609 /* AppDelegate.swift */; };
 		6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037928F06E7200CC1609 /* SceneDelegate.swift */; };
 		6321037C28F06E7200CC1609 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037B28F06E7200CC1609 /* VideoListViewController.swift */; };
@@ -37,6 +38,7 @@
 		2D94ACE528F97F0B0090D7A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2D94ACEE28F981310090D7A2 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
+		2D94ACF228F98EB50090D7A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		6321037428F06E7200CC1609 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6321037728F06E7200CC1609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6321037928F06E7200CC1609 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				FD91763828F5953300730656 /* Video.swift */,
 				FDAE818328F833D000690669 /* VideoHelper.swift */,
 				2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */,
+				2D94ACF228F98EB50090D7A2 /* FileService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */,
 				FD91763928F5953300730656 /* Video.swift in Sources */,
 				2D11FF9528F8487800702385 /* PlayVideoViewController.swift in Sources */,
+				2D94ACF328F98EB50090D7A2 /* FileService.swift in Sources */,
 				FD91763528F58C1500730656 /* Design.swift in Sources */,
 				FDDB5F0F28F91EEC00BDC000 /* Float64+Extension.swift in Sources */,
 			);

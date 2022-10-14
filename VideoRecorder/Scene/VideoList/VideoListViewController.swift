@@ -121,9 +121,9 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? VideoListCell else { return UITableViewCell() }
         let video = videoList[indexPath.row]
-        DispatchQueue.global().async {
+        Task {
             let image = try? VideoHelper.generateThumbnail(from: video.videoPath)
-            DispatchQueue.main.async {
+            await MainActor.run {
                 cell.thumbnailImageView.image = image
                 cell.videoNameLabel.text = video.name
                 cell.runningTimeLabel.text = video.runningTime
@@ -157,7 +157,7 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         let selectedVideo = videoList[indexPath.row]
         let playVideoViewController = PlayVideoViewController()
         playVideoViewController.navigationLeftBarButton.setTitle(selectedVideo.name, for: .normal)
-        playVideoViewController.urlString = selectedVideo.videoPath
+        playVideoViewController.videoUrl = FileService.shared.loadVideoURL(data: selectedVideo)
         self.navigationController?.pushViewController(playVideoViewController, animated: true)
     }
 }
@@ -187,6 +187,7 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
             let (date, time): (String, String) = VideoHelper.SearchingVideoData(from: movURL)
             let video = Video(name: title, runningTime: time, date: date, videoPath: movURL.relativeString)
             self.fireStore.save(video)
+            try? FileService.shared.saveVideo(data: video)
             self.fetchData()
             self.tableView.reloadData()
         }))

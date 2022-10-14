@@ -36,7 +36,7 @@ enum VideoHelper {
     
     static func generateThumbnail(from videoURL: String) throws -> UIImage {
         guard let url = URL(string: videoURL) else { return UIImage() }
-        let asset = AVURLAsset(url: url)
+        let asset = AVAsset(url: url)
         let generator = AVAssetImageGenerator(asset: asset)
         let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
         let thumbnail = UIImage(cgImage: cgImage)

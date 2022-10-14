@@ -13,7 +13,7 @@ class PlayVideoViewController: UIViewController {
     
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
-    var urlString: String?
+    var videoUrl: URL?
     
     lazy var navigationLeftBarButton: UIButton = {
         let button = UIButton()
@@ -56,8 +56,7 @@ class PlayVideoViewController: UIViewController {
     }
     
     private func playVideo() {
-        let videoURL = URL(fileURLWithPath: urlString!)
-        player = AVPlayer(url: videoURL)
+        player = AVPlayer(url: videoUrl!)
         playerViewController.player = player
         playerViewController.view.frame = self.view.bounds
         playerViewController.showsPlaybackControls = true
