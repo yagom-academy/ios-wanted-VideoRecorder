@@ -85,9 +85,10 @@ final class VideoListCell: UITableViewCell {
         }
         NSLayoutConstraint.activate([
             thumbnailImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 0.66),
             thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            thumbnailImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             runningTimeView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 5),
             runningTimeView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -5),

@@ -49,7 +49,7 @@ class FileService {
             }
         }
     
-    func loadVideoURL(data: Video) -> URL {
+    func loadVideoURL(data: VideoModel) -> URL {
         let url = URL(fileURLWithPath: data.identifier.uuidString + ".mp4", relativeTo: documentUrl)
         return url
     }

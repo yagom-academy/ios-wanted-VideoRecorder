@@ -44,7 +44,7 @@ enum VideoHelper {
             return thumbnail
         } catch {
             print("Fail to generate thumbnail")
-            return UIImage(systemName: "person")!
+            return UIImage(systemName: "video.fill")!
         }
     }
 }
