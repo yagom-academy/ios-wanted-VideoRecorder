@@ -16,28 +16,43 @@ enum FirebaseError: Error {
     case noDownloadURL
 }
 
-class FirebaseStorageManager {
+final class FirebaseStorageManager {
     
-    static func uploadVideo(videoData: Data?, completion: @escaping (URL?) -> Void) {
-        let reference = Storage.storage().reference()
-        guard let video = videoData else { return completion(nil) }
-        reference.putData(video, metadata: nil) { metadata, error in
-            if let error = error {
-                fatalError("Firebase Storage 저장 안됨: \(error)")
-            }
-            reference.downloadURL { url, erro in
-                guard let downloadURL = url else {
-                    completion(nil)
-                    return
+    static let shared = FirebaseStorageManager()
+    private let storage = Storage.storage()
+
+    func uploadVideo(url: URL, fileName: String) {
+            do {
+                let data = try Data(contentsOf: url)
+                print(data.description)
+                let storageRef = storage.reference().child(fileName + ".mp4")
+
+                if let uploadData = data as Data? {
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "video/mp4"
+                    storageRef.putData(uploadData, metadata: metaData
+                                       , completion: { (metadata, error) in
+                        if let error = error {
+                            print("metadata error: \(error)")
+                        } else {
+                            storageRef.downloadURL { (url, error) in
+                                guard let downloadURL = url else {
+                                    print("downloadURL error")
+                                    return
+                                }
+                                print("🥳🥳 \(downloadURL)")
+                            }
+                        }
+                    })
                 }
-                completion(downloadURL.absoluteURL)
+            } catch {
+                print("uploadData error")
             }
         }
-       
-    }
+
     
-    static func removeVideo(videoURL: String) {
-        let videoRef = Storage.storage().reference(forURL: videoURL)
+    func removeVideo(videoURL: String) {
+        let videoRef = storage.reference(forURL: videoURL)
         videoRef.delete { error in
             if let error = error {
                 print("Firestore 비디오 삭제 안됨: \(error)")

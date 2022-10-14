@@ -28,8 +28,8 @@
 		6C1A01FB28F8637A00679B62 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1A01FA28F8637A00679B62 /* VideoView.xib */; };
 		6C2A237C28F53FDD0035C21B /* VideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2A237B28F53FDD0035C21B /* VideoPlayViewController.swift */; };
 		6C2A238428F5423A0035C21B /* Extenstion+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2A238328F5423A0035C21B /* Extenstion+UIView.swift */; };
+		6C970EDE28F9A6CB0029BCDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C970EDD28F9A6CA0029BCDC /* GoogleService-Info.plist */; };
 		6CAE57B728F5277B00DD7EFD /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE57B628F5277B00DD7EFD /* VideoRecordViewController.swift */; };
-		6CEAE18A28F5ADD500755122 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CEAE18928F5ADD500755122 /* GoogleService-Info.plist */; };
 		6CEAE18D28F5AEFB00755122 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEAE18C28F5AEFB00755122 /* FirebaseAuth */; };
 		6CEAE18F28F5AEFB00755122 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEAE18E28F5AEFB00755122 /* FirebaseFirestore */; };
 		6CEAE19128F5AEFB00755122 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEAE19028F5AEFB00755122 /* FirebaseFirestoreSwift */; };
@@ -61,8 +61,8 @@
 		6C1A01FA28F8637A00679B62 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
 		6C2A237B28F53FDD0035C21B /* VideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayViewController.swift; sourceTree = "<group>"; };
 		6C2A238328F5423A0035C21B /* Extenstion+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extenstion+UIView.swift"; sourceTree = "<group>"; };
+		6C970EDD28F9A6CA0029BCDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CAE57B628F5277B00DD7EFD /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
-		6CEAE18928F5ADD500755122 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CEAE19528F5B0A900755122 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,7 +122,7 @@
 				6321038028F06E7300CC1609 /* Assets.xcassets */,
 				6321038228F06E7300CC1609 /* LaunchScreen.storyboard */,
 				6321038528F06E7300CC1609 /* Info.plist */,
-				6CEAE18928F5ADD500755122 /* GoogleService-Info.plist */,
+				6C970EDD28F9A6CA0029BCDC /* GoogleService-Info.plist */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
@@ -289,7 +289,7 @@
 				6C1A01FB28F8637A00679B62 /* VideoView.xib in Resources */,
 				6321038128F06E7300CC1609 /* Assets.xcassets in Resources */,
 				6321037F28F06E7200CC1609 /* Main.storyboard in Resources */,
-				6CEAE18A28F5ADD500755122 /* GoogleService-Info.plist in Resources */,
+				6C970EDE28F9A6CB0029BCDC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

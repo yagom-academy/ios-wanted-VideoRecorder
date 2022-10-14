@@ -7,35 +7,27 @@
 
 import Foundation
 
-class RecordFileManger {
+final class RecordFileManger {
+    
     static let shared = RecordFileManger()
-    let fileManager = FileManager.default
-    let folderName = "VideoRecoder"
-    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    private let fileManager = FileManager.default
+    private let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
-//    func createFolder() {
-//        let filePath = documentsURL.appendingPathComponent("\(folderName)")
-//        if !fileManager.fileExists(atPath: filePath.path) {
-//            do {
-//                try fileManager.createDirectory(atPath: filePath.path, withIntermediateDirectories: true)
-//            } catch let e {
-//                print(e.localizedDescription)
-//            }
-//        }
-//    }
+    func createVideoName() -> String {
+        return String(Date().timeIntervalSince1970) + UUID().uuidString
+    }
     
-    func createVideoFile() -> URL {
-        let videoName = String(Date().timeIntervalSince1970) + UUID().uuidString
-        let fileURL = documentsURL.appendingPathComponent("\(folderName)").appendingPathComponent(videoName).appendingPathExtension("mov")
+    func createVideoFile(videoName: String) -> URL {
+        let fileURL = documentsURL.appendingPathComponent(videoName).appendingPathExtension("mp4")
         return fileURL
     }
   
-    
-    func fileInDocumentDirectory(fileName: String) -> String {
-        return documentsURL.appendingPathComponent(fileName).path
+    func fileInDirectoryURL(fileName: String) -> URL {
+        guard let url = URL(string: documentsURL.appendingPathComponent(fileName).path) else { return URL(fileURLWithPath: "") }
+        return url
     }
     
-    func fileExistAtPath(path: String) -> Bool {
+    private func fileExistAtPath(path: String) -> Bool {
         return fileManager.fileExists(atPath: path)
     }
     
