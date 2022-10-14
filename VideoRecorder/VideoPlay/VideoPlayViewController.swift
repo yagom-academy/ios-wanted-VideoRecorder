@@ -17,10 +17,17 @@ final class VideoPlayViewController: UIViewController {
                 guard let url = url else { return }
             }
         }
+    var naviTitle = ""
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = naviTitle
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(backPressed))
+        self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.videoView.url = url
         tapVideoView()
     }
@@ -38,5 +45,8 @@ final class VideoPlayViewController: UIViewController {
             self.videoView.playView.isHidden = self.backViewTapFlag
         }
     }
-    
+
+    @objc func backPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

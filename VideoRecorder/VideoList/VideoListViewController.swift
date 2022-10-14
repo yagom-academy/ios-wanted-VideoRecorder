@@ -100,20 +100,9 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
 
         let url = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent((videoList[indexPath.row].name as NSString).appendingPathExtension("mp4")!))
         nextVC.url = url
+        nextVC.naviTitle = videoList[indexPath.row].name
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-
-    //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    //        let isReachingEnd = tableView.contentOffset.y >= 0
-    //              && tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)
-    ////        if tableView.contentOffset.y > (tableView.contentSize.height - tableView.frame.size.height) + 80 {
-    //        if tableView.contentSize.height >= tableView.frame.size.height {
-    //            let fetchedList = CoreDataManager.shared.fetchData(offset)
-    //            videoList += fetchedList
-    //            offset += fetchedList.count
-    //            tableView.reloadData()
-    //        }
-    //    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let isReachingEnd = scrollView.contentOffset.y >= 0
