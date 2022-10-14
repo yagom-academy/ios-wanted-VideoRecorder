@@ -41,14 +41,12 @@ final class VideoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadView()
-        self.settingIntevalPlayTime()
         self.settingTarget()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadView()
-        self.settingIntevalPlayTime()
         self.settingTarget()
     }
 
@@ -86,9 +84,11 @@ final class VideoView: UIView {
             switch status {
             case .readyToPlay:
                 print("ready!!!")
+                print("전체 초🎃: \(Float(CMTimeGetSeconds(item.duration)))")
                 self.playView.isHidden = false
                 self.videoSlider.minimumValue = 0
                 self.videoSlider.maximumValue = Float(CMTimeGetSeconds(item.duration))
+                self.videoSlider.value = 0
                 self.totalTimeLabel.text = changeFloatToTime(CMTimeGetSeconds(playItem?.duration ?? tempCMTime))
             case .failed:
                 debugPrint("Player item failed. See error.")
@@ -134,6 +134,7 @@ final class VideoView: UIView {
         playerLayer.videoGravity = .resize
         self.playerLayer = playerLayer
         self.backgroundView.layer.addSublayer(playerLayer)
+        self.settingIntevalPlayTime()
     }
 
     private func settingIntevalPlayTime() {
@@ -143,6 +144,15 @@ final class VideoView: UIView {
             let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedSeconds)
             if !elapsedTimeSecondsFloat.isNaN  {
                 self.nowTimeLabel.text = self.changeFloatToTime(elapsedTimeSecondsFloat)
+            }
+        })
+        
+        let sliderInterval = CMTimeMakeWithSeconds(0.01, preferredTimescale: Int32(NSEC_PER_SEC))
+        self.player.addPeriodicTimeObserver(forInterval: sliderInterval, queue: .main, using: { [weak self] elapsedSeconds in
+            guard let self = self else { return }
+            let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedSeconds)
+            if !elapsedTimeSecondsFloat.isNaN  {
+                self.videoSlider.value = Float(elapsedTimeSecondsFloat)
             }
         })
     }
