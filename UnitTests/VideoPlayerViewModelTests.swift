@@ -17,6 +17,8 @@ class VideoPlayerViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         let metaData = DummyGenerator.dummyVideoMetaData()!
+        guard let videoURL = Bundle(for: type(of: self)).url(forResource: "SampleVideo", withExtension: "mp4") else { return }
+        try? Data(contentsOf: videoURL).write(to: metaData.videoPath!)
         viewModel = VideoPlayerViewModel(metaData: metaData)
         
         let waitForLoad = self.expectation(description: "Video Loading")
