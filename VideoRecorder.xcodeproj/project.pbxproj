@@ -7,23 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D11FF9528F8487800702385 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D11FF9428F8487800702385 /* PlayVideoViewController.swift */; };
+		2D11FF9728F848FA00702385 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D11FF9628F848FA00702385 /* UIButton+Extension.swift */; };
+		2D5A7E5A28F5548800A53D50 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A7E5928F5548800A53D50 /* VideoListCell.swift */; };
+		2D94ACE628F97F0B0090D7A2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D94ACE528F97F0B0090D7A2 /* GoogleService-Info.plist */; };
+		2D94ACE928F97FFE0090D7A2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2D94ACE828F97FFE0090D7A2 /* FirebaseAnalytics */; };
+		2D94ACEB28F97FFE0090D7A2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2D94ACEA28F97FFE0090D7A2 /* FirebaseFirestore */; };
+		2D94ACED28F97FFE0090D7A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2D94ACEC28F97FFE0090D7A2 /* FirebaseFirestoreSwift */; };
+		2D94ACEF28F981310090D7A2 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACEE28F981310090D7A2 /* Encodable+Extension.swift */; };
+		2D94ACF128F9819C0090D7A2 /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */; };
+		2D94ACF328F98EB50090D7A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF228F98EB50090D7A2 /* FileService.swift */; };
+		2D94ACFB28F9D33D0090D7A2 /* VideoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF928F9D33D0090D7A2 /* VideoModel.xcdatamodeld */; };
+		2D94ACFD28F9D45D0090D7A2 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */; };
+		2D94ACFF28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACFE28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift */; };
+		2D94AD0128F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94AD0028F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift */; };
+		2D94AD0328F9DF450090D7A2 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94AD0228F9DF450090D7A2 /* CacheManager.swift */; };
 		6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037728F06E7200CC1609 /* AppDelegate.swift */; };
 		6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037928F06E7200CC1609 /* SceneDelegate.swift */; };
-		6321037C28F06E7200CC1609 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037B28F06E7200CC1609 /* ViewController.swift */; };
-		6321037F28F06E7200CC1609 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321037D28F06E7200CC1609 /* Main.storyboard */; };
+		6321037C28F06E7200CC1609 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321037B28F06E7200CC1609 /* VideoListViewController.swift */; };
 		6321038128F06E7300CC1609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6321038028F06E7300CC1609 /* Assets.xcassets */; };
 		6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321038228F06E7300CC1609 /* LaunchScreen.storyboard */; };
+		FD91763528F58C1500730656 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763428F58C1500730656 /* Design.swift */; };
+		FD91763928F5953300730656 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763828F5953300730656 /* Video.swift */; };
+		FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763B28F596AE00730656 /* UIView+Extension.swift */; };
+		FDAE818428F833D000690669 /* VideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE818328F833D000690669 /* VideoHelper.swift */; };
+		FDDB5F0B28F91C1A00BDC000 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */; };
+		FDDB5F0F28F91EEC00BDC000 /* Float64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D11FF9428F8487800702385 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
+		2D11FF9628F848FA00702385 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		2D5A7E5928F5548800A53D50 /* VideoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListCell.swift; sourceTree = "<group>"; };
+		2D94ACE528F97F0B0090D7A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2D94ACEE28F981310090D7A2 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
+		2D94ACF228F98EB50090D7A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		2D94ACFA28F9D33D0090D7A2 /* VideoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoModel.xcdatamodel; sourceTree = "<group>"; };
+		2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		2D94ACFE28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2D94AD0028F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2D94AD0228F9DF450090D7A2 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		6321037428F06E7200CC1609 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6321037728F06E7200CC1609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6321037928F06E7200CC1609 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6321037B28F06E7200CC1609 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6321037E28F06E7200CC1609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6321037B28F06E7200CC1609 /* VideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
 		6321038028F06E7300CC1609 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6321038328F06E7300CC1609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = VideoRecorder/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
+		FD91763428F58C1500730656 /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
+		FD91763828F5953300730656 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		FD91763B28F596AE00730656 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		FDAE818328F833D000690669 /* VideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
+		FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float64+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,16 +68,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D94ACE928F97FFE0090D7A2 /* FirebaseAnalytics in Frameworks */,
+				2D94ACEB28F97FFE0090D7A2 /* FirebaseFirestore in Frameworks */,
+				2D94ACED28F97FFE0090D7A2 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D11FF9328F8486000702385 /* PlayVideo */ = {
+			isa = PBXGroup;
+			children = (
+				2D11FF9428F8487800702385 /* PlayVideoViewController.swift */,
+			);
+			path = PlayVideo;
+			sourceTree = "<group>";
+		};
+		2D94ACF828F9D3230090D7A2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2D94ACF928F9D33D0090D7A2 /* VideoModel.xcdatamodeld */,
+				2D94ACFE28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift */,
+				2D94AD0028F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		6321036B28F06E7200CC1609 = {
 			isa = PBXGroup;
 			children = (
 				6321037628F06E7200CC1609 /* VideoRecorder */,
+				2D94ACE528F97F0B0090D7A2 /* GoogleService-Info.plist */,
 				6321037528F06E7200CC1609 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,15 +115,69 @@
 		6321037628F06E7200CC1609 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				2D94ACF828F9D3230090D7A2 /* CoreData */,
+				FD91763A28F5969C00730656 /* Extension */,
+				FD91763328F58C0C00730656 /* Model */,
+				FD91763128F5840800730656 /* Scene */,
+				FDB45FA328F5822F00140E96 /* SupportingFiles */,
+			);
+			path = VideoRecorder;
+			sourceTree = "<group>";
+		};
+		FD91763128F5840800730656 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2D11FF9328F8486000702385 /* PlayVideo */,
+				FD91763228F5843400730656 /* VideoList */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		FD91763228F5843400730656 /* VideoList */ = {
+			isa = PBXGroup;
+			children = (
+				6321037B28F06E7200CC1609 /* VideoListViewController.swift */,
+				2D5A7E5928F5548800A53D50 /* VideoListCell.swift */,
+			);
+			path = VideoList;
+			sourceTree = "<group>";
+		};
+		FD91763328F58C0C00730656 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FD91763428F58C1500730656 /* Design.swift */,
+				FD91763828F5953300730656 /* Video.swift */,
+				FDAE818328F833D000690669 /* VideoHelper.swift */,
+				2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */,
+				2D94ACF228F98EB50090D7A2 /* FileService.swift */,
+				2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */,
+				2D94AD0228F9DF450090D7A2 /* CacheManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FD91763A28F5969C00730656 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FD91763B28F596AE00730656 /* UIView+Extension.swift */,
+				2D11FF9628F848FA00702385 /* UIButton+Extension.swift */,
+				FDDB5F0A28F91C1A00BDC000 /* Date+Extension.swift */,
+				FDDB5F0E28F91EEC00BDC000 /* Float64+Extension.swift */,
+				2D94ACEE28F981310090D7A2 /* Encodable+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FDB45FA328F5822F00140E96 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
 				6321037728F06E7200CC1609 /* AppDelegate.swift */,
 				6321037928F06E7200CC1609 /* SceneDelegate.swift */,
-				6321037B28F06E7200CC1609 /* ViewController.swift */,
-				6321037D28F06E7200CC1609 /* Main.storyboard */,
 				6321038028F06E7300CC1609 /* Assets.xcassets */,
 				6321038228F06E7300CC1609 /* LaunchScreen.storyboard */,
 				6321038528F06E7300CC1609 /* Info.plist */,
 			);
-			path = VideoRecorder;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +196,11 @@
 			dependencies = (
 			);
 			name = VideoRecorder;
+			packageProductDependencies = (
+				2D94ACE828F97FFE0090D7A2 /* FirebaseAnalytics */,
+				2D94ACEA28F97FFE0090D7A2 /* FirebaseFirestore */,
+				2D94ACEC28F97FFE0090D7A2 /* FirebaseFirestoreSwift */,
+			);
 			productName = VideoRecorder;
 			productReference = 6321037428F06E7200CC1609 /* VideoRecorder.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +229,9 @@
 				Base,
 			);
 			mainGroup = 6321036B28F06E7200CC1609;
+			packageReferences = (
+				2D94ACE728F97FFE0090D7A2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 6321037528F06E7200CC1609 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +248,7 @@
 			files = (
 				6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */,
 				6321038128F06E7300CC1609 /* Assets.xcassets in Resources */,
-				6321037F28F06E7200CC1609 /* Main.storyboard in Resources */,
+				2D94ACE628F97F0B0090D7A2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +259,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6321037C28F06E7200CC1609 /* ViewController.swift in Sources */,
+				FDAE818428F833D000690669 /* VideoHelper.swift in Sources */,
+				6321037C28F06E7200CC1609 /* VideoListViewController.swift in Sources */,
+				2D5A7E5A28F5548800A53D50 /* VideoListCell.swift in Sources */,
+				2D94ACF128F9819C0090D7A2 /* FireStoreManager.swift in Sources */,
+				2D94ACEF28F981310090D7A2 /* Encodable+Extension.swift in Sources */,
+				2D11FF9728F848FA00702385 /* UIButton+Extension.swift in Sources */,
+				2D94ACFD28F9D45D0090D7A2 /* CoreDataService.swift in Sources */,
+				FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */,
+				FDDB5F0B28F91C1A00BDC000 /* Date+Extension.swift in Sources */,
 				6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */,
 				6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */,
+				2D94ACFF28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift in Sources */,
+				2D94AD0328F9DF450090D7A2 /* CacheManager.swift in Sources */,
+				FD91763928F5953300730656 /* Video.swift in Sources */,
+				2D11FF9528F8487800702385 /* PlayVideoViewController.swift in Sources */,
+				2D94ACFB28F9D33D0090D7A2 /* VideoModel.xcdatamodeld in Sources */,
+				2D94ACF328F98EB50090D7A2 /* FileService.swift in Sources */,
+				2D94AD0128F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift in Sources */,
+				FD91763528F58C1500730656 /* Design.swift in Sources */,
+				FDDB5F0F28F91EEC00BDC000 /* Float64+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6321037D28F06E7200CC1609 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6321037E28F06E7200CC1609 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6321038228F06E7300CC1609 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,19 +417,23 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZZS5643XV6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VideoRecorder/Info.plist;
+				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬영을 위해서 오디오 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 포토라이브러리 접근이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.VideoRecorder;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.VideoRecorder.j;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -314,13 +448,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VideoRecorder/Info.plist;
+				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 촬영을 위해서 오디오 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "비디오 저장을 위해서 포토라이브러리 접근이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,6 +494,49 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2D94ACE728F97FFE0090D7A2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = versionRange;
+				maximumVersion = 10.0.0;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2D94ACE828F97FFE0090D7A2 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D94ACE728F97FFE0090D7A2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		2D94ACEA28F97FFE0090D7A2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D94ACE728F97FFE0090D7A2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		2D94ACEC28F97FFE0090D7A2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D94ACE728F97FFE0090D7A2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2D94ACF928F9D33D0090D7A2 /* VideoModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2D94ACFA28F9D33D0090D7A2 /* VideoModel.xcdatamodel */,
+			);
+			currentVersion = 2D94ACFA28F9D33D0090D7A2 /* VideoModel.xcdatamodel */;
+			path = VideoModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6321036C28F06E7200CC1609 /* Project object */;
 }
