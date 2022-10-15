@@ -27,11 +27,11 @@ class FileService {
             () -> Void in
             switch exportSession!.status{
             case .failed:
-                print("\(exportSession!.error!)")
+                print("\(exportSession!.error!.localizedDescription)")
             case .cancelled:
                 print("Export cancelled")
             case .completed:
-                print("끝")
+                print("Export completed")
             default:
                 break
             }

@@ -127,7 +127,6 @@ final class VideoListViewController: UIViewController {
 
 extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return cellVideoList.count
         return videoList.count
     }
     
@@ -203,11 +202,12 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
             videoModel.runningTime = video.runningTime
             CoreDataService.shared.saveContext()
             
-            Task {
+            DispatchQueue.global(qos: .background).async {
                 self.fireStore.save(video)
                 try? FileService.shared.saveVideo(data: video)
             }
         }))
+        
         picker.present(alert, animated: true)
     }
 
