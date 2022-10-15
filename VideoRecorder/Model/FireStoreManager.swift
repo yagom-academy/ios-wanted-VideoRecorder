@@ -23,34 +23,6 @@ final class FireStoreManager {
             completion?(error)
         }
     }
-
-    func subscribe(completion: @escaping (Result<[Video], FireStoreError>) -> Void) {
-        let collectionListener = Firestore.firestore().collection("user")
-        removeListener()
-        
-        documentListener = collectionListener
-            .addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else {
-                    completion(.failure(FireStoreError.error))
-                    return
-                }
-                
-                var videos = [Video]()
-                snapshot.documentChanges.forEach { change in
-                    switch change.type {
-                    case .added, .modified:
-                        do {
-                            let video = try change.document.data(as:Video.self)
-                            videos.append(video)
-                        } catch {
-                            completion(.failure(FireStoreError.error))
-                        }
-                    default: break
-                    }
-                }
-                completion(.success(videos))
-            }
-    }
     
     func delete(_ video: VideoModel) {
         let collectionListener = Firestore.firestore().collection("user")

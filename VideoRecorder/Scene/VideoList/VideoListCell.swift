@@ -75,11 +75,23 @@ final class VideoListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
+        setLayouts()
+    }
+    
+    private func setLayouts() {
+        setViewHierarchy()
+        setConstraints()
+    }
+    
+    private func setViewHierarchy() {
         contentView.addSubviews(thumbnailImageView, labelStackView, nextImageView)
         thumbnailImageView.addSubview(runningTimeView)
         runningTimeView.addSubview(runningTimeLabel)
         labelStackView.addArrangedSubview(videoNameLabel)
         labelStackView.addArrangedSubview(dateLabel)
+    }
+    
+    private func setConstraints() {
         [thumbnailImageView, labelStackView, nextImageView, runningTimeView, runningTimeLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }

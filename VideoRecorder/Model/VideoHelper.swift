@@ -24,7 +24,7 @@ enum VideoHelper {
         delegate.present(mediaUI, animated: true)
     }
     
-    static func SearchingVideoData(from videoURL: URL) -> (date: String, runningTime: String) {
+    static func searchingVideoData(from videoURL: URL) -> (date: String, runningTime: String) {
         let asset = AVURLAsset(url: videoURL)
         let duration: CMTime = asset.duration
         let durationSeconds = CMTimeGetSeconds(duration)

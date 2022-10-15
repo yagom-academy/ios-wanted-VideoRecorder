@@ -9,7 +9,7 @@ import AVFoundation
 import AVKit
 import UIKit
 
-class PlayVideoViewController: UIViewController {
+final class PlayVideoViewController: UIViewController {
     
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
@@ -31,7 +31,7 @@ class PlayVideoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayouts()
+        view.backgroundColor = Color.black
         configureNavigation()
     }
     
@@ -43,10 +43,6 @@ class PlayVideoViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         player.pause()
-    }
-    
-    private func setLayouts() {
-        view.backgroundColor = Color.black
     }
     
     private func configureNavigation() {
@@ -62,17 +58,6 @@ class PlayVideoViewController: UIViewController {
         playerViewController.showsPlaybackControls = true
         self.view.addSubview(playerViewController.view)
         player.play()
-        
-//        guard let path = Bundle.main.path(forResource: "video", ofType:"m4v") else {
-//            debugPrint("video.m4v not found")
-//            return
-//        }
-//        let player = AVPlayer(url: URL(fileURLWithPath: path))
-//        let playerController = AVPlayerViewController()
-//        playerController.player = player
-//        present(playerController, animated: true) {
-//            player.play()
-//        }
     }
     
     @objc func popButtonDidTap(_ sender: UIButton) {

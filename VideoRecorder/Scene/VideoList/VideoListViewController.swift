@@ -43,13 +43,7 @@ final class VideoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.systemBackground
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        setTableView()
         configureNavigation()
     }
     
@@ -58,30 +52,28 @@ final class VideoListViewController: UIViewController {
         fetchData()
     }
     
+    private func setTableView() {
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
     private func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationLeftBarButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "video.fill.badge.plus"), style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem?.tintColor = Color.purple
     }
     
-//    private func subscribeFireStore() {
-//        fireStore.subscribe() { [weak self] result in
-//            switch result {
-//            case .success(let videos):
-//                self?.videoList = videos
-//                self?.tableView.reloadData()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     @objc
     private func addTapped() {
         VideoHelper.startRecording(delegate: self)
     }
 
-    func loadMoreData() {
+    private func loadMoreData() {
         if !self.isLoading {
             self.isLoading = true
             let spinner = UIActivityIndicatorView(style: .medium)
@@ -96,7 +88,7 @@ final class VideoListViewController: UIViewController {
         }
     }
 
-    func fetchData() {
+    private func fetchData() {
         let request: NSFetchRequest<VideoModel> = VideoModel.fetchRequest()
         request.fetchLimit = 8
         request.fetchOffset = offset
@@ -192,7 +184,7 @@ extension VideoListViewController: UIImagePickerControllerDelegate, UINavigation
             if let isTextField = alert.textFields, let firstTextField = isTextField.first {
                 title = firstTextField.text ?? "제목없음"
             }
-            let (date, time): (String, String) = VideoHelper.SearchingVideoData(from: movURL)
+            let (date, time): (String, String) = VideoHelper.searchingVideoData(from: movURL)
             let video = Video(name: title, runningTime: time, date: date, videoPath: movURL.relativeString)
             let videoModel = VideoModel(context: CoreDataService.shared.context)
             videoModel.identifier = video.identifier
