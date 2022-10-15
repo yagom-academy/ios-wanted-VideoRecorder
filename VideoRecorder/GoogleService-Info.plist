@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>766218270374-1libl9bha7c9o6ia6h8obdeacedme712.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.766218270374-1libl9bha7c9o6ia6h8obdeacedme712</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBNYDjF9Lfu85GESgq9y7Gdrl7SZvMbGC0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>766218270374</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>net.yagom.VideoRecorder</string>
+	<key>PROJECT_ID</key>
+	<string>videorecoder-b77ef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>videorecoder-b77ef.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:766218270374:ios:61620a0b5ed16be5b9a667</string>
+</dict>
+</plist>
