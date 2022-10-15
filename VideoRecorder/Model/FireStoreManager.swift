@@ -19,7 +19,7 @@ final class FireStoreManager {
             print("decode error")
             return
         }
-        collectionListener.addDocument(data: dictionary) { error in
+        collectionListener.document("\(video.identifier)").setData(dictionary) { error in
             completion?(error)
         }
     }
@@ -50,6 +50,17 @@ final class FireStoreManager {
                 }
                 completion(.success(videos))
             }
+    }
+    
+    func delete(_ video: VideoModel) {
+        let collectionListener = Firestore.firestore().collection("user")
+        collectionListener.document("\(video.identifier)").delete() { err in
+            if let err = err {
+                print("Error removing document: \(err.localizedDescription)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
     }
     
     func removeListener() {

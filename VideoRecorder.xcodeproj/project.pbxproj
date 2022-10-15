@@ -18,7 +18,7 @@
 		2D94ACF128F9819C0090D7A2 /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */; };
 		2D94ACF328F98EB50090D7A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF228F98EB50090D7A2 /* FileService.swift */; };
 		2D94ACFB28F9D33D0090D7A2 /* VideoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACF928F9D33D0090D7A2 /* VideoModel.xcdatamodeld */; };
-		2D94ACFD28F9D45D0090D7A2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACFC28F9D45D0090D7A2 /* CoreDataManager.swift */; };
+		2D94ACFD28F9D45D0090D7A2 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */; };
 		2D94ACFF28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94ACFE28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift */; };
 		2D94AD0128F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94AD0028F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift */; };
 		2D94AD0328F9DF450090D7A2 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94AD0228F9DF450090D7A2 /* CacheManager.swift */; };
@@ -28,7 +28,6 @@
 		6321038128F06E7300CC1609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6321038028F06E7300CC1609 /* Assets.xcassets */; };
 		6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321038228F06E7300CC1609 /* LaunchScreen.storyboard */; };
 		FD91763528F58C1500730656 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763428F58C1500730656 /* Design.swift */; };
-		FD91763728F58FE700730656 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763628F58FE700730656 /* Section.swift */; };
 		FD91763928F5953300730656 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763828F5953300730656 /* Video.swift */; };
 		FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91763B28F596AE00730656 /* UIView+Extension.swift */; };
 		FDAE818428F833D000690669 /* VideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE818328F833D000690669 /* VideoHelper.swift */; };
@@ -45,7 +44,7 @@
 		2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		2D94ACF228F98EB50090D7A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		2D94ACFA28F9D33D0090D7A2 /* VideoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoModel.xcdatamodel; sourceTree = "<group>"; };
-		2D94ACFC28F9D45D0090D7A2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		2D94ACFE28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2D94AD0028F9D5D70090D7A2 /* VideoModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2D94AD0228F9DF450090D7A2 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
@@ -57,7 +56,6 @@
 		6321038328F06E7300CC1609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = VideoRecorder/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
 		FD91763428F58C1500730656 /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
-		FD91763628F58FE700730656 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		FD91763828F5953300730656 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		FD91763B28F596AE00730656 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		FDAE818328F833D000690669 /* VideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
@@ -148,12 +146,11 @@
 			isa = PBXGroup;
 			children = (
 				FD91763428F58C1500730656 /* Design.swift */,
-				FD91763628F58FE700730656 /* Section.swift */,
 				FD91763828F5953300730656 /* Video.swift */,
 				FDAE818328F833D000690669 /* VideoHelper.swift */,
 				2D94ACF028F9819C0090D7A2 /* FireStoreManager.swift */,
 				2D94ACF228F98EB50090D7A2 /* FileService.swift */,
-				2D94ACFC28F9D45D0090D7A2 /* CoreDataManager.swift */,
+				2D94ACFC28F9D45D0090D7A2 /* CoreDataService.swift */,
 				2D94AD0228F9DF450090D7A2 /* CacheManager.swift */,
 			);
 			path = Model;
@@ -268,11 +265,10 @@
 				2D94ACF128F9819C0090D7A2 /* FireStoreManager.swift in Sources */,
 				2D94ACEF28F981310090D7A2 /* Encodable+Extension.swift in Sources */,
 				2D11FF9728F848FA00702385 /* UIButton+Extension.swift in Sources */,
-				2D94ACFD28F9D45D0090D7A2 /* CoreDataManager.swift in Sources */,
+				2D94ACFD28F9D45D0090D7A2 /* CoreDataService.swift in Sources */,
 				FD91763C28F596AE00730656 /* UIView+Extension.swift in Sources */,
 				FDDB5F0B28F91C1A00BDC000 /* Date+Extension.swift in Sources */,
 				6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */,
-				FD91763728F58FE700730656 /* Section.swift in Sources */,
 				6321037A28F06E7200CC1609 /* SceneDelegate.swift in Sources */,
 				2D94ACFF28F9D5920090D7A2 /* VideoModel+CoreDataClass.swift in Sources */,
 				2D94AD0328F9DF450090D7A2 /* CacheManager.swift in Sources */,
@@ -421,7 +417,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U3443QN3X7;
+				DEVELOPMENT_TEAM = ZZS5643XV6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "비디오 촬영을 위해서 카메라 접근이 필요합니다.";

@@ -9,15 +9,12 @@ import Foundation
 
 extension Float64 {
     var string: String {
-        let seconds = self.rounded()
-        let minutes = (seconds/60).rounded()
-        let hours = (minutes/60).rounded()
+        let seconds: Int = Int(self)
+        let minutes: Int = Int(self / 60)
+        let hours: Int = Int(self / 3600)
         if hours > 0 {
-            return String(format: "%.0f:%.0f:%.0f", hours, minutes, seconds)
+            return String(format:  "%.0d:%02d:%02d", hours, minutes, seconds)
         }
-        if hours < 0 && minutes > 0 {
-            return String(format: "%0f:%.0f", minutes, seconds)
-        }
-        return String(format: "00:%.0f", seconds)
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
