@@ -26,7 +26,7 @@ final class FirebaseStorageManager {
             let outputFilePath = URL(fileURLWithPath: fileName + ".mp4", relativeTo: FileManager.default.temporaryDirectory)
             let data = try Data(contentsOf: outputFilePath)
             print(data.description)
-            let storageRef = storage.reference().child("Videos").child(fileName + ".mov")
+            let storageRef = storage.reference().child("Videos").child(fileName + ".mp4")
             
             if let uploadData = data as Data? {
                 let metaData = StorageMetadata()
@@ -67,7 +67,7 @@ final class FirebaseStorageManager {
     }
     
     func removeVideo(videoName: String) {
-        let videoRef = storage.reference().child("Videos").child(videoName + ".mov")
+        let videoRef = storage.reference().child("Videos").child(videoName + ".mp4")
         videoRef.delete { error in
             if let error = error {
                 print("Firestore 비디오 삭제 안됨: \(error)")

@@ -88,9 +88,15 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             CoreDataManager.shared.deleteData(videoList[indexPath.row])
+            do {
+                try FileManager.default.removeItem(at: URL(fileURLWithPath: (NSTemporaryDirectory() as NSString)
+                    .appendingPathComponent(videoList[indexPath.row].name + ".mp4")))
+            } catch {
+                print("FileManager Delete Error")
+            }
+            FirebaseStorageManager.shared.removeVideo(videoName: videoList[indexPath.row].name)
             videoList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            FirebaseStorageManager.shared.removeVideo(videoName: videoList[indexPath.row].name)
             offset -= 1
         }
     }
