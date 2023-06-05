@@ -21,10 +21,12 @@ struct CameraView: View {
                 }
                 .font(.largeTitle)
             }
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
             
             Spacer()
+            
+            CameraInterfaceView()
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
     }
 }
 

@@ -12,6 +12,7 @@ struct StopCircle: View {
         ZStack {
             Circle()
                 .stroke(lineWidth: 3)
+                .foregroundColor(.white)
                 .frame(width: 50, height: 50)
                 .padding()
             
