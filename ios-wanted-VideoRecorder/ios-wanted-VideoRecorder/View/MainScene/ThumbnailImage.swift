@@ -13,11 +13,12 @@ struct ThumbnailImage: View {
     
     var body: some View {
         ZStack {
-            Image(uiImage: video.image ?? UIImage(systemName: "play.slash.fill")!)
+            video.thumbnailImage
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .frame(width: 100, height: 90, alignment: .center)
                 .cornerRadius(20)
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .overlay(alignment: .bottomLeading) {
                     ZStack {
                         Text("12:03")
@@ -28,9 +29,8 @@ struct ThumbnailImage: View {
                     .opacity(0.6)
                     .offset(x: 5, y: -5)
                 }
-                .frame(width: 80, height: 70, alignment: .center)
         }
-        .shadow(radius: 5, x: 2, y: 3)
+        .shadow(radius: 3, x: 2, y: 3)
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import AVKit
+import SwiftUI
 
 struct Video: Identifiable {
     let id = UUID()
@@ -13,8 +14,8 @@ struct Video: Identifiable {
     var date: Date
     var videoURL: URL?
     
-    var image: UIImage? {
-        guard let url = videoURL else { return nil }
+    var thumbnailImage: Image {
+        guard let url = videoURL else { return Image(systemName: "play.slash.fill") }
         let asset = AVAsset(url: url)
         let assetImgGenerate = AVAssetImageGenerator(asset: asset)
         
@@ -23,11 +24,11 @@ struct Video: Identifiable {
         let time = CMTimeMakeWithSeconds(1.0, preferredTimescale: 600)
         
         guard let img = try? assetImgGenerate.copyCGImage(at: time, actualTime: nil) else {
-            return nil
+            return Image(systemName: "play.slash.fill")
         }
         
         let thumbnailImage = UIImage(cgImage: img)
         
-        return thumbnailImage
+        return Image(uiImage: thumbnailImage)
     }
 }

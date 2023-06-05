@@ -25,7 +25,7 @@ struct MainListView: View {
                 }
             }
             .bold()
-            .font(Font(.init(.menuTitle, size: 18)))
+            .font(.title3)
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
             List {
