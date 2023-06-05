@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainListView: View {
-    let viewModel: MainViewModel
+    @ObservedObject var viewModel: MainViewModel
     
     var body: some View {
         VStack {
@@ -33,7 +33,9 @@ struct MainListView: View {
                     .listRowSeparator(.visible)
                     .swipeActions(edge: .trailing) {
                         Button {
-                            // 삭제 관련 메서드
+                            withAnimation(.linear) {
+                                viewModel.deleteVideo(video.id)
+                            }
                         } label: {
                             Image(systemName: "trash.fill")
                         }
