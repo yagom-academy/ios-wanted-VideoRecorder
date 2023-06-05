@@ -14,7 +14,6 @@ struct MainListCell: View {
     var body: some View {
         HStack(spacing: 20) {
             ThumbnailImage(video: video)
-                .frame(width: 100, height: 90, alignment: .center)
             
             VStack(alignment: .leading) {
                 Text(video.title)
@@ -31,7 +30,7 @@ struct MainListCell: View {
             Image(systemName: "ellipsis")
             Image(systemName: "chevron.right")
         }
-        .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+        .padding(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 0))
     }
 }
 

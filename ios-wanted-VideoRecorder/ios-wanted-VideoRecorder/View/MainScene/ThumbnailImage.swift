@@ -14,8 +14,9 @@ struct ThumbnailImage: View {
     var body: some View {
         ZStack {
             Image(uiImage: video.image ?? UIImage(systemName: "play.slash.fill")!)
-                .resizable(resizingMode: .stretch)
-                .imageScale(.small)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .cornerRadius(20)
                 .overlay(alignment: .bottomLeading) {
                     ZStack {
@@ -27,6 +28,7 @@ struct ThumbnailImage: View {
                     .opacity(0.6)
                     .offset(x: 5, y: -5)
                 }
+                .frame(width: 80, height: 70, alignment: .center)
         }
         .shadow(radius: 5, x: 2, y: 3)
     }

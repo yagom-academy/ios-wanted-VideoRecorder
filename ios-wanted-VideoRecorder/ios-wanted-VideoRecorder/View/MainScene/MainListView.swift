@@ -16,9 +16,7 @@ struct MainListView: View {
                 Image(systemName: "list.triangle")
                 Text("Video List")
                     .bold()
-                
                 Spacer()
-                
                 Button {
                     // 영상 찍기 관련 메서드
                 } label: {
