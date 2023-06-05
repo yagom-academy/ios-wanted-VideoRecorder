@@ -20,6 +20,7 @@ struct MainListView: View {
                 Spacer()
                 
                 Button {
+                    // 영상 찍기 관련 메서드
                 } label: {
                     Image(systemName: "video.fill.badge.plus")
                         .foregroundColor(.indigo)
@@ -33,6 +34,14 @@ struct MainListView: View {
                 ForEach(videoLists) { video in
                     MainListCell(video: video)
                         .listRowSeparator(.visible)
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                // 삭제 관련 메서드
+                            } label: {
+                                Image(systemName: "trash.fill")
+                            }
+                            .tint(.red)
+                        }
                 }
             }
             .listStyle(.plain)

@@ -45,9 +45,7 @@
 		26167A402A2DA8180048B21D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				26C100FD2A2D7FD000F31C56 /* MainListView.swift */,
-				26167A582A2DD1C40048B21D /* MainListCell.swift */,
-				26167A5A2A2DD32E0048B21D /* ThumbnailImage.swift */,
+				26167A5C2A2DEBC30048B21D /* MainScene */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -105,6 +103,16 @@
 				26167A4E2A2DB8C00048B21D /* Date++Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		26167A5C2A2DEBC30048B21D /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				26C100FD2A2D7FD000F31C56 /* MainListView.swift */,
+				26167A582A2DD1C40048B21D /* MainListCell.swift */,
+				26167A5A2A2DD32E0048B21D /* ThumbnailImage.swift */,
+			);
+			path = MainScene;
 			sourceTree = "<group>";
 		};
 		26C100EF2A2D7FCF00F31C56 = {
