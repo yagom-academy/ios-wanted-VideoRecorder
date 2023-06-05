@@ -32,6 +32,7 @@ struct MainListView: View {
             List {
                 ForEach(videoLists) { video in
                     MainListCell(video: video)
+                        .listRowSeparator(.visible)
                 }
             }
             .listStyle(.plain)
