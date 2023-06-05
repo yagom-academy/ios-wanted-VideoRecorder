@@ -31,7 +31,7 @@ struct MainListView: View {
             
             List {
                 ForEach(videoLists) { video in
-                    ListCell(video: video)
+                    Text("abc")
                 }
             }
             .listStyle(.plain)
