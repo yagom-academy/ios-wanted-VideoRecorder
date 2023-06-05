@@ -12,12 +12,13 @@ struct ListCell: View {
     
     var body: some View {
         HStack {
+            
             VStack(alignment: .leading) {
                 Text("\(video.title)")
                     .font(.title3)
                     .bold()
                 
-                Text("\(video.date)")
+                Text("\(video.date.cellText)")
                     .font(.system(size: 14, weight: .thin))
             }
         }

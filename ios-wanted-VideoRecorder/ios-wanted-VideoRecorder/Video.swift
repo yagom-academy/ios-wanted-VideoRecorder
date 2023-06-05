@@ -11,5 +11,5 @@ struct Video: Identifiable {
     let id = UUID()
     var title: String
     var date: Date
-    var video: AVPlayer?
+    var videoURL: URL?
 }
