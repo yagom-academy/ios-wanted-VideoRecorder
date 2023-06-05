@@ -22,17 +22,15 @@ struct MainListView: View {
                     Image(systemName: "video.fill.badge.plus")
                         .foregroundColor(.indigo)
                 }
-
             }
             .bold()
             .font(Font(.init(.menuTitle, size: 18)))
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
             List {
-                Text("123")
-                Text("123")
-                Text("123")
-                Text("123")
+                ListCell()
+                ListCell()
+                ListCell()
             }
             .listStyle(.plain)
         }
