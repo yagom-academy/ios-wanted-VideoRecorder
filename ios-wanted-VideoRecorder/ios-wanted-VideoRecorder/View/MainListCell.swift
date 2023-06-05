@@ -19,11 +19,15 @@ struct MainListCell: View {
             VStack(alignment: .leading) {
                 Text(video.title)
                     .font(.title3)
-                
                 Text(video.date.cellText)
                     .font(.callout)
                     .foregroundColor(.gray)
             }
+            
+            Spacer()
+            
+            Image(systemName: "ellipsis")
+            Image(systemName: "chevron.right")
         }
     }
 }
