@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainListView: View {
     @ObservedObject var viewModel: MainViewModel
+    @State var isShowCameraView = false
     
     var body: some View {
         VStack {
@@ -16,13 +17,18 @@ struct MainListView: View {
                 Image(systemName: "list.triangle")
                 Text("Video List")
                     .bold()
+                
                 Spacer()
+                
                 Button {
-                    // 영상 찍기 관련 메서드
+                    isShowCameraView.toggle()
                 } label: {
                     Image(systemName: "video.fill.badge.plus")
                         .foregroundColor(.indigo)
                 }
+                .fullScreenCover(isPresented: $isShowCameraView, content: {
+                    CameraView()
+                })
             }
             .bold()
             .font(.title3)

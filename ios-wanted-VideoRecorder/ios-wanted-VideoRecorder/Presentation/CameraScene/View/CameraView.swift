@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct CameraView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                 
                 Button {
-                    // 이전 창 넘어가기
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.gray)
