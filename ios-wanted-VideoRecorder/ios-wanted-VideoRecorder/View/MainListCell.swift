@@ -13,6 +13,9 @@ struct MainListCell: View {
     
     var body: some View {
         HStack {
+            ThumbnailImage(video: video)
+                .frame(width: 100, height: 90, alignment: .center)
+            
             VStack(alignment: .leading) {
                 Text(video.title)
                     .font(.title3)
