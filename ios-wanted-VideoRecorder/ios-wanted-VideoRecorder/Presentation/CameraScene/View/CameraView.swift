@@ -18,6 +18,7 @@ struct CameraView: View {
                 Spacer()
                 
                 Button {
+                    viewModel.disconnectCaptureSession()
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
@@ -31,6 +32,9 @@ struct CameraView: View {
             
             CameraInterfaceView(viewModel: self.viewModel)
         }
+        .background(content: {
+            VideoView(image: viewModel.cameraFrame)
+        })
     }
 }
 
