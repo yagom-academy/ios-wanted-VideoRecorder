@@ -28,19 +28,17 @@ struct MainListView: View {
             .font(.title3)
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
-            List {
-                ForEach(videoLists) { video in
-                    MainListCell(video: video)
-                        .listRowSeparator(.visible)
-                        .swipeActions(edge: .trailing) {
-                            Button {
-                                // 삭제 관련 메서드
-                            } label: {
-                                Image(systemName: "trash.fill")
-                            }
-                            .tint(.red)
+            List(videoLists, id: \.id) { video in
+                MainListCell(video: video)
+                    .listRowSeparator(.visible)
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            // 삭제 관련 메서드
+                        } label: {
+                            Image(systemName: "trash.fill")
                         }
-                }
+                        .tint(.red)
+                    }
             }
             .listStyle(.plain)
         }
