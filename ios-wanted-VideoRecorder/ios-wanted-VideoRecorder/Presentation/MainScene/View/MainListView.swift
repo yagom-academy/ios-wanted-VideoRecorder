@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainListView: View {
-    var videoLists = Sample().videos
+    let viewModel: MainViewModel
     
     var body: some View {
         VStack {
@@ -28,7 +28,7 @@ struct MainListView: View {
             .font(.title3)
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
-            List(videoLists, id: \.id) { video in
+            List(viewModel.videos, id: \.id) { video in
                 MainListCell(video: video)
                     .listRowSeparator(.visible)
                     .swipeActions(edge: .trailing) {
@@ -47,6 +47,6 @@ struct MainListView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainListView()
+        MainListView(viewModel: MainViewModel())
     }
 }

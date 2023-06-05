@@ -11,7 +11,7 @@ import SwiftUI
 struct ios_wanted_VideoRecorderApp: App {
     var body: some Scene {
         WindowGroup {
-            MainListView()
+            MainListView(viewModel: MainViewModel())
         }
     }
 }
