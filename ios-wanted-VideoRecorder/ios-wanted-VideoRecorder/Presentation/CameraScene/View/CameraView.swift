@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CameraView: View {
+    
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject var viewModel = CameraViewModel()
     
     var body: some View {
         VStack {
@@ -27,7 +29,7 @@ struct CameraView: View {
             
             Spacer()
             
-            CameraInterfaceView()
+            CameraInterfaceView(viewModel: self.viewModel)
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CameraInterfaceView: View {
     
-    @State var isRecord: Bool = false
+    @ObservedObject var viewModel: CameraViewModel
     
     var body: some View {
         ZStack {
@@ -23,13 +23,15 @@ struct CameraInterfaceView: View {
             HStack(spacing: 60) {
                 Image(systemName: "photo.fill")
                 
-                Button {
-                    isRecord.toggle()
-                } label: {
-                    if isRecord {
-                        StopCircle()
-                    } else {
-                        PlayCircle()
+                VStack {
+                    Button {
+                        viewModel.isRecord.toggle()
+                    } label: {
+                        if viewModel.isRecord {
+                            StopCircle(viewModel: viewModel)
+                        } else {
+                            PlayCircle()
+                        }
                     }
                 }
                 
@@ -47,6 +49,6 @@ struct CameraInterfaceView: View {
 
 struct CameraInterfaceView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraInterfaceView()
+        CameraInterfaceView(viewModel: CameraViewModel())
     }
 }

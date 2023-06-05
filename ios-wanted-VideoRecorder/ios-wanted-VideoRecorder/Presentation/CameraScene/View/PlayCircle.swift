@@ -9,16 +9,22 @@ import SwiftUI
 
 struct PlayCircle: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .stroke(lineWidth: 3)
-                .foregroundColor(.white)
-                .frame(width: 50, height: 50)
-                .padding()
+        VStack {
+            ZStack {
+                Circle()
+                    .stroke(lineWidth: 3)
+                    .foregroundColor(.white)
+                    .frame(width: 50, height: 50)
+                    .padding()
+                
+                Circle()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.red)
+            }
             
-            Circle()
-                .frame(width: 30, height: 30)
-                .foregroundColor(.red)
+            Text("00:00")
+                .font(.body)
+                .foregroundColor(.white)
         }
     }
 }
