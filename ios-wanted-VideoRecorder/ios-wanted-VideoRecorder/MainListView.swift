@@ -9,12 +9,32 @@ import SwiftUI
 
 struct MainListView: View {
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(1..<10) { value in
-                    Text("\(value)")
+        VStack {
+            HStack {
+                Image(systemName: "list.triangle")
+                Text("Video List")
+                    .bold()
+                
+                Spacer()
+                
+                Button {
+                } label: {
+                    Image(systemName: "video.fill.badge.plus")
+                        .foregroundColor(.indigo)
                 }
+
             }
+            .bold()
+            .font(Font(.init(.menuTitle, size: 18)))
+            .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+            
+            List {
+                Text("123")
+                Text("123")
+                Text("123")
+                Text("123")
+            }
+            .listStyle(.plain)
         }
     }
 }
