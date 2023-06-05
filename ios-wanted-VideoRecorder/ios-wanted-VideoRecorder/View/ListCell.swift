@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ListCell: View {
+    let video: Video
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("Nature.mp4")
+                Text("\(video.title)")
                     .font(.title3)
                     .bold()
                 
-                Text("2022-09-22")
+                Text("\(video.date)")
                     .font(.system(size: 14, weight: .thin))
             }
         }
@@ -24,6 +26,6 @@ struct ListCell: View {
 
 struct ListCell_Previews: PreviewProvider {
     static var previews: some View {
-        ListCell()
+        ListCell(video: Sample().videos[0])
     }
 }

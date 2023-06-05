@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainListView: View {
+    var videoLists = Sample().videos
+    
     var body: some View {
         VStack {
             HStack {
@@ -28,9 +30,9 @@ struct MainListView: View {
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
             List {
-                ListCell()
-                ListCell()
-                ListCell()
+                ForEach(videoLists) { video in
+                    ListCell(video: video)
+                }
             }
             .listStyle(.plain)
         }

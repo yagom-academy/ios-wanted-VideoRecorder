@@ -7,7 +7,7 @@
 
 import AVKit
 
-struct Video {
+struct Video: Identifiable {
     let id = UUID()
     var title: String
     var date: Date
