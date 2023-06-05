@@ -12,6 +12,7 @@ struct ListCell: View {
     
     var body: some View {
         HStack {
+            Image(uiImage: video.image ?? UIImage(systemName: "play.slash.fill")!)
             
             VStack(alignment: .leading) {
                 Text("\(video.title)")
