@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VideoDescriptionCell: UICollectionViewCell {
+final class VideoDescriptionCell: UICollectionViewCell {
     private let titleLabel = {
         let label = UILabel()
         
@@ -32,7 +32,6 @@ class VideoDescriptionCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
-//        stackView.distribution = .equalCentering
         
         return stackView
     }()

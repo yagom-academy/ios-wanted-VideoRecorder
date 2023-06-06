@@ -8,7 +8,18 @@
 import UIKit
 
 struct Video: Hashable {
+    let identifier = UUID()
     let image: UIImage
-    let title: String
-    let date: String
+    let description: Description
+    
+    init(image: UIImage, title: String, date: String) {
+        self.image = image
+        self.description = Description(title: title, date: date)
+    }
+    
+    struct Description: Hashable {
+        let identifier = UUID()
+        let title: String
+        let date: String
+    }
 }

@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import Combine
 
 final class VideoListViewController: UIViewController {
     enum Section {
         case videoList
     }
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>?
+    private let viewModel = VideoListViewModel()
+    private var subscriptions = Set<AnyCancellable>()
     
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createVideoListViewLayout())
@@ -39,7 +44,7 @@ final class VideoListViewController: UIViewController {
         addSubviews()
         setupCollectionViewConstraints()
         setupDataSource()
-        applySnapshot()
+        bind()
     }
     
     private func addSubviews() {
@@ -56,8 +61,6 @@ final class VideoListViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
         ])
     }
-    
-
     
     private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
         let videoItemSize = NSCollectionLayoutSize(
@@ -89,13 +92,11 @@ final class VideoListViewController: UIViewController {
         return layout
     }
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>?
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
             let itemIndex = indexPath.item
             
             if itemIndex % 2 == 0 {
-                // Video Cell
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: VideoImageCell.reuseIdentifier,
                     for: indexPath) as? VideoImageCell else {
@@ -106,35 +107,30 @@ final class VideoListViewController: UIViewController {
                 
                 return cell
             } else {
-                // Description Cell
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: VideoDescriptionCell.reuseIdentifier,
                     for: indexPath) as? VideoDescriptionCell else {
                     return UICollectionViewCell()
                 }
                 
-                cell.configure(title: video.title, date: video.date)
+                cell.configure(title: video.description.title, date: video.description.date)
                 
                 return cell
             }
         }
     }
-    
-    private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
         
-        snapshot.appendSections([.videoList])
-        snapshot.appendItems(videoList)
-        
-        dataSource?.apply(snapshot, animatingDifferences: true)
+    private func bind() {
+        viewModel.videoPublisher()
+            .sink { [weak self] videoList in
+                var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+                
+                imageSnapshot.appendSections([.videoList])
+                
+                imageSnapshot.appendItems(videoList)
+                
+                self?.dataSource?.apply(imageSnapshot, animatingDifferences: true)
+            }
+            .store(in: &subscriptions)
     }
-    
-    private let videoList: [Video] = [
-        Video(image: .add, title: "111111", date: "111111"),
-        Video(image: .add, title: "222222", date: "222222"),
-        Video(image: .add, title: "333333", date: "333333"),
-        Video(image: .add, title: "444444", date: "444444"),
-        Video(image: .add, title: "555555", date: "555555"),
-        Video(image: .add, title: "666666", date: "666666")
-    ]
 }
