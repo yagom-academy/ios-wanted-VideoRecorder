@@ -5,14 +5,26 @@
 //  Created by 강민수 on 2023/06/06.
 //
 
+import Foundation
 import AVFoundation
 
 final class CameraUseCase: NSObject {
+    
+    private enum CaptureStatus {
+        case idle, start, capturing, end
+    }
     
     let session = AVCaptureSession()
     var isCameraPermission = false
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureVideoDataOutput?
+    
+    private var captureStatus: CaptureStatus = .idle
+    private var assetWriter: AVAssetWriter?
+    private var assetWriterVideoInput: AVAssetWriterInput?
+    private let fileManager = FileManager.default
+    private var fileURL: URL?
+    private var fileName: String = ""
     
     override init() {
         super.init()
@@ -26,10 +38,11 @@ final class CameraUseCase: NSObject {
     }
     
     func startRecord() {
-        
+        captureStatus = .start
     }
     
     func stopRecord() {
+        captureStatus = .end
     }
     
     func changeUseCamera() {
@@ -90,6 +103,8 @@ final class CameraUseCase: NSObject {
     private func outputCameraSession() {
         let output = AVCaptureVideoDataOutput()
         
+        output.setSampleBufferDelegate(self, queue: DispatchQueue.global())
+        
         guard session.canAddOutput(output) else { return }
         
         session.sessionPreset = .hd4K3840x2160
@@ -98,9 +113,54 @@ final class CameraUseCase: NSObject {
         
         self.videoOutput = output
     }
+    
+    private func configureStoringVideo(sampleBuffer: CMSampleBuffer) {
+        let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        fileName = Date().description
+        fileURL = documentDirectory.appendingPathComponent(fileName)    // will Deprecate
+        
+        do {
+            assetWriter = try AVAssetWriter(outputURL: fileURL!, fileType: .mov)
+        } catch {
+            print("Create Video Error")
+            return
+        }
+        
+        assetWriterVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: nil)
+        assetWriterVideoInput?.expectsMediaDataInRealTime = true
+        assetWriter?.add(assetWriterVideoInput!)
+        
+        assetWriter?.startWriting()
+        assetWriter?.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(sampleBuffer))
+        
+        captureStatus = .capturing
+    }
+    
+    private func saveRecordingVideo() {
+        assetWriterVideoInput?.markAsFinished()
+        assetWriter?.finishWriting() {
+            
+        }
+        assetWriter = nil
+        assetWriterVideoInput = nil
+        
+        captureStatus = .idle
+    }
 }
 
 extension CameraUseCase: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        switch captureStatus {
+        case .start:
+            configureStoringVideo(sampleBuffer: sampleBuffer)
+        case .capturing:
+            if output == output, assetWriterVideoInput?.isReadyForMoreMediaData == true {
+                assetWriterVideoInput?.append(sampleBuffer)
+            }
+        case .end:
+            saveRecordingVideo()
+        default:
+            return
+        }
     }
 }
