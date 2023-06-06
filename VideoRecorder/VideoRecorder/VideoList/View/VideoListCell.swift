@@ -10,7 +10,6 @@ import UIKit
 final class VideoListCell: UITableViewCell {
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "sample")
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         return imageView
@@ -39,7 +38,8 @@ final class VideoListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(fileName: String, date: String) {
+    func configure(thumbnailImageName: String, fileName: String, date: String) {
+        thumbnailImageView.image = UIImage(named: thumbnailImageName)
         fileNameLabel.text = fileName
         dateLabel.text = date
     }

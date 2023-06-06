@@ -15,6 +15,17 @@ final class VideoListViewController: UIViewController {
         return tableView
     }()
     
+    private let videos: [Video] = [
+        Video(thumbnailImageName: "sample", fileName: "file1.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file2.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file3.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file4.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file5.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file6.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file7.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", fileName: "file8.mp4", registrationDate: Date()),
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +51,7 @@ final class VideoListViewController: UIViewController {
 
 extension VideoListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return videos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +59,8 @@ extension VideoListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.configure(fileName: "파일네임.mp4", date: "2022-09-22")
+        let contents = videos[indexPath.row]
+        cell.configure(thumbnailImageName: contents.thumbnailImageName, fileName: contents.fileName, date: "\(contents.registrationDate)")
         return cell
     }
 }
