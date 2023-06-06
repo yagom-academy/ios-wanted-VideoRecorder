@@ -16,6 +16,7 @@
 		AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518372A2ECA5E00554FA7 /* Video.swift */; };
 		AA85183A2A2ECB5000554FA7 /* VideoImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */; };
 		AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */; };
+		AA8518422A2ED07600554FA7 /* VideoDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AA8518372A2ECA5E00554FA7 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoImageCell.swift; sourceTree = "<group>"; };
 		AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReuseIdentifying.swift"; sourceTree = "<group>"; };
+		AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDescriptionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */,
 				AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */,
+				AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */,
 			);
 			path = VideoList;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8518422A2ED07600554FA7 /* VideoDescriptionCell.swift in Sources */,
 				AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */,
 				AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,

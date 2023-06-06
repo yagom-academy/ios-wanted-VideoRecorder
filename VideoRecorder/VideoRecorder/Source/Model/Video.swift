@@ -9,6 +9,6 @@ import UIKit
 
 struct Video: Hashable {
     let image: UIImage
-    let name: String
+    let title: String
     let date: String
 }

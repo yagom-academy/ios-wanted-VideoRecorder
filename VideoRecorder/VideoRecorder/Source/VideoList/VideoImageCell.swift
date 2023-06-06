@@ -16,9 +16,10 @@ final class VideoImageCell: UICollectionViewCell {
         return imageView
     }()
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        setupCell()
         addSubviews()
         setupConstraints()
     }
@@ -31,6 +32,10 @@ final class VideoImageCell: UICollectionViewCell {
         videoImageView.image = image
     }
     
+    private func setupCell() {
+        backgroundColor = .systemBackground
+    }
+    
     private func addSubviews() {
         addSubview(videoImageView)
     }
@@ -41,8 +46,8 @@ final class VideoImageCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             videoImageView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 4),
             videoImageView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 4),
-            videoImageView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: 4),
-            videoImageView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: 4)
+            videoImageView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -4),
+            videoImageView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -4)
         ])
     }
 }

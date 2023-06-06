@@ -16,6 +16,10 @@ final class VideoListViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createVideoListViewLayout())
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(VideoImageCell.self,
+                                forCellWithReuseIdentifier: VideoImageCell.reuseIdentifier)
+        collectionView.register(VideoDescriptionCell.self,
+                                forCellWithReuseIdentifier: VideoDescriptionCell.reuseIdentifier)
         
         return collectionView
     }()
@@ -34,6 +38,8 @@ final class VideoListViewController: UIViewController {
     private func setupCollectionView() {
         addSubviews()
         setupCollectionViewConstraints()
+        setupDataSource()
+        applySnapshot()
     }
     
     private func addSubviews() {
@@ -44,26 +50,28 @@ final class VideoListViewController: UIViewController {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 12),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: 12),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: 12)
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
         ])
     }
     
-    private func createVideoListViewLayout() -> UICollectionViewLayout {
+
+    
+    private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
         let videoItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.25),
-            heightDimension: .fractionalHeight(1.0)
+            widthDimension: .fractionalWidth(0.20),
+            heightDimension: .fractionalWidth(1.0 / 6.0)
         )
         let videoitem = NSCollectionLayoutItem(layoutSize: videoItemSize)
         
         let descriptionItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.75),
-            heightDimension: .fractionalHeight(1.0)
+            widthDimension: .fractionalWidth(0.80),
+            heightDimension: .fractionalWidth(1.0 / 6.0)
         )
         let descriptionItem = NSCollectionLayoutItem(layoutSize: descriptionItemSize)
-
+        
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(44)
@@ -72,27 +80,61 @@ final class VideoListViewController: UIViewController {
             layoutSize: groupSize,
             subitems: [videoitem, descriptionItem]
         )
-        let spacing = CGFloat(10)
-        group.interItemSpacing = .fixed(spacing)
-
+        
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = spacing
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-
+        section.interGroupSpacing = 12
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
+        
         return layout
     }
     
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>?
     private func setupDataSource() {
-        let dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoImageCell.reuseIdentifier,
-                                                                for: indexPath) as? VideoImageCell else {
-                return UICollectionViewCell()
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
+            let itemIndex = indexPath.item
+            
+            if itemIndex % 2 == 0 {
+                // Video Cell
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: VideoImageCell.reuseIdentifier,
+                    for: indexPath) as? VideoImageCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.configure(image: video.image)
+                
+                return cell
+            } else {
+                // Description Cell
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: VideoDescriptionCell.reuseIdentifier,
+                    for: indexPath) as? VideoDescriptionCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.configure(title: video.title, date: video.date)
+                
+                return cell
             }
-            
-            cell.configure(image: video.image)
-            
-            return cell
         }
     }
+    
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+        
+        snapshot.appendSections([.videoList])
+        snapshot.appendItems(videoList)
+        
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private let videoList: [Video] = [
+        Video(image: .add, title: "111111", date: "111111"),
+        Video(image: .add, title: "222222", date: "222222"),
+        Video(image: .add, title: "333333", date: "333333"),
+        Video(image: .add, title: "444444", date: "444444"),
+        Video(image: .add, title: "555555", date: "555555"),
+        Video(image: .add, title: "666666", date: "666666")
+    ]
 }
