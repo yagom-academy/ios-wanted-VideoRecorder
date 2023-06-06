@@ -21,6 +21,7 @@
 		262049EB2A2F226F00E49EBF /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EA2A2F226F00E49EBF /* CameraView.swift */; };
 		262049ED2A2F229500E49EBF /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EC2A2F229500E49EBF /* MainListView.swift */; };
 		26AAEFE22A2F6CF7003BB339 /* LocalFileURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */; };
+		26AAEFE52A2F756D003BB339 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 26AAEFE42A2F756D003BB339 /* RealmSwift */; };
 		26BAAAD02A2EFB4B006A9C70 /* CameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */; };
 		26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */; };
 		26C101002A2D7FD000F31C56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C100FF2A2D7FD000F31C56 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26AAEFE52A2F756D003BB339 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +233,9 @@
 			dependencies = (
 			);
 			name = "ios-wanted-VideoRecorder";
+			packageProductDependencies = (
+				26AAEFE42A2F756D003BB339 /* RealmSwift */,
+			);
 			productName = "ios-wanted-VideoRecorder";
 			productReference = 26C100F82A2D7FD000F31C56 /* ios-wanted-VideoRecorder.app */;
 			productType = "com.apple.product-type.application";
@@ -259,6 +264,9 @@
 				Base,
 			);
 			mainGroup = 26C100EF2A2D7FCF00F31C56;
+			packageReferences = (
+				26AAEFE32A2F756D003BB339 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 26C100F92A2D7FD000F31C56 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -505,6 +513,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26AAEFE32A2F756D003BB339 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26AAEFE42A2F756D003BB339 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26AAEFE32A2F756D003BB339 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 26C100F02A2D7FCF00F31C56 /* Project object */;
 }
