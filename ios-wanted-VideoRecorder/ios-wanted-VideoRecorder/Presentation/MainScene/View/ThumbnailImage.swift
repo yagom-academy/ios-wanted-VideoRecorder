@@ -21,7 +21,7 @@ struct ThumbnailImage: View {
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .overlay(alignment: .bottomLeading) {
                     ZStack {
-                        Text("12:03")
+                        Text(video.videoLength)
                             .foregroundColor(.white)
                     }
                     .background(.black)

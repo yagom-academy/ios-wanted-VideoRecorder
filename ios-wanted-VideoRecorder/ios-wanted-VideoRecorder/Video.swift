@@ -13,6 +13,7 @@ struct Video: Identifiable {
     var title: String
     var date: Date
     var videoURL: URL?
+    var videoLength: String
     
     var thumbnailImage: Image {
         guard let url = videoURL else { return Image(systemName: "play.slash.fill") }

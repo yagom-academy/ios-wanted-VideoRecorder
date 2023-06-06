@@ -9,8 +9,8 @@ import AVKit
 
 struct Sample {
     var videos: [Video] = [
-        Video(title: "Countdown.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "countdown", withExtension: "mp4")),
-        Video(title: "Forest.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "forest", withExtension: "mp4")),
-        Video(title: "river.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "river", withExtension: "mp4"))
+        Video(title: "Countdown.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "countdown", withExtension: "mp4"), videoLength: "12:03"),
+        Video(title: "Forest.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "forest", withExtension: "mp4"), videoLength: "32:10"),
+        Video(title: "river.mp4", date: Date(), videoURL: Bundle.main.url(forResource: "river", withExtension: "mp4"), videoLength: "00:05")
     ]
 }
