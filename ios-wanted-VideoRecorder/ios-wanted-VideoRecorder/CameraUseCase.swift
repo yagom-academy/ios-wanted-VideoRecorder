@@ -14,6 +14,7 @@ final class CameraUseCase {
     
     let session = AVCaptureSession()
     var isCameraPermission = false
+    private var videoDeviceInput: AVCaptureDeviceInput?
     
     init() {
         checkPermission()
@@ -23,6 +24,31 @@ final class CameraUseCase {
         DispatchQueue.global().async {
             self.session.startRunning()
         }
+    }
+    
+    func changeUseCamera() {
+        guard let currentCameraInput = session.inputs.first else { return }
+        
+        session.removeInput(currentCameraInput)
+        
+        if (currentCameraInput as? AVCaptureDeviceInput)?.device.position == .back {
+            guard let newCamera = cameraWithPosition(.front) else { return }
+            try? session.addInput(AVCaptureDeviceInput(device: newCamera))
+        } else {
+            guard let newCamera = cameraWithPosition(.back) else { return }
+            try? session.addInput(AVCaptureDeviceInput(device: newCamera))
+        }
+    }
+    
+    func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let deviceDescoverySession = AVCaptureDevice.DiscoverySession.init(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
+
+        for device in deviceDescoverySession.devices {
+            if device.position == position {
+                return device
+            }
+        }
+        return nil
     }
     
     private func checkPermission() {
@@ -43,16 +69,16 @@ final class CameraUseCase {
     }
     
     private func configureSession() {
-        guard let videoDevice = AVCaptureDevice.default(.builtInUltraWideCamera, for: .video, position: .back) else {
+        guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             return
         }
         
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
-              session.canAddInput(videoDeviceInput) else {
+        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice) else {
             return
         }
         
         session.addInput(videoDeviceInput)
+        self.videoDeviceInput = videoDeviceInput
     }
     
     private func outputCameraSession() {
