@@ -40,7 +40,7 @@ final class CameraUseCase {
         }
     }
     
-    func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+    private func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let deviceDescoverySession = AVCaptureDevice.DiscoverySession.init(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
 
         for device in deviceDescoverySession.devices {
