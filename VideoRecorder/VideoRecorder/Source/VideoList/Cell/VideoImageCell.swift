@@ -21,7 +21,7 @@ final class VideoImageCell: UICollectionViewCell {
         
         setupCell()
         addSubviews()
-        setupConstraints()
+        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ final class VideoImageCell: UICollectionViewCell {
         addSubview(videoImageView)
     }
     
-    private func setupConstraints() {
+    private func layout() {
         let safe = safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([

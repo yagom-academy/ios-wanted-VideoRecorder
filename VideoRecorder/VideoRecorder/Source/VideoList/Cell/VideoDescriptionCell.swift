@@ -50,7 +50,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         
         setupCell()
         addSubviews()
-        setupConstraints()
+        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +75,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         addSubview(mainStackView)
     }
     
-    private func setupConstraints() {
+    private func layout() {
         let safe = safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([

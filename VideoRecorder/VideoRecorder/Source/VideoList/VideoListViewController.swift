@@ -36,60 +36,11 @@ final class VideoListViewController: UIViewController {
         setupCollectionView()
     }
     
-    private func setupView() {
-        view.backgroundColor = .systemBackground
-    }
-    
     private func setupCollectionView() {
         addSubviews()
-        setupCollectionViewConstraints()
+        layout()
         setupDataSource()
-        bind()
-    }
-    
-    private func addSubviews() {
-        view.addSubview(collectionView)
-    }
-    
-    private func setupCollectionViewConstraints() {
-        let safe = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
-        ])
-    }
-    
-    private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
-        let videoItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.20),
-            heightDimension: .fractionalWidth(1.0 / 6.0)
-        )
-        let videoitem = NSCollectionLayoutItem(layoutSize: videoItemSize)
-        
-        let descriptionItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.80),
-            heightDimension: .fractionalWidth(1.0 / 6.0)
-        )
-        let descriptionItem = NSCollectionLayoutItem(layoutSize: descriptionItemSize)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(44)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [videoitem, descriptionItem]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 12
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
+        bindSnapshot()
     }
     
     private func setupDataSource() {
@@ -118,7 +69,7 @@ final class VideoListViewController: UIViewController {
         }
     }
         
-    private func bind() {
+    private func bindSnapshot() {
         viewModel.videoPublisher()
             .sink { [weak self] videoList in
                 var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
@@ -133,5 +84,55 @@ final class VideoListViewController: UIViewController {
                 self?.dataSource?.apply(imageSnapshot)
             }
             .store(in: &subscriptions)
+    }
+    
+    // MARK: - Setup UI component and layout
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    private func addSubviews() {
+        view.addSubview(collectionView)
+    }
+    
+    private func layout() {
+        let safe = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
+        ])
+    }
+    
+    private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
+        let imageItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.20),
+            heightDimension: .fractionalWidth(1.0 / 6.0)
+        )
+        let imageItem = NSCollectionLayoutItem(layoutSize: imageItemSize)
+        
+        let descriptionItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.80),
+            heightDimension: .fractionalWidth(1.0 / 6.0)
+        )
+        let descriptionItem = NSCollectionLayoutItem(layoutSize: descriptionItemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(44)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [imageItem, descriptionItem]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 12
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
     }
 }
