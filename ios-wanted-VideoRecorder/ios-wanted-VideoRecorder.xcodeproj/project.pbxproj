@@ -129,9 +129,9 @@
 		26167A5D2A2DF91B0048B21D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				262049EC2A2F229500E49EBF /* MainListView.swift */,
 				26167A582A2DD1C40048B21D /* MainListCell.swift */,
 				26167A5A2A2DD32E0048B21D /* ThumbnailImage.swift */,
-				262049EC2A2F229500E49EBF /* MainListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -156,11 +156,11 @@
 		26167A622A2E0F4F0048B21D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				26167A702A2E38790048B21D /* VideoView.swift */,
-				262049E42A2F21F200E49EBF /* StopCircle.swift */,
-				262049E62A2F222700E49EBF /* PlayCircle.swift */,
-				262049E82A2F224600E49EBF /* CameraInterfaceView.swift */,
 				262049EA2A2F226F00E49EBF /* CameraView.swift */,
+				26167A702A2E38790048B21D /* VideoView.swift */,
+				262049E82A2F224600E49EBF /* CameraInterfaceView.swift */,
+				262049E62A2F222700E49EBF /* PlayCircle.swift */,
+				262049E42A2F21F200E49EBF /* StopCircle.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
