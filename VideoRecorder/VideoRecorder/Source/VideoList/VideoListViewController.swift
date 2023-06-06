@@ -36,6 +36,12 @@ final class VideoListViewController: UIViewController {
         setupCollectionView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        collectionView.collectionViewLayout = createVideoListViewLayout()
+    }
+    
     private func setupCollectionView() {
         addSubviews()
         layout()
@@ -108,21 +114,31 @@ final class VideoListViewController: UIViewController {
     
     private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
         let imageItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.20),
-            heightDimension: .fractionalWidth(1.0 / 6.0)
+            widthDimension: .fractionalWidth(0.25),
+            heightDimension: .fractionalHeight(1.0)
         )
         let imageItem = NSCollectionLayoutItem(layoutSize: imageItemSize)
         
         let descriptionItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.80),
-            heightDimension: .fractionalWidth(1.0 / 6.0)
+            widthDimension: .fractionalWidth(0.70),
+            heightDimension: .fractionalHeight(1.0)
         )
         let descriptionItem = NSCollectionLayoutItem(layoutSize: descriptionItemSize)
         
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(44)
-        )
+        var groupSize: NSCollectionLayoutSize
+        
+        if view.frame.height > view.frame.width {
+            groupSize = NSCollectionLayoutSize(
+               widthDimension: .fractionalWidth(1.0),
+               heightDimension: .fractionalHeight(1.0 / 8.0)
+           )
+        } else {
+            groupSize = NSCollectionLayoutSize(
+               widthDimension: .fractionalWidth(1.0),
+               heightDimension: .fractionalHeight(1.0 / 4.0)
+           )
+        }
+        
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitems: [imageItem, descriptionItem]

@@ -13,6 +13,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
         
         return label
     }()
@@ -21,7 +22,9 @@ final class VideoDescriptionCell: UICollectionViewCell {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title2)
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.textColor = .systemGray
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         return label
     }()
@@ -32,6 +35,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
         
         return stackView
     }()
@@ -67,8 +71,10 @@ final class VideoDescriptionCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
+        labelStackView.addArrangedSubview(UIView())
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(dateLabel)
+        labelStackView.addArrangedSubview(UIView())
         
         mainStackView.addArrangedSubview(labelStackView)
         
