@@ -34,23 +34,20 @@ final class RecordingViewController: UIViewController {
         
         return label
     }()
-    private let thumbnailView = {
-        let imageView = UIImageView()
-        imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    private let thumbnailButton = {
+        let button = UIButton()
+        button.setContentHuggingPriority(.required, for: .horizontal)
         
-        return imageView
+        return button
     }()
     private let recordingStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 30
+        stackView.spacing = 70
         
         return stackView
     }()
@@ -71,7 +68,7 @@ final class RecordingViewController: UIViewController {
     
     init(viewModel: RecordingViewModel, thumbnailImage: UIImage?) {
         self.viewModel = viewModel
-        self.thumbnailView.image = thumbnailImage
+        self.thumbnailButton.setImage(thumbnailImage, for: .normal)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,7 +94,7 @@ final class RecordingViewController: UIViewController {
         recordButtonStackView.alignment = .fill
         recordButtonStackView.distribution = .fill
         
-        recordingStackView.addArrangedSubview(thumbnailView)
+        recordingStackView.addArrangedSubview(thumbnailButton)
         recordingStackView.addArrangedSubview(recordButtonStackView)
         recordingStackView.addArrangedSubview(swapButton)
         
@@ -109,14 +106,11 @@ final class RecordingViewController: UIViewController {
     
     private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
-            thumbnailView.heightAnchor.constraint(equalToConstant: 20),
-            thumbnailView.widthAnchor.constraint(equalTo: thumbnailView.heightAnchor, multiplier: 1),
-            
             closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            recordingStackView.topAnchor.constraint(equalTo: opaqueView.topAnchor, constant: 10),
-            recordingStackView.bottomAnchor.constraint(equalTo: opaqueView.bottomAnchor, constant: -10),
+            recordingStackView.topAnchor.constraint(equalTo: opaqueView.topAnchor, constant: 20),
+            recordingStackView.bottomAnchor.constraint(equalTo: opaqueView.bottomAnchor, constant: -20),
             recordingStackView.leadingAnchor.constraint(equalTo: opaqueView.leadingAnchor, constant: 20),
             recordingStackView.trailingAnchor.constraint(equalTo: opaqueView.trailingAnchor, constant: -20),
             
@@ -128,7 +122,7 @@ final class RecordingViewController: UIViewController {
     }
 }
 
-final class RecordingButton: UIButton {
+private final class RecordingButton: UIButton {
     override func draw(_ rect: CGRect) {
         let width = self.bounds.width
         let height = self.bounds.height
