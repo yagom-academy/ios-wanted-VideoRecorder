@@ -9,14 +9,6 @@ import AVFoundation
 import Combine
 
 final class RecordingViewModel {
-    struct Input {
-        let recordButtonPublisher: AnyPublisher<Void, Never>
-    }
-    
-    struct Output {
-        let recordingError: AnyPublisher<Void, Error>
-    }
-    
     let videoRecordingService: VideoRecordingService
     
     init(videoRecordingService: VideoRecordingService) {
@@ -35,22 +27,42 @@ final class RecordingViewModel {
         videoRecordingService.runSession()
     }
     
+    struct Input {
+        let recordButtonTapped: AnyPublisher<Void, Never>
+        let switchCameraButtonTapped: AnyPublisher<Void, Never>
+    }
+    
+    struct Output {
+        let recordingError: AnyPublisher<Void, Error>
+        let switchingError: AnyPublisher<Void, Error>
+    }
+    
     func transform(input: Input) -> Output {
-        let recordingError = input.recordButtonPublisher
+        let recordingError = input.recordButtonTapped
             .tryCompactMap { [weak self] in
-                guard let self,
-                      let isRecording = self.videoRecordingService.isRecording else {
+                guard let isRecording = self?.videoRecordingService.isRecording else {
                     return
                 }
                 
                 if isRecording {
-                    self.videoRecordingService.stopRecording()
+                    self?.videoRecordingService.stopRecording()
                 } else {
-                    try self.videoRecordingService.startRecording()
+                    try self?.videoRecordingService.startRecording()
                 }
             }
             .eraseToAnyPublisher()
         
-        return Output(recordingError: recordingError)
+        let cameraSwitched = input.switchCameraButtonTapped
+            .tryCompactMap { [weak self] in
+                try self?.switchCameraType()
+            }
+            .eraseToAnyPublisher()
+        
+        return Output(recordingError: recordingError,
+                      switchingError: cameraSwitched)
+    }
+    
+    private func switchCameraType() throws {
+        try videoRecordingService.switchCameraType()
     }
 }

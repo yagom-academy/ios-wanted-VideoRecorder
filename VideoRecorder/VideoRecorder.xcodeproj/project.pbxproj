@@ -75,7 +75,7 @@
 				AD599CC72A2D9887001609FA /* SceneDelegate.swift */,
 				AD599CDA2A2DA50B001609FA /* VideoListView */,
 				AD557B252A2E045B00679DAD /* CameraView */,
-				AD599CD92A2DA4FF001609FA /* Model */,
+				AD599CD92A2DA4FF001609FA /* Services */,
 				AD599CDB2A2DA524001609FA /* Resources */,
 				ADCC84772A2F176600A91EC6 /* Extensions */,
 				AD599CD32A2D9887001609FA /* Info.plist */,
@@ -83,12 +83,12 @@
 			path = VideoRecorder;
 			sourceTree = "<group>";
 		};
-		AD599CD92A2DA4FF001609FA /* Model */ = {
+		AD599CD92A2DA4FF001609FA /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */,
 			);
-			path = Model;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		AD599CDA2A2DA50B001609FA /* VideoListView */ = {

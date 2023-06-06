@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import UniformTypeIdentifiers
 
 final class VideoListViewController: UIViewController {
     typealias VideoListDataSource = UITableViewDiffableDataSource

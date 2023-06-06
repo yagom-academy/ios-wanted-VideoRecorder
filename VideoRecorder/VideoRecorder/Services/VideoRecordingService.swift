@@ -99,7 +99,7 @@ final class VideoRecordingService: NSObject {
         videoOutput?.stopRecording()
     }
     
-    func switchCameraType() {
+    func switchCameraType() throws {
         let input = captureSession.inputs.first { input in
             guard let input = input as? AVCaptureDeviceInput else {
                 return false
@@ -108,15 +108,20 @@ final class VideoRecordingService: NSObject {
         }
         
         guard let currentInput = input as? AVCaptureDeviceInput else {
-            return
+            throw RecordingError.nonexistInputDevice
         }
         
         captureSession.beginConfiguration()
         captureSession.removeInput(currentInput)
         
         let newCameraDevice = currentInput.device.position == .back ? bestCamera(for: .front) : bestCamera(for: .back)
-        let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
-        captureSession.addInput(newVideoInput!)
+        
+        guard let newCameraDevice else {
+            throw RecordingError.noneUsableCaptureDevice
+        }
+        
+        let newVideoInput = try AVCaptureDeviceInput(device: newCameraDevice)
+        captureSession.addInput(newVideoInput)
         captureSession.commitConfiguration()
     }
     

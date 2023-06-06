@@ -9,7 +9,6 @@ import UIKit
 import AVFoundation
 import Combine
 
-
 final class RecordingViewController: UIViewController {
     private let closeButton = {
         let button = UIButton()
@@ -20,7 +19,7 @@ final class RecordingViewController: UIViewController {
         
         return button
     }()
-    private let swapButton = {
+    private let switchCameraButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath.camera"), for: .normal)
         button.setContentHuggingPriority(.required, for: .horizontal)
@@ -57,7 +56,7 @@ final class RecordingViewController: UIViewController {
     }()
     private let opaqueView = {
         let opaqueView = UIView()
-        opaqueView.backgroundColor = .separator
+        opaqueView.layer.backgroundColor = UIColor.clear.withAlphaComponent(0.2).cgColor
         opaqueView.layer.cornerRadius = 15
         opaqueView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -93,6 +92,7 @@ final class RecordingViewController: UIViewController {
         configureCaptureSession()
         setupViewHierarchy()
         setupLayoutConstraints()
+        bindAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +101,8 @@ final class RecordingViewController: UIViewController {
     }
     
     private func configureRootView() {
-        view.backgroundColor = .systemBackground
-        view.layer.addSublayer(previewLayer)
+        self.view.backgroundColor = .systemBackground
+        self.view.layer.addSublayer(previewLayer)
     }
     
     private func configureCaptureSession() {
@@ -121,36 +121,41 @@ final class RecordingViewController: UIViewController {
         
         recordingStackView.addArrangedSubview(thumbnailButton)
         recordingStackView.addArrangedSubview(recordButtonStackView)
-        recordingStackView.addArrangedSubview(swapButton)
+        recordingStackView.addArrangedSubview(switchCameraButton)
         
         opaqueView.addSubview(recordingStackView)
     
-        view.addSubview(opaqueView)
-        view.addSubview(closeButton)
+        self.view.addSubview(opaqueView)
+        self.view.addSubview(closeButton)
     }
     
     private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60),
+            closeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             
             recordingStackView.topAnchor.constraint(equalTo: opaqueView.topAnchor, constant: 20),
             recordingStackView.bottomAnchor.constraint(equalTo: opaqueView.bottomAnchor, constant: -20),
             recordingStackView.leadingAnchor.constraint(equalTo: opaqueView.leadingAnchor, constant: 20),
             recordingStackView.trailingAnchor.constraint(equalTo: opaqueView.trailingAnchor, constant: -20),
             
-            opaqueView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            opaqueView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            opaqueView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            opaqueView.topAnchor.constraint(equalTo: view.topAnchor, constant: 650)
+            opaqueView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
+            opaqueView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            opaqueView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -70),
+            opaqueView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 650)
         ])
     }
 
     private func bindAction() {
-        let recordButtonPublisher = recordButton.publisher(for: .touchUpInside)
+        let recordButtonTapped = recordButton.publisher(for: .touchUpInside)
+            .eraseToAnyPublisher()
+        let switchCameraButtonTapped = switchCameraButton.publisher(for: .touchUpInside)
             .eraseToAnyPublisher()
         
-        let input = RecordingViewModel.Input(recordButtonPublisher: recordButtonPublisher)
+        let input = RecordingViewModel.Input(
+            recordButtonTapped: recordButtonTapped,
+            switchCameraButtonTapped: switchCameraButtonTapped
+        )
         
         let output = viewModel.transform(input: input)
         
@@ -161,10 +166,18 @@ final class RecordingViewController: UIViewController {
                 print("Recording process excuted")
             })
             .store(in: &cancellables)
+        output.switchingError
+            .sink(receiveCompletion: { error in
+                print(error)
+            }, receiveValue: {
+                print("Camera position switched")
+            })
+            .store(in: &cancellables)
     }
     
 }
 
+// MARK: - RecordingButton
 private final class RecordingButton: UIButton {
     override func draw(_ rect: CGRect) {
         let width = self.bounds.width
