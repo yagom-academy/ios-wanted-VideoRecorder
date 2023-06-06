@@ -38,8 +38,8 @@ struct CameraView: View {
             CameraInterfaceView(viewModel: self.viewModel)
         }
         .background(content: {
-            if viewModel.cameraManager.isCameraPermission {
-                VideoView(session: viewModel.cameraManager.session)
+            if viewModel.isCameraPermission {
+                VideoView(session: viewModel.cameraSession)
                     .ignoresSafeArea()
             } else {
                 Text("카메라 권한이 없습니다.")

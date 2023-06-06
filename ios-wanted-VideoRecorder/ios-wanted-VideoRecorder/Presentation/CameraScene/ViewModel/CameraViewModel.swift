@@ -11,8 +11,13 @@ import AVFoundation
 final class CameraViewModel: NSObject, ObservableObject {
     
     private var timer: Timer?
-    
     var cameraManager = CameraUseCase()
+    var isCameraPermission: Bool {
+        return cameraManager.isCameraPermission
+    }
+    var cameraSession: AVCaptureSession {
+        return cameraManager.session
+    }
     
     @Published var isCameraFronted = false {
         willSet {
