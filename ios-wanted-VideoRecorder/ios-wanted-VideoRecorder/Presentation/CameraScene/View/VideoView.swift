@@ -6,23 +6,32 @@
 //
 
 import SwiftUI
+import AVFoundation
 
-struct VideoView: View {
-    
-    var image: CGImage?
-    
-    var body: some View {
-        if let image = image {
-            Image(image, scale: 1.0, orientation: .up, label: Text("Camera"))
-                .ignoresSafeArea()
-        } else {
-            Text("카메라 권한이 없습니다.")
+struct VideoView: UIViewRepresentable {
+    class VideoPreviewView: UIView {
+        override class var layerClass: AnyClass {
+            AVCaptureVideoPreviewLayer.self
+        }
+        
+        var videoPreviewLayer: AVCaptureVideoPreviewLayer {
+            return layer as! AVCaptureVideoPreviewLayer
         }
     }
-}
-
-struct VideoView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoView()
+    
+    let session: AVCaptureSession
+    
+    func makeUIView(context: Context) -> VideoPreviewView{
+        let view = VideoPreviewView()
+        
+        view.backgroundColor = .white
+        view.videoPreviewLayer.videoGravity = .resizeAspectFill
+        view.videoPreviewLayer.session = session
+        view.videoPreviewLayer.connection?.videoOrientation = .portrait
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIViewType, context: Context) {
     }
 }

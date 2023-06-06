@@ -18,7 +18,6 @@ struct CameraView: View {
                 Spacer()
                 
                 Button {
-                    viewModel.disconnectCaptureSession()
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
@@ -33,7 +32,11 @@ struct CameraView: View {
             CameraInterfaceView(viewModel: self.viewModel)
         }
         .background(content: {
-            VideoView(image: viewModel.cameraFrame)
+            if viewModel.cameraManager.isCameraPermission {
+                VideoView(session: viewModel.cameraManager.session)
+            } else {
+                Text("카메라 권한이 없습니다.")
+            }
         })
     }
 }
