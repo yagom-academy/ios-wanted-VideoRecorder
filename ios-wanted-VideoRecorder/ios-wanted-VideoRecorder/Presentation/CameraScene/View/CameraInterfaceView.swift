@@ -31,11 +31,6 @@ struct CameraInterfaceView: View {
                 VStack {
                     Button {
                         viewModel.isRecord.toggle()
-                        if viewModel.isRecord {
-                            viewModel.cameraManager.startRecord()
-                        } else {
-                            viewModel.cameraManager.stopRecord()
-                        }
                     } label: {
                         if viewModel.isRecord {
                             StopCircle(viewModel: viewModel)
@@ -46,13 +41,7 @@ struct CameraInterfaceView: View {
                 }
                 
                 Button {
-                    if viewModel.isCameraFronted {
-                        viewModel.cameraManager.changeUseCamera()
-                        viewModel.isCameraFronted.toggle()
-                    } else {
-                        viewModel.cameraManager.changeUseCamera()
-                        viewModel.isCameraFronted.toggle()
-                    }
+                    viewModel.isCameraFronted.toggle()
                 } label: {
                     Image(systemName: "arrow.triangle.2.circlepath.camera")
                         .foregroundColor(.white)

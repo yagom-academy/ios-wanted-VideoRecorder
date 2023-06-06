@@ -14,7 +14,11 @@ final class CameraViewModel: NSObject, ObservableObject {
     
     var cameraManager = CameraUseCase()
     
-    @Published var isCameraFronted = false
+    @Published var isCameraFronted = false {
+        willSet {
+            cameraManager.changeUseCamera()
+        }
+    }
     @Published var isRecord: Bool = false {
         willSet {
             if newValue == true {
