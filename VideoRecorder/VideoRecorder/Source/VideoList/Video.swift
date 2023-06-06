@@ -8,7 +8,7 @@
 import UIKit
 
 struct Video {
-    private let imageView: UIImageView
+    private let image: UIImage
     private let name: String
     private let date: String
 }
