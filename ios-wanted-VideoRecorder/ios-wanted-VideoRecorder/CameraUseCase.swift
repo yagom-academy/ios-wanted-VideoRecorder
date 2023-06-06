@@ -22,7 +22,6 @@ final class CameraUseCase: NSObject {
     private var captureStatus: CaptureStatus = .idle
     private var assetWriter: AVAssetWriter?
     private var assetWriterVideoInput: AVAssetWriterInput?
-    private let fileManager = FileManager.default
     private var fileURL: URL?
     private var fileName: String = ""
     
@@ -115,9 +114,8 @@ final class CameraUseCase: NSObject {
     }
     
     private func configureStoringVideo(sampleBuffer: CMSampleBuffer) {
-        let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         fileName = Date().description
-        fileURL = documentDirectory.appendingPathComponent(fileName)    // will Deprecate
+        fileURL = LocalFileURLs.receiveVideoURL(by: fileName)  // will Deprecate
         
         do {
             assetWriter = try AVAssetWriter(outputURL: fileURL!, fileType: .mov)

@@ -20,6 +20,7 @@
 		262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E82A2F224600E49EBF /* CameraInterfaceView.swift */; };
 		262049EB2A2F226F00E49EBF /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EA2A2F226F00E49EBF /* CameraView.swift */; };
 		262049ED2A2F229500E49EBF /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EC2A2F229500E49EBF /* MainListView.swift */; };
+		26AAEFE22A2F6CF7003BB339 /* LocalFileURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */; };
 		26BAAAD02A2EFB4B006A9C70 /* CameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */; };
 		26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */; };
 		26C101002A2D7FD000F31C56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C100FF2A2D7FD000F31C56 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		262049E82A2F224600E49EBF /* CameraInterfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInterfaceView.swift; sourceTree = "<group>"; };
 		262049EA2A2F226F00E49EBF /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		262049EC2A2F229500E49EBF /* MainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListView.swift; sourceTree = "<group>"; };
+		26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalFileURLs.swift; path = "ios-wanted-VideoRecorder/Presentation/MainScene/View/LocalFileURLs.swift"; sourceTree = SOURCE_ROOT; };
 		26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraUseCase.swift; path = "ios-wanted-VideoRecorder/CameraUseCase.swift"; sourceTree = SOURCE_ROOT; };
 		26C100F82A2D7FD000F31C56 /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_wanted_VideoRecorderApp.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */,
+				26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */,
 			);
 			name = Domain;
 			path = "애ㅡ먀ㅜ";
@@ -289,6 +292,7 @@
 				26167A712A2E38790048B21D /* VideoView.swift in Sources */,
 				262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */,
 				26167A492A2DB4900048B21D /* SampleData.swift in Sources */,
+				26AAEFE22A2F6CF7003BB339 /* LocalFileURLs.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A4B2A2DB5660048B21D /* Video.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
