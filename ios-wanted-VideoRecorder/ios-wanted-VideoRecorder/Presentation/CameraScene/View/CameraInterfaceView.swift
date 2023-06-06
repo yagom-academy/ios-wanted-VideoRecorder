@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CameraInterfaceView: View {
     
-    @State var isCameraFronted = false
     @ObservedObject var viewModel: CameraViewModel
     
     var body: some View {
@@ -37,12 +36,12 @@ struct CameraInterfaceView: View {
                 }
                 
                 Button {
-                    if isCameraFronted {
+                    if viewModel.isCameraFronted {
                         viewModel.cameraManager.changeUseCamera()
-                        isCameraFronted.toggle()
+                        viewModel.isCameraFronted.toggle()
                     } else {
                         viewModel.cameraManager.changeUseCamera()
-                        isCameraFronted.toggle()
+                        viewModel.isCameraFronted.toggle()
                     }
                 } label: {
                     Image(systemName: "arrow.triangle.2.circlepath.camera")

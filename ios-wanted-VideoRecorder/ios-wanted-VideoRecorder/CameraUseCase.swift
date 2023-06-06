@@ -5,18 +5,17 @@
 //  Created by 강민수 on 2023/06/06.
 //
 
-import Foundation
 import AVFoundation
-import UIKit
-import SwiftUI
 
-final class CameraUseCase {
+final class CameraUseCase: NSObject {
     
     let session = AVCaptureSession()
     var isCameraPermission = false
     private var videoDeviceInput: AVCaptureDeviceInput?
+    private var videoOutput: AVCaptureVideoDataOutput?
     
-    init() {
+    override init() {
+        super.init()
         checkPermission()
         configureSession()
         outputCameraSession()
@@ -24,6 +23,13 @@ final class CameraUseCase {
         DispatchQueue.global().async {
             self.session.startRunning()
         }
+    }
+    
+    func startRecord() {
+        
+    }
+    
+    func stopRecord() {
     }
     
     func changeUseCamera() {
@@ -82,12 +88,19 @@ final class CameraUseCase {
     }
     
     private func outputCameraSession() {
-        let output = AVCapturePhotoOutput()
+        let output = AVCaptureVideoDataOutput()
         
         guard session.canAddOutput(output) else { return }
         
         session.sessionPreset = .hd4K3840x2160
         session.addOutput(output)
         session.commitConfiguration()
+        
+        self.videoOutput = output
+    }
+}
+
+extension CameraUseCase: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     }
 }

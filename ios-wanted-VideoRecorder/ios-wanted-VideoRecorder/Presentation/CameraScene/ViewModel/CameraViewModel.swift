@@ -5,8 +5,7 @@
 //  Created by 강민수 on 2023/06/05.
 //
 
-import CoreImage
-import Foundation
+import SwiftUI
 import AVFoundation
 
 final class CameraViewModel: NSObject, ObservableObject {
@@ -15,17 +14,20 @@ final class CameraViewModel: NSObject, ObservableObject {
     
     var cameraManager = CameraUseCase()
     
+    @Published var isCameraFronted = false
     @Published var isRecord: Bool = false {
         willSet {
             if newValue == true {
                 self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                     self.second += 1
                 }
+                cameraManager.startRecord()
             } else {
                 self.timer?.invalidate()
                 self.timer = nil
                 minute = 0
                 second = 0
+                cameraManager.stopRecord()
             }
         }
     }
