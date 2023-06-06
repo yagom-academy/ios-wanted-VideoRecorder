@@ -8,18 +8,23 @@
 import UIKit
 
 struct Video: Hashable {
-    let identifier = UUID()
+    let identifier: UUID
     let image: UIImage
-    let description: Description
+    let title: String
+    let date: String
     
-    init(image: UIImage, title: String, date: String) {
+    init(identifier: UUID = UUID(), image: UIImage, title: String, date: String) {
+        self.identifier = identifier
         self.image = image
-        self.description = Description(title: title, date: date)
+        self.title = title
+        self.date = date
     }
-    
-    struct Description: Hashable {
-        let identifier = UUID()
-        let title: String
-        let date: String
+}
+
+extension Video {
+    func copy() -> Video {
+        return Video(image: self.image,
+                     title: self.title,
+                     date: self.date)
     }
 }

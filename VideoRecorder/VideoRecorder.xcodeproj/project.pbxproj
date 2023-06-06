@@ -109,8 +109,7 @@
 		AA8518332A2DBD9700554FA7 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
-				AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */,
-				AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */,
+				AA8518492A2F54AB00554FA7 /* Cell */,
 				AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */,
 				AA8518432A2EF05900554FA7 /* VideoListViewModel.swift */,
 			);
@@ -155,6 +154,15 @@
 				AA8518472A2EF11100554FA7 /* VideoManager.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		AA8518492A2F54AB00554FA7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */,
+				AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

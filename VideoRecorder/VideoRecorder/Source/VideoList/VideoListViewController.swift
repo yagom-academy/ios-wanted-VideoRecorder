@@ -94,9 +94,7 @@ final class VideoListViewController: UIViewController {
     
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
-            let itemIndex = indexPath.item
-            
-            if itemIndex % 2 == 0 {
+            if indexPath.item % 2 == 0 {
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: VideoImageCell.reuseIdentifier,
                     for: indexPath) as? VideoImageCell else {
@@ -113,7 +111,7 @@ final class VideoListViewController: UIViewController {
                     return UICollectionViewCell()
                 }
                 
-                cell.configure(title: video.description.title, date: video.description.date)
+                cell.configure(title: video.title, date: video.date)
                 
                 return cell
             }
@@ -127,9 +125,12 @@ final class VideoListViewController: UIViewController {
                 
                 imageSnapshot.appendSections([.videoList])
                 
-                imageSnapshot.appendItems(videoList)
+                for video in videoList {
+                    imageSnapshot.appendItems([video])
+                    imageSnapshot.appendItems([video.copy()])
+                }
                 
-                self?.dataSource?.apply(imageSnapshot, animatingDifferences: true)
+                self?.dataSource?.apply(imageSnapshot)
             }
             .store(in: &subscriptions)
     }
