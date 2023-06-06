@@ -10,19 +10,22 @@ import UIKit
 final class VideoListCell: UITableViewCell {
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "video.fill")!
+        imageView.image = UIImage(named: "sample")
+        imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
         return imageView
     }()
     
     private let fileNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title3)
+        label.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title3)
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textColor = .systemGray
         return label
     }()
     
@@ -47,7 +50,7 @@ final class VideoListCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 4
+        stackView.spacing = 12
         return stackView
     }
     
@@ -56,8 +59,8 @@ final class VideoListCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.spacing = 4
+        stackView.alignment = .center
+        stackView.spacing = 16
         return stackView
     }
     
@@ -67,10 +70,13 @@ final class VideoListCell: UITableViewCell {
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 60),
+            thumbnailImageView.widthAnchor.constraint(equalToConstant: 80),
+            
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
 }

@@ -19,6 +19,7 @@ final class VideoListViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: VideoListTitleView())
         
         configureVideoListTableView()
     }
