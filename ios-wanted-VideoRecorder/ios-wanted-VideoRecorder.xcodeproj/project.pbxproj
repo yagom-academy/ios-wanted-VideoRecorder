@@ -41,7 +41,7 @@
 		262049E82A2F224600E49EBF /* CameraInterfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInterfaceView.swift; sourceTree = "<group>"; };
 		262049EA2A2F226F00E49EBF /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		262049EC2A2F229500E49EBF /* MainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListView.swift; sourceTree = "<group>"; };
-		26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalFileURLs.swift; path = "ios-wanted-VideoRecorder/Presentation/MainScene/View/LocalFileURLs.swift"; sourceTree = SOURCE_ROOT; };
+		26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalFileURLs.swift; path = "ios-wanted-VideoRecorder/애ㅡ먀ㅜ/Entity/LocalFileURLs.swift"; sourceTree = SOURCE_ROOT; };
 		26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraUseCase.swift; path = "ios-wanted-VideoRecorder/CameraUseCase.swift"; sourceTree = SOURCE_ROOT; };
 		26C100F82A2D7FD000F31C56 /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_wanted_VideoRecorderApp.swift; sourceTree = "<group>"; };
@@ -72,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				26BAAACF2A2EFB4B006A9C70 /* CameraUseCase.swift */,
-				26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */,
 			);
 			name = Domain;
 			path = "애ㅡ먀ㅜ";
@@ -82,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				26167A4A2A2DB5660048B21D /* Video.swift */,
+				26AAEFE12A2F6CF7003BB339 /* LocalFileURLs.swift */,
 			);
 			name = Entity;
 			path = "../애ㅡ먀ㅜ/Entity";

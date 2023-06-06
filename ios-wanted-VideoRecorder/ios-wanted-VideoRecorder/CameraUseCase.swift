@@ -10,8 +10,8 @@ import AVFoundation
 
 final class CameraUseCase: NSObject {
     
-    private enum CaptureStatus {
-        case idle, start, capturing, end
+    private enum RecordState {
+        case idle, start, recording, end
     }
     
     let session = AVCaptureSession()
@@ -19,7 +19,7 @@ final class CameraUseCase: NSObject {
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureVideoDataOutput?
     
-    private var captureStatus: CaptureStatus = .idle
+    private var captureStatus: RecordState = .idle
     private var assetWriter: AVAssetWriter?
     private var assetWriterVideoInput: AVAssetWriterInput?
     private var fileURL: URL?
@@ -131,7 +131,7 @@ final class CameraUseCase: NSObject {
         assetWriter?.startWriting()
         assetWriter?.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(sampleBuffer))
         
-        captureStatus = .capturing
+        captureStatus = .recording
     }
     
     private func saveRecordingVideo() {
@@ -151,7 +151,7 @@ extension CameraUseCase: AVCaptureVideoDataOutputSampleBufferDelegate {
         switch captureStatus {
         case .start:
             configureStoringVideo(sampleBuffer: sampleBuffer)
-        case .capturing:
+        case .recording:
             if output == output, assetWriterVideoInput?.isReadyForMoreMediaData == true {
                 assetWriterVideoInput?.append(sampleBuffer)
             }
