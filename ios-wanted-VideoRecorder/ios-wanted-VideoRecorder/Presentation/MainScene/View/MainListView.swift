@@ -1,8 +1,8 @@
 //
-//  ContentView.swift
+//  MainListView.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 강민수 on 2023/06/05.
+//  Created by 강민수 on 2023/06/06.
 //
 
 import SwiftUI
@@ -26,7 +26,8 @@ struct MainListView: View {
                     Image(systemName: "video.fill.badge.plus")
                         .foregroundColor(.indigo)
                 }
-                .fullScreenCover(isPresented: $isShowCameraView, content: {
+                .fullScreenCover(isPresented: $isShowCameraView,
+                                 content: {
                     CameraView()
                 })
             }

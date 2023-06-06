@@ -2,7 +2,7 @@
 //  StopCircle.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 강민수 on 2023/06/05.
+//  Created by 강민수 on 2023/06/06.
 //
 
 import SwiftUI
