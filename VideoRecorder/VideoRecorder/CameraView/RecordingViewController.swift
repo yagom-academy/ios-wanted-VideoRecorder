@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVFoundation
 import Combine
 
 final class RecordingViewController: UIViewController {
@@ -62,14 +61,7 @@ final class RecordingViewController: UIViewController {
         
         return opaqueView
     }()
-    private lazy var previewLayer = {
-        let layer = AVCaptureVideoPreviewLayer(session: self.viewModel.captureSession())
-        layer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        layer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-        layer.videoGravity = .resizeAspectFill
-        
-        return layer
-    }()
+    
     private let recordButton = RecordingButton()
 
     private var cancellables = Set<AnyCancellable>()
@@ -101,8 +93,12 @@ final class RecordingViewController: UIViewController {
     }
     
     private func configureRootView() {
-        self.view.backgroundColor = .systemBackground
+        let previewLayer = viewModel.previewLayer()
+        previewLayer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        
         self.view.layer.addSublayer(previewLayer)
+        self.view.backgroundColor = .systemBackground
     }
     
     private func configureCaptureSession() {

@@ -7,10 +7,6 @@
 
 import AVFoundation
 
-protocol VideoRecordingDelegate: AnyObject {
-    
-}
-
 final class VideoRecordingService: NSObject {
     enum RecordingError: Error {
         case noneUsableCaptureDevice
@@ -27,8 +23,6 @@ final class VideoRecordingService: NSObject {
     
     private lazy var videoDevice = bestCamera(for: .back)
     private let audioDevice = AVCaptureDevice.default(for: .audio)
-    
-    private var deviceOrientation: AVCaptureVideoOrientation
     private var videoInput: AVCaptureDeviceInput?
     private var audioInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureMovieFileOutput?
@@ -39,14 +33,17 @@ final class VideoRecordingService: NSObject {
         }
     }
     
-    weak var delegate: VideoRecordingDelegate?
+    private var deviceOrientation: AVCaptureVideoOrientation
     
     init(deviceOrientation: AVCaptureVideoOrientation) {
         self.deviceOrientation = deviceOrientation
     }
     
-    func getCaptureSession() -> AVCaptureSession {
-        return self.captureSession
+    func previewLayer() -> AVCaptureVideoPreviewLayer {
+        let layer = AVCaptureVideoPreviewLayer(session: captureSession)
+        layer.videoGravity = .resizeAspectFill
+        
+        return layer
     }
     
     func configureSession() throws {

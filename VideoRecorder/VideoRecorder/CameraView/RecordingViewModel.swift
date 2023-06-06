@@ -15,8 +15,8 @@ final class RecordingViewModel {
         self.videoRecordingService = videoRecordingService
     }
     
-    func captureSession() -> AVCaptureSession {
-        videoRecordingService.getCaptureSession()
+    func previewLayer() -> AVCaptureVideoPreviewLayer {
+        videoRecordingService.previewLayer()
     }
     
     func configureSession() throws {
