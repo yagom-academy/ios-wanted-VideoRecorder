@@ -20,10 +20,16 @@ struct CameraView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
+                    if viewModel.isRecord {
+                        Image(systemName: "xmark.circle.fill")
+                            .opacity(0.0)
+                    } else {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                    }
                 }
                 .font(.largeTitle)
+                .disabled(viewModel.isRecord)
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
             

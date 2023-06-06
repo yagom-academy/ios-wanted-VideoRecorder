@@ -21,11 +21,21 @@ struct CameraInterfaceView: View {
         .cornerRadius(20)
         .overlay(alignment: .center) {
             HStack(spacing: 60) {
-                Image(systemName: "photo.fill")
+                Button {
+                    // Image
+                } label: {
+                    Image(systemName: "photo.fill")
+                }
+                .disabled(viewModel.isRecord)
                 
                 VStack {
                     Button {
                         viewModel.isRecord.toggle()
+                        if viewModel.isRecord {
+                            viewModel.cameraManager.startRecord()
+                        } else {
+                            viewModel.cameraManager.stopRecord()
+                        }
                     } label: {
                         if viewModel.isRecord {
                             StopCircle(viewModel: viewModel)
@@ -47,6 +57,7 @@ struct CameraInterfaceView: View {
                     Image(systemName: "arrow.triangle.2.circlepath.camera")
                         .foregroundColor(.white)
                 }
+                .disabled(viewModel.isRecord)
             }
             .font(.largeTitle)
         }
