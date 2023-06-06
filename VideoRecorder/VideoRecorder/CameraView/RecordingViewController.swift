@@ -15,6 +15,7 @@ final class RecordingViewController: UIViewController {
         let button = UIButton()
         var image = UIImage(systemName: "xmark.circle.fill")
         button.setImage(image, for: .normal)
+        button.tintColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -23,6 +24,7 @@ final class RecordingViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath.camera"), for: .normal)
         button.setContentHuggingPriority(.required, for: .horizontal)
+        button.tintColor = .white
         
         return button
     }()
@@ -61,9 +63,6 @@ final class RecordingViewController: UIViewController {
         
         return opaqueView
     }()
-    
-    private let recordButton = RecordingButton()
-    
     private lazy var previewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: self.viewModel.captureSession())
         layer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
@@ -72,9 +71,11 @@ final class RecordingViewController: UIViewController {
         
         return layer
     }()
+    private let recordButton = RecordingButton()
 
-    private let viewModel: RecordingViewModel
     private var cancellables = Set<AnyCancellable>()
+    
+    private let viewModel: RecordingViewModel
     
     init(viewModel: RecordingViewModel, thumbnailImage: UIImage?) {
         self.viewModel = viewModel
@@ -168,10 +169,11 @@ private final class RecordingButton: UIButton {
     override func draw(_ rect: CGRect) {
         let width = self.bounds.width
         let height = self.bounds.height
+        let radius = min(width, height)
         let centerPoint = CGPoint(x: width / 2, y: height / 2)
         let outterCirclePath = UIBezierPath(
             arcCenter: centerPoint,
-            radius: width / 2 - 18,
+            radius: radius / 2 - 4,
             startAngle: .zero,
             endAngle: .pi * 2,
             clockwise: true
@@ -182,7 +184,7 @@ private final class RecordingButton: UIButton {
         
         let innerCirclePath = UIBezierPath(
             arcCenter: CGPoint(x: width / 2, y: height / 2),
-            radius: width / 2 - 25,
+            radius: radius / 2 - 12,
             startAngle: .zero,
             endAngle: .pi * 2,
             clockwise: true

@@ -13,7 +13,7 @@ protocol VideoRecordingDelegate: AnyObject {
 
 final class VideoRecordingService: NSObject {
     enum RecordingError: Error {
-        case unavailableCaptureDevice
+        case noneUsableCaptureDevice
         case nonexistInputDevice
         case invalidFileURL
     }
@@ -25,7 +25,7 @@ final class VideoRecordingService: NSObject {
         return session
     }()
     
-    private let videoDevice = AVCaptureDevice.default(for: .video)
+    private lazy var videoDevice = bestCamera(for: .back)
     private let audioDevice = AVCaptureDevice.default(for: .audio)
     
     private var deviceOrientation: AVCaptureVideoOrientation
@@ -51,7 +51,7 @@ final class VideoRecordingService: NSObject {
     
     func configureSession() throws {
         guard let videoDevice, let audioDevice else {
-            throw RecordingError.unavailableCaptureDevice
+            throw RecordingError.noneUsableCaptureDevice
         }
         
         captureSession.beginConfiguration()
@@ -97,6 +97,39 @@ final class VideoRecordingService: NSObject {
     
     func stopRecording() {
         videoOutput?.stopRecording()
+    }
+    
+    func switchCameraType() {
+        let input = captureSession.inputs.first { input in
+            guard let input = input as? AVCaptureDeviceInput else {
+                return false
+            }
+            return input.device.hasMediaType(.video)
+        }
+        
+        guard let currentInput = input as? AVCaptureDeviceInput else {
+            return
+        }
+        
+        captureSession.beginConfiguration()
+        captureSession.removeInput(currentInput)
+        
+        let newCameraDevice = currentInput.device.position == .back ? bestCamera(for: .front) : bestCamera(for: .back)
+        let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
+        captureSession.addInput(newVideoInput!)
+        captureSession.commitConfiguration()
+    }
+    
+    private func bestCamera(for position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera]
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: deviceTypes,
+            mediaType: .video,
+            position: .unspecified
+        )
+        let devices = discoverySession.devices
+        
+        return devices.first(where: { $0.position == position })
     }
     
     private func tempURL() -> URL? {
