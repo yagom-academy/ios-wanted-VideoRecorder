@@ -13,7 +13,7 @@
 		AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD599CC92A2D9887001609FA /* VideoListViewController.swift */; };
 		AD599CCF2A2D9887001609FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD599CCE2A2D9887001609FA /* Assets.xcassets */; };
 		AD599CD22A2D9887001609FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD599CD02A2D9887001609FA /* LaunchScreen.storyboard */; };
-		AD599CDD2A2DB249001609FA /* VideoRecodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD599CDC2A2DB249001609FA /* VideoRecodingService.swift */; };
+		AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */; };
 		AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 		AD599CCE2A2D9887001609FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD599CD12A2D9887001609FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD599CD32A2D9887001609FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AD599CDC2A2DB249001609FA /* VideoRecodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecodingService.swift; sourceTree = "<group>"; };
+		AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingService.swift; sourceTree = "<group>"; };
 		AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 		AD599CD92A2DA4FF001609FA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AD599CDC2A2DB249001609FA /* VideoRecodingService.swift */,
+				AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,7 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD599CDD2A2DB249001609FA /* VideoRecodingService.swift in Sources */,
+				AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */,
 				AD557B272A2E048000679DAD /* RecordingViewController.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,

@@ -65,22 +65,16 @@ final class VideoListViewController: UIViewController {
     
     @objc
     private func showCamera() {
-        let viewController = UIImagePickerController()
-        viewController.delegate = self
-        viewController.sourceType = .camera
+        let thumbnail = UIImage(systemName: "photo")
+        let videoRecordingService = VideoRecordingService(deviceOrientation: .portrait)
+        let recordingViewModel = RecordingViewModel(videoRecordingService: videoRecordingService)
+        let recordingViewController = RecordingViewController(viewModel: recordingViewModel, thumbnailImage: thumbnail)
+        recordingViewController.modalPresentationStyle = .fullScreen
         
-        viewController.mediaTypes = [UTType.movie.identifier]
-        self.present(viewController, animated: true)
+        self.present(recordingViewController, animated: true)
     }
     
     private func configureDataSource() {
         
     }
 }
-
-extension VideoListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print(info)
-    }
-}
-
