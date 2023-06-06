@@ -7,7 +7,11 @@
 
 import UIKit
 
-class VideoListViewController: UIViewController {
+final class VideoListViewController: UIViewController {
+    enum Section {
+        case videoList
+    }
+    
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createVideoListViewLayout())
         

@@ -12,6 +12,8 @@
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
 		AA8518262A2DBC5F00554FA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8518252A2DBC5F00554FA7 /* Assets.xcassets */; };
 		AA8518292A2DBC5F00554FA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8518272A2DBC5F00554FA7 /* LaunchScreen.storyboard */; };
+		AA8518362A2E0E7700554FA7 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */; };
+		AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518372A2ECA5E00554FA7 /* Video.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		AA8518252A2DBC5F00554FA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA8518282A2DBC5F00554FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA85182A2A2DBC5F00554FA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
+		AA8518372A2ECA5E00554FA7 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8518332A2DBD9700554FA7 /* VideoList */,
+				AA8518342A2E0E4400554FA7 /* VideoRecord */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -92,8 +97,17 @@
 			isa = PBXGroup;
 			children = (
 				AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */,
+				AA8518372A2ECA5E00554FA7 /* Video.swift */,
 			);
 			path = VideoList;
+			sourceTree = "<group>";
+		};
+		AA8518342A2E0E4400554FA7 /* VideoRecord */ = {
+			isa = PBXGroup;
+			children = (
+				AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */,
+			);
+			path = VideoRecord;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +183,8 @@
 				AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
+				AA8518362A2E0E7700554FA7 /* VideoRecordViewController.swift in Sources */,
+				AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
