@@ -1,5 +1,5 @@
 //
-//  VideoRecodingService.swift
+//  VideoRecordingService.swift
 //  VideoRecorder
 //
 //  Created by Rowan on 2023/06/05.
@@ -11,7 +11,7 @@ protocol VideoRecordingDelegate: AnyObject {
     
 }
 
-final class VideoRecodingService: NSObject {
+final class VideoRecordingService: NSObject {
     enum RecordingError: Error {
         case unavailableCaptureDevice
         case nonexistInputDevice
@@ -103,7 +103,7 @@ final class VideoRecodingService: NSObject {
     }
 }
 
-extension VideoRecodingService: AVCaptureFileOutputRecordingDelegate {
+extension VideoRecordingService: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
         
     }

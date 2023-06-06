@@ -9,9 +9,9 @@ import AVFoundation
 import Combine
 
 final class RecordingViewModel {
-    let videoRecordingService: VideoRecodingService
+    let videoRecordingService: VideoRecordingService
     
-    init(videoRecordingService: VideoRecodingService) {
+    init(videoRecordingService: VideoRecordingService) {
         self.videoRecordingService = videoRecordingService
     }
     
