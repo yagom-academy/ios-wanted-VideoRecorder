@@ -82,4 +82,17 @@ final class VideoListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func setupDataSource() {
+        let dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoImageCell.reuseIdentifier,
+                                                                for: indexPath) as? VideoImageCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.configure(image: video.image)
+            
+            return cell
+        }
+    }
 }

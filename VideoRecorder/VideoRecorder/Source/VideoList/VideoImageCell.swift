@@ -1,5 +1,5 @@
 //
-//  VideoCell.swift
+//  VideoImageCell.swift
 //  VideoRecorder
 //
 //  Created by kokkilE on 2023/06/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class VideoCell: UICollectionViewCell {
+final class VideoImageCell: UICollectionViewCell {
     private let videoImageView = {
         let imageView = UIImageView()
         
