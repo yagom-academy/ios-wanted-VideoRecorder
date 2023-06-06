@@ -15,6 +15,7 @@
 		AD599CD22A2D9887001609FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD599CD02A2D9887001609FA /* LaunchScreen.storyboard */; };
 		AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */; };
 		AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */; };
+		ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		AD599CD32A2D9887001609FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingService.swift; sourceTree = "<group>"; };
 		AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
+		ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				AD557B252A2E045B00679DAD /* CameraView */,
 				AD599CD92A2DA4FF001609FA /* Model */,
 				AD599CDB2A2DA524001609FA /* Resources */,
+				ADCC84772A2F176600A91EC6 /* Extensions */,
 				AD599CD32A2D9887001609FA /* Info.plist */,
 			);
 			path = VideoRecorder;
@@ -103,6 +106,14 @@
 				AD599CD02A2D9887001609FA /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		ADCC84772A2F176600A91EC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +190,7 @@
 				AD557B272A2E048000679DAD /* RecordingViewController.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
+				ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */,
 				AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */,
 				AD599CC82A2D9887001609FA /* SceneDelegate.swift in Sources */,
 			);

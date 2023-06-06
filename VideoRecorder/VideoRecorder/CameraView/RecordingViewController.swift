@@ -7,6 +7,8 @@
 
 import UIKit
 import AVFoundation
+import Combine
+
 
 final class RecordingViewController: UIViewController {
     private let closeButton = {
@@ -62,9 +64,17 @@ final class RecordingViewController: UIViewController {
     
     private let recordButton = RecordingButton()
     
-    private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession())
+    private lazy var previewLayer = {
+        let layer = AVCaptureVideoPreviewLayer(session: self.viewModel.captureSession())
+        layer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        layer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        layer.videoGravity = .resizeAspectFill
+        
+        return layer
+    }()
 
     private let viewModel: RecordingViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     init(viewModel: RecordingViewModel, thumbnailImage: UIImage?) {
         self.viewModel = viewModel
@@ -79,13 +89,27 @@ final class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureRootView()
+        configureCaptureSession()
         setupViewHierarchy()
         setupLayoutConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.runCaptureSession()
     }
     
     private func configureRootView() {
         view.backgroundColor = .systemBackground
         view.layer.addSublayer(previewLayer)
+    }
+    
+    private func configureCaptureSession() {
+        do {
+            try viewModel.configureSession()
+        } catch {
+            print(error)
+        }
     }
     
     private func setupViewHierarchy() {
@@ -120,6 +144,24 @@ final class RecordingViewController: UIViewController {
             opaqueView.topAnchor.constraint(equalTo: view.topAnchor, constant: 650)
         ])
     }
+
+    private func bindAction() {
+        let recordButtonPublisher = recordButton.publisher(for: .touchUpInside)
+            .eraseToAnyPublisher()
+        
+        let input = RecordingViewModel.Input(recordButtonPublisher: recordButtonPublisher)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.recordingError
+            .sink(receiveCompletion: { error in
+                print(error)
+            }, receiveValue: {
+                print("Recording process excuted")
+            })
+            .store(in: &cancellables)
+    }
+    
 }
 
 private final class RecordingButton: UIButton {

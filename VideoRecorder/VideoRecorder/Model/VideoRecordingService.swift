@@ -33,6 +33,12 @@ final class VideoRecordingService: NSObject {
     private var audioInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureMovieFileOutput?
     
+    var isRecording: Bool? {
+        get {
+            videoOutput?.isRecording
+        }
+    }
+    
     weak var delegate: VideoRecordingDelegate?
     
     init(deviceOrientation: AVCaptureVideoOrientation) {
@@ -60,6 +66,12 @@ final class VideoRecordingService: NSObject {
         captureSession.commitConfiguration()
     }
     
+    func runSession() {
+        DispatchQueue.global().async {
+            self.captureSession.startRunning()
+        }
+    }
+    
     func startRecording() throws {
         guard let device = videoInput?.device else {
             throw RecordingError.nonexistInputDevice
@@ -85,10 +97,6 @@ final class VideoRecordingService: NSObject {
     
     func stopRecording() {
         videoOutput?.stopRecording()
-    }
-    
-    func change(orientation: AVCaptureVideoOrientation) {
-        self.deviceOrientation = orientation
     }
     
     private func tempURL() -> URL? {
