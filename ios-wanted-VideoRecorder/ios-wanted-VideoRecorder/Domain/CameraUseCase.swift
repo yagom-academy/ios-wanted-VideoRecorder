@@ -18,6 +18,7 @@ final class CameraUseCase: NSObject {
     var fileName: String = ""
     let session = AVCaptureSession()
     var isCameraPermission = false
+    private let videoType = ".mov"
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureVideoDataOutput?
     
@@ -114,7 +115,7 @@ final class CameraUseCase: NSObject {
     }
     
     private func configureStoringVideo(sampleBuffer: CMSampleBuffer) {
-        fileName = Date().description + ".mov"
+        fileName = Date().description + videoType
         fileURL = LocalFileURLs.receiveVideoURL(by: fileName)  // will Deprecate
         
         do {
