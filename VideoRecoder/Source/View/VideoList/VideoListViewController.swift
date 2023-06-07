@@ -13,6 +13,8 @@ class VideoListViewController: UIViewController {
     }
     
     private var dataSource: UITableViewDiffableDataSource<Section, Video>!
+
+    private let recordingViewController = RecordingViewController()
     
     private let leftBarItemStackView: UIStackView = {
         let stackView = UIStackView()
@@ -47,9 +49,16 @@ class VideoListViewController: UIViewController {
         button.imageView?.contentMode = .scaleAspectFit
         button.imageEdgeInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tapAddVideoButton), for: .touchUpInside)
         
         return button
     }()
+    
+    @objc
+    private func tapAddVideoButton() {
+        recordingViewController.modalPresentationStyle = .fullScreen
+        self.present(recordingViewController, animated: true)
+    }
     
     private let videoListTableView: UITableView = {
         let tableView = UITableView()
@@ -62,8 +71,10 @@ class VideoListViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureNavigationBar()
+        addVideoButton.addTarget(self, action: #selector(tapAddVideoButton), for: .touchUpInside)
     }
     
+    //MARK:- NavigationBar
     private func configureNavigationBar() {
         configureLeftBarItem()
         configureRightBarItem()
@@ -79,13 +90,14 @@ class VideoListViewController: UIViewController {
             titleIconView.widthAnchor.constraint(equalToConstant: 30),
             titleIconView.heightAnchor.constraint(equalToConstant: 30)
         ])
-        
     }
     
     private func configureRightBarItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: addVideoButton)
     }
     
+    
+    //MARK:- UI
     private func configureUI() {
         view.backgroundColor = .white
         
@@ -101,18 +113,20 @@ class VideoListViewController: UIViewController {
         ])
     }
     
+    
+    //MARK:- DiffableDataSource
     private func configureDataSource() {
         videoListTableView.register(VideoListCell.self, forCellReuseIdentifier: VideoListCell.identifier)
         
         dataSource = UITableViewDiffableDataSource<Section, Video>(
             tableView: videoListTableView,
             cellProvider: { tableView, indexPath, video in
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier, for: indexPath) as? VideoListCell
-            
-            cell?.configureCell(video: video)
-            
-            return cell
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier, for: indexPath) as? VideoListCell
+                
+                cell?.configureCell(video: video)
+                
+                return cell
             }
         )
     }
@@ -124,3 +138,5 @@ class VideoListViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
+
+
