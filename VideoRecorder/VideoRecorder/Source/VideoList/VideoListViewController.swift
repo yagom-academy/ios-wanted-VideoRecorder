@@ -109,7 +109,7 @@ final class VideoListViewController: UIViewController {
         
         let listImage = UIImage(systemName: systemImage)
         let titleImageView = UIImageView(image: listImage)
-        titleImageView.tintColor = .black
+        titleImageView.tintColor = .label
         
         let titleLabel = UILabel()
         titleLabel.text = title
@@ -137,7 +137,7 @@ final class VideoListViewController: UIViewController {
     }
     
     @objc func recordVideo() {
-        let videoRecordViewController = VideoRecordViewController()
+        let videoRecordViewController = RecordVideoViewController()
         
         navigationController?.pushViewController(videoRecordViewController, animated: true)
     }
