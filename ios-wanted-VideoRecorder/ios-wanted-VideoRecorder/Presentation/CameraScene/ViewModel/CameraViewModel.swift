@@ -58,16 +58,18 @@ final class CameraViewModel: NSObject, ObservableObject {
     }
     
     private func stopRecord() {
+        let minute = self.minute
+        let second = self.second
+        
         resetTimer()
         cameraManager.stopRecord()
+        
         guard let url = cameraManager.fileURL else { return }
         let title = cameraManager.fileName
-        
         let video = Video(title: title,
               date: Date(),
               videoURL: url,
               videoLength: String(format: "%02d:%02d", minute, second))
-        
         guard let videoObject = Video.toRealmObject(video) as? VideoObject else { return }
         
         realmManager.create(videoObject)
