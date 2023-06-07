@@ -17,10 +17,10 @@ struct MainListCell: View {
             
             VStack(alignment: .leading) {
                 Text(video.title)
-                    .font(.title3)
+                    .font(.body)
                     .lineLimit(1)
                 Text(video.date.cellText)
-                    .font(.callout)
+                    .font(.caption)
                     .foregroundColor(.gray)
                     .lineLimit(1)
             }
@@ -36,6 +36,6 @@ struct MainListCell: View {
 
 struct MainListCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainListCell(video: Sample().videos[0])
+        MainListCell(video: Video(title: "abc.mov", date: Date(), videoLength: "12:30"))
     }
 }

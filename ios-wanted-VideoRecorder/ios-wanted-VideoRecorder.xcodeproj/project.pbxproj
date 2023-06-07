@@ -20,7 +20,6 @@
 		262049ED2A2F229500E49EBF /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EC2A2F229500E49EBF /* MainListView.swift */; };
 		26AAEFE52A2F756D003BB339 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 26AAEFE42A2F756D003BB339 /* RealmSwift */; };
 		26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */; };
-		26AAEFEE2A2F76AA003BB339 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEB2A2F76AA003BB339 /* SampleData.swift */; };
 		26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEC2A2F76AA003BB339 /* Video.swift */; };
 		26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */; };
 		26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF62A2F7809003BB339 /* VideoObject.swift */; };
@@ -44,7 +43,6 @@
 		262049EA2A2F226F00E49EBF /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		262049EC2A2F229500E49EBF /* MainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListView.swift; sourceTree = "<group>"; };
 		26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileURLs.swift; sourceTree = "<group>"; };
-		26AAEFEB2A2F76AA003BB339 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		26AAEFEC2A2F76AA003BB339 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUseCase.swift; sourceTree = "<group>"; };
 		26AAEFF62A2F7809003BB339 /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
@@ -170,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */,
-				26AAEFEB2A2F76AA003BB339 /* SampleData.swift */,
 				26AAEFEC2A2F76AA003BB339 /* Video.swift */,
 				26AAEFF62A2F7809003BB339 /* VideoObject.swift */,
 			);
@@ -317,7 +314,6 @@
 				26AAEFF92A2F78E6003BB339 /* RealmManager.swift in Sources */,
 				26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */,
 				262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */,
-				26AAEFEE2A2F76AA003BB339 /* SampleData.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
 				26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */,

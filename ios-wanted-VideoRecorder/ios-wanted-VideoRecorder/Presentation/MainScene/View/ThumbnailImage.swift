@@ -16,7 +16,7 @@ struct ThumbnailImage: View {
             video.thumbnailImage
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 90, alignment: .center)
+                .frame(width: 80, height: 60, alignment: .center)
                 .cornerRadius(20)
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .overlay(alignment: .bottomLeading) {
@@ -36,6 +36,6 @@ struct ThumbnailImage: View {
 
 struct ThumbnailImage_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailImage(video: Sample().videos[0])
+        ThumbnailImage(video: Video(id: UUID(), title: "title.mov", date: Date(), videoURL: URL(string: "abc"), videoLength: "12:03"))
     }
 }

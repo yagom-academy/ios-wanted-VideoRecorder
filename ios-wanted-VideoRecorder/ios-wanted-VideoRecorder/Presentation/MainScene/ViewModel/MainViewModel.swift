@@ -28,7 +28,7 @@ final class MainViewModel: ObservableObject {
             return Video.toObject(object)
         }
         
-        self.videos = videos
+        self.videos = videos.sorted { $0.date > $1.date }
     }
     
     func deleteVideo(_ indexSet: IndexSet) {
