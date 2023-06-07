@@ -28,6 +28,7 @@
 		26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */; };
 		26C101002A2D7FD000F31C56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C100FF2A2D7FD000F31C56 /* Assets.xcassets */; };
 		26C101032A2D7FD000F31C56 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C101022A2D7FD000F31C56 /* Preview Assets.xcassets */; };
+		26C8A3C52A302F9B00B04954 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C42A302F9B00B04954 /* Storable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_wanted_VideoRecorderApp.swift; sourceTree = "<group>"; };
 		26C100FF2A2D7FD000F31C56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26C101022A2D7FD000F31C56 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		26C8A3C42A302F9B00B04954 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		26AAEFE82A2F76AA003BB339 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				26C8A3C32A302F8F00B04954 /* Protocol */,
 				26AAEFE92A2F76AA003BB339 /* Entity */,
 			);
 			path = Data;
@@ -219,6 +222,14 @@
 				26C101022A2D7FD000F31C56 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		26C8A3C32A302F8F00B04954 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				26C8A3C42A302F9B00B04954 /* Storable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +311,7 @@
 				26167A592A2DD1C40048B21D /* MainListCell.swift in Sources */,
 				26167A4F2A2DB8C00048B21D /* Date++Extension.swift in Sources */,
 				262049EB2A2F226F00E49EBF /* CameraView.swift in Sources */,
+				26C8A3C52A302F9B00B04954 /* Storable.swift in Sources */,
 				26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */,
 				26167A712A2E38790048B21D /* VideoView.swift in Sources */,
 				26AAEFF92A2F78E6003BB339 /* RealmManager.swift in Sources */,

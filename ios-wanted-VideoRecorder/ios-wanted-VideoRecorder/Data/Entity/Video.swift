@@ -7,9 +7,11 @@
 
 import AVKit
 import SwiftUI
+import RealmSwift
 
-struct Video: Identifiable {
-    let id = UUID()
+struct Video: Identifiable, Storable {
+    
+    var id = UUID()
     var title: String
     var date: Date
     var videoURL: URL?
@@ -31,5 +33,29 @@ struct Video: Identifiable {
         let thumbnailImage = UIImage(cgImage: img)
         
         return Image(uiImage: thumbnailImage)
+    }
+    
+    static func toRealmObject(_ object: Video) -> Object {
+        let realmObject = VideoObject()
+        
+        realmObject.id = object.id
+        realmObject.title = object.title
+        realmObject.date = object.date
+        realmObject.videoURL = object.videoURL
+        realmObject.videoLength = object.videoLength
+        
+        return realmObject
+    }
+    
+    static func toObject(_ object: Object) -> Video? {
+        guard let object = object as? VideoObject else { return nil }
+        
+        let id = object.id
+        let title = object.title
+        let date = object.date
+        let videoURL = object.videoURL
+        let videoLength = object.videoLength
+        
+        return Video(id: id, title: title, date: date, videoURL: videoURL, videoLength: videoLength)
     }
 }

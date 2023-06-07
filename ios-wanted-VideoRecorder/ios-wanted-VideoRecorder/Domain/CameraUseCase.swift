@@ -14,6 +14,8 @@ final class CameraUseCase: NSObject {
         case idle, start, recording, end
     }
     
+    var fileURL: URL?
+    var fileName: String = ""
     let session = AVCaptureSession()
     var isCameraPermission = false
     private var videoDeviceInput: AVCaptureDeviceInput?
@@ -22,8 +24,6 @@ final class CameraUseCase: NSObject {
     private var captureStatus: RecordState = .idle
     private var assetWriter: AVAssetWriter?
     private var assetWriterVideoInput: AVAssetWriterInput?
-    private var fileURL: URL?
-    private var fileName: String = ""
     
     override init() {
         super.init()

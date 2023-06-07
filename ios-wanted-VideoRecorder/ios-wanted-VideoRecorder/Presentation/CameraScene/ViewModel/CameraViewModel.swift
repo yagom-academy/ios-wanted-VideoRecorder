@@ -11,6 +11,7 @@ import AVFoundation
 final class CameraViewModel: NSObject, ObservableObject {
     
     private var timer: Timer?
+    private var realmManager = RealmManager<VideoObject>()
     var cameraManager = CameraUseCase()
     var isCameraPermission: Bool {
         return cameraManager.isCameraPermission
@@ -53,5 +54,20 @@ final class CameraViewModel: NSObject, ObservableObject {
     deinit {
         timer?.invalidate()
         timer = nil
+    }
+    
+    private func startRecord() {
+        cameraManager.startRecord()
+    }
+    
+    private func stopRecord() {
+        cameraManager.stopRecord()
+        guard let url = cameraManager.fileURL else { return }
+        let title = cameraManager.fileName
+        
+        let video = Video(title: title,
+              date: Date(),
+              videoURL: url,
+              videoLength: String(format: "%02d:%02d", minute, second))
     }
 }
