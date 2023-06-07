@@ -7,6 +7,7 @@
 
 import AVFoundation
 import UIKit
+import Photos
 
 final class VideoRecordingService: NSObject {
     enum RecordingError: Error {

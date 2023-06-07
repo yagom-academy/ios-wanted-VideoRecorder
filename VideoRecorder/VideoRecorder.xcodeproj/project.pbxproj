@@ -17,7 +17,7 @@
 		AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */; };
 		ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */; };
 		ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */; };
-		ADCC847D2A306B9400A91EC6 /* LocalAlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */; };
+		ADCC84A22A30EB6000A91EC6 /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
 		ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
-		ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAlbumService.swift; sourceTree = "<group>"; };
+		ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +77,10 @@
 			children = (
 				AD599CC52A2D9887001609FA /* AppDelegate.swift */,
 				AD599CC72A2D9887001609FA /* SceneDelegate.swift */,
+				AD599CD92A2DA4FF001609FA /* Service */,
+				ADCC84A02A30EB2900A91EC6 /* Repository */,
 				AD599CDA2A2DA50B001609FA /* VideoListView */,
 				AD557B252A2E045B00679DAD /* CameraView */,
-				AD599CD92A2DA4FF001609FA /* Services */,
 				ADCC84772A2F176600A91EC6 /* Extensions */,
 				AD599CDB2A2DA524001609FA /* Resources */,
 				AD599CD32A2D9887001609FA /* Info.plist */,
@@ -87,13 +88,12 @@
 			path = VideoRecorder;
 			sourceTree = "<group>";
 		};
-		AD599CD92A2DA4FF001609FA /* Services */ = {
+		AD599CD92A2DA4FF001609FA /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */,
-				ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		AD599CDA2A2DA50B001609FA /* VideoListView */ = {
@@ -120,6 +120,14 @@
 				ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		ADCC84A02A30EB2900A91EC6 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,11 +203,11 @@
 				AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */,
 				AD557B272A2E048000679DAD /* RecordingViewController.swift in Sources */,
 				ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */,
+				ADCC84A22A30EB6000A91EC6 /* AlbumRepository.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
 				ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */,
 				AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */,
-				ADCC847D2A306B9400A91EC6 /* LocalAlbumService.swift in Sources */,
 				AD599CC82A2D9887001609FA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
