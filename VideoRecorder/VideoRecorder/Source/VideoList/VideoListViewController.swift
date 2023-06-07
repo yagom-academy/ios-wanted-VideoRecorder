@@ -43,57 +43,6 @@ final class VideoListViewController: UIViewController {
         collectionView.collectionViewLayout = createVideoListViewLayout()
     }
     
-    private func setupCollectionView() {
-        addSubviews()
-        layout()
-        setupDataSource()
-        bindSnapshot()
-    }
-    
-    private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
-            if indexPath.item % 2 == 0 {
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: VideoImageCell.reuseIdentifier,
-                    for: indexPath) as? VideoImageCell else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.configure(image: video.image)
-                
-                return cell
-            } else {
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: VideoDescriptionCell.reuseIdentifier,
-                    for: indexPath) as? VideoDescriptionCell else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.configure(title: video.title, date: video.date)
-                
-                return cell
-            }
-        }
-    }
-        
-    private func bindSnapshot() {
-        viewModel.videoPublisher()
-            .sink { [weak self] videoList in
-                var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
-                
-                imageSnapshot.appendSections([.videoList])
-                
-                for video in videoList {
-                    imageSnapshot.appendItems([video])
-                    imageSnapshot.appendItems([video.copy()])
-                }
-                
-                self?.dataSource?.apply(imageSnapshot)
-            }
-            .store(in: &subscriptions)
-    }
-    
-    // MARK: - Setup UI component and layout
     private func setupView() {
         view.backgroundColor = .systemBackground
     }
@@ -104,10 +53,10 @@ final class VideoListViewController: UIViewController {
     }
     
     private func setupLeftBarButton() {
-        let systemImage = "list.triangle"
+        let systemImageName = "list.triangle"
         let title = "Video List"
         
-        let listImage = UIImage(systemName: systemImage)
+        let listImage = UIImage(systemName: systemImageName)
         let titleImageView = UIImageView(image: listImage)
         titleImageView.tintColor = .label
         
@@ -124,9 +73,9 @@ final class VideoListViewController: UIViewController {
     }
     
     private func setupRightBarButton() {
-        let systemImage = "video.fill.badge.plus"
+        let systemImageName = "video.fill.badge.plus"
         
-        let videoImage = UIImage(systemName: systemImage)
+        let videoImage = UIImage(systemName: systemImageName)
         
         let rightBarButton = UIBarButtonItem(image: videoImage,
                                              style: .plain,
@@ -140,6 +89,13 @@ final class VideoListViewController: UIViewController {
         let videoRecordViewController = RecordVideoViewController()
         
         navigationController?.pushViewController(videoRecordViewController, animated: true)
+    }
+    
+    private func setupCollectionView() {
+        addSubviews()
+        layout()
+        setupDataSource()
+        bindSnapshot()
     }
     
     private func addSubviews() {
@@ -195,5 +151,48 @@ final class VideoListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
+    }
+    
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
+            if indexPath.item % 2 == 0 {
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: VideoImageCell.reuseIdentifier,
+                    for: indexPath) as? VideoImageCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.configure(image: video.image)
+                
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: VideoDescriptionCell.reuseIdentifier,
+                    for: indexPath) as? VideoDescriptionCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.configure(title: video.title, date: video.date)
+                
+                return cell
+            }
+        }
+    }
+        
+    private func bindSnapshot() {
+        viewModel.videoPublisher()
+            .sink { [weak self] videoList in
+                var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+                
+                imageSnapshot.appendSections([.videoList])
+                
+                for video in videoList {
+                    imageSnapshot.appendItems([video])
+                    imageSnapshot.appendItems([video.copy()])
+                }
+                
+                self?.dataSource?.apply(imageSnapshot)
+            }
+            .store(in: &subscriptions)
     }
 }

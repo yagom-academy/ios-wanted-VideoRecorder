@@ -46,6 +46,7 @@ final class RecordVideoViewController: UIViewController {
         
         setupView()
         layout()
+        setupNavigationItems()
         setUpCaptureSession()
         startCaptureSession()
     }
@@ -63,6 +64,33 @@ final class RecordVideoViewController: UIViewController {
             recordControlView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -40),
             recordControlView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20)
         ])
+    }
+    
+    private func setupNavigationItems() {
+        setupLeftBarButton()
+        setupRightBarButton()
+    }
+    
+    private func setupLeftBarButton() {
+        navigationItem.hidesBackButton = true
+    }
+    
+    private func setupRightBarButton() {
+        let systemImageName = "xmark.circle.fill"
+        
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
+        let cancelImage = UIImage(systemName: systemImageName, withConfiguration: imageConfiguration)
+        
+        let cancelButton = UIButton()
+        cancelButton.addTarget(self, action: #selector(dismissRecordView), for: .touchUpInside)
+        cancelButton.setImage(cancelImage, for: .normal)
+        cancelButton.tintColor = .black.withAlphaComponent(0.5)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cancelButton)
+    }
+    
+    @objc private func dismissRecordView() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setUpCaptureSession() {

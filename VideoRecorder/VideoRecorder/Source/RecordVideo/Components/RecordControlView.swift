@@ -7,9 +7,7 @@
 
 import UIKit
 
-class RecordControlView: UIView {
-    private let viewModel: RecordVideoViewModel
-    
+class RecordControlView: UIStackView {
     private let imageButton = {
         let button = UIButton()
                 
@@ -21,10 +19,10 @@ class RecordControlView: UIView {
         return button
     }()
     
-    private let recordButton = {
+    let recordButton = {
         let button = UIButton()
                 
-        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 50)
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 60)
         let recordImage = UIImage(systemName: "record.circle", withConfiguration: imageConfiguration)
         button.setImage(recordImage, for: .normal)
         button.tintColor = .red
@@ -43,43 +41,38 @@ class RecordControlView: UIView {
         return button
     }()
     
-    private lazy var stackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageButton, recordButton, rotateButton])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 12
-        stackView.distribution = .fillEqually
-        stackView.backgroundColor = .black.withAlphaComponent(0.4)
-        stackView.layer.cornerRadius = 20
-        
-        addSubview(stackView)
-        
-        return stackView
-    }()
+    private let viewModel: RecordVideoViewModel
     
     init(recordVideoViewModel: RecordVideoViewModel) {
         viewModel = recordVideoViewModel
         
         super.init(frame: .zero)
         
-        translatesAutoresizingMaskIntoConstraints = false
-        layout()
+        addSubviews()
+        setupView()
+        addButtonActions()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func layout() {
-        let safe = safeAreaLayoutGuide
+    private func addSubviews() {
+        addArrangedSubview(imageButton)
+        addArrangedSubview(recordButton)
+        addArrangedSubview(rotateButton)
+    }
+    
+    private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -10),
-            stackView.heightAnchor.constraint(equalToConstant: 100)
-        ])
+        distribution = .fillEqually
+        axis = .horizontal
+        spacing = 12
+        layoutMargins = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        isLayoutMarginsRelativeArrangement = true
+        layer.cornerRadius = 20
+        backgroundColor = .black.withAlphaComponent(0.4)
     }
     
     private func addButtonActions() {
@@ -90,13 +83,23 @@ class RecordControlView: UIView {
     
     @objc private func touchUpImageButton() {
         viewModel.isImageButtonTapped.toggle()
+        print("touchUpRecordButton")
     }
     
     @objc private func touchUpRecordButton() {
         viewModel.isRecordButtonTapped.toggle()
+        
+        toggleButtonsActivation()
+        print("touchUpRecordButton")
     }
     
     @objc private func touchUpRotateButton() {
         viewModel.isRotateButtonTapped.toggle()
+        print("touchUpRecordButton")
+    }
+    
+    private func toggleButtonsActivation() {
+        imageButton.isEnabled.toggle()
+        rotateButton.isEnabled.toggle()
     }
 }
