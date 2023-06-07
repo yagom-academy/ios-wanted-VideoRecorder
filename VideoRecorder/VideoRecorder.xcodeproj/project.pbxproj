@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */; };
+		AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D82A30B24A0086F82D /* RecordControlView.swift */; };
 		AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */; };
 		AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */; };
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoViewModel.swift; sourceTree = "<group>"; };
+		AA4465D82A30B24A0086F82D /* RecordControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordControlView.swift; sourceTree = "<group>"; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA4465DA2A30CABF0086F82D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AA4465D82A30B24A0086F82D /* RecordControlView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		AA8518102A2DBC5E00554FA7 = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +131,9 @@
 		AA8518342A2E0E4400554FA7 /* RecordVideo */ = {
 			isa = PBXGroup;
 			children = (
+				AA4465DA2A30CABF0086F82D /* Components */,
 				AA8518352A2E0E7700554FA7 /* RecordVideoViewController.swift */,
+				AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */,
 			);
 			path = RecordVideo;
 			sourceTree = "<group>";
@@ -238,7 +252,9 @@
 				AA8518422A2ED07600554FA7 /* VideoDescriptionCell.swift in Sources */,
 				AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */,
 				AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */,
+				AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
+				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
 				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,
