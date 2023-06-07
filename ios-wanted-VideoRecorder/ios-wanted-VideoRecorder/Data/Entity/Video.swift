@@ -41,7 +41,7 @@ struct Video: Identifiable, Storable {
         realmObject.id = object.id
         realmObject.title = object.title
         realmObject.date = object.date
-        realmObject.videoURL = object.videoURL
+        realmObject.videoURLText = object.videoURL?.absoluteString
         realmObject.videoLength = object.videoLength
         
         return realmObject
@@ -53,7 +53,7 @@ struct Video: Identifiable, Storable {
         let id = object.id
         let title = object.title
         let date = object.date
-        let videoURL = object.videoURL
+        let videoURL = URL(string: object.videoURLText ?? "")
         let videoLength = object.videoLength
         
         return Video(id: id, title: title, date: date, videoURL: videoURL, videoLength: videoLength)

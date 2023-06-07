@@ -12,7 +12,7 @@ final class VideoObject: Object {
     @objc dynamic var id = UUID()
     @objc dynamic var title: String = ""
     @objc dynamic var date: Date = Date()
-    @objc dynamic var videoURL: URL?
+    @objc dynamic var videoURLText: String? = nil
     @objc dynamic var videoLength: String = ""
     
     override class func primaryKey() -> String? {

@@ -28,16 +28,9 @@ final class CameraViewModel: NSObject, ObservableObject {
     @Published var isRecord: Bool = false {
         willSet {
             if newValue == true {
-                self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                    self.second += 1
-                }
-                cameraManager.startRecord()
+                startRecord()
             } else {
-                self.timer?.invalidate()
-                self.timer = nil
-                minute = 0
-                second = 0
-                cameraManager.stopRecord()
+                stopRecord()
             }
         }
     }
@@ -57,10 +50,15 @@ final class CameraViewModel: NSObject, ObservableObject {
     }
     
     private func startRecord() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+            self.second += 1
+        })
+        
         cameraManager.startRecord()
     }
     
     private func stopRecord() {
+        resetTimer()
         cameraManager.stopRecord()
         guard let url = cameraManager.fileURL else { return }
         let title = cameraManager.fileName
@@ -69,5 +67,16 @@ final class CameraViewModel: NSObject, ObservableObject {
               date: Date(),
               videoURL: url,
               videoLength: String(format: "%02d:%02d", minute, second))
+        
+        guard let videoObject = Video.toRealmObject(video) as? VideoObject else { return }
+        
+        realmManager.create(videoObject)
+    }
+    
+    private func resetTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
+        minute = 0
+        second = 0
     }
 }
