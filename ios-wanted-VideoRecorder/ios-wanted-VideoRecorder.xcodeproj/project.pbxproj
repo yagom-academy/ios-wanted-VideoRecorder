@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C495F92A30110500818DF1 /* VideoCell.swift */; };
 		62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */; };
 		62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */; };
 		62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */; };
 		62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */; };
-		62DAA7A32A30074D00EBCDAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A22A30074D00EBCDAC /* ViewController.swift */; };
+		62DAA7A32A30074D00EBCDAC /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */; };
 		62DAA7A62A30074D00EBCDAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7A42A30074D00EBCDAC /* Main.storyboard */; };
 		62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A72A30074D00EBCDAC /* model.xcdatamodeld */; };
 		62DAA7AB2A30074E00EBCDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */; };
@@ -21,12 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62C495F92A30110500818DF1 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoreDataClass.swift"; sourceTree = "<group>"; };
 		62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		62DAA79B2A30074D00EBCDAC /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		62DAA7A22A30074D00EBCDAC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
 		62DAA7A52A30074D00EBCDAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		62DAA7A82A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_wanted_VideoRecorder.xcdatamodel; sourceTree = "<group>"; };
 		62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +49,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62C495F82A30103D00818DF1 /* VideoScene */ = {
+			isa = PBXGroup;
+			children = (
+				62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */,
+				62C495F92A30110500818DF1 /* VideoCell.swift */,
+			);
+			path = VideoScene;
+			sourceTree = "<group>";
+		};
 		62DAA7922A30074D00EBCDAC = {
 			isa = PBXGroup;
 			children = (
@@ -66,11 +77,11 @@
 		62DAA79D2A30074D00EBCDAC /* ios-wanted-VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				62C495F82A30103D00818DF1 /* VideoScene */,
 				62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */,
 				62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */,
 				62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */,
 				62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */,
-				62DAA7A22A30074D00EBCDAC /* ViewController.swift */,
 				62DAA7A42A30074D00EBCDAC /* Main.storyboard */,
 				62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */,
 				62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */,
@@ -160,7 +171,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */,
-				62DAA7A32A30074D00EBCDAC /* ViewController.swift in Sources */,
+				62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */,
+				62DAA7A32A30074D00EBCDAC /* VideoListViewController.swift in Sources */,
 				62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */,
 				62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */,
 				62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */,
