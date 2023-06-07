@@ -37,6 +37,7 @@ final class VideoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureRootView()
+        configureNavigationBar()
         configureLayout()
         configureDataSource()
         applySnapshot()
@@ -45,6 +46,35 @@ final class VideoListViewController: UIViewController {
     private func configureRootView() {
         view.backgroundColor = .white
         view.addSubview(videoCollectionView)
+    }
+    
+    private func configureNavigationBar() {
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .default)
+        let leftButton = UIButton()
+        leftButton.tintColor = .black
+        leftButton.setImage(
+            UIImage(systemName: "list.triangle", withConfiguration: config),
+            for: .normal
+        )
+        
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+        titleLabel.text = "Video List"
+        
+        let stackView = UIStackView(arrangedSubviews: [leftButton, titleLabel])
+        stackView.spacing = 5
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stackView)
+
+        let rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "video.fill.badge.plus", withConfiguration: config),
+            style: .plain,
+            target: self,
+            action: nil
+        )
+        rightBarButtonItem.tintColor = .systemBlue
+        
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     private func configureLayout() {
@@ -67,22 +97,22 @@ final class VideoListViewController: UIViewController {
             withReuseIdentifier: VideoCell.identifier,
             for: indexPath
         ) as? VideoCell
-
+        
         cell?.accessories = [
             .disclosureIndicator()
         ]
         
         let video = self.videoList[indexPath.row]
-
+        
         cell?.provide(video)
-
+        
         return cell
     }
     
     private func collectionViewListLayout() -> UICollectionViewLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
-
+        
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     

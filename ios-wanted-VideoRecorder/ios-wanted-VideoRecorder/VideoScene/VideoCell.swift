@@ -80,8 +80,8 @@ final class VideoCell: UICollectionViewListCell {
     
     private let moreButton: UIButton = {
         let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
-        button.setImage(UIImage(systemName: "ellipsis", withConfiguration: largeConfig), for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
+        button.setImage(UIImage(systemName: "ellipsis", withConfiguration: config), for: .normal)
         button.tintColor = .systemGray
         button.layer.shadowOpacity = 0.2
         button.layer.shadowColor = UIColor.black.cgColor
