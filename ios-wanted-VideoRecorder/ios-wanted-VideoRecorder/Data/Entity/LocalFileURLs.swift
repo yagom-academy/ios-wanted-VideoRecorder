@@ -21,4 +21,14 @@ enum LocalFileURLs {
         
         return url
     }
+    
+    @discardableResult
+    static func removeVideo(by url: URL) -> Bool {
+        do {
+            try fileManager.removeItem(at: url)
+            return true
+        } catch {
+            return false
+        }
+    }
 }
