@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 final class VideoRecordingService: NSObject {
     enum RecordingError: Error {
@@ -26,6 +27,7 @@ final class VideoRecordingService: NSObject {
     private var videoInput: AVCaptureDeviceInput?
     private var audioInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureMovieFileOutput?
+    private var outputURL: URL?
     
     var isRecording: Bool? {
         get {
@@ -73,7 +75,10 @@ final class VideoRecordingService: NSObject {
         guard let device = videoInput?.device else {
             throw RecordingError.nonexistInputDevice
         }
-        guard let outputURL = tempURL() else {
+        
+        outputURL = tempURL()
+        
+        guard let outputURL else {
             throw RecordingError.invalidFileURL
         }
         
@@ -97,6 +102,8 @@ final class VideoRecordingService: NSObject {
     }
     
     func switchCameraType() throws {
+        guard isRecording == false else { return }
+        
         let input = captureSession.inputs.first { input in
             guard let input = input as? AVCaptureDeviceInput else {
                 return false
@@ -123,7 +130,9 @@ final class VideoRecordingService: NSObject {
     }
     
     private func bestCamera(for position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera]
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [
+            .builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera
+        ]
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: deviceTypes,
             mediaType: .video,
@@ -147,11 +156,20 @@ final class VideoRecordingService: NSObject {
 }
 
 extension VideoRecordingService: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+    func fileOutput(
+        _ output: AVCaptureFileOutput,
+        didFinishRecordingTo outputFileURL: URL,
+        from connections: [AVCaptureConnection],
+        error: Error?
+    ) {
+        if let error = error {
+            print("Error recording movie: \(error)")
+            return
+        }
         
-    }
-    
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        guard let outputURL else { return }
         
+        let videoRecorded = outputURL as URL
+        UISaveVideoAtPathToSavedPhotosAlbum(videoRecorded.path, nil, nil, nil)
     }
 }
