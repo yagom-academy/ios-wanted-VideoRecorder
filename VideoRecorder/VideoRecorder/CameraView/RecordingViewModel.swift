@@ -8,7 +8,7 @@
 import AVFoundation
 import Combine
 
-final class RecordingViewModel {
+final class RecordingViewModel: EventHandleable {
     let videoRecordingService: VideoRecordingService
     
     init(videoRecordingService: VideoRecordingService) {
