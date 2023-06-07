@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import Foundation
 
 struct RealmManager<T: Object> {
     private var realm: Realm? {
@@ -27,7 +28,8 @@ struct RealmManager<T: Object> {
     func update() {
     }
     
-    func delete(_ object: T) {
+    func delete(_ id: UUID) {
+        guard let object = realm?.object(ofType: T.self, forPrimaryKey: id) else { return }
         try? realm?.write {
             realm?.delete(object)
         }
