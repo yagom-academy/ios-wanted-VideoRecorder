@@ -5,11 +5,16 @@
 //  Created by 강민수 on 2023/06/05.
 //
 
-import Combine
+import SwiftUI
 import Foundation
 
 final class MainViewModel: ObservableObject {
     @Published var videos: [Video] = []
+    @Published var isShowCameraView = false {
+        didSet {
+            searchVideos()
+        }
+    }
     private let realmManager = RealmManager<VideoObject>()
     
     init() {

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainListView: View {
     @ObservedObject var viewModel: MainViewModel
-    @State var isShowCameraView = false
     
     var body: some View {
         VStack {
@@ -21,12 +20,12 @@ struct MainListView: View {
                 Spacer()
                 
                 Button {
-                    isShowCameraView.toggle()
+                    viewModel.isShowCameraView.toggle()
                 } label: {
                     Image(systemName: "video.fill.badge.plus")
                         .foregroundColor(.indigo)
                 }
-                .fullScreenCover(isPresented: $isShowCameraView,
+                .fullScreenCover(isPresented: $viewModel.isShowCameraView,
                                  content: {
                     CameraView()
                 })
