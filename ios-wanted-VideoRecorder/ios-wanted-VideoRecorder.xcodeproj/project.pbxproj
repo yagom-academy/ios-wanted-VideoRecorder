@@ -13,7 +13,6 @@
 		62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */; };
 		62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */; };
 		62DAA7A32A30074D00EBCDAC /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */; };
-		62DAA7A62A30074D00EBCDAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7A42A30074D00EBCDAC /* Main.storyboard */; };
 		62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A72A30074D00EBCDAC /* model.xcdatamodeld */; };
 		62DAA7AB2A30074E00EBCDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */; };
 		62DAA7AE2A30074E00EBCDAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */; };
@@ -29,7 +28,6 @@
 		62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
-		62DAA7A52A30074D00EBCDAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		62DAA7A82A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_wanted_VideoRecorder.xcdatamodel; sourceTree = "<group>"; };
 		62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62DAA7AD2A30074E00EBCDAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */,
 				62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */,
 				62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */,
-				62DAA7A42A30074D00EBCDAC /* Main.storyboard */,
 				62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */,
 				62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */,
 				62DAA7AF2A30074E00EBCDAC /* Info.plist */,
@@ -159,7 +156,6 @@
 				62DAA7AE2A30074E00EBCDAC /* LaunchScreen.storyboard in Resources */,
 				62DAA7B62A3008F200EBCDAC /* GoogleService-Info.plist in Resources */,
 				62DAA7AB2A30074E00EBCDAC /* Assets.xcassets in Resources */,
-				62DAA7A62A30074D00EBCDAC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,14 +179,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		62DAA7A42A30074D00EBCDAC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				62DAA7A52A30074D00EBCDAC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -328,7 +316,6 @@
 				INFOPLIST_FILE = "ios-wanted-VideoRecorder/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -357,7 +344,6 @@
 				INFOPLIST_FILE = "ios-wanted-VideoRecorder/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
