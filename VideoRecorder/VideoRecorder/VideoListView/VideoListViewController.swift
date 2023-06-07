@@ -55,7 +55,7 @@ final class VideoListViewController: UIViewController {
             image: UIImage(systemName: "video.fill.badge.plus"),
             style: .plain,
             target: self,
-            action: #selector(showCamera)
+            action: #selector(presentRecordingView)
         )
         rightBarButtonItem.tintColor = .systemIndigo
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -63,7 +63,7 @@ final class VideoListViewController: UIViewController {
     }
     
     @objc
-    private func showCamera() {
+    private func presentRecordingView() {
         let thumbnail = UIImage(systemName: "photo")
         let videoRecordingService = VideoRecordingService(deviceOrientation: .portrait)
         let recordingViewModel = RecordingViewModel(videoRecordingService: videoRecordingService)

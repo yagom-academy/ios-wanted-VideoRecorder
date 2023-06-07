@@ -55,7 +55,7 @@ final class RecordingViewModel: EventHandleable {
         
         let cameraSwitched = input.switchCameraButtonTapped
             .tryCompactMap { [weak self] in
-                try self?.switchCameraType()
+                try self?.videoRecordingService.switchCameraType()
             }
             .eraseToAnyPublisher()
         
@@ -77,9 +77,5 @@ final class RecordingViewModel: EventHandleable {
         return Output(recordingError: recordingError,
                       switchingError: cameraSwitched,
                       isDismissNeeded: isDismissNeeded)
-    }
-    
-    private func switchCameraType() throws {
-        try videoRecordingService.switchCameraType()
     }
 }
