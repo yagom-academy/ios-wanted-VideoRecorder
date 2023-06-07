@@ -1,14 +1,14 @@
 //
-//  VideoView.swift
+//  CameraSceneView.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 강민수 on 2023/06/06.
+//  Created by 강민수 on 2023/06/07.
 //
 
 import SwiftUI
 import AVFoundation
 
-struct VideoView: UIViewRepresentable {
+struct CameraSceneView: UIViewRepresentable {
     class VideoPreviewView: UIView {
         override class var layerClass: AnyClass {
             AVCaptureVideoPreviewLayer.self

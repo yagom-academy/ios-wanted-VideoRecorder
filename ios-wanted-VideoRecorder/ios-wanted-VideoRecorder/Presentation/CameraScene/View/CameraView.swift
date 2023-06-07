@@ -2,7 +2,7 @@
 //  CameraView.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 강민수 on 2023/06/06.
+//  Created by 강민수 on 2023/06/07.
 //
 
 import SwiftUI
@@ -39,7 +39,7 @@ struct CameraView: View {
         }
         .background(content: {
             if viewModel.isCameraPermission {
-                VideoView(session: viewModel.cameraSession)
+                CameraSceneView(session: viewModel.cameraSession)
                     .ignoresSafeArea()
             } else {
                 Text("카메라 권한이 없습니다.")
