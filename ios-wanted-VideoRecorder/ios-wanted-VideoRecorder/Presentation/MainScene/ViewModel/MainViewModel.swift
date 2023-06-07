@@ -31,14 +31,15 @@ final class MainViewModel: ObservableObject {
         self.videos = videos
     }
     
-    func deleteVideo(_ id: UUID) {
-        guard let index = videos.firstIndex(where: { $0.id == id }),
-              let videoURL = videos[index].videoURL else {
-            return
-        }
-        
+    func deleteVideo(_ indexSet: IndexSet) {
+        guard let index = indexSet.first else { return }
+        let video = videos[index]
+
         videos.remove(at: index)
-        realmManager.delete(id)
+        realmManager.delete(video.id)
+        
+        guard let videoURL = video.videoURL else { return }
+        
         LocalFileURLs.removeVideo(by: videoURL)
     }
 }

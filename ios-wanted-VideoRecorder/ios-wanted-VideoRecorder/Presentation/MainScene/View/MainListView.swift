@@ -34,19 +34,12 @@ struct MainListView: View {
             .font(.title3)
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
             
-            List(viewModel.videos, id: \.id) { video in
-                MainListCell(video: video)
-                    .listRowSeparator(.visible)
-                    .swipeActions(edge: .trailing) {
-                        Button {
-                            withAnimation(.linear) {
-                                viewModel.deleteVideo(video.id)
-                            }
-                        } label: {
-                            Image(systemName: "trash.fill")
-                        }
-                        .tint(.red)
-                    }
+            List {
+                ForEach(viewModel.videos, id: \.id) { video in
+                    MainListCell(video: video)
+                        .listRowSeparator(.visible)
+                }
+                .onDelete(perform: viewModel.deleteVideo(_:))
             }
             .listStyle(.plain)
         }
