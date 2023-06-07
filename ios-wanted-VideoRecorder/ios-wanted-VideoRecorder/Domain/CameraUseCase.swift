@@ -114,7 +114,7 @@ final class CameraUseCase: NSObject {
     }
     
     private func configureStoringVideo(sampleBuffer: CMSampleBuffer) {
-        fileName = Date().description
+        fileName = Date().description + ".mov"
         fileURL = LocalFileURLs.receiveVideoURL(by: fileName)  // will Deprecate
         
         do {
