@@ -7,13 +7,13 @@
 
 import UIKit
 
-struct Video: Hashable {
+struct Video: Hashable, DataTransferObject {
     let identifier: UUID
-    let image: UIImage
+    let image: UIImage?
     let title: String
     let date: String
     
-    init(identifier: UUID = UUID(), image: UIImage, title: String, date: String) {
+    init(identifier: UUID = UUID(), image: UIImage?, title: String, date: String) {
         self.identifier = identifier
         self.image = image
         self.title = title
@@ -22,8 +22,8 @@ struct Video: Hashable {
 }
 
 extension Video {
-    func copy() -> Video {
-        return Video(image: self.image,
+    func copyWithoutImage() -> Video {
+        return Video(image: nil,
                      title: self.title,
                      date: self.date)
     }

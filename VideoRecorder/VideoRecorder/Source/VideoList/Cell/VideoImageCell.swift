@@ -28,7 +28,9 @@ final class VideoImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(image: UIImage) {
+    func configure(image: UIImage?) {
+        guard let image else { return }
+        
         videoImageView.image = image
     }
     

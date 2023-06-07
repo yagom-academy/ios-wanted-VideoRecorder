@@ -188,7 +188,7 @@ final class VideoListViewController: UIViewController {
                 
                 for video in videoList {
                     imageSnapshot.appendItems([video])
-                    imageSnapshot.appendItems([video.copy()])
+                    imageSnapshot.appendItems([video.copyWithoutImage()])
                 }
                 
                 self?.dataSource?.apply(imageSnapshot)
