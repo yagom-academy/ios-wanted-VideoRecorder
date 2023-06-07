@@ -14,8 +14,12 @@ struct VideoView: View {
     
     var body: some View {
         NavigationStack {
-            // 비디오 플레이어
+            if let player = viewModel.makePlayer() {
+                VideoPlayer(player: player)
+                    .ignoresSafeArea()
+            }
         }
+        .background(.gray)
         .navigationTitle(viewModel.video.title)
         .toolbar {
             Button {
