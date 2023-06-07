@@ -12,10 +12,25 @@ final class AlbumRepository {
     
     private var assetCollection: PHAssetCollection?
     
-    func saveVideo(at fileURL: URL) {
-        guard let assetCollection else {
+    init() {
+        if let assetCollection = fetchAssetCollectionForAlbum() {
+            self.assetCollection = assetCollection
             return
         }
+
+        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { _ in }
+        }
+        
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+            self.createAlbum()
+        } else {
+            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: requestAuthorizationHandler)
+        }
+    }
+    
+    func saveVideo(at fileURL: URL) {
+        guard let assetCollection else { return }
         
         PHPhotoLibrary.shared().performChanges {
             if let assetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: fileURL),
@@ -27,33 +42,24 @@ final class AlbumRepository {
         }
     }
     
-    private func checkAuthorization(completion: @escaping (Bool) -> Void) {
-        if PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized {
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] _ in
-                self?.checkAuthorization(completion: completion)
-            }
-        } else if PHPhotoLibrary.authorizationStatus(for: .readWrite) == .authorized {
-            self.createAlbumIfNeeded()
-            completion(true)
+    private func requestAuthorizationHandler(status: PHAuthorizationStatus) {
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+            self.createAlbum()
         } else {
-            completion(false)
+            print("not authorized")
         }
     }
     
-    private func createAlbumIfNeeded() {
-        if let assetCollection = fetchAssetCollectionForAlbum() {
-            self.assetCollection = assetCollection
-        } else {
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: Self.albumName)
-            }, completionHandler: { isSuccessed, error in
-                if isSuccessed {
-                    self.assetCollection = self.fetchAssetCollectionForAlbum()
-                } else {
-                    print(error ?? "Unexpected result occured while creating PHAssetCollection")
-                }
-            })
-        }
+    private func createAlbum() {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: Self.albumName)
+        }, completionHandler: { isSuccessed, error in
+            if isSuccessed {
+                self.assetCollection = self.fetchAssetCollectionForAlbum()
+            } else {
+                print(error ?? "Unexpected result occured while creating PHAssetCollection")
+            }
+        })
     }
     
     private func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
@@ -61,9 +67,10 @@ final class AlbumRepository {
         fetchOptions.predicate = NSPredicate(format: "title = %@", Self.albumName)
         let collections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         
-        if collections.firstObject != nil {
+        if let _: AnyObject = collections.firstObject {
             return collections.firstObject
         }
+        
         return nil
     }
 }

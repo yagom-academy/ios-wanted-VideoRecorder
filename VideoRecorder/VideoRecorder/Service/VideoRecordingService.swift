@@ -36,9 +36,15 @@ final class VideoRecordingService: NSObject {
         }
     }
     
+    private let albumRepository: AlbumRepository
+    
     private var deviceOrientation: AVCaptureVideoOrientation
     
-    init(deviceOrientation: AVCaptureVideoOrientation) {
+    init(
+        albumRepository: AlbumRepository = AlbumRepository(),
+        deviceOrientation: AVCaptureVideoOrientation
+    ) {
+        self.albumRepository = albumRepository
         self.deviceOrientation = deviceOrientation
     }
     
@@ -183,6 +189,6 @@ extension VideoRecordingService: AVCaptureFileOutputRecordingDelegate {
         guard let outputURL else { return }
         
         let recordedVideoURL = outputURL as URL
-        UISaveVideoAtPathToSavedPhotosAlbum(recordedVideoURL.path, nil, nil, nil)
+        albumRepository.saveVideo(at: recordedVideoURL)
     }
 }
