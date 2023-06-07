@@ -2,7 +2,7 @@
 //  Video+CoreDataClass.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 천승현 on 2023/06/07.
+//  Created by brody on 2023/06/07.
 //
 //
 
@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 @objc(Video)
-public class Video: NSManagedObject {
+public class CoreDataVideoEntity: NSManagedObject {
 
 }

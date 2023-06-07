@@ -2,7 +2,7 @@
 //  Video+CoreDataProperties.swift
 //  ios-wanted-VideoRecorder
 //
-//  Created by 천승현 on 2023/06/07.
+//  Created by brody on 2023/06/07.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Video {
+extension CoreDataVideoEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Video> {
-        return NSFetchRequest<Video>(entityName: "Video")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataVideoEntity> {
+        return NSFetchRequest<CoreDataVideoEntity>(entityName: "Video")
     }
 
     @NSManaged public var name: String?
@@ -21,9 +21,10 @@ extension Video {
     @NSManaged public var date: Date?
     @NSManaged public var url: String?
     @NSManaged public var duration: String?
+    @NSManaged public var id: UUID?
 
 }
 
-extension Video : Identifiable {
-
+extension CoreDataVideoEntity : Identifiable {
+    
 }
