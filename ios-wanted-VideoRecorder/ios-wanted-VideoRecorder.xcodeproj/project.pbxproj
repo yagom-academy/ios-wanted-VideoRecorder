@@ -28,6 +28,7 @@
 		26C8A3C52A302F9B00B04954 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C42A302F9B00B04954 /* Storable.swift */; };
 		26C8A3C72A305EDA00B04954 /* CameraSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C62A305EDA00B04954 /* CameraSceneView.swift */; };
 		26C8A3C92A305EF600B04954 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C82A305EF600B04954 /* CameraView.swift */; };
+		26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CD2A305FC700B04954 /* VideoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		26C8A3C42A302F9B00B04954 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		26C8A3C62A305EDA00B04954 /* CameraSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSceneView.swift; sourceTree = "<group>"; };
 		26C8A3C82A305EF600B04954 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		26C8A3CD2A305FC700B04954 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		26167A442A2DA8DC0048B21D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				26C8A3CA2A305F9E00B04954 /* VideoScene */,
 				26167A612A2E0F450048B21D /* CameraScene */,
 				26167A5C2A2DEBC30048B21D /* MainScene */,
 			);
@@ -229,6 +232,30 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		26C8A3CA2A305F9E00B04954 /* VideoScene */ = {
+			isa = PBXGroup;
+			children = (
+				26C8A3CB2A305FA400B04954 /* ViewModel */,
+				26C8A3CC2A305FAA00B04954 /* View */,
+			);
+			path = VideoScene;
+			sourceTree = "<group>";
+		};
+		26C8A3CB2A305FA400B04954 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		26C8A3CC2A305FAA00B04954 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				26C8A3CD2A305FC700B04954 /* VideoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -316,6 +343,7 @@
 				26C8A3C72A305EDA00B04954 /* CameraSceneView.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
+				26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */,
 				26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */,
 				26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */,
 				26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */,

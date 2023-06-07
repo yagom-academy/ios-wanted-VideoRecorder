@@ -28,7 +28,6 @@ struct MainListCell: View {
             Spacer()
             
             Image(systemName: "ellipsis")
-            Image(systemName: "chevron.right")
         }
         .padding(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 0))
     }
