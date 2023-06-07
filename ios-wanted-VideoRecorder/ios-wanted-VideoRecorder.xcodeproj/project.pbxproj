@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */; };
+		62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */; };
 		62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */; };
 		62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */; };
 		62DAA7A32A30074D00EBCDAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A22A30074D00EBCDAC /* ViewController.swift */; };
 		62DAA7A62A30074D00EBCDAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7A42A30074D00EBCDAC /* Main.storyboard */; };
-		62DAA7A92A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A72A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodeld */; };
+		62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62DAA7A72A30074D00EBCDAC /* model.xcdatamodeld */; };
 		62DAA7AB2A30074E00EBCDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */; };
 		62DAA7AE2A30074E00EBCDAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */; };
 		62DAA7B62A3008F200EBCDAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62DAA7B52A3008F200EBCDAC /* GoogleService-Info.plist */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoreDataClass.swift"; sourceTree = "<group>"; };
+		62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		62DAA79B2A30074D00EBCDAC /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		62DAA79D2A30074D00EBCDAC /* ios-wanted-VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */,
+				62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */,
 				62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */,
 				62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */,
 				62DAA7A22A30074D00EBCDAC /* ViewController.swift */,
@@ -70,7 +76,7 @@
 				62DAA7AC2A30074E00EBCDAC /* LaunchScreen.storyboard */,
 				62DAA7AF2A30074E00EBCDAC /* Info.plist */,
 				62DAA7B52A3008F200EBCDAC /* GoogleService-Info.plist */,
-				62DAA7A72A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodeld */,
+				62DAA7A72A30074D00EBCDAC /* model.xcdatamodeld */,
 			);
 			path = "ios-wanted-VideoRecorder";
 			sourceTree = "<group>";
@@ -153,10 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */,
 				62DAA7A32A30074D00EBCDAC /* ViewController.swift in Sources */,
 				62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */,
-				62DAA7A92A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodeld in Sources */,
+				62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */,
 				62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */,
+				62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,13 +403,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		62DAA7A72A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodeld */ = {
+		62DAA7A72A30074D00EBCDAC /* model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				62DAA7A82A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodel */,
 			);
 			currentVersion = 62DAA7A82A30074D00EBCDAC /* ios_wanted_VideoRecorder.xcdatamodel */;
-			path = ios_wanted_VideoRecorder.xcdatamodeld;
+			path = model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
