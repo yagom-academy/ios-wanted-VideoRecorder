@@ -40,6 +40,11 @@ final class VideoCell: UICollectionViewListCell {
     
     private var imageContainerView: UIView = {
         let view = UIView()
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowRadius = 1
+        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
