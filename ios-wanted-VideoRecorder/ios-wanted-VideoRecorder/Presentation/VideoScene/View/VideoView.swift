@@ -9,16 +9,27 @@ import AVKit
 import SwiftUI
 
 struct VideoView: View {
+    
+    let viewModel: VideoViewModel
+    
     var body: some View {
         NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            // 비디오 플레이어
         }
-        .navigationTitle("abc")
+        .navigationTitle(viewModel.video.title)
+        .toolbar {
+            Button {
+                // 비디오 정보
+            } label: {
+                Image(systemName: "info.circle.fill")
+            }
+
+        }
     }
 }
 
 struct VideoView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoView()
+        VideoView(viewModel: VideoViewModel(video: Video(title: "abc", date: Date(), videoLength: "12:03")))
     }
 }

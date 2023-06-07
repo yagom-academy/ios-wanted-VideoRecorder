@@ -38,7 +38,7 @@ struct MainListView: View {
                 List {
                     ForEach(viewModel.videos, id: \.id) { video in
                         NavigationLink {
-                            VideoView()
+                            VideoView(viewModel: VideoViewModel(video: video))
                         } label: {
                             MainListCell(video: video)
                                 .listRowSeparator(.visible)
