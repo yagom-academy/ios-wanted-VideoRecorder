@@ -23,8 +23,8 @@ final class RecordingViewModel: EventHandleable {
         try videoRecordingService.configureSession()
     }
     
-    func runCaptureSession() {
-        videoRecordingService.runSession()
+    func startCaptureSession() {
+        videoRecordingService.startSession()
     }
     
     struct Input {
@@ -45,7 +45,6 @@ final class RecordingViewModel: EventHandleable {
                 guard let isRecording = self?.videoRecordingService.isRecording else {
                     return
                 }
-                
                 if isRecording {
                     self?.videoRecordingService.stopRecording()
                 } else {
@@ -66,7 +65,12 @@ final class RecordingViewModel: EventHandleable {
                     return true
                 }
                 
-                return isRecording ? false : true
+                if isRecording {
+                    return false
+                } else {
+                    self?.videoRecordingService.stopSession()
+                    return true
+                }
             }
             .eraseToAnyPublisher()
         

@@ -89,7 +89,7 @@ final class RecordingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.runCaptureSession()
+        viewModel.startCaptureSession()
     }
     
     private func configureRootView() {

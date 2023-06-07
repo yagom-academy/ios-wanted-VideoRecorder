@@ -17,6 +17,7 @@
 		AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */; };
 		ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */; };
 		ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */; };
+		ADCC847D2A306B9400A91EC6 /* LocalAlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
 		ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
+		ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAlbumService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */,
+				ADCC847C2A306B9400A91EC6 /* LocalAlbumService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
 				ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */,
 				AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */,
+				ADCC847D2A306B9400A91EC6 /* LocalAlbumService.swift in Sources */,
 				AD599CC82A2D9887001609FA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

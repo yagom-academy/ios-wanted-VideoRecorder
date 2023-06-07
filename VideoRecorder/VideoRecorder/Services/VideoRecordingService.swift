@@ -54,24 +54,38 @@ final class VideoRecordingService: NSObject {
         }
         
         captureSession.beginConfiguration()
-        let videoInput = try AVCaptureDeviceInput(device: videoDevice)
-        if captureSession.canAddInput(videoInput) {
+        videoInput = try AVCaptureDeviceInput(device: videoDevice)
+        if let videoInput, captureSession.canAddInput(videoInput) {
             captureSession.addInput(videoInput)
         }
-        let audioInput = try AVCaptureDeviceInput(device: audioDevice)
-        if captureSession.canAddInput(audioInput) {
+        
+        audioInput = try AVCaptureDeviceInput(device: audioDevice)
+        if let audioInput, captureSession.canAddInput(audioInput) {
             captureSession.addInput(audioInput)
+        }
+        
+        videoOutput = AVCaptureMovieFileOutput()
+        if let videoOutput, captureSession.canAddOutput(videoOutput) {
+            captureSession.addOutput(videoOutput)
         }
         captureSession.commitConfiguration()
     }
     
-    func runSession() {
+    func startSession() {
         DispatchQueue.global().async {
             self.captureSession.startRunning()
         }
     }
     
+    func stopSession() {
+        DispatchQueue.global().async {
+            self.captureSession.stopRunning()
+        }
+    }
+    
     func startRecording() throws {
+        let connection = videoOutput?.connection(with: .video)
+        
         guard let device = videoInput?.device else {
             throw RecordingError.nonexistInputDevice
         }
@@ -81,8 +95,6 @@ final class VideoRecordingService: NSObject {
         guard let outputURL else {
             throw RecordingError.invalidFileURL
         }
-        
-        let connection = videoOutput?.connection(with: .video)
         
         if connection?.isVideoOrientationSupported == false {
             connection?.videoOrientation = self.deviceOrientation
@@ -169,7 +181,7 @@ extension VideoRecordingService: AVCaptureFileOutputRecordingDelegate {
         
         guard let outputURL else { return }
         
-        let videoRecorded = outputURL as URL
-        UISaveVideoAtPathToSavedPhotosAlbum(videoRecorded.path, nil, nil, nil)
+        let recordedVideoURL = outputURL as URL
+        UISaveVideoAtPathToSavedPhotosAlbum(recordedVideoURL.path, nil, nil, nil)
     }
 }
