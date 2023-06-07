@@ -17,6 +17,7 @@ struct VideoView: View {
             if let player = viewModel.makePlayer() {
                 VideoPlayer(player: player)
                     .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
         .background(.gray)

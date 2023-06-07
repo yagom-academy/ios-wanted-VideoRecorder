@@ -107,7 +107,7 @@ final class CameraUseCase: NSObject {
         
         guard session.canAddOutput(output) else { return }
         
-        session.sessionPreset = .hd4K3840x2160
+        session.sessionPreset = .hd1280x720
         session.addOutput(output)
         session.commitConfiguration()
         
@@ -127,6 +127,7 @@ final class CameraUseCase: NSObject {
         
         assetWriterVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: nil)
         assetWriterVideoInput?.expectsMediaDataInRealTime = true
+        assetWriterVideoInput?.transform = CGAffineTransform(rotationAngle: .pi / 2)
         assetWriter?.add(assetWriterVideoInput!)
         
         assetWriter?.startWriting()
@@ -137,9 +138,7 @@ final class CameraUseCase: NSObject {
     
     private func saveRecordingVideo() {
         assetWriterVideoInput?.markAsFinished()
-        assetWriter?.finishWriting() {
-            
-        }
+        assetWriter?.finishWriting() { }
         assetWriter = nil
         assetWriterVideoInput = nil
         
