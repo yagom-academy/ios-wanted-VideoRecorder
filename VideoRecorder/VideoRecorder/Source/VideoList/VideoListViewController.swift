@@ -33,6 +33,7 @@ final class VideoListViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        setupNavigationItems()
         setupCollectionView()
     }
     
@@ -95,6 +96,50 @@ final class VideoListViewController: UIViewController {
     // MARK: - Setup UI component and layout
     private func setupView() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func setupNavigationItems() {
+        setupLeftBarButton()
+        setupRightBarButton()
+    }
+    
+    private func setupLeftBarButton() {
+        let systemImage = "list.triangle"
+        let title = "Video List"
+        
+        let listImage = UIImage(systemName: systemImage)
+        let titleImageView = UIImageView(image: listImage)
+        titleImageView.tintColor = .black
+        
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = .boldSystemFont(ofSize: 24)
+        
+        let stackView = UIStackView(arrangedSubviews: [titleImageView, titleLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 12
+        stackView.distribution = .fill
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stackView)
+    }
+    
+    private func setupRightBarButton() {
+        let systemImage = "video.fill.badge.plus"
+        
+        let videoImage = UIImage(systemName: systemImage)
+        
+        let rightBarButton = UIBarButtonItem(image: videoImage,
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(recordVideo))
+        
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func recordVideo() {
+        let videoRecordViewController = VideoRecordViewController()
+        
+        navigationController?.pushViewController(videoRecordViewController, animated: true)
     }
     
     private func addSubviews() {
