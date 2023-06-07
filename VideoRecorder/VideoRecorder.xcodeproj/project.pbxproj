@@ -12,7 +12,7 @@
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
 		AA8518262A2DBC5F00554FA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8518252A2DBC5F00554FA7 /* Assets.xcassets */; };
 		AA8518292A2DBC5F00554FA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8518272A2DBC5F00554FA7 /* LaunchScreen.storyboard */; };
-		AA8518362A2E0E7700554FA7 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */; };
+		AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518352A2E0E7700554FA7 /* RecordVideoViewController.swift */; };
 		AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518372A2ECA5E00554FA7 /* Video.swift */; };
 		AA85183A2A2ECB5000554FA7 /* VideoImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */; };
 		AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */; };
@@ -29,7 +29,7 @@
 		AA8518252A2DBC5F00554FA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA8518282A2DBC5F00554FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA85182A2A2DBC5F00554FA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
+		AA8518352A2E0E7700554FA7 /* RecordVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoViewController.swift; sourceTree = "<group>"; };
 		AA8518372A2ECA5E00554FA7 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AA8518392A2ECB5000554FA7 /* VideoImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoImageCell.swift; sourceTree = "<group>"; };
 		AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReuseIdentifying.swift"; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 				AA8518402A2ECFC800554FA7 /* Extension */,
 				AA85183D2A2ECFA700554FA7 /* Model */,
 				AA8518332A2DBD9700554FA7 /* VideoList */,
-				AA8518342A2E0E4400554FA7 /* VideoRecord */,
+				AA8518342A2E0E4400554FA7 /* RecordVideo */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -116,12 +116,12 @@
 			path = VideoList;
 			sourceTree = "<group>";
 		};
-		AA8518342A2E0E4400554FA7 /* VideoRecord */ = {
+		AA8518342A2E0E4400554FA7 /* RecordVideo */ = {
 			isa = PBXGroup;
 			children = (
-				AA8518352A2E0E7700554FA7 /* VideoRecordViewController.swift */,
+				AA8518352A2E0E7700554FA7 /* RecordVideoViewController.swift */,
 			);
-			path = VideoRecord;
+			path = RecordVideo;
 			sourceTree = "<group>";
 		};
 		AA85183D2A2ECFA700554FA7 /* Model */ = {
@@ -241,7 +241,7 @@
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
-				AA8518362A2E0E7700554FA7 /* VideoRecordViewController.swift in Sources */,
+				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,
 				AA8518482A2EF11100554FA7 /* VideoManager.swift in Sources */,
 				AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */,
 				AA85183A2A2ECB5000554FA7 /* VideoImageCell.swift in Sources */,
@@ -383,6 +383,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T868XQH9V2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -410,6 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T868XQH9V2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
