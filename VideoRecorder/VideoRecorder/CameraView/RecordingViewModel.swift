@@ -30,11 +30,13 @@ final class RecordingViewModel {
     struct Input {
         let recordButtonTapped: AnyPublisher<Void, Never>
         let switchCameraButtonTapped: AnyPublisher<Void, Never>
+        let closeButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let recordingError: AnyPublisher<Void, Error>
         let switchingError: AnyPublisher<Void, Error>
+        let isDismissNeeded: AnyPublisher<Bool, Never>
     }
     
     func transform(input: Input) -> Output {
@@ -58,8 +60,19 @@ final class RecordingViewModel {
             }
             .eraseToAnyPublisher()
         
+        let isDismissNeeded = input.closeButtonTapped
+            .compactMap { [weak self] in
+                guard let isRecording = self?.videoRecordingService.isRecording else {
+                    return true
+                }
+                
+                return isRecording ? false : true
+            }
+            .eraseToAnyPublisher()
+        
         return Output(recordingError: recordingError,
-                      switchingError: cameraSwitched)
+                      switchingError: cameraSwitched,
+                      isDismissNeeded: isDismissNeeded)
     }
     
     private func switchCameraType() throws {

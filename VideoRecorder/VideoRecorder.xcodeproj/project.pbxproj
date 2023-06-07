@@ -16,6 +16,7 @@
 		AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */; };
 		AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */; };
 		ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */; };
+		ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingService.swift; sourceTree = "<group>"; };
 		AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
 		ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
+		ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				AD599CC92A2D9887001609FA /* VideoListViewController.swift */,
+				ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */,
 			);
 			path = VideoListView;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			files = (
 				AD599CDD2A2DB249001609FA /* VideoRecordingService.swift in Sources */,
 				AD557B272A2E048000679DAD /* RecordingViewController.swift in Sources */,
+				ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
 				ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */,

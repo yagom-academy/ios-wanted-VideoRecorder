@@ -147,10 +147,13 @@ final class RecordingViewController: UIViewController {
             .eraseToAnyPublisher()
         let switchCameraButtonTapped = switchCameraButton.publisher(for: .touchUpInside)
             .eraseToAnyPublisher()
+        let closeButtonTapped = closeButton.publisher(for: .touchUpInside)
+            .eraseToAnyPublisher()
         
         let input = RecordingViewModel.Input(
             recordButtonTapped: recordButtonTapped,
-            switchCameraButtonTapped: switchCameraButtonTapped
+            switchCameraButtonTapped: switchCameraButtonTapped,
+            closeButtonTapped: closeButtonTapped
         )
         
         let output = viewModel.transform(input: input)
@@ -168,6 +171,13 @@ final class RecordingViewController: UIViewController {
             }, receiveValue: {
                 print("Camera position switched")
             })
+            .store(in: &cancellables)
+        output.isDismissNeeded
+            .sink { isDismissNeeded in
+                if isDismissNeeded {
+                    self.dismiss(animated: true)
+                }
+            }
             .store(in: &cancellables)
     }
     
