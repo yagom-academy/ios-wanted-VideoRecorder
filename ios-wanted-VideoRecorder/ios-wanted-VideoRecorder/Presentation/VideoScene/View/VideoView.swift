@@ -5,12 +5,19 @@
 //  Created by 강민수 on 2023/06/07.
 //
 
-import AVKit
 import SwiftUI
+import AVKit
 
 struct VideoView: View {
     
     let viewModel: VideoViewModel
+    
+    init(viewModel: VideoViewModel) {
+        self.viewModel = viewModel
+        
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().backgroundColor = .systemBackground
+    }
     
     var body: some View {
         NavigationStack {
@@ -21,7 +28,7 @@ struct VideoView: View {
                 }
                 .frame(alignment: .bottom)
             })
-            .ignoresSafeArea()
+            .ignoresSafeArea(.all, edges: .bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .navigationTitle(viewModel.video.title)
@@ -31,8 +38,8 @@ struct VideoView: View {
             } label: {
                 Image(systemName: "info.circle.fill")
             }
-
         }
+        .foregroundColor(.white)
     }
 }
 

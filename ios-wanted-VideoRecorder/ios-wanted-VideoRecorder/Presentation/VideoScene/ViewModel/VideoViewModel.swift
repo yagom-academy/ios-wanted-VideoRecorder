@@ -13,6 +13,7 @@ final class VideoViewModel: ObservableObject {
     let video: Video
     var videoPlayer: AVPlayer
     
+    @State var videoTime: Double = 0
     @Published var isPlaying: Bool = false {
         didSet {
             if isPlaying {
