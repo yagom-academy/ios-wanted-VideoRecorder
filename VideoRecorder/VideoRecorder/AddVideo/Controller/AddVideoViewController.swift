@@ -168,12 +168,14 @@ final class AddVideoViewController: UIViewController {
         }
     }
 
-    @objc private func didTapShutterButton() {
+    @objc private func didTapShutterButton(_ sender: ShutterButton) {
         guard session != nil else { return }
         
         if movieOutput.isRecording {
+            sender.isSelected = false
             movieOutput.stopRecording()
         } else {
+            sender.isSelected = true
             let outputPath = NSTemporaryDirectory() + "output.mp4"
             let outputURL = URL(fileURLWithPath: outputPath)
             movieOutput.startRecording(to: outputURL, recordingDelegate: self)

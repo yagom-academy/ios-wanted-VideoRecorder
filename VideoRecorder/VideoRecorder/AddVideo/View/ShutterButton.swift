@@ -20,11 +20,6 @@ final class ShutterButton: UIButton {
         let outerCirclePath = UIBezierPath(roundedRect: outerCircleRect,
                                            cornerRadius: outerCircleRect.size.width / 2.0)
         
-        let innerCircleRect = CGRect(x: bounds.origin.x + 10,
-                                     y: bounds.origin.y + 10,
-                                     width: bounds.size.width - 20,
-                                     height: bounds.size.height - 20)
-        let innerCirclePath = UIBezierPath(roundedRect: innerCircleRect, cornerRadius: innerCircleRect.size.width / 2.0)
         
         outerCirclePath.addClip()
         
@@ -34,9 +29,17 @@ final class ShutterButton: UIButton {
         context.setLineWidth(8.0)
         context.strokeEllipse(in: outerCircleRect)
         
-        innerCirclePath.addClip()
-        
-        context.setFillColor(UIColor.red.cgColor)
-        context.fill(innerCircleRect)
+        if isSelected {
+            let innerCircleRect = CGRect(x: bounds.origin.x + 10,
+                                         y: bounds.origin.y + 10,
+                                         width: bounds.size.width - 20,
+                                         height: bounds.size.height - 20)
+            let innerCirclePath = UIBezierPath(roundedRect: innerCircleRect, cornerRadius: innerCircleRect.size.width / 2.0)
+            
+            innerCirclePath.addClip()
+            
+            context.setFillColor(UIColor.red.cgColor)
+            context.fill(innerCircleRect)
+        }
     }
 }
