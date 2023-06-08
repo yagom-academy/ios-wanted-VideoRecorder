@@ -15,7 +15,7 @@ struct VideoView: View {
     init(viewModel: VideoViewModel) {
         self.viewModel = viewModel
         
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.label]
         UINavigationBar.appearance().backgroundColor = .systemBackground
     }
     

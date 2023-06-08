@@ -12,7 +12,7 @@ struct VideoSlider: View {
     
     var body: some View {
         VStack {
-            Slider(value: viewModel.$videoTimeRatio, in: 0...1)
+            Slider(value: $viewModel.videoTimeRatio, in: 0...1)
             HStack {
                 Text("\(viewModel.currentTime)")
                 Spacer()

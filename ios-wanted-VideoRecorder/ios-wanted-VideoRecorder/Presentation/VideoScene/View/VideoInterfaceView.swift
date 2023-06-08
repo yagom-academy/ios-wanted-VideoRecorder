@@ -21,8 +21,8 @@ struct VideoInterfaceView: View {
         .cornerRadius(20)
         .overlay(alignment: .center) {
             VStack {
-                // 영상 길이 바
-                
+                VideoSlider(viewModel: viewModel)
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                 VideoInterfaceButtons(viewModel: viewModel)
             }
         }

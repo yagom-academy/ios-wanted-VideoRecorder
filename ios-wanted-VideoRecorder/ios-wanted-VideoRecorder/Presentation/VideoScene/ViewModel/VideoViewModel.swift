@@ -13,7 +13,7 @@ final class VideoViewModel: ObservableObject {
     let video: Video
     var videoPlayer: AVPlayer
     
-    @State var videoTimeRatio: Double = 0
+    @Published var videoTimeRatio: Double = 0
     @Published var currentTime: Float = 0
     @Published var durationTime: Float = 0
     @Published var isPlaying: Bool = false {
@@ -29,12 +29,14 @@ final class VideoViewModel: ObservableObject {
     init(video: Video) {
         self.video = video
         
-        guard let url = video.videoURL else {
+        if let url = video.videoURL {
+            videoPlayer = AVPlayer(url: url)
+        } else {
             videoPlayer = AVPlayer(playerItem: nil)
-            return
         }
         
-        videoPlayer = AVPlayer(url: url)
+        configureVideo()
+        isPlaying = true
     }
     
     func moveToBackThreeSecond() {
@@ -48,7 +50,7 @@ final class VideoViewModel: ObservableObject {
     }
     
     private func configureVideo() {
-        let updatedInterval = CMTimeMake(value: 1, timescale: 600)
+        let updatedInterval = CMTimeMake(value: 1, timescale: 1)
         
         videoPlayer.addPeriodicTimeObserver(forInterval: updatedInterval, queue: DispatchQueue.main, using: { time in
             self.updateVideoSlider(time: time)
