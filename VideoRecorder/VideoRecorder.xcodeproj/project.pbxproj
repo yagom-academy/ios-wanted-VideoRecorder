@@ -174,17 +174,17 @@
 		AA8518452A2EF0FA00554FA7 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				AA8518462A2EF10200554FA7 /* Controller */,
+				AA8518462A2EF10200554FA7 /* Manager */,
 			);
 			path = Database;
 			sourceTree = "<group>";
 		};
-		AA8518462A2EF10200554FA7 /* Controller */ = {
+		AA8518462A2EF10200554FA7 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				AA8518472A2EF11100554FA7 /* VideoManager.swift */,
 			);
-			path = Controller;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		AA8518492A2F54AB00554FA7 /* Cell */ = {

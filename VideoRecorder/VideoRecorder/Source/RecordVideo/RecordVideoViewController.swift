@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import AVFoundation
 
 final class RecordVideoViewController: UIViewController {
@@ -27,7 +28,13 @@ final class RecordVideoViewController: UIViewController {
         return layer
     }()
     
+    private var camera: AVCaptureDevice?
+    private let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
+    private let videoOutput = AVCaptureMovieFileOutput()
+    
     private let viewModel: RecordVideoViewModel
+    private var subscriptions = Set<AnyCancellable>()
+    
     private let recordControlView: RecordControlView
     
     init() {
@@ -47,7 +54,7 @@ final class RecordVideoViewController: UIViewController {
         setupView()
         layout()
         setupNavigationItems()
-        setUpCaptureSession()
+        bind()
         startCaptureSession()
     }
     
@@ -97,19 +104,25 @@ final class RecordVideoViewController: UIViewController {
         do {
             captureSession.beginConfiguration()
             
-            guard let videoDevice = AVCaptureDevice.default(for: .video) else { return }
-            let videoInput = try AVCaptureDeviceInput(device: videoDevice)
+            guard let camera else { return }
+            
+            let videoInput = try AVCaptureDeviceInput(device: camera)
+            
+            captureSession.inputs.forEach {
+                captureSession.removeInput($0)
+            }
+            
             if captureSession.canAddInput(videoInput) {
                 captureSession.addInput(videoInput)
             }
 
-            let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio)!
+            guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else { return }
+
             let audioInput = try AVCaptureDeviceInput(device: audioDevice)
             if captureSession.canAddInput(audioInput) {
               captureSession.addInput(audioInput)
             }
 
-            let videoOutput = AVCaptureMovieFileOutput()
             if captureSession.canAddOutput(videoOutput) {
                 captureSession.addOutput(videoOutput)
             }
@@ -121,27 +134,75 @@ final class RecordVideoViewController: UIViewController {
     }
     
     private func startCaptureSession() {
-        DispatchQueue.global().async {
-            self.captureSession.startRunning()
+        DispatchQueue.global().async { [weak self] in
+            self?.captureSession.startRunning()
+        }
+    }
+    
+    private func createURL() -> URL? {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        let timestamp = Date().timeIntervalSince1970
+        let identifier = UUID().uuidString
+        let fileName = "recordedVideo_\(timestamp)_\(identifier).mp4"
+        let outputURL = documentsDirectory?.appendingPathComponent(fileName)
+        
+        return outputURL
+    }
+    
+    private func startRecording() {
+        guard let url = createURL() else { return }
+        
+        videoOutput.startRecording(to: url, recordingDelegate: self)
+    }
+    
+    private func stopRecording() {
+        if videoOutput.isRecording {
+            videoOutput.stopRecording()
         }
     }
 }
 
-extension RecordVideoViewController: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        print("photoOutput")
-        guard let imageData = photo.fileDataRepresentation() else {
-            print("imageData Error")
-            return}
-        let outputImage = UIImage(data: imageData)
-        
-        // globalQueue 에서 Session stop
-        DispatchQueue.global().async {
-            self.captureSession.stopRunning()
-        }
-        
-        //self.cameraView.layer.removeFromSuperlayer()
-        print("cameraView to outputImage")
-        view.layer.contents = outputImage
+// MARK: - Bind to viewModel
+extension RecordVideoViewController {
+    private func bind() {
+        rotateCamera()
+        recordVideo()
+    }
+    
+    private func rotateCamera() {
+        viewModel.$isRotateButtonTapped
+            .sink { [weak self] isRotated in
+                if isRotated {
+                    self?.camera = self?.discoverySession.devices.first { device in
+                        device.position == .front
+                    }
+                } else {
+                    self?.camera = self?.discoverySession.devices.first { device in
+                        device.position == .back
+                    }
+                }
+                
+                self?.setUpCaptureSession()
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func recordVideo() {
+        viewModel.$isRecordButtonTapped
+            .sink { [weak self] isRecordButtonTapped in
+                if isRecordButtonTapped {
+                    self?.startRecording()
+                } else {
+                    self?.stopRecording()
+                }
+            }
+            .store(in: &subscriptions)
+    }
+}
+
+extension RecordVideoViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        print("fileOutput")
     }
 }

@@ -83,19 +83,16 @@ class RecordControlView: UIStackView {
     
     @objc private func touchUpImageButton() {
         viewModel.isImageButtonTapped.toggle()
-        print("touchUpRecordButton")
     }
     
     @objc private func touchUpRecordButton() {
         viewModel.isRecordButtonTapped.toggle()
         
         toggleButtonsActivation()
-        print("touchUpRecordButton")
     }
     
     @objc private func touchUpRotateButton() {
         viewModel.isRotateButtonTapped.toggle()
-        print("touchUpRecordButton")
     }
     
     private func toggleButtonsActivation() {

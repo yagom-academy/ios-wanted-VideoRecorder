@@ -9,11 +9,11 @@ import Foundation
 import AVFoundation
 
 final class RecordVideoViewModel {
-    var isImageButtonTapped: Bool = false
-    var isRecordButtonTapped: Bool = false
-    var isRotateButtonTapped: Bool = false
-    
     var imageURL: URL?
     var title: String?
     var date: String?
+    
+    @Published var isImageButtonTapped: Bool = false
+    @Published var isRecordButtonTapped: Bool = false
+    @Published var isRotateButtonTapped: Bool = false
 }
