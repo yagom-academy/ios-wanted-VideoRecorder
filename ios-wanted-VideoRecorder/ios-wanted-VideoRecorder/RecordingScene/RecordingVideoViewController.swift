@@ -47,13 +47,17 @@ final class RecordingVideoViewController: UIViewController {
         return button
     }()
     
-    private let recordingPlayerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.5)
-        view.layer.cornerRadius = 10
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let recordingPlayerView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 50
+        stackView.backgroundColor = .black.withAlphaComponent(0.5)
+        stackView.layer.cornerRadius = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        return stackView
     }()
     
     private let timerLabel: UILabel = {
@@ -108,59 +112,38 @@ final class RecordingVideoViewController: UIViewController {
             recordingPlayerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
         
-        // 히스토리 이미지 레이아웃
-        view.addSubview(historyImageView)
+        let timerStackView = UIStackView()
+        timerStackView.axis = .vertical
+        timerStackView.spacing = 0
+        timerStackView.alignment = .center
         
-        NSLayoutConstraint.activate([
-            historyImageView.widthAnchor.constraint(equalToConstant: 50),
-            historyImageView.heightAnchor.constraint(equalToConstant: 50),
-            historyImageView.leadingAnchor.constraint(
-                equalTo: recordingPlayerView.leadingAnchor,
-                constant: 30
-            ),
-            historyImageView.centerYAnchor.constraint(equalTo: recordingPlayerView.centerYAnchor)
-        ])
+        recordingPlayerView.addArrangedSubview(historyImageView)
+        recordingPlayerView.addArrangedSubview(timerStackView)
+        recordingPlayerView.addArrangedSubview(switchCameraButton)
         
-        // 녹화버튼 레이아웃
-        view.addSubview(borderView)
+        timerStackView.addArrangedSubview(borderView)
+        borderView.addSubview(recordingButton)
+        timerStackView.addArrangedSubview(timerLabel)
         
-        NSLayoutConstraint.activate([
-            borderView.widthAnchor.constraint(equalToConstant: Constant.borderViewWidth),
-            borderView.heightAnchor.constraint(equalToConstant: Constant.borderViewWidth),
-            borderView.centerXAnchor.constraint(equalTo: recordingPlayerView.centerXAnchor),
-            borderView.centerYAnchor.constraint(equalTo: recordingPlayerView.centerYAnchor, constant: -10),
-        ])
-        
-        view.addSubview(recordingButton)
         buttonWidthConstraint = recordingButton.widthAnchor.constraint(equalToConstant: Constant.ButtonWidth)
         buttonHeightConstraint = recordingButton.heightAnchor.constraint(equalToConstant: Constant.ButtonWidth)
         
         NSLayoutConstraint.activate([
+            historyImageView.widthAnchor.constraint(equalToConstant: 50),
+            historyImageView.heightAnchor.constraint(equalToConstant: 50),
+            historyImageView.leadingAnchor.constraint(equalTo: recordingPlayerView.leadingAnchor, constant: 7),
+            
+            borderView.widthAnchor.constraint(equalToConstant: Constant.borderViewWidth),
+            borderView.heightAnchor.constraint(equalToConstant: Constant.borderViewWidth),
+            borderView.centerXAnchor.constraint(equalTo: recordingPlayerView.centerXAnchor),
+            
             buttonWidthConstraint,
             buttonHeightConstraint,
             recordingButton.centerXAnchor.constraint(equalTo: borderView.centerXAnchor),
             recordingButton.centerYAnchor.constraint(equalTo: borderView.centerYAnchor),
-        ])
-        
-        // 타이머 레이아웃
-        view.addSubview(timerLabel)
-        
-        NSLayoutConstraint.activate([
-            timerLabel.centerXAnchor.constraint(equalTo: borderView.centerXAnchor),
-            timerLabel.topAnchor.constraint(equalTo: borderView.bottomAnchor, constant: 5)
-        ])
-        
-        // 카메라 변경버튼 레이아웃
-        view.addSubview(switchCameraButton)
-        
-        NSLayoutConstraint.activate([
+            
             switchCameraButton.widthAnchor.constraint(equalToConstant: 50),
             switchCameraButton.heightAnchor.constraint(equalToConstant: 50),
-            switchCameraButton.trailingAnchor.constraint(
-                equalTo: recordingPlayerView.trailingAnchor,
-                constant: -30
-            ),
-            switchCameraButton.centerYAnchor.constraint(equalTo: recordingPlayerView.centerYAnchor)
         ])
     }
     
@@ -169,7 +152,6 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     // MARK: - Timer methods
-    
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
             guard let self else { return }
