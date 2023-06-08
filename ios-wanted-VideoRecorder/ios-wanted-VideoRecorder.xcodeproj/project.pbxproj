@@ -16,6 +16,9 @@
 		262049E72A2F222700E49EBF /* PlayCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E62A2F222700E49EBF /* PlayCircle.swift */; };
 		262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E82A2F224600E49EBF /* CameraInterfaceView.swift */; };
 		262049ED2A2F229500E49EBF /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049EC2A2F229500E49EBF /* MainListView.swift */; };
+		2689D2762A31D3070038CE19 /* VideoInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2689D2752A31D3070038CE19 /* VideoInterfaceView.swift */; };
+		2689D2782A31DA880038CE19 /* VideoInterfaceButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2689D2772A31DA880038CE19 /* VideoInterfaceButtons.swift */; };
+		2689D27A2A31DB3A0038CE19 /* VideoPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2689D2792A31DB3A0038CE19 /* VideoPlayButton.swift */; };
 		26AAEFE52A2F756D003BB339 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 26AAEFE42A2F756D003BB339 /* RealmSwift */; };
 		26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */; };
 		26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEC2A2F76AA003BB339 /* Video.swift */; };
@@ -42,6 +45,9 @@
 		262049E62A2F222700E49EBF /* PlayCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCircle.swift; sourceTree = "<group>"; };
 		262049E82A2F224600E49EBF /* CameraInterfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInterfaceView.swift; sourceTree = "<group>"; };
 		262049EC2A2F229500E49EBF /* MainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListView.swift; sourceTree = "<group>"; };
+		2689D2752A31D3070038CE19 /* VideoInterfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInterfaceView.swift; sourceTree = "<group>"; };
+		2689D2772A31DA880038CE19 /* VideoInterfaceButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInterfaceButtons.swift; sourceTree = "<group>"; };
+		2689D2792A31DB3A0038CE19 /* VideoPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayButton.swift; sourceTree = "<group>"; };
 		26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileURLs.swift; sourceTree = "<group>"; };
 		26AAEFEC2A2F76AA003BB339 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUseCase.swift; sourceTree = "<group>"; };
@@ -255,6 +261,9 @@
 			isa = PBXGroup;
 			children = (
 				26C8A3CD2A305FC700B04954 /* VideoView.swift */,
+				2689D2752A31D3070038CE19 /* VideoInterfaceView.swift */,
+				2689D2772A31DA880038CE19 /* VideoInterfaceButtons.swift */,
+				2689D2792A31DB3A0038CE19 /* VideoPlayButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -340,9 +349,11 @@
 				26C8A3C52A302F9B00B04954 /* Storable.swift in Sources */,
 				26C8A3C92A305EF600B04954 /* CameraView.swift in Sources */,
 				26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */,
+				2689D2762A31D3070038CE19 /* VideoInterfaceView.swift in Sources */,
 				26AAEFF92A2F78E6003BB339 /* RealmManager.swift in Sources */,
 				26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */,
 				262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */,
+				2689D2782A31DA880038CE19 /* VideoInterfaceButtons.swift in Sources */,
 				26C8A3C72A305EDA00B04954 /* CameraSceneView.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
@@ -351,6 +362,7 @@
 				26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */,
 				26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */,
 				262049ED2A2F229500E49EBF /* MainListView.swift in Sources */,
+				2689D27A2A31DB3A0038CE19 /* VideoPlayButton.swift in Sources */,
 				262049E52A2F21F200E49EBF /* StopCircle.swift in Sources */,
 				262049E72A2F222700E49EBF /* PlayCircle.swift in Sources */,
 				26C8A3D02A3068BF00B04954 /* VideoViewModel.swift in Sources */,

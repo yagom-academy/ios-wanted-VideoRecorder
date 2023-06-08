@@ -6,9 +6,11 @@
 //
 
 import AVKit
+import SwiftUI
 import Foundation
 
-struct VideoViewModel {
+final class VideoViewModel: ObservableObject {
+    @Published var isPlaying: Bool = false
     let video: Video
     
     init(video: Video) {

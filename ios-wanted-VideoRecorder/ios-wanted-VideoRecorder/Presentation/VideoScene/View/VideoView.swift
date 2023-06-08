@@ -14,13 +14,17 @@ struct VideoView: View {
     
     var body: some View {
         NavigationStack {
-            if let player = viewModel.makePlayer() {
-                VideoPlayer(player: player)
-                    .ignoresSafeArea()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            ZStack {
+                VStack {
+                    if let player = viewModel.makePlayer() {
+                        VideoPlayer(player: player)
+                            .ignoresSafeArea()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        VideoInterfaceView(viewModel: viewModel)
+                    }
+                }
             }
         }
-        .background(.gray)
         .navigationTitle(viewModel.video.title)
         .toolbar {
             Button {
