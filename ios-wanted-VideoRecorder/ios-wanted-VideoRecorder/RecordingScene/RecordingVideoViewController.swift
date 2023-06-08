@@ -16,6 +16,18 @@ final class RecordingVideoViewController: UIViewController {
         static let borderViewWidth: CGFloat = 60
     }
     
+    private let dismissButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(
+            pointSize: 30, weight: .bold, scale: .default
+        )
+        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
+        button.tintColor = .gray
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     private let historyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mockImage")
@@ -95,8 +107,17 @@ final class RecordingVideoViewController: UIViewController {
     
     private func configureLayout() {
         view.backgroundColor = .white
-        
+        configureDismissButtonLayout()
         configureRecordingPlayerViewLayout()
+    }
+    
+    private func configureDismissButtonLayout() {
+        view.addSubview(dismissButton)
+        
+        NSLayoutConstraint.activate([
+            dismissButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            dismissButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+        ])
     }
     
     private func configureRecordingPlayerViewLayout() {
