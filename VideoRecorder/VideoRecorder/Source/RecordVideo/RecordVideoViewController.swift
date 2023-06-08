@@ -10,16 +10,8 @@ import Combine
 import AVFoundation
 
 final class RecordVideoViewController: UIViewController {
-    private let captureSession =  {
-        let captureSession = AVCaptureSession()
-
-        captureSession.sessionPreset = .high
-
-        return captureSession
-    }()
-
     private lazy var previewLayer = {
-        let layer = AVCaptureVideoPreviewLayer(session: captureSession)
+        let layer = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
 
         layer.bounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         layer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
@@ -27,12 +19,10 @@ final class RecordVideoViewController: UIViewController {
 
         return layer
     }()
-    
-    private var camera: AVCaptureDevice?
-    private let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
-    private let videoOutput = AVCaptureMovieFileOutput()
-    
+
+    private let recordManager = RecordManager()
     private let viewModel: RecordVideoViewModel
+    
     private var subscriptions = Set<AnyCancellable>()
     
     private let recordControlView: RecordControlView
@@ -100,66 +90,8 @@ final class RecordVideoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func setUpCaptureSession() {
-        do {
-            captureSession.beginConfiguration()
-            
-            guard let camera else { return }
-            
-            let videoInput = try AVCaptureDeviceInput(device: camera)
-            
-            captureSession.inputs.forEach {
-                captureSession.removeInput($0)
-            }
-            
-            if captureSession.canAddInput(videoInput) {
-                captureSession.addInput(videoInput)
-            }
-
-            guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else { return }
-
-            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
-            if captureSession.canAddInput(audioInput) {
-              captureSession.addInput(audioInput)
-            }
-
-            if captureSession.canAddOutput(videoOutput) {
-                captureSession.addOutput(videoOutput)
-            }
-            
-            captureSession.commitConfiguration()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
     private func startCaptureSession() {
-        DispatchQueue.global().async { [weak self] in
-            self?.captureSession.startRunning()
-        }
-    }
-    
-    private func createURL() -> URL? {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        
-        let timestamp = Date().timeIntervalSince1970
-        let identifier = UUID().uuidString
-        let fileName = "recordedVideo_\(timestamp)_\(identifier).mp4"
-        let outputURL = documentsDirectory?.appendingPathComponent(fileName)
-        
-        return outputURL
-    }
-    
-    private func startRecording() {
-        guard let url = createURL() else { return }
-        
-        videoOutput.startRecording(to: url, recordingDelegate: self)
-    }
-    
-    private func stopRecording() {
-        if videoOutput.isRecording {
-            videoOutput.stopRecording()
-        }
+        recordManager.startCaptureSession()
     }
 }
 
@@ -173,17 +105,7 @@ extension RecordVideoViewController {
     private func rotateCamera() {
         viewModel.$isRotateButtonTapped
             .sink { [weak self] isRotated in
-                if isRotated {
-                    self?.camera = self?.discoverySession.devices.first { device in
-                        device.position == .front
-                    }
-                } else {
-                    self?.camera = self?.discoverySession.devices.first { device in
-                        device.position == .back
-                    }
-                }
-                
-                self?.setUpCaptureSession()
+                self?.recordManager.configureCamera(isFrontCamera: isRotated)
             }
             .store(in: &subscriptions)
     }
@@ -192,17 +114,11 @@ extension RecordVideoViewController {
         viewModel.$isRecordButtonTapped
             .sink { [weak self] isRecordButtonTapped in
                 if isRecordButtonTapped {
-                    self?.startRecording()
+                    self?.recordManager.startRecording()
                 } else {
-                    self?.stopRecording()
+                    self?.recordManager.stopRecording()
                 }
             }
             .store(in: &subscriptions)
-    }
-}
-
-extension RecordVideoViewController: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("fileOutput")
     }
 }
