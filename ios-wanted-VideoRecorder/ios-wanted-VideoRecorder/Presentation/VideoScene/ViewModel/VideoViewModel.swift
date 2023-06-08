@@ -13,9 +13,15 @@ final class VideoViewModel: ObservableObject {
     let video: Video
     var videoPlayer: AVPlayer
     
-    @Published var videoTimeRatio: Double = 0
-    @Published var currentTime: Float = 0
-    @Published var durationTime: Float = 0
+    @Published var videoTimeRatio: Double = 0 {
+        didSet {
+            if -0.02 > (videoTimeRatio - oldValue) ||
+                (videoTimeRatio - oldValue) > 0.02 {
+            changedVideoTime(timeRatio: videoTimeRatio)
+        }
+    }
+}
+    @Published var currentTime: String = "00:00"
     @Published var isPlaying: Bool = false {
         didSet {
             if isPlaying {
@@ -36,7 +42,18 @@ final class VideoViewModel: ObservableObject {
         }
         
         configureVideo()
-        isPlaying = true
+    }
+    
+    private func changedVideoTime(timeRatio: Double) {
+        guard let duration = videoPlayer.currentItem?.duration,
+              !(timeRatio.isNaN || timeRatio.isInfinite) else {
+            return
+        }
+        
+        let value = timeRatio * CMTimeGetSeconds(duration)
+        let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
+        
+        videoPlayer.seek(to: seekTime)
     }
     
     func moveToBackThreeSecond() {
@@ -50,7 +67,7 @@ final class VideoViewModel: ObservableObject {
     }
     
     private func configureVideo() {
-        let updatedInterval = CMTimeMake(value: 1, timescale: 1)
+        let updatedInterval = CMTimeMake(value: 100, timescale: 600)
         
         videoPlayer.addPeriodicTimeObserver(forInterval: updatedInterval, queue: DispatchQueue.main, using: { time in
             self.updateVideoSlider(time: time)
@@ -67,8 +84,11 @@ final class VideoViewModel: ObservableObject {
         
         self.videoTimeRatio = currentTime / duration
         
-        self.durationTime = Float(duration)
-        self.currentTime = Float(currentTime)
+        let currentSecond = Int(currentTime)
+        let minute = currentSecond / 60
+        let second = currentSecond % 60
+        
+        self.currentTime = String(format: "%02d:%02d", minute, second)
     }
     
     private func playVideo() {

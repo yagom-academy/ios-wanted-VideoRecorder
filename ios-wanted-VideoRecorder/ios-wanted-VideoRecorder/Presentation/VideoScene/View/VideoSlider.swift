@@ -16,7 +16,7 @@ struct VideoSlider: View {
             HStack {
                 Text("\(viewModel.currentTime)")
                 Spacer()
-                Text("\(viewModel.durationTime)")
+                Text("\(viewModel.video.videoLength)")
             }
         }
     }

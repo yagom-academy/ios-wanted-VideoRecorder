@@ -39,7 +39,7 @@ struct VideoView: View {
                 Image(systemName: "info.circle.fill")
             }
         }
-        .foregroundColor(.white)
+        .foregroundColor(Color(UIColor.label))
     }
 }
 
