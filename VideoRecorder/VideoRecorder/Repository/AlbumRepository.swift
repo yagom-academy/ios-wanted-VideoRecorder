@@ -10,6 +10,10 @@ import Photos
 final class AlbumRepository {
     static let albumName = "VideoRecorderApp"
     
+    var videoCollection: PHAssetCollection? {
+        return assetCollection
+    }
+    
     private var assetCollection: PHAssetCollection?
     
     init() {
@@ -25,7 +29,8 @@ final class AlbumRepository {
         if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
             self.createAlbum()
         } else {
-            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: requestAuthorizationHandler)
+            PHPhotoLibrary.requestAuthorization(for: .readWrite,
+                                                handler: requestAuthorizationHandler)
         }
     }
     
@@ -42,6 +47,20 @@ final class AlbumRepository {
         }
     }
     
+    private func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", Self.albumName)
+        let collections = PHAssetCollection.fetchAssetCollections(with: .album,
+                                                                  subtype: .any,
+                                                                  options: fetchOptions)
+        
+        if let _: AnyObject = collections.firstObject {
+            return collections.firstObject
+        }
+        
+        return nil
+    }
+    
     private func requestAuthorizationHandler(status: PHAuthorizationStatus) {
         if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
             self.createAlbum()
@@ -53,24 +72,14 @@ final class AlbumRepository {
     private func createAlbum() {
         PHPhotoLibrary.shared().performChanges({
             PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: Self.albumName)
-        }, completionHandler: { isSuccessed, error in
+        }, completionHandler: { [weak self] isSuccessed, error in
+            guard let self else { return }
+            
             if isSuccessed {
                 self.assetCollection = self.fetchAssetCollectionForAlbum()
             } else {
                 print(error ?? "Unexpected result occured while creating PHAssetCollection")
             }
         })
-    }
-    
-    private func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", Self.albumName)
-        let collections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-        
-        if let _: AnyObject = collections.firstObject {
-            return collections.firstObject
-        }
-        
-        return nil
     }
 }
