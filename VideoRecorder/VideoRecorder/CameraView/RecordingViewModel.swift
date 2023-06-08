@@ -8,6 +8,13 @@
 import AVFoundation
 import Combine
 
+protocol EventHandleable {
+    associatedtype Input
+    associatedtype Output
+    
+    func transform(input: Input) -> Output
+}
+
 final class RecordingViewModel: EventHandleable {
     let videoRecordingService: VideoRecordingService
     

@@ -6,36 +6,34 @@
 //
 
 import Photos
-import Combine
 
-protocol EventHandleable {
-    associatedtype Input
-    associatedtype Output
+final class VideoListViewModel {
+    private(set) var fetchedAssets: [PHAsset] = []
+    private(set) var videoDataList: [VideoData] = []
     
-    func transform(input: Input) -> Output
-}
-
-final class VideoListViewModel: EventHandleable {
-    var fetchedAssets: [PHAsset] = []
+    private let videoFetchService: VideoFetchService
+    private let dateFormatter: DateFormatter
     
-    let videoFetchService: VideoFetchService
-    
-    init(videoFetchService: VideoFetchService) {
+    init(videoFetchService: VideoFetchService, dateFormatter: DateFormatter) {
         self.videoFetchService = videoFetchService
+        self.dateFormatter = dateFormatter
     }
     
     func fetchedAssets(completion: @escaping ([PHAsset]) -> Void) {
         videoFetchService.fetchAssets { [weak self] assets in
             guard let self else { return }
             self.fetchedAssets = assets
+            self.configureVideoDataList()
             completion(assets)
         }
     }
     
-    struct Input { }
-    struct Output { }
+    private func configureVideoDataList() {
+        self.videoDataList = videoFetchService.domainList(from: fetchedAssets)
+    }
     
-    func transform(input: Input) -> Output {
-        return Output()
+    func convertToString(_ date: Date?) -> String? {
+        guard let date = date else { return nil }
+        return dateFormatter.string(from: date)
     }
 }
