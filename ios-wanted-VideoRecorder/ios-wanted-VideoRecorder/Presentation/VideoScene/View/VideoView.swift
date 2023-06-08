@@ -16,12 +16,10 @@ struct VideoView: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    if let player = viewModel.makePlayer() {
-                        VideoPlayer(player: player)
-                            .ignoresSafeArea()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        VideoInterfaceView(viewModel: viewModel)
-                    }
+                    VideoPlayer(player: viewModel.videoPlayer)
+                        .ignoresSafeArea()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    VideoInterfaceView(viewModel: viewModel)
                 }
             }
         }
