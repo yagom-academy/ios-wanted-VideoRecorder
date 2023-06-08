@@ -13,8 +13,6 @@ final class VideoFetchService {
         return self.albumRepository
     }
     
-    private var videoAssets: [PHAsset] = []
-    
     private let albumRepository: AlbumRepository
     
     init(albumRepository: AlbumRepository) {
@@ -24,19 +22,21 @@ final class VideoFetchService {
     func fetchAssets(completion: @escaping ([PHAsset]) -> Void) {
         guard let videoCollection = albumRepository.videoCollection else { return }
         
+        var videoAssets: [PHAsset] = []
         let fetchOption = PHFetchOptions()
         fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         let fetchResult = PHAsset.fetchAssets(in: videoCollection, options: fetchOption)
-        fetchResult.enumerateObjects(options: [.concurrent]) { [weak self] videoAsset, index, cancel in
-            guard let self else { return }
-            self.videoAssets.append(videoAsset)
+        fetchResult.enumerateObjects(options: [.concurrent]) { videoAsset, index, cancel in
+            videoAssets.append(videoAsset)
         }
         completion(videoAssets)
     }
     
-    func assetsToDomainList() -> [VideoData] {
-        var videoDataList = videoAssets.map { asset in
-            guard let fileName = asset.value(forKey: "fileName") as? String else {
+    func domainList(from videoAssets: [PHAsset]) -> [VideoData] {
+        let videoDataList = videoAssets.map { asset in
+            let resource = PHAssetResource.assetResources(for: asset)
+            
+            guard let fileName = resource.first?.originalFilename else {
                 return VideoData(name: "", creationDate: asset.creationDate)
             }
             return VideoData(name: fileName, creationDate: asset.creationDate)
