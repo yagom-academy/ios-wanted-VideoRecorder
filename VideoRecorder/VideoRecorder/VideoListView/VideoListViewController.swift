@@ -6,19 +6,51 @@
 //
 
 import UIKit
+import Photos
 
 final class VideoListViewController: UIViewController {
     typealias VideoListDataSource = UITableViewDiffableDataSource
     
-    let tableView = UITableView()
+    enum Section {
+        case main
+    }
+    
+    private let tableView = UITableView()
+    private var dataSource: VideoListDataSource<Section, VideoData>?
+    
+    private let imageManager = PHCachingImageManager()
+    private let viewModel: VideoListViewModel
+    
+    init(viewModel: VideoListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let imageSize = CGSize(width: view.bounds.width * 0.25,
+                               height: view.bounds.height * 0.125)
+        startImageCaching(imageSize: imageSize)
         configureRootView()
         configureNavigationBar()
         
     }
     
+    private func startImageCaching(imageSize: CGSize) {
+        viewModel.fetchedAssets { [weak self] videoAssets in
+            self?.imageManager.startCachingImages(
+                for: videoAssets,
+                targetSize: imageSize,
+                contentMode: .aspectFit,
+                options: nil
+            )
+        }
+    }
+
     private func configureRootView() {
         view.backgroundColor = .white
         view.addSubview(tableView)
@@ -75,5 +107,21 @@ final class VideoListViewController: UIViewController {
     
     private func configureDataSource() {
         
+    }
+    
+    private func requestImage(
+        at index: Int,
+        size: CGSize,
+        resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void
+    ) {
+        guard let videoAsset = viewModel.fetchedAssets[safe: index] else {
+            return
+        }
+        
+        imageManager.requestImage(for: videoAsset,
+                                  targetSize: size,
+                                  contentMode: .aspectFit,
+                                  options: nil,
+                                  resultHandler: resultHandler)
     }
 }

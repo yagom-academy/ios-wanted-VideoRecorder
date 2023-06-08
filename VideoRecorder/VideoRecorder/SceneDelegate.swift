@@ -15,7 +15,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = UINavigationController(rootViewController: VideoListViewController())
+        let albumRepository = AlbumRepository()
+        let videoFetchService = VideoFetchService(albumRepository: albumRepository)
+        let videoListViewModel = VideoListViewModel(videoFetchService: videoFetchService)
+        
+        window.rootViewController = UINavigationController(
+            rootViewController: VideoListViewController(viewModel: videoListViewModel)
+        )
         window.makeKeyAndVisible()
         
         self.window = window
