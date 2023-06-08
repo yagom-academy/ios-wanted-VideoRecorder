@@ -18,6 +18,9 @@
 		ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */; };
 		ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */; };
 		ADCC84A22A30EB6000A91EC6 /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */; };
+		ADCC84A62A31499400A91EC6 /* VideoFetchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84A52A31499400A91EC6 /* VideoFetchService.swift */; };
+		ADCC84A82A31ADAF00A91EC6 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84A72A31ADAF00A91EC6 /* Array.swift */; };
+		ADCC84AB2A31BC1600A91EC6 /* VideoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		ADCC847A2A3066B700A91EC6 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
+		ADCC84A52A31499400A91EC6 /* VideoFetchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFetchService.swift; sourceTree = "<group>"; };
+		ADCC84A72A31ADAF00A91EC6 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 				AD599CC72A2D9887001609FA /* SceneDelegate.swift */,
 				AD599CD92A2DA4FF001609FA /* Service */,
 				ADCC84A02A30EB2900A91EC6 /* Repository */,
+				ADCC84A92A31BBE600A91EC6 /* Domain */,
 				AD599CDA2A2DA50B001609FA /* VideoListView */,
 				AD557B252A2E045B00679DAD /* CameraView */,
 				ADCC84772A2F176600A91EC6 /* Extensions */,
@@ -91,6 +98,7 @@
 		AD599CD92A2DA4FF001609FA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				ADCC84A52A31499400A91EC6 /* VideoFetchService.swift */,
 				AD599CDC2A2DB249001609FA /* VideoRecordingService.swift */,
 			);
 			path = Service;
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				ADCC84782A2F177D00A91EC6 /* UIControl+Combine.swift */,
+				ADCC84A72A31ADAF00A91EC6 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -128,6 +137,14 @@
 				ADCC84A12A30EB6000A91EC6 /* AlbumRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		ADCC84A92A31BBE600A91EC6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,9 +223,12 @@
 				ADCC84A22A30EB6000A91EC6 /* AlbumRepository.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
+				ADCC84A82A31ADAF00A91EC6 /* Array.swift in Sources */,
+				ADCC84A62A31499400A91EC6 /* VideoFetchService.swift in Sources */,
 				ADCC84792A2F177D00A91EC6 /* UIControl+Combine.swift in Sources */,
 				AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */,
 				AD599CC82A2D9887001609FA /* SceneDelegate.swift in Sources */,
+				ADCC84AB2A31BC1600A91EC6 /* VideoData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,9 +370,9 @@
 				DEVELOPMENT_TEAM = 3Z52WD5MD8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Using Device Camera";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Using Device Microphone";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Using Photo Library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "기기의 카메라를 사용하기 위하여 권한이 반드시 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "동영상 녹음 장치를 사용하기 위해 권한이 반드시 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "동영상 저장 및 불러오기 기능을 위하여 권한이 반드시 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -381,9 +401,9 @@
 				DEVELOPMENT_TEAM = 3Z52WD5MD8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Using Device Camera";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Using Device Microphone";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Using Photo Library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "기기의 카메라를 사용하기 위하여 권한이 반드시 필요합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "동영상 녹음 장치를 사용하기 위해 권한이 반드시 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "동영상 저장 및 불러오기 기능을 위하여 권한이 반드시 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
