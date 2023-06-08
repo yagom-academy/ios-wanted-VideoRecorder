@@ -9,14 +9,11 @@ import UIKit
 import Photos
 
 final class VideoListViewController: UIViewController {
-    typealias VideoListDataSource = UITableViewDiffableDataSource
-    
     enum Section {
         case main
     }
     
     private let tableView = UITableView()
-    private var dataSource: VideoListDataSource<Section, VideoData>?
     
     private let imageManager = PHCachingImageManager()
     private let viewModel: VideoListViewModel
@@ -32,12 +29,17 @@ final class VideoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imageSize = CGSize(width: view.bounds.width * 0.25,
-                               height: view.bounds.height * 0.125)
-        startImageCaching(imageSize: imageSize)
         configureRootView()
         configureNavigationBar()
-        
+        configureTableView()
+        configureLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let imageSize = CGSize(width: 80, height: 60)
+        startImageCaching(imageSize: imageSize)
+        tableView.reloadData()
     }
     
     private func startImageCaching(imageSize: CGSize) {
@@ -105,8 +107,22 @@ final class VideoListViewController: UIViewController {
         self.present(recordingViewController, animated: true)
     }
     
-    private func configureDataSource() {
-        
+    private func configureTableView() {
+        tableView.register(VideoListCell.self, forCellReuseIdentifier: VideoListCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .white
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func configureLayout() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+        ])
     }
     
     private func requestImage(
@@ -123,5 +139,47 @@ final class VideoListViewController: UIViewController {
                                   contentMode: .aspectFit,
                                   options: nil,
                                   resultHandler: resultHandler)
+    }
+}
+
+extension VideoListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.videoDataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: VideoListCell.identifier,
+            for: indexPath
+        ) as? VideoListCell else {
+            return UITableViewCell()
+        }
+        
+        guard let videoData = viewModel.videoDataList[safe: indexPath.row] else {
+            return cell
+        }
+        
+        cell.titleLabel.text = videoData.name
+        cell.dateLabel.text = viewModel.convertToString(videoData.creationDate)
+        cell.accessoryView = VideoListCellAccessoryView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
+        
+        let imageSize = CGSize(width: 80, height: 60)
+        
+        requestImage(at: indexPath.row, size: imageSize) { [weak cell] image, _ in
+            guard let cell else { return }
+            cell.thumbnailView.image = image
+        }
+        
+        return cell
+    }
+}
+
+extension VideoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
