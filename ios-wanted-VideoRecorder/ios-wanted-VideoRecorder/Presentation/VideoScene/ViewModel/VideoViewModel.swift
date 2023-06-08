@@ -16,11 +16,11 @@ final class VideoViewModel: ObservableObject {
     @Published var videoTimeRatio: Double = 0 {
         didSet {
             if -0.02 > (videoTimeRatio - oldValue) ||
-                (videoTimeRatio - oldValue) > 0.02 {
-            changedVideoTime(timeRatio: videoTimeRatio)
+                    (videoTimeRatio - oldValue) > 0.02 {
+                changedVideoTime(timeRatio: videoTimeRatio)
+            }
         }
     }
-}
     @Published var currentTime: String = "00:00"
     @Published var isPlaying: Bool = false {
         didSet {
@@ -89,6 +89,18 @@ final class VideoViewModel: ObservableObject {
         let second = currentSecond % 60
         
         self.currentTime = String(format: "%02d:%02d", minute, second)
+        checkEndedVideo()
+    }
+    
+    private func checkEndedVideo() {
+        guard let durationTime = videoPlayer.currentItem?.duration else {
+            return
+        }
+        let nowTime = videoPlayer.currentTime()
+        
+        if durationTime == nowTime {
+            self.isPlaying = false
+        }
     }
     
     private func playVideo() {
