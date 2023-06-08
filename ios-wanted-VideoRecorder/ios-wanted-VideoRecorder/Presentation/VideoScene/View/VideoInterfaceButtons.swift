@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct VideoInterfaceButtons: View {
+    
     let viewModel: VideoViewModel
     
     var body: some View {
@@ -23,7 +24,7 @@ struct VideoInterfaceButtons: View {
             
             Spacer()
             
-            VideoPlayButton(viewModel: viewModel)
+            VideoPlayButton(isPlaying: viewModel.isPlaying)
             
             Spacer()
             
@@ -35,7 +36,7 @@ struct VideoInterfaceButtons: View {
                     .frame(width: 20, height: 25, alignment: .center)
             }
         }
-        .foregroundColor(.accentColor)
+        .foregroundColor(.white)
         .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
     }
 }

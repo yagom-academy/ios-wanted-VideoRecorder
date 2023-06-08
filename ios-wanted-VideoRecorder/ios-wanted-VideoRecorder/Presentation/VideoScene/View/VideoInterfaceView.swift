@@ -12,8 +12,7 @@ struct VideoInterfaceView: View {
     let viewModel: VideoViewModel
     
     var body: some View {
-        ZStack {
-        }
+        ZStack { }
         .frame(width: 300, height: 150, alignment: .center)
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .background(.black)

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct VideoPlayButton: View {
-    @ObservedObject var viewModel: VideoViewModel
+    
+    @State var isPlaying: Bool
+    
     var body: some View {
         Button {
-            viewModel.isPlaying.toggle()
+            isPlaying.toggle()
         } label: {
-            if viewModel.isPlaying {
+            if isPlaying {
                 Image(systemName: "pause.fill")
                     .resizable()
                     .frame(width: 32, height: 32, alignment: .center)
@@ -28,6 +30,6 @@ struct VideoPlayButton: View {
 
 struct VideoPlayButton_Previews: PreviewProvider {
     static var previews: some View {
-        VideoPlayButton(viewModel: VideoViewModel(video: Video(title: "123", date: Date(), videoLength: "12:03")))
+        VideoPlayButton(isPlaying: true)
     }
 }

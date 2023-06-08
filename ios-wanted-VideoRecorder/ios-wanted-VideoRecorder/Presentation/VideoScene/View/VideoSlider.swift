@@ -10,15 +10,23 @@ import SwiftUI
 struct VideoSlider: View {
     @ObservedObject var viewModel: VideoViewModel
     
+    init(viewModel: VideoViewModel) {
+        self.viewModel = viewModel
+        
+        UISlider.appearance().setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
+    }
+    
     var body: some View {
         VStack {
             Slider(value: $viewModel.videoTimeRatio, in: 0...1)
+
             HStack {
                 Text("\(viewModel.currentTime)")
                 Spacer()
                 Text("\(viewModel.video.videoLength)")
             }
         }
+        .foregroundColor(.white)
     }
 }
 
