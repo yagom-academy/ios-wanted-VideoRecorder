@@ -25,7 +25,10 @@ struct RealmManager<T: Object> {
         return Array(objects)
     }
     
-    func update() {
+    func update(_ object: T) {
+        try? realm?.write {
+            realm?.add(object, update: .modified)
+        }
     }
     
     func delete(_ id: UUID) {

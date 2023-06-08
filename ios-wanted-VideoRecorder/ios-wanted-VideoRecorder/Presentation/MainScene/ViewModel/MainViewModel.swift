@@ -29,6 +29,7 @@ final class MainViewModel: ObservableObject {
               let index = videos.firstIndex(where: { $0.id == video.id }) else { return }
         
         videos[index].title = changeText
+        updateVideoTitle(videos[index])
     }
     
     func deleteVideo(_ indexSet: IndexSet) {
@@ -51,5 +52,12 @@ final class MainViewModel: ObservableObject {
         }
         
         self.videos = videos.sorted { $0.date > $1.date }
+    }
+    
+    private func updateVideoTitle(_ video: Video) {
+        guard let newVideo = Video.toRealmObject(video) as? VideoObject else {
+            return
+        }
+        realmManager.update(newVideo)
     }
 }
