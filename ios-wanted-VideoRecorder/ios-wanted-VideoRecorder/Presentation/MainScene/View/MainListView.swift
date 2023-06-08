@@ -47,9 +47,11 @@ struct MainListView: View {
                             
                             Menu {
                                 Button {
-                                    //
+                                    viewModel.isPresentAlert = true
+                                    viewModel.changeText = video.title
+                                    viewModel.targetVideo = video
                                 } label: {
-                                    Text("제목 수정")
+                                    Text("제목 변경")
                                 }
                                 
                                 NavigationLink {
@@ -68,6 +70,16 @@ struct MainListView: View {
                 }
                 .listStyle(.plain)
             }
+        }
+        .alert("변경할 제목을 입력해주세요", isPresented: $viewModel.isPresentAlert) {
+            TextField("\(viewModel.changeText)", text: $viewModel.changeText)
+            Button("OK", action: {
+                viewModel.updateTitleVideo()
+            })
+            Button("Cancel", action: { })
+                .foregroundColor(.red)
+        } message: {
+            Text("기존 제목을 삭제하고 새로운 제목을 입력해주세요.")
         }
     }
 }

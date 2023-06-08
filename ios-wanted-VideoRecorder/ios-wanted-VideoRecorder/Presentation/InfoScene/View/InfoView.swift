@@ -29,8 +29,8 @@ struct InfoView: View {
             
             video.thumbnailImage
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 120, height: 120, alignment: .center)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120, height: 200, alignment: .center)
             
             Spacer()
             
