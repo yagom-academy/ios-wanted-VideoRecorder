@@ -5,7 +5,7 @@
 //  Created by Rowan on 2023/06/07.
 //
 
-import Foundation
+import Photos
 import Combine
 
 protocol EventHandleable {
@@ -16,6 +16,22 @@ protocol EventHandleable {
 }
 
 final class VideoListViewModel: EventHandleable {
+    var fetchedAssets: [PHAsset] = []
+    
+    let videoFetchService: VideoFetchService
+    
+    init(videoFetchService: VideoFetchService) {
+        self.videoFetchService = videoFetchService
+    }
+    
+    func fetchedAssets(completion: @escaping ([PHAsset]) -> Void) {
+        videoFetchService.fetchAssets { [weak self] assets in
+            guard let self else { return }
+            self.fetchedAssets = assets
+            completion(assets)
+        }
+    }
+    
     struct Input { }
     struct Output { }
     
