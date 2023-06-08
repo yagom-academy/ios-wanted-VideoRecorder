@@ -31,6 +31,7 @@
 		AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC332A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift */; };
 		AA97DC382A31EBCF00AFBC7B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */; };
 		AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */; };
+		AA97DC3D2A322BF900AFBC7B /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		AA97DC332A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+dateToText.swift"; sourceTree = "<group>"; };
+		AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8518452A2EF0FA00554FA7 /* Database */,
-				AA8518402A2ECFC800554FA7 /* Extension */,
+				AA97DC3B2A322BCE00AFBC7B /* Utilitiy */,
 				AA4465DB2A3103260086F82D /* Protocol */,
 				AA85183D2A2ECFA700554FA7 /* Model */,
 				AA8518332A2DBD9700554FA7 /* VideoList */,
@@ -240,6 +242,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		AA97DC3B2A322BCE00AFBC7B /* Utilitiy */ = {
+			isa = PBXGroup;
+			children = (
+				AA8518402A2ECFC800554FA7 /* Extension */,
+				AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */,
+			);
+			path = Utilitiy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -322,6 +333,7 @@
 				AA97DC322A31EAF500AFBC7B /* CoreData.xcdatamodeld in Sources */,
 				AA97DC382A31EBCF00AFBC7B /* CoreDataManager.swift in Sources */,
 				AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */,
+				AA97DC3D2A322BF900AFBC7B /* AlertManager.swift in Sources */,
 				AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */,

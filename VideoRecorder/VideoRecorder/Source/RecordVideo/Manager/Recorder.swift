@@ -69,6 +69,10 @@ final class Recorder: NSObject {
         }
     }
     
+    func stopCaptureSession() {
+        captureSession.stopRunning()
+    }
+    
     func startRecording() {
         guard let url = URL.createVideoURL() else { return }
         

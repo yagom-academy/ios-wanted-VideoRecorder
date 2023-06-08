@@ -64,6 +64,10 @@ final class RecordVideoViewModel {
         recorder.startCaptureSession()
     }
     
+    func stopCaptureSession() {
+        recorder.stopCaptureSession()
+    }
+    
     private func rotateCamera() {
         let isFrontCamera = isRotateButtonTapped
         

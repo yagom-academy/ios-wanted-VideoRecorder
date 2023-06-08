@@ -97,7 +97,13 @@ final class RecordVideoViewController: UIViewController {
             .sink { [weak self] isRecordingDoneButtonTapped in
                 guard isRecordingDoneButtonTapped else { return }
                 
-                self?.viewModel.title = "isDone"
+                self?.viewModel.stopCaptureSession()
+                
+                let alert = AlertManager().createSaveVideoAlert { [weak self] text in
+                    self?.viewModel.title = text
+                }
+                
+                self?.present(alert, animated: true, completion: nil)
             }
             .store(in: &subscriptions)
         
@@ -105,7 +111,7 @@ final class RecordVideoViewController: UIViewController {
             .sink { [weak self] isDone in
                 guard isDone else { return }
                 
-                print("RecordingDone")
+                self?.dismissRecordView()
             }
             .store(in: &subscriptions)
     }
