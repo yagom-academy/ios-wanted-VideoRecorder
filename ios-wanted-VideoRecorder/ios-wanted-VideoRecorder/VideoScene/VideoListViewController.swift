@@ -70,7 +70,7 @@ final class VideoListViewController: UIViewController {
             image: UIImage(systemName: "video.fill.badge.plus", withConfiguration: config),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(presentRecordingScene)
         )
         rightBarButtonItem.tintColor = .systemBlue
         
@@ -123,6 +123,14 @@ final class VideoListViewController: UIViewController {
         snapshot.appendSections([.videos])
         snapshot.appendItems(videoIDList)
         dataSource?.apply(snapshot)
+    }
+    
+    @objc func presentRecordingScene() {
+        let recordingViewController = RecordingVideoViewController()
+        
+        
+        self.present(recordingViewController, animated: true)
+        
     }
 }
 
