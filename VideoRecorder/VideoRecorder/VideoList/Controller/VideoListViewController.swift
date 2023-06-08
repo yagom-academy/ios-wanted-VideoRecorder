@@ -33,7 +33,7 @@ final class VideoListViewController: UIViewController {
     }
     
     private func configureUIOption() {
-        let rightBarButtonIcon = UIImage(systemName: "video.fill.badge.plus")?
+        let rightBarButtonIcon = UIImage(systemName: SystemImageName.addedVideo)?
             .withRenderingMode(.alwaysOriginal)
             .withTintColor(.systemIndigo)
         

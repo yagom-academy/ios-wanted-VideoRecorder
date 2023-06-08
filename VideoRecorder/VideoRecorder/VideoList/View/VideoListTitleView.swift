@@ -11,7 +11,7 @@ final class VideoListTitleView: UIView {
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
-        imageView.image = UIImage(systemName: "list.triangle", withConfiguration: symbolConfiguration)
+        imageView.image = UIImage(systemName: SystemImageName.list, withConfiguration: symbolConfiguration)
         imageView.tintColor = .black
         imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
         return imageView

@@ -34,10 +34,25 @@ final class AddVideoViewController: UIViewController {
     }
     
     private func configureUIOption() {
+        let rightBarButtonIcon = UIImage(systemName: SystemImageName.xmark)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.systemGray2)
+        
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
+        
+        navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightBarButtonIcon,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(popAddVideoViewController))
+        
         shutterButton.addTarget(self, action: #selector(didTapShutterButton), for: .touchUpInside)
+    }
+    
+    @objc private func popAddVideoViewController() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func checkCameraPermissions() {
