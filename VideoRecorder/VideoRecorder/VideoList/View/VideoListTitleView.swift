@@ -19,7 +19,7 @@ final class VideoListTitleView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title2).pointSize)
+        label.font = .systemFont(ofSize: 24, weight: .heavy)
         label.text = "Video List"
         return label
     }()

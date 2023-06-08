@@ -28,11 +28,26 @@ final class VideoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: VideoListTitleView())
-        
+        configureUIOption()
         configureVideoListTableView()
+    }
+    
+    private func configureUIOption() {
+        let rightBarButtonIcon = UIImage(systemName: "video.fill.badge.plus")?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.systemIndigo)
+        
+        view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: VideoListTitleView())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightBarButtonIcon,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(pushAddVideoViewController))
+    }
+    
+    @objc private func pushAddVideoViewController() {
+        let addVideoViewController = AddVideoViewController()
+        navigationController?.pushViewController(addVideoViewController, animated: true)
     }
     
     private func configureVideoListTableView() {

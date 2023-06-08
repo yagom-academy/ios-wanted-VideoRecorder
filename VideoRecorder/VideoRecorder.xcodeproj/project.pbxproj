@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */; };
 		BF9CA06A2A2F818B00BB9692 /* VideoListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */; };
 		BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA06F2A2F8B4600BB9692 /* Video.swift */; };
 		BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCFEB9B2A2E2135005911F1 /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoViewController.swift; sourceTree = "<group>"; };
 		BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListTitleView.swift; sourceTree = "<group>"; };
 		BF9CA06F2A2F8B4600BB9692 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		BFCFEB982A2E2135005911F1 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +45,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF2ACD002A3096B800121A9F /* AddVideo */ = {
+			isa = PBXGroup;
+			children = (
+				BF2ACD012A3096EA00121A9F /* Controller */,
+			);
+			path = AddVideo;
+			sourceTree = "<group>";
+		};
+		BF2ACD012A3096EA00121A9F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		BF9CA06B2A2F8A8F00BB9692 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +119,7 @@
 				BFCFEBAF2A2E2233005911F1 /* Application */,
 				BF9CA06D2A2F8AC700BB9692 /* Protocol */,
 				BF9CA06B2A2F8A8F00BB9692 /* VideoList */,
+				BF2ACD002A3096B800121A9F /* AddVideo */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
@@ -208,6 +227,7 @@
 				BF9CA06A2A2F818B00BB9692 /* VideoListTitleView.swift in Sources */,
 				BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */,
 				BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */,
+				BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */,
 				BFCFEB9E2A2E2135005911F1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4GBN26S4PF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -374,6 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4GBN26S4PF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorder/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
