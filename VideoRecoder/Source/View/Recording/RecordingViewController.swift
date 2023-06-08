@@ -19,7 +19,8 @@ class RecordingViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = UIColor.clear.withAlphaComponent(0.4)
-        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 80), forImageIn: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 80), forImageIn: .normal) // weight
+        button.addTarget(self, action: #selector(tapCloseButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
        return button
@@ -34,9 +35,27 @@ class RecordingViewController: UIViewController {
         return view
     }()
     
+    private let recordingButton: RecordingButton = {
+        let button = RecordingButton()
+        button.addTarget(self, action: #selector(tapRecordingButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         settingCamera()
         configureUI()
+    }
+    
+    @objc
+    private func tapCloseButton() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func tapRecordingButton() {
+        recordingButton.isSelected.toggle()
     }
     
     func settingCamera() {
@@ -70,6 +89,7 @@ class RecordingViewController: UIViewController {
         
         view.addSubview(recordMenuView)
         view.addSubview(closeButton)
+        recordMenuView.addSubview(recordingButton)
         
         NSLayoutConstraint.activate([
             recordMenuView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.2),
@@ -80,8 +100,49 @@ class RecordingViewController: UIViewController {
             closeButton.heightAnchor.constraint(equalToConstant: 30),
             closeButton.widthAnchor.constraint(equalToConstant: 30),
             closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: standardPadding),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -standardPadding)
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -standardPadding),
             
+            recordingButton.heightAnchor.constraint(equalToConstant: 80),
+            recordingButton.widthAnchor.constraint(equalToConstant: 80),
+            recordingButton.centerXAnchor.constraint(equalTo: recordMenuView.centerXAnchor),
+            recordingButton.centerYAnchor.constraint(equalTo: recordMenuView.centerYAnchor)
         ])
+    }
+}
+
+
+class RecordingButton: UIButton {
+    
+    override func draw(_ rect: CGRect) {
+        guard let myContext = UIGraphicsGetCurrentContext() else { return }
+        
+        let height = bounds.height
+        let width = bounds.width
+        let whiteCircleFrame = bounds.insetBy(dx: width * 0.05, dy: height * 0.05)
+        let redCircleFrame = bounds.insetBy(dx: width * 0.15, dy: height * 0.15)
+        
+        if isSelected {
+            myContext.setStrokeColor(UIColor.white.cgColor)
+            myContext.setLineWidth(5)
+            myContext.addEllipse(in: whiteCircleFrame)
+            myContext.drawPath(using: .stroke)
+            myContext.closePath()
+            
+            myContext.setFillColor(UIColor.red.cgColor)
+            myContext.addRect(CGRect(x: width * 0.3, y: height * 0.3, width: width * 0.4, height: height * 0.4))
+            myContext.drawPath(using: .fill)
+            myContext.closePath()
+        } else {
+            myContext.setStrokeColor(UIColor.white.cgColor)
+            myContext.setLineWidth(5)
+            myContext.addEllipse(in: whiteCircleFrame)
+            myContext.drawPath(using: .stroke)
+            myContext.closePath()
+            
+            myContext.setFillColor(UIColor.red.cgColor)
+            myContext.addEllipse(in: redCircleFrame)
+            myContext.drawPath(using: .fill)
+            myContext.closePath()
+        }
     }
 }
