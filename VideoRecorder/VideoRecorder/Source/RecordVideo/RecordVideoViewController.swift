@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import Combine
 import AVFoundation
 
 final class RecordVideoViewController: UIViewController {
     private lazy var previewLayer = {
-        let layer = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
+        let layer = AVCaptureVideoPreviewLayer(session: viewModel.recorderCaptureSession)
 
         layer.bounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         layer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
@@ -20,11 +19,7 @@ final class RecordVideoViewController: UIViewController {
         return layer
     }()
 
-    private let recordManager = RecordManager()
     private let viewModel: RecordVideoViewModel
-    
-    private var subscriptions = Set<AnyCancellable>()
-    
     private let recordControlView: RecordControlView
     
     init() {
@@ -44,7 +39,6 @@ final class RecordVideoViewController: UIViewController {
         setupView()
         layout()
         setupNavigationItems()
-        bind()
         startCaptureSession()
     }
     
@@ -91,34 +85,6 @@ final class RecordVideoViewController: UIViewController {
     }
     
     private func startCaptureSession() {
-        recordManager.startCaptureSession()
-    }
-}
-
-// MARK: - Bind to viewModel
-extension RecordVideoViewController {
-    private func bind() {
-        rotateCamera()
-        recordVideo()
-    }
-    
-    private func rotateCamera() {
-        viewModel.$isRotateButtonTapped
-            .sink { [weak self] isRotated in
-                self?.recordManager.configureCamera(isFrontCamera: isRotated)
-            }
-            .store(in: &subscriptions)
-    }
-    
-    private func recordVideo() {
-        viewModel.$isRecordButtonTapped
-            .sink { [weak self] isRecordButtonTapped in
-                if isRecordButtonTapped {
-                    self?.recordManager.startRecording()
-                } else {
-                    self?.recordManager.stopRecording()
-                }
-            }
-            .store(in: &subscriptions)
+        viewModel.startCaptureSession()
     }
 }

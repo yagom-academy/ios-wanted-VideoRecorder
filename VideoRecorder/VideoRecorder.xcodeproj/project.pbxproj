@@ -12,7 +12,7 @@
 		AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DC2A31033D0086F82D /* DataTransferObject.swift */; };
 		AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DE2A3103730086F82D /* DataAccessObject.swift */; };
 		AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E02A3104250086F82D /* VideoEntity.swift */; };
-		AA4465E42A3199730086F82D /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E32A3199730086F82D /* RecordManager.swift */; };
+		AA4465E42A3199730086F82D /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E32A3199730086F82D /* Recorder.swift */; };
 		AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E72A319E3C0086F82D /* URL+createURL.swift */; };
 		AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */; };
 		AA4465ED2A31AE3C0086F82D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AA4465EC2A31AE3C0086F82D /* FirebaseStorage */; };
@@ -36,7 +36,7 @@
 		AA4465DC2A31033D0086F82D /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
 		AA4465DE2A3103730086F82D /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		AA4465E02A3104250086F82D /* VideoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEntity.swift; sourceTree = "<group>"; };
-		AA4465E32A3199730086F82D /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		AA4465E32A3199730086F82D /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +87,7 @@
 		AA4465E22A3199500086F82D /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				AA4465E32A3199730086F82D /* RecordManager.swift */,
+				AA4465E32A3199730086F82D /* Recorder.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -301,7 +301,7 @@
 				AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */,
 				AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */,
 				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
-				AA4465E42A3199730086F82D /* RecordManager.swift in Sources */,
+				AA4465E42A3199730086F82D /* Recorder.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  RecordManager.swift
+//  Recorder.swift
 //  VideoRecorder
 //
 //  Created by kokkilE on 2023/06/08.
@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-final class RecordManager: NSObject {
+final class Recorder: NSObject {
     let captureSession = AVCaptureSession()
     var camera: AVCaptureDevice?
     let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
@@ -79,7 +79,7 @@ final class RecordManager: NSObject {
     }
 }
 
-extension RecordManager: AVCaptureFileOutputRecordingDelegate {
+extension Recorder: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         print("fileOutput: didFinishRecordingTo / \(outputFileURL)")
     }
