@@ -78,7 +78,7 @@ extension VideoListViewController: UITableViewDataSource {
         cell.configure(thumbnailImageName: contents.thumbnailImageName,
                        playbackTime: contents.playbackTime,
                        fileName: contents.fileName,
-                       date: "\(contents.registrationDate)")
+                       date: contents.registrationDate.translateLocalizedFormat())
         return cell
     }
 }
