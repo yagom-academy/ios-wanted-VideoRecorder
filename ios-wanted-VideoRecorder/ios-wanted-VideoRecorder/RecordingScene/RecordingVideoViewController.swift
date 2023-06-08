@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 final class RecordingVideoViewController: UIViewController {
     private enum Constant {
@@ -93,6 +94,10 @@ final class RecordingVideoViewController: UIViewController {
         
         return button
     }()
+    
+    private let recordManager = RecordManager()
+    
+    private var previewLayer: AVCaptureVideoPreviewLayer?
     
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
