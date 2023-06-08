@@ -28,7 +28,8 @@ struct InfoView: View {
             
             video.thumbnailImage
                 .resizable()
-                .frame(width: 200, height: 200, alignment: .center)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 80, height: 80, alignment: .center)
             
             Spacer()
             
@@ -51,9 +52,20 @@ struct InfoView: View {
                 Spacer()
                 Text("\(video.videoLength)")
             }
+            
+            Spacer()
+            
+            HStack {
+                Image(systemName: "clock.badge.checkmark.fill")
+                    .bold()
+                Text("영상 시간")
+                    .bold()
+                Spacer()
+                Text("\(video.date.description)")
+            }
         }
         .navigationTitle("영상 정보")
-        .padding(EdgeInsets(top: 30, leading: 20, bottom: 30, trailing: 20))
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 30, trailing: 20))
     }
 }
 

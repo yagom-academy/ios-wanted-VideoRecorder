@@ -33,8 +33,8 @@ struct VideoView: View {
         }
         .navigationTitle(viewModel.video.title)
         .toolbar {
-            Button {
-                // 비디오 정보
+            NavigationLink {
+                InfoView(video: viewModel.video)
             } label: {
                 Image(systemName: "info.circle.fill")
             }

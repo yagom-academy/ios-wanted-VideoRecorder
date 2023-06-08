@@ -52,12 +52,14 @@ struct MainListView: View {
                                     Text("제목 수정")
                                 }
                                 
-                                Button {
+                                NavigationLink {
+                                    InfoView(video: video)
                                 } label: {
                                     Text("세부 정보")
                                 }
                             } label: {
                                 Image(systemName: "ellipsis")
+                                    .imageScale(.large)
                             }
 
                         }
