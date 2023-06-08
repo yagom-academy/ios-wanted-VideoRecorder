@@ -34,6 +34,16 @@ final class VideoViewModel: ObservableObject {
         videoPlayer = AVPlayer(url: url)
     }
     
+    func moveToBackThreeSecond() {
+        guard let currentTime = videoPlayer.currentItem?.currentTime() else {
+            return
+        }
+        let frame = CMTimeMake(value: 3, timescale: 1)
+        let subtractTime = CMTimeSubtract(currentTime, frame)
+        
+        videoPlayer.seek(to: subtractTime, toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+    
     private func playVideo() {
         videoPlayer.play()
     }
