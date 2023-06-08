@@ -9,7 +9,8 @@ import SwiftUI
 import Foundation
 
 final class MainViewModel: ObservableObject {
-    @Published var videos: [Video] = []
+    @Published var videos: [Video] = [Video(id: UUID(), title: "title.mov", date: Date(), videoURL: URL(string: "abc"), videoLength: "12:03"),
+                                      Video(id: UUID(), title: "title.mov", date: Date(), videoURL: URL(string: "abc"), videoLength: "12:03")]
     @Published var isShowCameraView = false {
         didSet {
             searchVideos()
@@ -18,7 +19,7 @@ final class MainViewModel: ObservableObject {
     private let realmManager = RealmManager<VideoObject>()
     
     init() {
-        searchVideos()
+//        searchVideos()
     }
     
     private func searchVideos() {

@@ -42,6 +42,24 @@ struct MainListView: View {
                         } label: {
                             MainListCell(video: video)
                                 .listRowSeparator(.visible)
+                            
+                            Spacer()
+                            
+                            Menu {
+                                Button {
+                                    //
+                                } label: {
+                                    Text("제목 수정")
+                                }
+                                
+                                Button {
+                                } label: {
+                                    Text("세부 정보")
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis")
+                            }
+
                         }
                     }
                     .onDelete(perform: viewModel.deleteVideo(_:))

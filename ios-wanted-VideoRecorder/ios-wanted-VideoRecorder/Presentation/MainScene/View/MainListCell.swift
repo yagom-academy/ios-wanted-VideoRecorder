@@ -26,11 +26,6 @@ struct MainListCell: View {
             }
             
             Spacer()
-            
-            Button {
-            } label: {
-                Image(systemName: "ellipsis")
-            }
         }
         .padding(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 0))
     }

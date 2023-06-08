@@ -35,6 +35,7 @@
 		26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CD2A305FC700B04954 /* VideoView.swift */; };
 		26C8A3D02A3068BF00B04954 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */; };
 		26EE37152A325FFF00CD3ADD /* VideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */; };
+		26EE371A2A32767B00CD3ADD /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37192A32767B00CD3ADD /* InfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		26C8A3CD2A305FC700B04954 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
 		26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUseCase.swift; sourceTree = "<group>"; };
+		26EE37192A32767B00CD3ADD /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		26167A442A2DA8DC0048B21D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				26EE37172A32765900CD3ADD /* InfoScene */,
 				26C8A3CA2A305F9E00B04954 /* VideoScene */,
 				26167A612A2E0F450048B21D /* CameraScene */,
 				26167A5C2A2DEBC30048B21D /* MainScene */,
@@ -274,6 +277,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		26EE37172A32765900CD3ADD /* InfoScene */ = {
+			isa = PBXGroup;
+			children = (
+				26EE37182A32767200CD3ADD /* View */,
+			);
+			path = InfoScene;
+			sourceTree = "<group>";
+		};
+		26EE37182A32767200CD3ADD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				26EE37192A32767B00CD3ADD /* InfoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -368,6 +387,7 @@
 				2689D27C2A31FD480038CE19 /* VideoSlider.swift in Sources */,
 				26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */,
 				26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */,
+				26EE371A2A32767B00CD3ADD /* InfoView.swift in Sources */,
 				26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */,
 				262049ED2A2F229500E49EBF /* MainListView.swift in Sources */,
 				2689D27A2A31DB3A0038CE19 /* VideoPlayButton.swift in Sources */,
