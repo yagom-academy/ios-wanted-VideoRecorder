@@ -14,6 +14,8 @@
 		AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E02A3104250086F82D /* VideoEntity.swift */; };
 		AA4465E42A3199730086F82D /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E32A3199730086F82D /* RecordManager.swift */; };
 		AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E72A319E3C0086F82D /* URL+createURL.swift */; };
+		AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */; };
+		AA4465ED2A31AE3C0086F82D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AA4465EC2A31AE3C0086F82D /* FirebaseStorage */; };
 		AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */; };
 		AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */; };
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
@@ -36,6 +38,7 @@
 		AA4465E02A3104250086F82D /* VideoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEntity.swift; sourceTree = "<group>"; };
 		AA4465E32A3199730086F82D /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
+		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4465ED2A31AE3C0086F82D /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +115,7 @@
 				AA8518312A2DBCAE00554FA7 /* Resources */,
 				AA8518302A2DBCA800554FA7 /* Source */,
 				AA85182A2A2DBC5F00554FA7 /* Info.plist */,
+				AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
@@ -226,6 +231,9 @@
 			dependencies = (
 			);
 			name = VideoRecorder;
+			packageProductDependencies = (
+				AA4465EC2A31AE3C0086F82D /* FirebaseStorage */,
+			);
 			productName = VideoRecorder;
 			productReference = AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */;
 			productType = "com.apple.product-type.application";
@@ -254,6 +262,9 @@
 				Base,
 			);
 			mainGroup = AA8518102A2DBC5E00554FA7;
+			packageReferences = (
+				AA4465EB2A31AE3C0086F82D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = AA85181A2A2DBC5E00554FA7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,6 +281,7 @@
 			files = (
 				AA8518292A2DBC5F00554FA7 /* LaunchScreen.storyboard in Resources */,
 				AA8518262A2DBC5F00554FA7 /* Assets.xcassets in Resources */,
+				AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -418,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -506,6 +518,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA4465EB2A31AE3C0086F82D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA4465EC2A31AE3C0086F82D /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA4465EB2A31AE3C0086F82D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA8518112A2DBC5E00554FA7 /* Project object */;
 }
