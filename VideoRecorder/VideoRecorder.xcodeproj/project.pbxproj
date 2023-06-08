@@ -13,7 +13,7 @@
 		AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DE2A3103730086F82D /* DataAccessObject.swift */; };
 		AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E02A3104250086F82D /* VideoEntity.swift */; };
 		AA4465E42A3199730086F82D /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E32A3199730086F82D /* RecordManager.swift */; };
-		AA4465E62A3199970086F82D /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E52A3199970086F82D /* URLManager.swift */; };
+		AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E72A319E3C0086F82D /* URL+createURL.swift */; };
 		AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */; };
 		AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */; };
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
@@ -35,7 +35,7 @@
 		AA4465DE2A3103730086F82D /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		AA4465E02A3104250086F82D /* VideoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEntity.swift; sourceTree = "<group>"; };
 		AA4465E32A3199730086F82D /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
-		AA4465E52A3199970086F82D /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				AA4465E32A3199730086F82D /* RecordManager.swift */,
-				AA4465E52A3199970086F82D /* URLManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -181,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */,
+				AA4465E72A319E3C0086F82D /* URL+createURL.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -287,13 +287,13 @@
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */,
 				AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */,
+				AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */,
 				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
 				AA4465E42A3199730086F82D /* RecordManager.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
 				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,
-				AA4465E62A3199970086F82D /* URLManager.swift in Sources */,
 				AA8518482A2EF11100554FA7 /* VideoManager.swift in Sources */,
 				AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */,
 				AA85183A2A2ECB5000554FA7 /* VideoImageCell.swift in Sources */,

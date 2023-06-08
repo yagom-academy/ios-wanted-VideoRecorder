@@ -67,7 +67,7 @@ final class RecordManager: NSObject {
     }
     
     func startRecording() {
-        guard let url = URLManager().createURL() else { return }
+        guard let url = URL.createVideoURL() else { return }
         
         videoOutput.startRecording(to: url, recordingDelegate: self)
     }
@@ -81,6 +81,6 @@ final class RecordManager: NSObject {
 
 extension RecordManager: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("fileOutput: didFinishRecordingTo")
+        print("fileOutput: didFinishRecordingTo / \(outputFileURL)")
     }
 }
