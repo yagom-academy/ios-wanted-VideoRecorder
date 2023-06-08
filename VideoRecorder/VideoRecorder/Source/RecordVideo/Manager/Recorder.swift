@@ -81,6 +81,7 @@ final class Recorder: NSObject {
 
 extension Recorder: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("fileOutput: didFinishRecordingTo / \(outputFileURL)")
+        print("output: \(output)")
+        print("fileOutput: \(outputFileURL)")
     }
 }

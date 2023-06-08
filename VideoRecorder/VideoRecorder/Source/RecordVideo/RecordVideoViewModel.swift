@@ -55,6 +55,7 @@ final class RecordVideoViewModel {
     private func recordVideo() {
         if isRecordButtonTapped {
             recorder.startRecording()
+            isRecordDone = false
         } else {
             recorder.stopRecording()
             isRecordDone = true

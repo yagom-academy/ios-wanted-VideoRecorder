@@ -92,6 +92,20 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		AA4465F12A31E67A0086F82D /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		AA4465F22A31E6800086F82D /* Local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
 		AA8518102A2DBC5E00554FA7 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +207,8 @@
 		AA8518452A2EF0FA00554FA7 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				AA4465F22A31E6800086F82D /* Local */,
+				AA4465F12A31E67A0086F82D /* Remote */,
 				AA8518462A2EF10200554FA7 /* Manager */,
 			);
 			path = Database;

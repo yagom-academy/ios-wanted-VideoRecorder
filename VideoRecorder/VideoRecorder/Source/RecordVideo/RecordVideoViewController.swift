@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import AVFoundation
 
 final class RecordVideoViewController: UIViewController {
@@ -21,6 +22,8 @@ final class RecordVideoViewController: UIViewController {
 
     private let viewModel: RecordVideoViewModel
     private let recordControlView: RecordControlView
+    
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
         viewModel = RecordVideoViewModel()
@@ -40,6 +43,7 @@ final class RecordVideoViewController: UIViewController {
         layout()
         setupNavigationItems()
         startCaptureSession()
+        bind()
     }
     
     private func setupView() {
@@ -86,5 +90,15 @@ final class RecordVideoViewController: UIViewController {
     
     private func startCaptureSession() {
         viewModel.startCaptureSession()
+    }
+    
+    private func bind() {
+        viewModel.$isRecordDone
+            .sink { isDone in
+                guard isDone else { return }
+                
+                print(isDone)
+            }
+            .store(in: &subscriptions)
     }
 }
