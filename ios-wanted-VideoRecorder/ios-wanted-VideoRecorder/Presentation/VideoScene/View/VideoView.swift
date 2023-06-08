@@ -14,14 +14,15 @@ struct VideoView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            VideoPlayer(player: viewModel.videoPlayer, videoOverlay: {
                 VStack {
-                    VideoPlayer(player: viewModel.videoPlayer)
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    Spacer()
                     VideoInterfaceView(viewModel: viewModel)
                 }
-            }
+                .frame(alignment: .bottom)
+            })
+            .ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .navigationTitle(viewModel.video.title)
         .toolbar {
