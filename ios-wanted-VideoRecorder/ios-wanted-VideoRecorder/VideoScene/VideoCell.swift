@@ -11,9 +11,9 @@ final class VideoCell: UICollectionViewListCell {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mockImage")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
