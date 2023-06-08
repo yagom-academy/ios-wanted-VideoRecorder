@@ -11,7 +11,6 @@
 		AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D82A30B24A0086F82D /* RecordControlView.swift */; };
 		AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DC2A31033D0086F82D /* DataTransferObject.swift */; };
 		AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DE2A3103730086F82D /* DataAccessObject.swift */; };
-		AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E02A3104250086F82D /* VideoEntity.swift */; };
 		AA4465E42A3199730086F82D /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E32A3199730086F82D /* Recorder.swift */; };
 		AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E72A319E3C0086F82D /* URL+createURL.swift */; };
 		AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */; };
@@ -28,6 +27,10 @@
 		AA8518422A2ED07600554FA7 /* VideoDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */; };
 		AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518432A2EF05900554FA7 /* VideoListViewModel.swift */; };
 		AA8518482A2EF11100554FA7 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518472A2EF11100554FA7 /* VideoManager.swift */; };
+		AA97DC322A31EAF500AFBC7B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC302A31EAF500AFBC7B /* CoreData.xcdatamodeld */; };
+		AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC332A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift */; };
+		AA97DC382A31EBCF00AFBC7B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */; };
+		AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +38,6 @@
 		AA4465D82A30B24A0086F82D /* RecordControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordControlView.swift; sourceTree = "<group>"; };
 		AA4465DC2A31033D0086F82D /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
 		AA4465DE2A3103730086F82D /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
-		AA4465E02A3104250086F82D /* VideoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEntity.swift; sourceTree = "<group>"; };
 		AA4465E32A3199730086F82D /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -53,6 +55,10 @@
 		AA8518412A2ED07600554FA7 /* VideoDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDescriptionCell.swift; sourceTree = "<group>"; };
 		AA8518432A2EF05900554FA7 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		AA8518472A2EF11100554FA7 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		AA97DC312A31EAF500AFBC7B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		AA97DC332A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+dateToText.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,9 @@
 		AA4465F22A31E6800086F82D /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				AA97DC302A31EAF500AFBC7B /* CoreData.xcdatamodeld */,
+				AA97DC332A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift */,
+				AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -190,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				AA8518372A2ECA5E00554FA7 /* Video.swift */,
-				AA4465E02A3104250086F82D /* VideoEntity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 			children = (
 				AA85183B2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift */,
 				AA4465E72A319E3C0086F82D /* URL+createURL.swift */,
+				AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -310,16 +319,19 @@
 			files = (
 				AA8518422A2ED07600554FA7 /* VideoDescriptionCell.swift in Sources */,
 				AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */,
+				AA97DC322A31EAF500AFBC7B /* CoreData.xcdatamodeld in Sources */,
+				AA97DC382A31EBCF00AFBC7B /* CoreDataManager.swift in Sources */,
 				AA85183C2A2ECEA300554FA7 /* UICollectionViewCell+ReuseIdentifying.swift in Sources */,
 				AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */,
+				AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */,
 				AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */,
+				AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */,
 				AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */,
 				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
 				AA4465E42A3199730086F82D /* Recorder.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
-				AA4465E12A3104250086F82D /* VideoEntity.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
 				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,
 				AA8518482A2EF11100554FA7 /* VideoManager.swift in Sources */,
@@ -553,6 +565,20 @@
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		AA97DC302A31EAF500AFBC7B /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AA97DC312A31EAF500AFBC7B /* CoreData.xcdatamodel */,
+			);
+			currentVersion = AA97DC312A31EAF500AFBC7B /* CoreData.xcdatamodel */;
+			name = CoreData.xcdatamodeld;
+			path = ../../../../CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AA8518112A2DBC5E00554FA7 /* Project object */;
 }

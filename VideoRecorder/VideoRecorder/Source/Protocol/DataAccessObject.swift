@@ -7,6 +7,11 @@
 
 import Foundation
 
-protocol DataAccessObject {
-    var identifier: UUID { get }
+protocol DataAccessObject: Identifiable {
+    associatedtype DataTransferObject
+    
+    var identifier: UUID? { get }
+    
+    func setValues(from model: DataTransferObject)
+    func updateValues(from model: DataTransferObject)
 }

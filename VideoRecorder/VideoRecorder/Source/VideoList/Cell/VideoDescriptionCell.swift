@@ -12,7 +12,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.font = .preferredFont(forTextStyle: .title1)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
         
         return label
@@ -22,7 +22,7 @@ final class VideoDescriptionCell: UICollectionViewCell {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
@@ -61,9 +61,9 @@ final class VideoDescriptionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, date: String) {
+    func configure(title: String, date: Date) {
         titleLabel.text = title
-        dateLabel.text = date
+        dateLabel.text = DateFormatter.dateToText(date)
     }
     
     private func setupCell() {
