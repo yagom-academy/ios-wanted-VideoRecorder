@@ -9,6 +9,7 @@ import Foundation
 
 struct Video {
     let thumbnailImageName: String
+    let playbackTime: String
     let fileName: String
     let registrationDate: Date
 }

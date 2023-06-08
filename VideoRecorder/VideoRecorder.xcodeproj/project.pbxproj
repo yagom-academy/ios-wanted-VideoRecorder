@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */; };
 		BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A352A31F06900B82930 /* SystemImageName.swift */; };
+		BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A372A322FA900B82930 /* PaddingLabel.swift */; };
 		BF9CA06A2A2F818B00BB9692 /* VideoListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */; };
 		BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA06F2A2F8B4600BB9692 /* Video.swift */; };
 		BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCFEB9B2A2E2135005911F1 /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoViewController.swift; sourceTree = "<group>"; };
 		BF5C1A352A31F06900B82930 /* SystemImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageName.swift; sourceTree = "<group>"; };
+		BF5C1A372A322FA900B82930 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListTitleView.swift; sourceTree = "<group>"; };
 		BF9CA06F2A2F8B4600BB9692 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		BFCFEB982A2E2135005911F1 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 			children = (
 				BFCFEBB42A2E2AAE005911F1 /* VideoListCell.swift */,
 				BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */,
+				BF5C1A372A322FA900B82930 /* PaddingLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				BF9CA06A2A2F818B00BB9692 /* VideoListTitleView.swift in Sources */,
 				BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */,
 				BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */,
+				BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */,
 				BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */,
 				BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */,
 				BFCFEB9E2A2E2135005911F1 /* SceneDelegate.swift in Sources */,

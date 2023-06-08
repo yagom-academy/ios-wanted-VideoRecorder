@@ -15,6 +15,17 @@ final class VideoListCell: UITableViewCell {
         return imageView
     }()
     
+    private let playbackTimeLabel: PaddingLabel = {
+        let label = PaddingLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .white
+        label.backgroundColor = .black.withAlphaComponent(0.6)
+        label.layer.cornerRadius = 4
+        label.clipsToBounds = true
+        return label
+    }()
+    
     private let fileNameLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize)
@@ -38,8 +49,9 @@ final class VideoListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(thumbnailImageName: String, fileName: String, date: String) {
+    func configure(thumbnailImageName: String, playbackTime: String, fileName: String, date: String) {
         thumbnailImageView.image = UIImage(named: thumbnailImageName)
+        playbackTimeLabel.text = playbackTime
         fileNameLabel.text = fileName
         dateLabel.text = date
     }
@@ -68,10 +80,14 @@ final class VideoListCell: UITableViewCell {
         let stackView = createContentsStackView()
         
         contentView.addSubview(stackView)
+        thumbnailImageView.addSubview(playbackTimeLabel)
         
         NSLayoutConstraint.activate([
             thumbnailImageView.heightAnchor.constraint(equalToConstant: 60),
             thumbnailImageView.widthAnchor.constraint(equalToConstant: 80),
+            
+            playbackTimeLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 4),
+            playbackTimeLabel.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -4),
             
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),

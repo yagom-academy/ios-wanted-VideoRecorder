@@ -16,14 +16,14 @@ final class VideoListViewController: UIViewController {
     }()
     
     private let videos: [Video] = [
-        Video(thumbnailImageName: "sample", fileName: "file1.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file2.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file3.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file4.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file5.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file6.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file7.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", fileName: "file8.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "1:13:01", fileName: "file1.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file2.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "13:01", fileName: "file3.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "55:01", fileName: "file4.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "12:03:01", fileName: "file5.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file6.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file7.mp4", registrationDate: Date()),
+        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file8.mp4", registrationDate: Date()),
     ]
     
     override func viewDidLoad() {
@@ -75,7 +75,10 @@ extension VideoListViewController: UITableViewDataSource {
         }
         
         let contents = videos[indexPath.row]
-        cell.configure(thumbnailImageName: contents.thumbnailImageName, fileName: contents.fileName, date: "\(contents.registrationDate)")
+        cell.configure(thumbnailImageName: contents.thumbnailImageName,
+                       playbackTime: contents.playbackTime,
+                       fileName: contents.fileName,
+                       date: "\(contents.registrationDate)")
         return cell
     }
 }
