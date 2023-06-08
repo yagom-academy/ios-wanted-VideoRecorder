@@ -19,7 +19,8 @@ struct InfoView: View {
                 .bold()
             DatePicker(
                 "영상 촬영 날짜",
-                selection: Binding<Date>(get: {self.video.date ?? Date()}, set: {self.date = $0}),
+                selection: Binding<Date>(get: { self.video.date },
+                                         set: { self.date = $0 }),
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
@@ -29,7 +30,7 @@ struct InfoView: View {
             video.thumbnailImage
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 80, height: 80, alignment: .center)
+                .frame(width: 120, height: 120, alignment: .center)
             
             Spacer()
             
@@ -56,12 +57,12 @@ struct InfoView: View {
             Spacer()
             
             HStack {
-                Image(systemName: "clock.badge.checkmark.fill")
+                Image(systemName: "deskclock.fill")
                     .bold()
-                Text("영상 시간")
+                Text("영상 세부 시간")
                     .bold()
                 Spacer()
-                Text("\(video.date.description)")
+                Text("\(video.date.descText)")
             }
         }
         .navigationTitle("영상 정보")
