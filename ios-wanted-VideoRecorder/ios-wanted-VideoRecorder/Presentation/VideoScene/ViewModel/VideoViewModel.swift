@@ -13,7 +13,9 @@ final class VideoViewModel: ObservableObject {
     let video: Video
     var videoPlayer: AVPlayer
     
-    @State var videoTime: Double = 0
+    @State var videoTimeRatio: Double = 0
+    @Published var currentTime: Float = 0
+    @Published var durationTime: Float = 0
     @Published var isPlaying: Bool = false {
         didSet {
             if isPlaying {
@@ -43,6 +45,28 @@ final class VideoViewModel: ObservableObject {
         let subtractTime = CMTimeSubtract(currentTime, frame)
         
         videoPlayer.seek(to: subtractTime, toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+    
+    private func configureVideo() {
+        let updatedInterval = CMTimeMake(value: 1, timescale: 600)
+        
+        videoPlayer.addPeriodicTimeObserver(forInterval: updatedInterval, queue: DispatchQueue.main, using: { time in
+            self.updateVideoSlider(time: time)
+        })
+    }
+    
+    private func updateVideoSlider(time: CMTime) {
+        guard let currentItem = videoPlayer.currentItem else {
+            return
+        }
+        
+        let duration = CMTimeGetSeconds(currentItem.duration)
+        let currentTime = CMTimeGetSeconds(time)
+        
+        self.videoTimeRatio = currentTime / duration
+        
+        self.durationTime = Float(duration)
+        self.currentTime = Float(currentTime)
     }
     
     private func playVideo() {
