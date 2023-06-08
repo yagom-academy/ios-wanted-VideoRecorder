@@ -207,12 +207,12 @@ final class RecordingVideoViewController: UIViewController {
 }
 
 fileprivate extension Double {
-    func format(units: NSCalendar.Unit) -> String {
+    func format(units: NSCalendar.Unit) -> String? {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = units
         formatter.zeroFormattingBehavior = [.pad]
         
-        return formatter.string(from: self)!
+        return formatter.string(from: self)
     }
 }
 
