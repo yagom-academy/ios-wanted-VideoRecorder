@@ -24,7 +24,7 @@ struct VideoInterfaceButtons: View {
             
             Spacer()
             
-            VideoPlayButton(isPlaying: viewModel.isPlaying)
+            VideoPlayButton(viewModel: viewModel)
             
             Spacer()
             

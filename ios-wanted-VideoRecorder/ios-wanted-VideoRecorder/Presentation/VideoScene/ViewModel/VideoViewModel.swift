@@ -18,8 +18,14 @@ final class VideoViewModel: ObservableObject {
     
     @Published var videoTimeRatio: Double = 0 {
         didSet {
-            if -0.02 > (videoTimeRatio - oldValue) ||
-                    (videoTimeRatio - oldValue) > 0.02 {
+            guard let duration = videoPlayer.currentItem?.duration else {
+                return
+            }
+            
+            let durationSeconds = CMTimeGetSeconds(duration)
+            let diffSeconds = (videoTimeRatio - oldValue) * durationSeconds
+            if -1 > diffSeconds ||
+                    diffSeconds > 1 {
                 videoManager.changedVideoTime(timeRatio: videoTimeRatio)
             }
         }

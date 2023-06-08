@@ -51,10 +51,10 @@ struct VideoUseCase {
               !(timeRatio.isNaN || timeRatio.isInfinite) else {
             return
         }
-        
+
         let value = timeRatio * CMTimeGetSeconds(duration)
         let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
-        
+
         videoPlayer.seek(to: seekTime)
     }
 }
