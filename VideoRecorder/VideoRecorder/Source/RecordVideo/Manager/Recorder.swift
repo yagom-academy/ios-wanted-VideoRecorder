@@ -13,6 +13,9 @@ final class Recorder: NSObject {
     let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
     let videoOutput = AVCaptureMovieFileOutput()
     
+    @Published var videoData: Data?
+    @Published var date: Date?
+    
     func configureCamera(isFrontCamera: Bool) {
         if isFrontCamera {
             camera = discoverySession.devices.first { device in
@@ -81,7 +84,11 @@ final class Recorder: NSObject {
 
 extension Recorder: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("output: \(output)")
-        print("fileOutput: \(outputFileURL)")
+        do {
+            videoData = try Data(contentsOf: outputFileURL)
+            date = Date()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

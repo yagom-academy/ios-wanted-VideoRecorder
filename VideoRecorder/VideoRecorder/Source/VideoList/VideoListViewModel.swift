@@ -8,7 +8,7 @@
 import Combine
 
 final class VideoListViewModel {
-    private let videoManager = VideoManager()
+    private let videoManager = VideoManager.shared
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {
         return videoManager.$videoList

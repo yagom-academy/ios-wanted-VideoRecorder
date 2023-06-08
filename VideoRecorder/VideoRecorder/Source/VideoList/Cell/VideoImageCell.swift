@@ -28,10 +28,10 @@ final class VideoImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(image: UIImage?) {
-        guard let image else { return }
+    func configure(data: Data?) {
+        guard let data else { return }
         
-        videoImageView.image = image
+        videoImageView.image = nil
     }
     
     private func setupCell() {

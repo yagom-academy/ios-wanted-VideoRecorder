@@ -10,36 +10,54 @@ import AVFoundation
 
 final class RecordVideoViewModel {
     private let recorder = Recorder()
+    private let videoManager = VideoManager.shared
+    
     var isImageButtonTapped: Bool = false  {
-        didSet {  }
+        didSet { /* Todo */ }
     }
-    
     var isRecordButtonTapped: Bool = false {
-        didSet {
-            recordVideo()
-        }
+        didSet { recordVideo() }
     }
-    
     var isRotateButtonTapped: Bool = false {
-        didSet {
-            rotateCamera()
-        }
+        didSet { rotateCamera() }
     }
-    
     var recorderCaptureSession: AVCaptureSession {
         get {
             recorder.captureSession
         }
     }
+    private var video: Video? {
+        didSet { addVideo() }
+    }
+    private var videoData: Data?
+    private var date: Date?
+    var title: String? {
+        didSet { createVideoIfNeeded() }
+    }
+    @Published var isRecordingDoneButtonTapped: Bool = false
+    @Published var isRecordingDone: Bool = false
     
-    @Published var isRecordDone = false
-    
-    var imageURL: URL?
-    var title: String?
-    var date: String?
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
         recorder.configureCamera(isFrontCamera: false)
+        bind()
+    }
+    
+    private func bind() {
+        recorder.$videoData
+            .sink { [weak self] data in
+                self?.videoData = data
+                self?.createVideoIfNeeded()
+            }
+            .store(in: &subscriptions)
+        
+        recorder.$date
+            .sink { [weak self] date in
+                self?.date = date
+                self?.createVideoIfNeeded()
+            }
+            .store(in: &subscriptions)
     }
         
     func startCaptureSession() {
@@ -55,10 +73,22 @@ final class RecordVideoViewModel {
     private func recordVideo() {
         if isRecordButtonTapped {
             recorder.startRecording()
-            isRecordDone = false
         } else {
             recorder.stopRecording()
-            isRecordDone = true
+            isRecordingDoneButtonTapped = true
         }
+    }
+    
+    private func createVideoIfNeeded() {
+        guard let videoData, let date, let title else { return }
+        
+        video = Video(data: videoData, title: title, date: date)
+        isRecordingDone = true
+    }
+    
+    func addVideo() {
+        guard let video else { return }
+        
+        videoManager.create(video: video)
     }
 }

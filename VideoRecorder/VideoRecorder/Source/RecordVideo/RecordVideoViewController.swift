@@ -93,11 +93,19 @@ final class RecordVideoViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$isRecordDone
-            .sink { isDone in
+        viewModel.$isRecordingDoneButtonTapped
+            .sink { [weak self] isRecordingDoneButtonTapped in
+                guard isRecordingDoneButtonTapped else { return }
+                
+                self?.viewModel.title = "isDone"
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$isRecordingDone
+            .sink { [weak self] isDone in
                 guard isDone else { return }
                 
-                print(isDone)
+                print("RecordingDone")
             }
             .store(in: &subscriptions)
     }

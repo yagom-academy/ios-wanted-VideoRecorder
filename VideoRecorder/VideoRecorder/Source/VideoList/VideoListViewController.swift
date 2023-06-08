@@ -162,7 +162,7 @@ final class VideoListViewController: UIViewController {
                     return UICollectionViewCell()
                 }
                 
-                cell.configure(image: video.image)
+                cell.configure(data: video.data)
                 
                 return cell
             } else {

@@ -9,13 +9,13 @@ import UIKit
 
 struct Video: Hashable, DataTransferObject {
     let identifier: UUID
-    let image: UIImage?
+    let data: Data?
     let title: String
     let date: Date
     
-    init(identifier: UUID = UUID(), image: UIImage?, title: String, date: Date) {
+    init(identifier: UUID = UUID(), data: Data?, title: String, date: Date) {
         self.identifier = identifier
-        self.image = image
+        self.data = data
         self.title = title
         self.date = date
     }
@@ -23,7 +23,7 @@ struct Video: Hashable, DataTransferObject {
 
 extension Video {
     func copyWithoutImage() -> Video {
-        return Video(image: nil,
+        return Video(data: nil,
                      title: self.title,
                      date: self.date)
     }
