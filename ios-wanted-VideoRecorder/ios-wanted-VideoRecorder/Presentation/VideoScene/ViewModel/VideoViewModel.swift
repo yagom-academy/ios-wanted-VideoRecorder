@@ -11,13 +11,16 @@ import Foundation
 
 final class VideoViewModel: ObservableObject {
     let video: Video
-    var videoPlayer: AVPlayer
+    let videoManager: VideoUseCase
+    var videoPlayer: AVPlayer {
+        return videoManager.videoPlayer
+    }
     
     @Published var videoTimeRatio: Double = 0 {
         didSet {
             if -0.02 > (videoTimeRatio - oldValue) ||
                     (videoTimeRatio - oldValue) > 0.02 {
-                changedVideoTime(timeRatio: videoTimeRatio)
+                videoManager.changedVideoTime(timeRatio: videoTimeRatio)
             }
         }
     }
@@ -25,9 +28,9 @@ final class VideoViewModel: ObservableObject {
     @Published var isPlaying: Bool = false {
         didSet {
             if isPlaying {
-                playVideo()
+                videoManager.playVideo()
             } else {
-                pauseVideo()
+                videoManager.pauseVideo()
             }
         }
     }
@@ -36,34 +39,18 @@ final class VideoViewModel: ObservableObject {
         self.video = video
         
         if let url = video.videoURL {
-            videoPlayer = AVPlayer(url: url)
+            let videoPlayer = AVPlayer(url: url)
+            self.videoManager = VideoUseCase(videoPlayer: videoPlayer)
         } else {
-            videoPlayer = AVPlayer(playerItem: nil)
+            let videoPlayer = AVPlayer(playerItem: nil)
+            self.videoManager = VideoUseCase(videoPlayer: videoPlayer)
         }
         
         configureVideo()
     }
     
-    private func changedVideoTime(timeRatio: Double) {
-        guard let duration = videoPlayer.currentItem?.duration,
-              !(timeRatio.isNaN || timeRatio.isInfinite) else {
-            return
-        }
-        
-        let value = timeRatio * CMTimeGetSeconds(duration)
-        let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
-        
-        videoPlayer.seek(to: seekTime)
-    }
-    
-    func moveToBackThreeSecond() {
-        guard let currentTime = videoPlayer.currentItem?.currentTime() else {
-            return
-        }
-        let frame = CMTimeMake(value: 3, timescale: 1)
-        let subtractTime = CMTimeSubtract(currentTime, frame)
-        
-        videoPlayer.seek(to: subtractTime, toleranceBefore: .zero, toleranceAfter: .zero)
+    func goBackVideo() {
+        videoManager.goBackVideo(by: 3)
     }
     
     private func configureVideo() {
@@ -89,25 +76,11 @@ final class VideoViewModel: ObservableObject {
         let second = currentSecond % 60
         
         self.currentTime = String(format: "%02d:%02d", minute, second)
-        checkEndedVideo()
-    }
-    
-    private func checkEndedVideo() {
-        guard let durationTime = videoPlayer.currentItem?.duration else {
-            return
-        }
-        let nowTime = videoPlayer.currentTime()
         
-        if durationTime == nowTime {
+        let isPlayingVideo = videoManager.checkPlayingVideo()
+        
+        if isPlayingVideo == false {
             self.isPlaying = false
         }
-    }
-    
-    private func playVideo() {
-        videoPlayer.play()
-    }
-    
-    private func pauseVideo() {
-        videoPlayer.pause()
     }
 }

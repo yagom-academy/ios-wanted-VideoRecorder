@@ -34,6 +34,7 @@
 		26C8A3C92A305EF600B04954 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C82A305EF600B04954 /* CameraView.swift */; };
 		26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CD2A305FC700B04954 /* VideoView.swift */; };
 		26C8A3D02A3068BF00B04954 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */; };
+		26EE37152A325FFF00CD3ADD /* VideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		26C8A3C82A305EF600B04954 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		26C8A3CD2A305FC700B04954 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */,
+				26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */,
 				26AAEFF82A2F78E6003BB339 /* RealmManager.swift */,
 			);
 			path = Domain;
@@ -358,6 +361,7 @@
 				262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */,
 				2689D2782A31DA880038CE19 /* VideoInterfaceButtons.swift in Sources */,
 				26C8A3C72A305EDA00B04954 /* CameraSceneView.swift in Sources */,
+				26EE37152A325FFF00CD3ADD /* VideoUseCase.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
 				26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */,

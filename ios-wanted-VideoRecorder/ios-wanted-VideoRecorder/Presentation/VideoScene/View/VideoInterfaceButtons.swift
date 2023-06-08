@@ -14,7 +14,7 @@ struct VideoInterfaceButtons: View {
     var body: some View {
         HStack {
             Button {
-                viewModel.moveToBackThreeSecond()
+                viewModel.goBackVideo()
             } label: {
                 Image(systemName: "backward.end.fill")
                     .resizable()
