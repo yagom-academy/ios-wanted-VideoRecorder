@@ -14,10 +14,7 @@ final class AddVideoViewController: UIViewController {
     let previewLayer = AVCaptureVideoPreviewLayer()
     
     private let shutterButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        button.layer.cornerRadius = 40
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColor.white.cgColor
+        let button = ShutterButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         return button
     }()
     
@@ -27,20 +24,14 @@ final class AddVideoViewController: UIViewController {
         checkCameraPermissions()
     }
     
-    override func viewDidLayoutSubviews() { // 수정필요
-        super.viewDidLayoutSubviews()
-        previewLayer.frame = view.bounds
-        shutterButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height - 200)
-    }
-    
     private func configureUIOption() {
-        let rightBarButtonIcon = UIImage(systemName: SystemImageName.xmark)?
-            .withRenderingMode(.alwaysOriginal)
-            .withTintColor(.systemGray2)
-        
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
+        
+        let rightBarButtonIcon = UIImage(systemName: SystemImageName.xmark)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.systemGray2)
         
         navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightBarButtonIcon,
@@ -48,6 +39,9 @@ final class AddVideoViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(popAddVideoViewController))
         
+        previewLayer.frame = view.bounds
+        shutterButton.center = CGPoint(x: view.frame.size.width / 2,
+                                       y: view.frame.size.height - 200)
         shutterButton.addTarget(self, action: #selector(didTapShutterButton), for: .touchUpInside)
     }
     
@@ -102,7 +96,7 @@ final class AddVideoViewController: UIViewController {
     }
 
     @objc private func didTapShutterButton() {
-        guard let session = session else { return }
+        guard session != nil else { return }
         
         if movieOutput.isRecording {
             movieOutput.stopRecording()
@@ -113,6 +107,8 @@ final class AddVideoViewController: UIViewController {
         }
     }
 }
+
+// MARK: - AVCapture File Output Recording Delegate
 
 extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {

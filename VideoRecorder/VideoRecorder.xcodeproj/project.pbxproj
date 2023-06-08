@@ -11,6 +11,7 @@
 		BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A352A31F06900B82930 /* SystemImageName.swift */; };
 		BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A372A322FA900B82930 /* PaddingLabel.swift */; };
 		BF5C1A3B2A32350500B82930 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A3A2A32350500B82930 /* Date+.swift */; };
+		BF5C1A402A3248BB00B82930 /* ShutterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A3F2A3248BB00B82930 /* ShutterButton.swift */; };
 		BF9CA06A2A2F818B00BB9692 /* VideoListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */; };
 		BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CA06F2A2F8B4600BB9692 /* Video.swift */; };
 		BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCFEB9B2A2E2135005911F1 /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		BF5C1A352A31F06900B82930 /* SystemImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageName.swift; sourceTree = "<group>"; };
 		BF5C1A372A322FA900B82930 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		BF5C1A3A2A32350500B82930 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		BF5C1A3F2A3248BB00B82930 /* ShutterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutterButton.swift; sourceTree = "<group>"; };
 		BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListTitleView.swift; sourceTree = "<group>"; };
 		BF9CA06F2A2F8B4600BB9692 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		BFCFEB982A2E2135005911F1 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +56,7 @@
 		BF2ACD002A3096B800121A9F /* AddVideo */ = {
 			isa = PBXGroup;
 			children = (
+				BF5C1A412A3248BE00B82930 /* View */,
 				BF2ACD012A3096EA00121A9F /* Controller */,
 			);
 			path = AddVideo;
@@ -83,6 +86,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		BF5C1A412A3248BE00B82930 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BF5C1A3F2A3248BB00B82930 /* ShutterButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BF9CA06B2A2F8A8F00BB9692 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +107,8 @@
 		BF9CA06C2A2F8AA200BB9692 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BFCFEBB42A2E2AAE005911F1 /* VideoListCell.swift */,
 				BF9CA0692A2F818B00BB9692 /* VideoListTitleView.swift */,
+				BFCFEBB42A2E2AAE005911F1 /* VideoListCell.swift */,
 				BF5C1A372A322FA900B82930 /* PaddingLabel.swift */,
 			);
 			path = View;
@@ -138,10 +149,10 @@
 		BFCFEB9A2A2E2135005911F1 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				BF5C1A392A3234F900B82930 /* Extension */,
 				BFCFEBB02A2E223E005911F1 /* Resource */,
 				BFCFEBAF2A2E2233005911F1 /* Application */,
 				BF5C1A342A31F03900B82930 /* Utility */,
+				BF5C1A392A3234F900B82930 /* Extension */,
 				BF9CA06D2A2F8AC700BB9692 /* Protocol */,
 				BF9CA06B2A2F8A8F00BB9692 /* VideoList */,
 				BF2ACD002A3096B800121A9F /* AddVideo */,
@@ -255,6 +266,7 @@
 				BF9CA0702A2F8B4600BB9692 /* Video.swift in Sources */,
 				BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */,
 				BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */,
+				BF5C1A402A3248BB00B82930 /* ShutterButton.swift in Sources */,
 				BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */,
 				BFCFEB9E2A2E2135005911F1 /* SceneDelegate.swift in Sources */,
 			);
