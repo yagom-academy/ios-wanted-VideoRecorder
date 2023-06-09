@@ -8,12 +8,22 @@
 import AVFoundation
 
 final class RecordManager {
-    enum RecordingError: Error {
+    enum RecordingError: LocalizedError {
         case noneCamera
         case noneAudioDevice
         case noneCameraInput
         case noneAudioInput
         case noneVideoOutput
+        
+        var errorDescription: String? {
+            switch self {
+            case .noneCamera: return "카메라 접근불가"
+            case .noneAudioDevice: return "오디오 접근불가"
+            case .noneCameraInput: return "카메라 입력접근불가"
+            case .noneAudioInput: return "오디오 입력접근불가"
+            case .noneVideoOutput: return "카메라 출력접근불가"
+            }
+        }
     }
     
     let captureSession = AVCaptureSession()
@@ -77,10 +87,6 @@ final class RecordManager {
         }
     }
     
-    func stopRecording() {
-        videoOutput?.stopRecording()
-    }
-    
     func switchCamera() {
         guard videoOutput?.isRecording == false else { return }
         
@@ -117,5 +123,9 @@ final class RecordManager {
         let devices = discoverySession.devices
         
         return devices.first(where: { device in device.position == position })
+    }
+    
+    private func stopRecording() {
+        videoOutput?.stopRecording()
     }
 }

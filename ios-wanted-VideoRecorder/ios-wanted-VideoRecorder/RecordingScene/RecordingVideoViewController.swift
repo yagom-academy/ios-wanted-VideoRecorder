@@ -308,7 +308,7 @@ fileprivate struct PermissionChecker {
     }
 }
 
-// MARK: - Timer 레이블 Dateformaate
+// MARK: - Timer 레이블 DateComponentsFormatter
 fileprivate extension Double {
     func format(units: NSCalendar.Unit) -> String? {
         let formatter = DateComponentsFormatter()
