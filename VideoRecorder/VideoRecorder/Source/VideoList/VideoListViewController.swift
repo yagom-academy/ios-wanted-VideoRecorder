@@ -18,13 +18,11 @@ final class VideoListViewController: UIViewController {
     private var subscriptions = Set<AnyCancellable>()
     
     private lazy var collectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createVideoListViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(VideoImageCell.self,
-                                forCellWithReuseIdentifier: VideoImageCell.reuseIdentifier)
-        collectionView.register(VideoDescriptionCell.self,
-                                forCellWithReuseIdentifier: VideoDescriptionCell.reuseIdentifier)
+        collectionView.register(VideoListCell.self,
+                                forCellWithReuseIdentifier: VideoListCell.reuseIdentifier)
         
         return collectionView
     }()
@@ -39,8 +37,8 @@ final class VideoListViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+
         
-        collectionView.collectionViewLayout = createVideoListViewLayout()
     }
     
     private func setupView() {
@@ -107,75 +105,49 @@ final class VideoListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -20),
             collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
         ])
     }
     
-    private func createVideoListViewLayout() -> UICollectionViewCompositionalLayout {
-        let imageItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.25),
-            heightDimension: .fractionalHeight(1.0)
-        )
-        let imageItem = NSCollectionLayoutItem(layoutSize: imageItemSize)
-        
-        let descriptionItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.70),
-            heightDimension: .fractionalHeight(1.0)
-        )
-        let descriptionItem = NSCollectionLayoutItem(layoutSize: descriptionItemSize)
-        
-        var groupSize: NSCollectionLayoutSize
-        
-        if view.frame.height > view.frame.width {
-            groupSize = NSCollectionLayoutSize(
-               widthDimension: .fractionalWidth(1.0),
-               heightDimension: .fractionalHeight(1.0 / 8.0)
-           )
-        } else {
-            groupSize = NSCollectionLayoutSize(
-               widthDimension: .fractionalWidth(1.0),
-               heightDimension: .fractionalHeight(1.0 / 4.0)
-           )
+    private func createListLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout() { [weak self] _, layoutEnvironment in
+            var config = UICollectionLayoutListConfiguration(appearance: .grouped)
+            config.showsSeparators = true
+            config.backgroundColor = .systemBackground
+            config.headerMode = .firstItemInSection
+            config.trailingSwipeActionsConfigurationProvider = self?.deleteCell
+            
+            let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+            
+            return section
         }
-        
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [imageItem, descriptionItem]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 12
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
     }
     
+    private func deleteCell(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteActionTitle = "Delete"
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: deleteActionTitle) { [weak self] _, _, _ in
+            self?.viewModel.delete(by: indexPath)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
-            if indexPath.item % 2 == 0 {
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: VideoImageCell.reuseIdentifier,
-                    for: indexPath) as? VideoImageCell else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.configure(data: video.data)
-                
-                return cell
-            } else {
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: VideoDescriptionCell.reuseIdentifier,
-                    for: indexPath) as? VideoDescriptionCell else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.configure(title: video.title, date: video.date)
-                
-                return cell
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { [weak self] collectionView, indexPath, video in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: VideoListCell.reuseIdentifier,
+                for: indexPath) as? VideoListCell else {
+                return UICollectionViewCell()
             }
+            
+            cell.configure(title: video.title, date: video.date)
+            
+            return cell
         }
     }
         
@@ -185,11 +157,7 @@ final class VideoListViewController: UIViewController {
                 var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
                 
                 imageSnapshot.appendSections([.videoList])
-                
-                for video in videoList {
-                    imageSnapshot.appendItems([video])
-                    imageSnapshot.appendItems([video.copyWithoutImage()])
-                }
+                imageSnapshot.appendItems(videoList)
                 
                 self?.dataSource?.apply(imageSnapshot)
             }

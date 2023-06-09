@@ -5,6 +5,7 @@
 //  Created by kokkilE on 2023/06/06.
 //
 
+import Foundation
 import Combine
 
 final class VideoListViewModel {
@@ -12,5 +13,9 @@ final class VideoListViewModel {
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {
         return videoRecorderService.videoPublisher()
+    }
+    
+    func delete(by indexPath: IndexPath) {
+        videoRecorderService.delete(by: indexPath)
     }
 }

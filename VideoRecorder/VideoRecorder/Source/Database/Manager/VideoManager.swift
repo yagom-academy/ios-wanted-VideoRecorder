@@ -15,7 +15,7 @@ final class VideoManager {
     
     private init() {}
     
-    @Published var videoList: [Video] = []
+    @Published var videoList: [Video] = [Video(data: nil, title: "1번 Cell", date: Date()), Video(data: nil, title: "2번 Cell", date: Date())]
     
     func create(video: Video) {
         if isContains(video) { return }
@@ -39,6 +39,16 @@ final class VideoManager {
     }
     
     func delete(video: Video) {
+        videoList.removeAll {
+            $0.identifier == video.identifier
+        }
+        
+        coreDataManager.delete(type: VideoEntity.self, data: video)
+    }
+    
+    func delete(by indexPath: IndexPath) {
+        guard let video = videoList[safe: indexPath.item] else { return }
+        
         videoList.removeAll {
             $0.identifier == video.identifier
         }
