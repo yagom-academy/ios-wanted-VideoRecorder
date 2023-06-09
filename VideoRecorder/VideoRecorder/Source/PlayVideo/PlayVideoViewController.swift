@@ -286,6 +286,7 @@ final class PlayVideoViewController: UIViewController {
     }
     
     @objc private func dismissRecordView() {
+        viewModel.isPlaying = false
         navigationController?.popViewController(animated: true)
     }
     

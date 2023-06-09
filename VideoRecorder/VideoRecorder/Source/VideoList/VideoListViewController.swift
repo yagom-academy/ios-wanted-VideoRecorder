@@ -15,6 +15,7 @@ final class VideoListViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Video>?
     private let viewModel = VideoListViewModel()
+    private let thumbnailManager = ThumbnailManager()
     private var subscriptions = Set<AnyCancellable>()
     
     private lazy var collectionView = {
@@ -100,8 +101,8 @@ final class VideoListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
             collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
         ])
     }
@@ -133,7 +134,7 @@ final class VideoListViewController: UIViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { [weak self] collectionView, indexPath, video in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VideoListCell.reuseIdentifier,
                 for: indexPath) as? VideoListCell else {
@@ -141,6 +142,18 @@ final class VideoListViewController: UIViewController {
             }
             
             cell.configure(title: video.title, date: video.date)
+            
+            self?.thumbnailManager.generateThumbnail(for: video) { image in
+                guard let image else { return }
+                
+                DispatchQueue.main.async {
+                    cell.configureThumbnail(image: image)
+                }
+            }
+            
+            if let thumbnailText = self?.thumbnailManager.getVideoPlayTime(for: video) {
+                cell.configureThumbnail(timeText: thumbnailText)
+            }
             
             return cell
         }

@@ -38,6 +38,7 @@
 		AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */; };
 		AA97DC3D2A322BF900AFBC7B /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */; };
 		AADDCD0D2A33821E0090D55B /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADDCD0C2A33821E0090D55B /* TimerManager.swift */; };
+		AADDCD132A3393710090D55B /* ThumbnailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADDCD122A3393710090D55B /* ThumbnailManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		AA97DC392A32112000AFBC7B /* DateFormatter+dateToText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+dateToText.swift"; sourceTree = "<group>"; };
 		AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		AADDCD0C2A33821E0090D55B /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		AADDCD122A3393710090D55B /* ThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				AA8518332A2DBD9700554FA7 /* VideoList */,
 				AA8518342A2E0E4400554FA7 /* RecordVideo */,
 				AA11D0D42A330834007B6A1F /* PlayVideo */,
+				AADDCD122A3393710090D55B /* ThumbnailManager.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				AA11D0D12A32E279007B6A1F /* VideoRecorderService.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
+				AADDCD132A3393710090D55B /* ThumbnailManager.swift in Sources */,
 				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,
 				AA8518482A2EF11100554FA7 /* VideoManager.swift in Sources */,
 				AA8518382A2ECA5E00554FA7 /* Video.swift in Sources */,

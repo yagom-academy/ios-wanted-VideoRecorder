@@ -16,7 +16,12 @@ struct Video: Hashable, DataTransferObject {
     init(identifier: UUID = UUID(), data: Data?, title: String, date: Date) {
         self.identifier = identifier
         self.data = data
-        self.title = title
         self.date = date
+        
+        if title.contains(".mp4") {
+            self.title = title
+        } else {
+            self.title = "\(title).mp4"
+        }
     }
 }
