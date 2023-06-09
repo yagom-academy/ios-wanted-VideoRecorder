@@ -125,10 +125,10 @@ final class VideoControllerView: UIView {
             buttonStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),
             timeLabelStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),
             
-            controllerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18),
-            controllerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -18),
-            controllerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 18),
-            controllerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -18)
+            controllerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
+            controllerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
+            controllerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 25),
+            controllerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25)
         ])
     }
 }

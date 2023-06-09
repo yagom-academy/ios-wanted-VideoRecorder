@@ -29,15 +29,16 @@ final class VideoPlayerViewModel: EventHandleable {
     func itemStatusPublisher() -> AnyPublisher<Float, Never> {
         return videoItem.publisher(for: \.status)
             .compactMap { [weak self] status in
-                if status == .readyToPlay {
-                    return self?.videoPlayer.currentItem?.duration
-                }
-                
-                return nil
+                status == .readyToPlay ? self?.videoPlayer.currentItem?.duration : nil
             }
             .map { duration in
                 return Float(CMTimeGetSeconds(duration))
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func timeControlStatusPublisher() -> AnyPublisher<AVPlayer.TimeControlStatus, Never> {
+        return videoPlayer.publisher(for: \.timeControlStatus)
             .eraseToAnyPublisher()
     }
     
@@ -46,16 +47,14 @@ final class VideoPlayerViewModel: EventHandleable {
         let sliderValue: AnyPublisher<Double, Never>
     }
     struct Output {
-        let isPlayingVideo: AnyPublisher<Bool, Never>
+        let isPlayingVideo: AnyPublisher<Void, Never>
         let timeSearched: AnyPublisher<Void, Never>
     }
     
     func transform(input: Input) -> Output {
         let isPlayingVideo = input.playButtonTapped
-            .map { [weak self] in
-                guard let self else { return false }
-                
-                return self.playVideo()
+            .compactMap { [weak self] in
+                self?.playOrPause()
             }
             .eraseToAnyPublisher()
         
@@ -71,15 +70,11 @@ final class VideoPlayerViewModel: EventHandleable {
                       timeSearched: timeSearched)
     }
     
-    private func playVideo() -> Bool {
-        if isPlayingVideo {
+    private func playOrPause() {
+        if videoPlayer.timeControlStatus == .playing {
             videoPlayer.pause()
-            isPlayingVideo.toggle()
-            return false
         } else {
             videoPlayer.play()
-            isPlayingVideo.toggle()
-            return true
         }
     }
     

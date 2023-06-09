@@ -108,9 +108,7 @@ final class VideoPlayerViewController: UIViewController {
         
         let output = viewModel.transform(input: input)
         output.isPlayingVideo
-            .sink { [weak self] isPlayingVideo in
-                self?.setPlayButtonImage(for: isPlayingVideo)
-            }
+            .sink { }
             .store(in: &cancellables)
         
         output.timeSearched
@@ -121,23 +119,21 @@ final class VideoPlayerViewController: UIViewController {
         
     }
     
-    private func setPlayButtonImage(for isPlayingVideo: Bool) {
-        if isPlayingVideo {
-            let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
-            let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
-            videoControllerView.playButton.setImage(image, for: .normal)
-        } else {
-            let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
-            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfiguration)
-            videoControllerView.playButton.setImage(image, for: .normal)
-        }
-    }
-    
     // MARK: - Bind State
     private func bindState() {
         viewModel.itemStatusPublisher()
             .sink { [weak self] duration in
                 self?.setupSliderValue(maximumValue: duration)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.timeControlStatusPublisher()
+            .sink { [weak self] timeControlStatus in
+                if timeControlStatus == .playing {
+                    self?.setPlayButtonImage(systemName: "pause.fill")
+                } else {
+                    self?.setPlayButtonImage(systemName: "play.fill")
+                }
             }
             .store(in: &cancellables)
             
@@ -152,5 +148,11 @@ final class VideoPlayerViewController: UIViewController {
     private func setupSliderValue(maximumValue: Float) {
         videoControllerView.slider.minimumValue = .zero
         videoControllerView.slider.maximumValue = maximumValue
+    }
+    
+    private func setPlayButtonImage(systemName: String) {
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
+        let image = UIImage(systemName: systemName, withConfiguration: imageConfiguration)
+        videoControllerView.playButton.setImage(image, for: .normal)
     }
 }
