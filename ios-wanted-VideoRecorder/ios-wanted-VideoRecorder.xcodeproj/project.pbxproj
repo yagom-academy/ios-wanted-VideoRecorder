@@ -13,6 +13,8 @@
 		6280CE012A335AFA00186985 /* CoreDataPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE002A335AFA00186985 /* CoreDataPersistenceService.swift */; };
 		6280CE042A335F5F00186985 /* CoreDataVideoEntityPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE032A335F5F00186985 /* CoreDataVideoEntityPersistenceService.swift */; };
 		6280CE082A33612600186985 /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE072A33612600186985 /* CoreDataPersistenceServiceProtocol.swift */; };
+		6280CE0B2A33788700186985 /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE0A2A33788700186985 /* VideoRepository.swift */; };
+		6280CE0D2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE0C2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift */; };
 		62922A072A31B5D70031559F /* RecordingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A062A31B5D70031559F /* RecordingVideoViewController.swift */; };
 		62922A0D2A321E660031559F /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A0C2A321E660031559F /* RecordManager.swift */; };
 		62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C495F92A30110500818DF1 /* VideoCell.swift */; };
@@ -36,6 +38,8 @@
 		6280CE002A335AFA00186985 /* CoreDataPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceService.swift; sourceTree = "<group>"; };
 		6280CE032A335F5F00186985 /* CoreDataVideoEntityPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoEntityPersistenceService.swift; sourceTree = "<group>"; };
 		6280CE072A33612600186985 /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
+		6280CE0A2A33788700186985 /* VideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepository.swift; sourceTree = "<group>"; };
+		6280CE0C2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		62922A062A31B5D70031559F /* RecordingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingVideoViewController.swift; sourceTree = "<group>"; };
 		62922A0C2A321E660031559F /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		62C495F92A30110500818DF1 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 		6280CE052A3360A700186985 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6280CE092A33787600186985 /* Repositories */,
 				6280CE062A33611200186985 /* Interfaces */,
 			);
 			path = Data;
@@ -111,8 +116,17 @@
 			isa = PBXGroup;
 			children = (
 				6280CE072A33612600186985 /* CoreDataPersistenceServiceProtocol.swift */,
+				6280CE0C2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift */,
 			);
 			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		6280CE092A33787600186985 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				6280CE0A2A33788700186985 /* VideoRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		62922A082A31B5FF0031559F /* RecordingScene */ = {
@@ -271,6 +285,7 @@
 				6280CDFB2A3307DA00186985 /* UIControl+Combine.swift in Sources */,
 				62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */,
 				62DAA7A32A30074D00EBCDAC /* VideoListViewController.swift in Sources */,
+				6280CE0D2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift in Sources */,
 				62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */,
 				62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */,
 				62C495FE2A301A8800818DF1 /* VideoEntity.swift in Sources */,
@@ -280,6 +295,7 @@
 				62922A0D2A321E660031559F /* RecordManager.swift in Sources */,
 				6280CDF72A32FAB700186985 /* RecordingViewModel.swift in Sources */,
 				6280CE082A33612600186985 /* CoreDataPersistenceServiceProtocol.swift in Sources */,
+				6280CE0B2A33788700186985 /* VideoRepository.swift in Sources */,
 				62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

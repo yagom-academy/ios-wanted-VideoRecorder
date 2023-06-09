@@ -25,7 +25,7 @@ fileprivate enum CoreDataVideoEntityPersistenceServiceError: LocalizedError {
     }
 }
 
-final class CoreDataVideoEntityPersistenceService {
+final class CoreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol {
     private let coreDataPersistenceService: CoreDataPersistenceServiceProtocol
     
     init(coreDataPersistenceService: CoreDataPersistenceServiceProtocol) {

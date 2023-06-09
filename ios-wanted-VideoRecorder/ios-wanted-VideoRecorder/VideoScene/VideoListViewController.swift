@@ -27,11 +27,14 @@ final class VideoListViewController: UIViewController {
     private var dataSource: DataSource?
     
     private let videoList: [VideoEntity] = [
-        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
-        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
-        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
-        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
-        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
     ]
     
     override func viewDidLoad() {
@@ -65,7 +68,7 @@ final class VideoListViewController: UIViewController {
         stackView.spacing = 5
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stackView)
-
+        
         let rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "video.fill.badge.plus", withConfiguration: config),
             style: .plain,
