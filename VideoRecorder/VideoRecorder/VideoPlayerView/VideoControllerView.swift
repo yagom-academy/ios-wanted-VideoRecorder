@@ -8,11 +8,7 @@
 import UIKit
 
 final class VideoControllerView: UIView {
-    let slider: UISlider = {
-        let slider = UISlider()
-        
-        return slider
-    }()
+    let slider: UISlider = UISlider()
     let backwardButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "backward.end.fill")
@@ -48,7 +44,7 @@ final class VideoControllerView: UIView {
     }()
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
+        stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,14 +112,14 @@ final class VideoControllerView: UIView {
     
     private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
-            backwardButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
-            backwardButton.heightAnchor.constraint(equalTo: backwardButton.widthAnchor),
-            
-            playButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.2),
-            playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor),
-            
-            shareButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
-            shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor),
+//            backwardButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
+//            backwardButton.heightAnchor.constraint(equalTo: backwardButton.widthAnchor),
+//
+//            playButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.2),
+//            playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor),
+//
+//            shareButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
+//            shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor),
             
             buttonStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),
             timeLabelStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),

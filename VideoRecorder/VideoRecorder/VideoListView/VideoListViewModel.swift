@@ -39,4 +39,23 @@ final class VideoListViewModel {
         let video = fetchedAssets.remove(at: index)
         videoFetchService.delete(video: video)
     }
+    
+    func getFileURL(at index: Int, completion: @escaping (URL?) -> Void) {
+        guard let asset = fetchedAssets[safe: index] else { return }
+        
+        let options = PHVideoRequestOptions()
+        options.version = .original
+        
+        PHImageManager.default().requestAVAsset(
+            forVideo: asset,
+            options: options
+        ) { asset, _, _ in
+            if let urlAsset = asset as? AVURLAsset {
+                let localVideoUrl = urlAsset.url as URL
+                completion(localVideoUrl)
+            } else {
+                completion(nil)
+            }
+        }
+    }
 }

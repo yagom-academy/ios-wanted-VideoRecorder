@@ -26,18 +26,11 @@ final class VideoPlayerViewModel: EventHandleable {
     private var isPlayingVideo: Bool = false
     private var videoItem: AVPlayerItem?
     
-    init(fileURLString: String) {
-        let item = playerItem(fileURL: fileURLString)
+    init(fileURL: URL) {
+        let item = AVPlayerItem(url: fileURL)
         self.videoItem = item
         videoPlayer.replaceCurrentItem(with: item)
         addObserverToPlayer()
-    }
-    
-    private func playerItem(fileURL: String) -> AVPlayerItem? {
-        guard let url = URL(string: fileURL) else { return nil }
-        let item = AVPlayerItem(url: url)
-        
-        return item
     }
     
     private func addObserverToPlayer() {

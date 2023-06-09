@@ -9,7 +9,19 @@ import UIKit
 import Combine
 
 final class VideoPlayerViewController: UIViewController {
-    private let videoControllerView: VideoControllerView = VideoControllerView()
+    private let videoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    private let videoControllerView: VideoControllerView = {
+        let controllerView = VideoControllerView(frame: .zero)
+        controllerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return controllerView
+    }()
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -36,26 +48,35 @@ final class VideoPlayerViewController: UIViewController {
     
     private func configureNavigationBar() {
         let rightImage = UIImage(systemName: "info.circle")
-        rightImage?.withTintColor(.systemGray)
         let rightButton = UIBarButtonItem(image: rightImage,
                                           style: .plain,
                                           target: nil,
                                           action: nil)
+        rightButton.tintColor = .systemGray
         navigationItem.rightBarButtonItem = rightButton
+        
+        navigationController?.navigationBar.backgroundColor = .white
     }
     
     private func configureRootView() {
+        self.view.addSubview(videoView)
         self.view.addSubview(videoControllerView)
         
         let playerLayer = viewModel.playerLayer
-        playerLayer.frame = self.view.bounds
+        let frameHeight = view.frame.height - view.safeAreaInsets.top
+        playerLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: frameHeight)
         playerLayer.videoGravity = .resizeAspectFill
         
-        self.view.layer.addSublayer(playerLayer)
+        videoView.layer.addSublayer(playerLayer)
     }
     
     private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
+            videoView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            videoView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            videoView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            videoView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            
             videoControllerView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 18),
             videoControllerView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             videoControllerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -18),
