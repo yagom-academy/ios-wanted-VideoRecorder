@@ -8,8 +8,8 @@
 import AVKit
 import Foundation
 
-struct VideoUseCase {
-    let videoPlayer: AVPlayer
+struct DefaultVideoUseCase: VideoUseCase {
+    var videoPlayer: AVPlayer
     
     init(videoPlayer: AVPlayer) {
         self.videoPlayer = videoPlayer

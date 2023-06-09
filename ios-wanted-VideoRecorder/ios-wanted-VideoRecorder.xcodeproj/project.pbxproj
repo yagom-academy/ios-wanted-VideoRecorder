@@ -23,9 +23,9 @@
 		26AAEFE52A2F756D003BB339 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 26AAEFE42A2F756D003BB339 /* RealmSwift */; };
 		26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */; };
 		26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFEC2A2F76AA003BB339 /* Video.swift */; };
-		26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */; };
+		26AAEFF52A2F76BB003BB339 /* DefaultCameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF32A2F76BB003BB339 /* DefaultCameraUseCase.swift */; };
 		26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF62A2F7809003BB339 /* VideoObject.swift */; };
-		26AAEFF92A2F78E6003BB339 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF82A2F78E6003BB339 /* RealmManager.swift */; };
+		26AAEFF92A2F78E6003BB339 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */; };
 		26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */; };
 		26C101002A2D7FD000F31C56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C100FF2A2D7FD000F31C56 /* Assets.xcassets */; };
 		26C101032A2D7FD000F31C56 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C101022A2D7FD000F31C56 /* Preview Assets.xcassets */; };
@@ -34,8 +34,11 @@
 		26C8A3C92A305EF600B04954 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3C82A305EF600B04954 /* CameraView.swift */; };
 		26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CD2A305FC700B04954 /* VideoView.swift */; };
 		26C8A3D02A3068BF00B04954 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */; };
-		26EE37152A325FFF00CD3ADD /* VideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */; };
+		26EE37152A325FFF00CD3ADD /* DefaultVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37142A325FFF00CD3ADD /* DefaultVideoUseCase.swift */; };
 		26EE371A2A32767B00CD3ADD /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE37192A32767B00CD3ADD /* InfoView.swift */; };
+		26EF93EB2A33026500302501 /* DBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EF93EA2A33026500302501 /* DBUseCase.swift */; };
+		26EF93ED2A33034F00302501 /* VideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EF93EC2A33034F00302501 /* VideoUseCase.swift */; };
+		26EF93EF2A3303F400302501 /* CameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EF93EE2A3303F400302501 /* CameraUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,9 +57,9 @@
 		2689D27B2A31FD480038CE19 /* VideoSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSlider.swift; sourceTree = "<group>"; };
 		26AAEFEA2A2F76AA003BB339 /* LocalFileURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileURLs.swift; sourceTree = "<group>"; };
 		26AAEFEC2A2F76AA003BB339 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
-		26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUseCase.swift; sourceTree = "<group>"; };
+		26AAEFF32A2F76BB003BB339 /* DefaultCameraUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCameraUseCase.swift; sourceTree = "<group>"; };
 		26AAEFF62A2F7809003BB339 /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
-		26AAEFF82A2F78E6003BB339 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
 		26C100F82A2D7FD000F31C56 /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_wanted_VideoRecorderApp.swift; sourceTree = "<group>"; };
 		26C100FF2A2D7FD000F31C56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,8 +69,11 @@
 		26C8A3C82A305EF600B04954 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		26C8A3CD2A305FC700B04954 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		26C8A3CF2A3068BF00B04954 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
-		26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUseCase.swift; sourceTree = "<group>"; };
+		26EE37142A325FFF00CD3ADD /* DefaultVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultVideoUseCase.swift; sourceTree = "<group>"; };
 		26EE37192A32767B00CD3ADD /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		26EF93EA2A33026500302501 /* DBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUseCase.swift; sourceTree = "<group>"; };
+		26EF93EC2A33034F00302501 /* VideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUseCase.swift; sourceTree = "<group>"; };
+		26EF93EE2A3303F400302501 /* CameraUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,9 +201,10 @@
 		26AAEFF02A2F76BB003BB339 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				26AAEFF32A2F76BB003BB339 /* CameraUseCase.swift */,
-				26EE37142A325FFF00CD3ADD /* VideoUseCase.swift */,
-				26AAEFF82A2F78E6003BB339 /* RealmManager.swift */,
+				26EF93E92A33019D00302501 /* Protocol */,
+				26AAEFF32A2F76BB003BB339 /* DefaultCameraUseCase.swift */,
+				26EE37142A325FFF00CD3ADD /* DefaultVideoUseCase.swift */,
+				26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -293,6 +300,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		26EF93E92A33019D00302501 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				26EF93EA2A33026500302501 /* DBUseCase.swift */,
+				26EF93EC2A33034F00302501 /* VideoUseCase.swift */,
+				26EF93EE2A3303F400302501 /* CameraUseCase.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -374,21 +391,24 @@
 				26C8A3C52A302F9B00B04954 /* Storable.swift in Sources */,
 				26C8A3C92A305EF600B04954 /* CameraView.swift in Sources */,
 				26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */,
+				26EF93ED2A33034F00302501 /* VideoUseCase.swift in Sources */,
 				2689D2762A31D3070038CE19 /* VideoInterfaceView.swift in Sources */,
-				26AAEFF92A2F78E6003BB339 /* RealmManager.swift in Sources */,
+				26AAEFF92A2F78E6003BB339 /* LocalDBUseCase.swift in Sources */,
 				26AAEFED2A2F76AA003BB339 /* LocalFileURLs.swift in Sources */,
 				262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */,
+				26EF93EB2A33026500302501 /* DBUseCase.swift in Sources */,
 				2689D2782A31DA880038CE19 /* VideoInterfaceButtons.swift in Sources */,
 				26C8A3C72A305EDA00B04954 /* CameraSceneView.swift in Sources */,
-				26EE37152A325FFF00CD3ADD /* VideoUseCase.swift in Sources */,
+				26EE37152A325FFF00CD3ADD /* DefaultVideoUseCase.swift in Sources */,
 				26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */,
 				26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */,
 				26C8A3CE2A305FC700B04954 /* VideoView.swift in Sources */,
 				2689D27C2A31FD480038CE19 /* VideoSlider.swift in Sources */,
 				26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */,
 				26AAEFEF2A2F76AA003BB339 /* Video.swift in Sources */,
+				26EF93EF2A3303F400302501 /* CameraUseCase.swift in Sources */,
 				26EE371A2A32767B00CD3ADD /* InfoView.swift in Sources */,
-				26AAEFF52A2F76BB003BB339 /* CameraUseCase.swift in Sources */,
+				26AAEFF52A2F76BB003BB339 /* DefaultCameraUseCase.swift in Sources */,
 				262049ED2A2F229500E49EBF /* MainListView.swift in Sources */,
 				2689D27A2A31DB3A0038CE19 /* VideoPlayButton.swift in Sources */,
 				262049E52A2F21F200E49EBF /* StopCircle.swift in Sources */,

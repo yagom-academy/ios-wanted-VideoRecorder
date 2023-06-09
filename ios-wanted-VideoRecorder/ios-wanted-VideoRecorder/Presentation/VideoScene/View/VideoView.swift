@@ -41,6 +41,7 @@ struct VideoView: View {
             }
         }
         .foregroundColor(Color(UIColor.label))
+        
     }
 }
 

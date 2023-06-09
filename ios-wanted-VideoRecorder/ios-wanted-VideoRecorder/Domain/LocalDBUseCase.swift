@@ -8,7 +8,7 @@
 import RealmSwift
 import Foundation
 
-struct RealmManager<T: Object> {
+struct LocalDBUseCase<T: Object>: DBUseCase {
     private var realm: Realm? {
         return try? Realm()
     }

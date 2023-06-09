@@ -18,7 +18,7 @@ final class MainViewModel: ObservableObject {
         }
     }
     var targetVideo: Video? = nil
-    private let realmManager = RealmManager<VideoObject>()
+    private let dbManager = LocalDBUseCase<VideoObject>()
     
     init() {
         searchVideos()
@@ -37,7 +37,7 @@ final class MainViewModel: ObservableObject {
         let video = videos[index]
 
         videos.remove(at: index)
-        realmManager.delete(video.id)
+        dbManager.delete(video.id)
         
         guard let videoURL = video.videoURL else { return }
         
@@ -45,7 +45,7 @@ final class MainViewModel: ObservableObject {
     }
     
     private func searchVideos() {
-        guard let realmObjects = realmManager.read() else { return }
+        guard let realmObjects = dbManager.read() else { return }
         
         let videos = realmObjects.compactMap { object in
             return Video.toObject(object)
@@ -58,6 +58,6 @@ final class MainViewModel: ObservableObject {
         guard let newVideo = Video.toRealmObject(video) as? VideoObject else {
             return
         }
-        realmManager.update(newVideo)
+        dbManager.update(newVideo)
     }
 }

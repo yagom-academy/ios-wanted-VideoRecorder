@@ -11,8 +11,8 @@ import AVFoundation
 final class CameraViewModel: NSObject, ObservableObject {
     
     private var timer: Timer?
-    private var realmManager = RealmManager<VideoObject>()
-    var cameraManager = CameraUseCase()
+    private var dbManager = LocalDBUseCase<VideoObject>()
+    private var cameraManager: CameraUseCase = DefaultCameraUseCase()
     var isCameraPermission: Bool {
         return cameraManager.isCameraPermission
     }
@@ -72,7 +72,7 @@ final class CameraViewModel: NSObject, ObservableObject {
               videoLength: String(format: "%02d:%02d", minute, second))
         guard let videoObject = Video.toRealmObject(video) as? VideoObject else { return }
         
-        realmManager.create(videoObject)
+        dbManager.create(videoObject)
     }
     
     private func resetTimer() {

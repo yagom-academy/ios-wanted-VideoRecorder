@@ -8,15 +8,14 @@
 import Foundation
 import AVFoundation
 
-final class CameraUseCase: NSObject {
-    
+final class DefaultCameraUseCase: NSObject, CameraUseCase {
     private enum RecordState {
         case idle, start, recording, end
     }
     
     var fileURL: URL?
     var fileName: String = ""
-    let session = AVCaptureSession()
+    var session = AVCaptureSession()
     var isCameraPermission = false
     private let videoType = ".mov"
     private var videoDeviceInput: AVCaptureDeviceInput?
@@ -59,6 +58,17 @@ final class CameraUseCase: NSObject {
         }
     }
     
+    func checkPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            isCameraPermission = true
+        case .notDetermined:
+            requestCameraPermission()
+        default:
+            isCameraPermission = false
+        }
+    }
+    
     private func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let deviceDescoverySession = AVCaptureDevice.DiscoverySession.init(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
 
@@ -68,17 +78,6 @@ final class CameraUseCase: NSObject {
             }
         }
         return nil
-    }
-    
-    private func checkPermission() {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            isCameraPermission = true
-        case .notDetermined:
-            requestCameraPermission()
-        default:
-            isCameraPermission = false
-        }
     }
     
     private func requestCameraPermission() {
@@ -146,7 +145,7 @@ final class CameraUseCase: NSObject {
     }
 }
 
-extension CameraUseCase: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension DefaultCameraUseCase: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         switch captureStatus {
         case .start:

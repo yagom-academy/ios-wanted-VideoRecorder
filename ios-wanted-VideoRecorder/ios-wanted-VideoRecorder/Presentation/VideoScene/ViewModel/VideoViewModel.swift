@@ -46,10 +46,10 @@ final class VideoViewModel: ObservableObject {
         
         if let url = video.videoURL {
             let videoPlayer = AVPlayer(url: url)
-            self.videoManager = VideoUseCase(videoPlayer: videoPlayer)
+            self.videoManager = DefaultVideoUseCase(videoPlayer: videoPlayer)
         } else {
             let videoPlayer = AVPlayer(playerItem: nil)
-            self.videoManager = VideoUseCase(videoPlayer: videoPlayer)
+            self.videoManager = DefaultVideoUseCase(videoPlayer: videoPlayer)
         }
         
         configureVideo()
