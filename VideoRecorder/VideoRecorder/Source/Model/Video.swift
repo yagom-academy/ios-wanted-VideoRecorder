@@ -20,9 +20,3 @@ struct Video: Hashable, DataTransferObject {
         self.date = date
     }
 }
-
-extension Video {
-    func copyWithoutImage() -> Video {
-        return Video(data: nil, title: self.title, date: self.date)
-    }
-}

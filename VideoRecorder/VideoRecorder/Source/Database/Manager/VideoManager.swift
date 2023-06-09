@@ -55,6 +55,10 @@ final class VideoManager {
         
         coreDataManager.delete(type: VideoEntity.self, data: video)
     }
+    
+    func requestVideo(by indexPath: IndexPath) -> Video? {
+        return videoList[safe: indexPath.item]
+    }
 }
 
 extension VideoManager {

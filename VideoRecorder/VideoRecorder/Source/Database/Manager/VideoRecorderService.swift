@@ -14,7 +14,7 @@ final class VideoRecorderService {
     private let videoManager = VideoManager.shared
     
     private init() {
-//        videoManager.read()
+        videoManager.read()
     }
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {
@@ -40,5 +40,9 @@ final class VideoRecorderService {
     
     func delete(by indexPath: IndexPath) {
         videoManager.delete(by: indexPath)
+    }
+    
+    func requestVideo(by indexPath: IndexPath) -> Video? {
+        return videoManager.requestVideo(by: indexPath)
     }
 }

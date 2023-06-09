@@ -18,4 +18,8 @@ final class VideoListViewModel {
     func delete(by indexPath: IndexPath) {
         videoRecorderService.delete(by: indexPath)
     }
+    
+    func requestVideo(by indexPath: IndexPath) -> Video? {
+        return videoRecorderService.requestVideo(by: indexPath)
+    }
 }

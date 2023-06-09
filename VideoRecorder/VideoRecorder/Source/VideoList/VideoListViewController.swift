@@ -20,6 +20,7 @@ final class VideoListViewController: UIViewController {
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(VideoListCell.self,
                                 forCellWithReuseIdentifier: VideoListCell.reuseIdentifier)
@@ -138,7 +139,7 @@ final class VideoListViewController: UIViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { [weak self] collectionView, indexPath, video in
+        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { collectionView, indexPath, video in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VideoListCell.reuseIdentifier,
                 for: indexPath) as? VideoListCell else {
@@ -162,5 +163,15 @@ final class VideoListViewController: UIViewController {
                 self?.dataSource?.apply(imageSnapshot)
             }
             .store(in: &subscriptions)
+    }
+}
+
+extension VideoListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let video = viewModel.requestVideo(by: indexPath) else { return }
+        
+        let playVideoViewController = PlayVideoViewController(video: video)
+        
+        navigationController?.pushViewController(playVideoViewController, animated: true)
     }
 }
