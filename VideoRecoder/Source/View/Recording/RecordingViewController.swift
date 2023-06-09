@@ -9,11 +9,17 @@ import UIKit
 import AVFoundation
 
 class RecordingViewController: UIViewController {
+    
+    private var outputURL: URL?
+    
     private let standardPadding: CGFloat = 20
-    private lazy var captureDevice = AVCaptureDevice.default(for: .video)
-    private var session: AVCaptureSession?
-    private var output = AVCapturePhotoOutput()
+    private lazy var videoDevice = AVCaptureDevice.default(for: .video)
+    private var captureSession = AVCaptureSession()
+    private let videoOutput = AVCaptureMovieFileOutput()
     private var previewLayer = AVCaptureVideoPreviewLayer()
+    
+    var timer: Timer?
+    var secondsOfTimer = 0
     
     private let closeButton: UIButton = {
         let button = UIButton()
@@ -43,9 +49,21 @@ class RecordingViewController: UIViewController {
         return button
     }()
     
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.text = "00:00:00"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     override func viewDidLoad() {
-        settingCamera()
+        configureSession()
+        configurePreviewLayer()
         configureUI()
+        startSession()
     }
     
     @objc
@@ -56,43 +74,63 @@ class RecordingViewController: UIViewController {
     @objc
     private func tapRecordingButton() {
         recordingButton.isSelected.toggle()
+        if recordingButton.isSelected {
+            startRecording()
+        } else {
+            stopRecording()
+        }
     }
     
-    func settingCamera() {
-        guard let captureDevice = captureDevice else { return }
-        
+    private func configureSession() {
         do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            session = AVCaptureSession()
-            session?.sessionPreset = .hd1920x1080
-            session?.addInput(input)
-            session?.addOutput(output)
-        } catch {
+            captureSession.beginConfiguration()
+
+            let videoInput = try AVCaptureDeviceInput(device: videoDevice!)
+            if captureSession.canAddInput(videoInput) {
+                captureSession.addInput(videoInput)
+            }
+            
+            let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio)!
+            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+            if captureSession.canAddInput(audioInput) {
+                captureSession.addInput(audioInput)
+            }
+            
+            if captureSession.canAddOutput(videoOutput) {
+                captureSession.addOutput(videoOutput)
+            }
+            
+            captureSession.commitConfiguration()
+        }
+        catch {
             print(error)
         }
+    }
+    
+    private func configurePreviewLayer() {
+                previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                previewLayer.videoGravity = .resizeAspectFill
+                previewLayer.frame = view.frame
         
-        guard let session = session else { return }
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = view.frame
-        
-        view.layer.addSublayer(previewLayer)
-        
-        DispatchQueue.global(qos: .background).async {
-            session.startRunning()
+                view.layer.addSublayer(previewLayer)
+    }
+    
+    private func startSession() {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.captureSession.startRunning()
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         let safeArea = view.safeAreaLayoutGuide
         
         view.addSubview(recordMenuView)
         view.addSubview(closeButton)
         recordMenuView.addSubview(recordingButton)
+        recordMenuView.addSubview(timerLabel)
         
         NSLayoutConstraint.activate([
-            recordMenuView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.2),
+            recordMenuView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.18),
             recordMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: standardPadding),
             recordMenuView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -standardPadding),
             recordMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -standardPadding),
@@ -105,44 +143,66 @@ class RecordingViewController: UIViewController {
             recordingButton.heightAnchor.constraint(equalToConstant: 80),
             recordingButton.widthAnchor.constraint(equalToConstant: 80),
             recordingButton.centerXAnchor.constraint(equalTo: recordMenuView.centerXAnchor),
-            recordingButton.centerYAnchor.constraint(equalTo: recordMenuView.centerYAnchor)
+            recordingButton.centerYAnchor.constraint(equalTo: recordMenuView.centerYAnchor),
+            
+            timerLabel.topAnchor.constraint(equalTo: recordingButton.bottomAnchor, constant: 10),
+            timerLabel.centerXAnchor.constraint(equalTo: recordMenuView.centerXAnchor)
         ])
     }
-}
-
-
-class RecordingButton: UIButton {
     
-    override func draw(_ rect: CGRect) {
-        guard let myContext = UIGraphicsGetCurrentContext() else { return }
-        
-        let height = bounds.height
-        let width = bounds.width
-        let whiteCircleFrame = bounds.insetBy(dx: width * 0.05, dy: height * 0.05)
-        let redCircleFrame = bounds.insetBy(dx: width * 0.15, dy: height * 0.15)
-        
-        if isSelected {
-            myContext.setStrokeColor(UIColor.white.cgColor)
-            myContext.setLineWidth(5)
-            myContext.addEllipse(in: whiteCircleFrame)
-            myContext.drawPath(using: .stroke)
-            myContext.closePath()
-            
-            myContext.setFillColor(UIColor.red.cgColor)
-            myContext.addRect(CGRect(x: width * 0.3, y: height * 0.3, width: width * 0.4, height: height * 0.4))
-            myContext.drawPath(using: .fill)
-            myContext.closePath()
-        } else {
-            myContext.setStrokeColor(UIColor.white.cgColor)
-            myContext.setLineWidth(5)
-            myContext.addEllipse(in: whiteCircleFrame)
-            myContext.drawPath(using: .stroke)
-            myContext.closePath()
-            
-            myContext.setFillColor(UIColor.red.cgColor)
-            myContext.addEllipse(in: redCircleFrame)
-            myContext.drawPath(using: .fill)
-            myContext.closePath()
-        }
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+             guard let `self` = self else { return }
+
+             self.secondsOfTimer += 1
+             self.timerLabel.text = Double(self.secondsOfTimer).format(units: [.hour , .minute, .second])
+           }
     }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        self.timerLabel.text = "00:00:00"
+      }
 }
+
+extension RecordingViewController: AVCaptureFileOutputRecordingDelegate {
+    private func tempURL() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        
+        if directory != "" {
+            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        
+        return nil
+    }
+    
+    private func startRecording() {
+        outputURL = tempURL()
+        videoOutput.startRecording(to: outputURL!, recordingDelegate: self)
+    }
+    
+    private func stopRecording() {
+        if videoOutput.isRecording {
+            videoOutput.stopRecording()
+          }
+    }
+    
+//    // 레코딩이 시작되면 호출
+      func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+          startTimer()
+    }
+
+      // 레코딩이 끝나면 호출
+      func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if (error != nil) {
+          print("Error recording movie: \(error!.localizedDescription)")
+        } else {
+            stopTimer()
+          let videoRecorded = outputURL! as URL
+          UISaveVideoAtPathToSavedPhotosAlbum(videoRecorded.path, nil, nil, nil)
+        }
+      }
+}
+
+
