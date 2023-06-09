@@ -18,16 +18,16 @@ struct ThumbnailImage: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 60, alignment: .center)
                 .cornerRadius(20)
-                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .overlay(alignment: .bottomLeading) {
-                    ZStack {
+                    ZStack(alignment: .bottomLeading) {
                         Text(video.videoLength)
                             .foregroundColor(.white)
                     }
                     .background(.black)
                     .cornerRadius(5)
                     .opacity(0.6)
-                    .offset(x: 5, y: -5)
+                    .offset(x: 5)
                 }
         }
         .shadow(radius: 3, x: 2, y: 3)

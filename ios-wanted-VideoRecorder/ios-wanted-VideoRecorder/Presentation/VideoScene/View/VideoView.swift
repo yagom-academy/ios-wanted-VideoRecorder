@@ -28,6 +28,7 @@ struct VideoView: View {
                 }
                 .frame(alignment: .bottom)
             })
+            
             .ignoresSafeArea(.all, edges: .bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }

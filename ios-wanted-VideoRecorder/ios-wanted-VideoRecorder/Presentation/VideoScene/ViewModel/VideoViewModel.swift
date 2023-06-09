@@ -86,7 +86,8 @@ final class VideoViewModel: ObservableObject {
         let isPlayingVideo = videoManager.checkPlayingVideo()
         
         if isPlayingVideo == false {
-            self.isPlaying = false
+            videoManager.replayFromBeginning()
+            isPlaying = false
         }
     }
 }

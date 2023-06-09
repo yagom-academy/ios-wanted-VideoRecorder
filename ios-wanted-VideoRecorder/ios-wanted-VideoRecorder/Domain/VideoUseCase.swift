@@ -57,4 +57,10 @@ struct VideoUseCase {
 
         videoPlayer.seek(to: seekTime)
     }
+    
+    func replayFromBeginning() {
+        let seekTime = CMTime(value: CMTimeValue(0), timescale: 1)
+        
+        videoPlayer.seek(to: seekTime)
+    }
 }

@@ -68,6 +68,7 @@ struct MainListView: View {
                     }
                     .onDelete(perform: viewModel.deleteVideo(_:))
                 }
+                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                 .listStyle(.plain)
             }
         }
