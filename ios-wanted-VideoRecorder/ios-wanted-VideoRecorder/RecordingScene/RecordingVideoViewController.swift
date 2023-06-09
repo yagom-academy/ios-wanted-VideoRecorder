@@ -65,9 +65,10 @@ final class RecordingVideoViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 50
         stackView.backgroundColor = .black.withAlphaComponent(0.5)
         stackView.layer.cornerRadius = 10
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -203,11 +204,9 @@ final class RecordingVideoViewController: UIViewController {
         NSLayoutConstraint.activate([
             historyImageView.widthAnchor.constraint(equalToConstant: 50),
             historyImageView.heightAnchor.constraint(equalToConstant: 50),
-            historyImageView.leadingAnchor.constraint(equalTo: recordingPlayerView.leadingAnchor, constant: 7),
             
             borderView.widthAnchor.constraint(equalToConstant: Constant.borderViewWidth),
             borderView.heightAnchor.constraint(equalToConstant: Constant.borderViewWidth),
-            borderView.centerXAnchor.constraint(equalTo: recordingPlayerView.centerXAnchor),
             
             buttonWidthConstraint,
             buttonHeightConstraint,

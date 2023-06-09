@@ -17,10 +17,6 @@ final class RecordManager {
     }
     
     let captureSession = AVCaptureSession()
-//    var videoDevice: AVCaptureDevice?
-//    var audioDevice: AVCaptureDevice?
-//    var videoInput: AVCaptureDeviceInput?
-    var audioInput: AVCaptureDeviceInput?
     var videoOutput: AVCaptureMovieFileOutput?
     var outputURL: URL?
     
@@ -28,24 +24,20 @@ final class RecordManager {
         guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video) else {
             throw RecordingError.noneCamera
         }
-//        videoDevice = backCamera
         
         guard let audio = AVCaptureDevice.default(for: .audio) else {
             throw RecordingError.noneAudioDevice
         }
-//        audioDevice = audio
         
         guard let backInput = try? AVCaptureDeviceInput(device: backCamera),
               captureSession.canAddInput(backInput) else {
             throw RecordingError.noneCameraInput
         }
-//        videoInput = backInput
         
         guard let audioInput = try? AVCaptureDeviceInput(device: audio),
               captureSession.canAddInput(audioInput) else {
             throw RecordingError.noneAudioInput
         }
-        self.audioInput = audioInput
         
         videoOutput = AVCaptureMovieFileOutput()
         guard let videoOutput else {
