@@ -14,7 +14,7 @@ extension VideoEntity {
     }
 
     @NSManaged var id: UUID?
-    @NSManaged var videoURL: String?
+    @NSManaged var videoURL: URL
     @NSManaged var thumbnailImage: Data?
     @NSManaged var duration: Double
     @NSManaged var fileName: String?

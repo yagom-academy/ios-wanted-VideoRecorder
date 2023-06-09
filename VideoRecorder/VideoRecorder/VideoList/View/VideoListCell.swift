@@ -12,6 +12,7 @@ final class VideoListCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "sample")
         return imageView
     }()
     
@@ -49,9 +50,8 @@ final class VideoListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(thumbnailImageName: String, playbackTime: String, fileName: String, date: String) {
-        thumbnailImageView.image = UIImage(named: thumbnailImageName)
-        playbackTimeLabel.text = playbackTime
+    func configure(playbackTime: TimeInterval, fileName: String, date: String) {
+        playbackTimeLabel.text = "\(playbackTime)"
         fileNameLabel.text = fileName
         dateLabel.text = date
     }

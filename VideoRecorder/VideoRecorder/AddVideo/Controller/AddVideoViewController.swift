@@ -13,6 +13,9 @@ final class AddVideoViewController: UIViewController {
     let movieOutput = AVCaptureMovieFileOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
     
+//    private var videoInfo: VideoInfo?
+    private let fileName = "fileName.mp4" // 미정
+    
     private let thumbnailIButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 12
@@ -121,13 +124,17 @@ final class AddVideoViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: cameraToolView.trailingAnchor, constant: -20)
         ])
     }
-    
+}
+
+// MARK: - Camera function
+
+extension AddVideoViewController {
     private func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 guard granted else { return }
-
+                
                 DispatchQueue.main.async { [weak self] in
                     self?.session?.startRunning()
                 }
@@ -144,7 +151,9 @@ final class AddVideoViewController: UIViewController {
     }
     
     private func setUpCamera() {
-        let session = AVCaptureSession()
+        session = AVCaptureSession()
+        guard let session = session else { return }
+        
         if let device = AVCaptureDevice.default(for: .video) {
             do {
                 let input = try AVCaptureDeviceInput(device: device)
@@ -176,7 +185,7 @@ final class AddVideoViewController: UIViewController {
             movieOutput.stopRecording()
         } else {
             sender.isSelected = true
-            let outputPath = NSTemporaryDirectory() + "output.mp4"
+            let outputPath = NSTemporaryDirectory() + fileName
             let outputURL = URL(fileURLWithPath: outputPath)
             movieOutput.startRecording(to: outputURL, recordingDelegate: self)
         }
@@ -191,6 +200,48 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("녹화 완료")
+        if let error {
+            print("Recording error: \(error)")
+        } else {
+            saveVideoToDocumentDirectory(url: outputFileURL)
+            createVideo(url: outputFileURL)
+        }
+    }
+    
+    private func saveVideoToDocumentDirectory(url: URL) {
+        let fileManager = FileManager.default
+        let documentDirectory = fileManager.urls(for: .documentDirectory,
+                                                 in: .userDomainMask).first
+        
+        guard let destinationURL = documentDirectory?.appendingPathComponent("\(UUID())") else {
+            print("destination URL 생성 실패")
+            return
+        }
+        
+        do {
+            try fileManager.moveItem(at: url, to: destinationURL)
+        } catch {
+            print("documents directory에 저장 실패")
+        }
+    }
+}
+
+// MARK: - Core data CRUD
+
+extension AddVideoViewController {
+    private func createVideo(url: URL) {
+        guard let thumbnailData = thumbnailIButton.imageView?.image?.pngData() else {
+            print("Failed to convert thumbnail image to Data")
+            return
+        }
+        
+        let videoInfo = VideoInfo(id: UUID(),
+                                  videoURL: url,
+                                  thumbnailImage: thumbnailData,
+                                  duration: 1.6,
+                                  fileName: fileName,
+                                  registrationDate: Date())
+        
+        CoreDataManager.shared.create(videoInfo: videoInfo)
     }
 }

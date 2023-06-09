@@ -22,12 +22,11 @@ final class VideoListViewController: UIViewController {
     }()
     
     private let videos: [VideoInfo] = [
-        VideoInfo(videoURL: URL(string: "www.naver.com")!, thumbnailImageName: UIImage(named: "Sample")!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())
+        VideoInfo(id: UUID(), videoURL: URL(string: "www.naver.com")!, thumbnailImage: (UIImage(named: "sample")?.pngData())!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(String(describing: VideoEntity.self))
         configureUIOption()
         configureVideoListTableView()
         configureDataSource()
@@ -73,10 +72,9 @@ final class VideoListViewController: UIViewController {
             }
 
             let contents = self?.videos[indexPath.row]
-//            cell.configure(thumbnailImageName: contents?.thumbnailImageName ?? "",
-//                           playbackTime: contents?.duration ?? "",
-//                           fileName: contents?.fileName ?? "",
-//                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
+            cell.configure(playbackTime: contents?.duration ?? 0.5,
+                           fileName: contents?.fileName ?? "",
+                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
             return cell
         }
     }
@@ -84,7 +82,7 @@ final class VideoListViewController: UIViewController {
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, VideoInfo>()
         snapshot.appendSections([.main])
-        snapshot.appendItems([VideoInfo(videoURL: URL(string: "www.naver.com")!, thumbnailImageName: UIImage(named: "Sample")!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())], toSection: .main)
+        snapshot.appendItems(videos, toSection: .main)
         dataSource?.apply(snapshot)
     }
 }
