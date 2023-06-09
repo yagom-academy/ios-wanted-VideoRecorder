@@ -98,12 +98,16 @@ final class VideoListViewController: UIViewController {
     
     @objc
     private func presentRecordingView() {
-        let thumbnail = UIImage(systemName: "photo")
+        let indexPath = IndexPath(row: viewModel.fetchedAssets.count - 1, section: 0)
+        let lastCell = tableView.cellForRow(at: indexPath) as? VideoListCell
+        
         let videoRecordingService = VideoRecordingService(albumRepository: viewModel.albumRepository,
                                                           deviceOrientation: .portrait)
         let recordingViewModel = RecordingViewModel(videoRecordingService: videoRecordingService)
-        let recordingViewController = RecordingViewController(viewModel: recordingViewModel,
-                                                              thumbnailImage: thumbnail)
+        let recordingViewController = RecordingViewController(
+            viewModel: recordingViewModel,
+            thumbnailImage: lastCell?.thumbnailView.image
+        )
         recordingViewController.modalPresentationStyle = .fullScreen
         
         self.present(recordingViewController, animated: true)
@@ -169,7 +173,7 @@ extension VideoListViewController: UITableViewDataSource {
         cell.dateLabel.text = videoData.creationDate
         cell.accessoryView = VideoListCellAccessoryView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
         
-        let imageSize = CGSize(width: 80, height: 60)
+        let imageSize = CGSize(width: 40, height: 20)
         
         requestImage(at: indexPath.row, size: imageSize) { [weak cell] image, _ in
             guard let cell else { return }

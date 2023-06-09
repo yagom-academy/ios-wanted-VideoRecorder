@@ -19,7 +19,10 @@ final class RecordingViewController: UIViewController {
     }()
     private let switchCameraButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath.camera"), for: .normal)
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 25)
+        let image = UIImage(systemName: "arrow.triangle.2.circlepath.camera", withConfiguration: imageConfiguration)
+        button.setImage(image, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.tintColor = .white
         
@@ -37,6 +40,10 @@ final class RecordingViewController: UIViewController {
     }()
     private let thumbnailButton = {
         let button = UIButton()
+        button.imageView?.layer.cornerRadius = 10
+        button.imageView?.contentMode = .scaleAspectFill
+        button.imageEdgeInsets = UIEdgeInsets(top: 22, left: 5, bottom: 22, right: 5)
+        button.imageView?.clipsToBounds = true
         button.setContentHuggingPriority(.required, for: .horizontal)
         
         return button
@@ -44,11 +51,10 @@ final class RecordingViewController: UIViewController {
     private let recordingStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         stackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 70
         
         return stackView
     }()
@@ -128,6 +134,10 @@ final class RecordingViewController: UIViewController {
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60),
             closeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            
+            thumbnailButton.widthAnchor.constraint(equalTo: recordingStackView.widthAnchor, multiplier: 0.18),
+            recordButton.widthAnchor.constraint(equalTo: recordingStackView.widthAnchor, multiplier: 0.25),
+            switchCameraButton.widthAnchor.constraint(equalTo: recordingStackView.widthAnchor, multiplier: 0.18),
             
             recordingStackView.topAnchor.constraint(equalTo: opaqueView.topAnchor, constant: 20),
             recordingStackView.bottomAnchor.constraint(equalTo: opaqueView.bottomAnchor, constant: -20),
