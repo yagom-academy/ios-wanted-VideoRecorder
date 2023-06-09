@@ -284,7 +284,14 @@ final class RecordingVideoViewController: UIViewController {
 // MARK: - Recoding Delegate methods
 extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print(outputFileURL)
+        
+        recordManager.generateThumbnail(videoURL: outputFileURL) { cgImage in
+            DispatchQueue.main.async { [weak self] in
+                guard let cgImage else { return }
+                let image = UIImage(cgImage: cgImage)
+                self?.historyImageView.image = image
+            }
+        }
     }
 }
 

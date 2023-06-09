@@ -114,6 +114,23 @@ final class RecordManager {
         captureSession.commitConfiguration()
     }
     
+    func generateThumbnail(videoURL: URL, completion: @escaping (CGImage?) -> Void) {
+        DispatchQueue.global().async {
+            let asset = AVAsset(url: videoURL)
+            let imageGenerator = AVAssetImageGenerator(asset: asset)
+            imageGenerator.appliesPreferredTrackTransform = true
+            let time = CMTime(seconds: 0.0, preferredTimescale: 600)
+            let times = [NSValue(time: time)]
+            imageGenerator.generateCGImagesAsynchronously(forTimes: times, completionHandler: { _, image, _, _, _ in
+                if let image = image {
+                    completion(image)
+                } else {
+                    completion(nil)
+                }
+            })
+        }
+    }
+    
     private func camera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera, .builtInTrueDepthCamera],
