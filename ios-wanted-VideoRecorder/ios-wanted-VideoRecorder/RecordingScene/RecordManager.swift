@@ -9,7 +9,7 @@ import AVFoundation
 import Combine
 
 final class RecordManager {
-    enum RecordingError: LocalizedError {
+    private enum RecordingError: LocalizedError {
         case noneCamera
         case noneAudioDevice
         case noneCameraInput
@@ -27,9 +27,9 @@ final class RecordManager {
         }
     }
     
-    let captureSession = AVCaptureSession()
-    var videoOutput: AVCaptureMovieFileOutput?
-    var outputURL: URL?
+    private let captureSession = AVCaptureSession()
+    private var videoOutput: AVCaptureMovieFileOutput?
+    private var outputURL: URL?
     
     var isRecording: Bool? {
         videoOutput?.isRecording

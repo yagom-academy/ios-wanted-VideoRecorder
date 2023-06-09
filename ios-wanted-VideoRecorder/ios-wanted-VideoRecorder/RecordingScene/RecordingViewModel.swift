@@ -9,10 +9,10 @@ import AVFoundation
 import Combine
 
 final class RecordingViewModel: NSObject {
-    private let recordManager: RecordManager
     let historyImagePublisher = PassthroughSubject<CGImage, Never>()
+    private let recordManager: RecordManager
     private var isAccessDevice = false
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     struct Input {
         let recordingButtonTappedEvent: AnyPublisher<Void, Never>

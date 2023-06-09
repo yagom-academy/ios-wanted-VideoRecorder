@@ -100,10 +100,15 @@ final class RecordingVideoViewController: UIViewController {
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
-    var timer: Timer?
-    var secondsOfTimer = 0
-    let viewModel: RecordingViewModel
-    var cancellables = Set<AnyCancellable>()
+    private var timer: Timer?
+    private var secondsOfTimer = 0
+    private let viewModel: RecordingViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(recordingViewModel: RecordingViewModel) {
+        self.viewModel = recordingViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         setupDevice()
@@ -114,11 +119,6 @@ final class RecordingVideoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.startCaptureSession()
-    }
-    
-    init(recordingViewModel: RecordingViewModel) {
-        self.viewModel = recordingViewModel
-        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
