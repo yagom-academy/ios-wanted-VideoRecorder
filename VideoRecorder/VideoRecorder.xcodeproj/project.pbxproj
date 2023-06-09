@@ -181,14 +181,11 @@
 		AA8518302A2DBCA800554FA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AADDCD142A33A50A0090D55B /* Common */,
 				AA8518452A2EF0FA00554FA7 /* Database */,
-				AA97DC3B2A322BCE00AFBC7B /* Utilitiy */,
-				AA4465DB2A3103260086F82D /* Protocol */,
-				AA85183D2A2ECFA700554FA7 /* Model */,
 				AA8518332A2DBD9700554FA7 /* VideoList */,
 				AA8518342A2E0E4400554FA7 /* RecordVideo */,
 				AA11D0D42A330834007B6A1F /* PlayVideo */,
-				AADDCD122A3393710090D55B /* ThumbnailManager.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -283,9 +280,20 @@
 			isa = PBXGroup;
 			children = (
 				AA8518402A2ECFC800554FA7 /* Extension */,
+				AADDCD122A3393710090D55B /* ThumbnailManager.swift */,
 				AA97DC3C2A322BF900AFBC7B /* AlertManager.swift */,
 			);
 			path = Utilitiy;
+			sourceTree = "<group>";
+		};
+		AADDCD142A33A50A0090D55B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AA97DC3B2A322BCE00AFBC7B /* Utilitiy */,
+				AA4465DB2A3103260086F82D /* Protocol */,
+				AA85183D2A2ECFA700554FA7 /* Model */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
