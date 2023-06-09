@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62922A072A31B5D70031559F /* RecordingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A062A31B5D70031559F /* RecordingVideoViewController.swift */; };
+		62922A0D2A321E660031559F /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A0C2A321E660031559F /* RecordManager.swift */; };
 		62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C495F92A30110500818DF1 /* VideoCell.swift */; };
 		62C495FE2A301A8800818DF1 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C495FD2A301A8800818DF1 /* Video.swift */; };
 		62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		62922A062A31B5D70031559F /* RecordingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingVideoViewController.swift; sourceTree = "<group>"; };
+		62922A0C2A321E660031559F /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		62C495F92A30110500818DF1 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		62C495FD2A301A8800818DF1 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				62922A062A31B5D70031559F /* RecordingVideoViewController.swift */,
+				62922A0C2A321E660031559F /* RecordManager.swift */,
 			);
 			path = RecordingScene;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				62C495FE2A301A8800818DF1 /* Video.swift in Sources */,
 				62922A072A31B5D70031559F /* RecordingVideoViewController.swift in Sources */,
 				62DAA7A12A30074D00EBCDAC /* SceneDelegate.swift in Sources */,
+				62922A0D2A321E660031559F /* RecordManager.swift in Sources */,
 				62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

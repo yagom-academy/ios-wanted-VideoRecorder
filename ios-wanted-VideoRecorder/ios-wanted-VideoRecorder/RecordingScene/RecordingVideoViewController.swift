@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 final class RecordingVideoViewController: UIViewController {
     private enum Constant {
@@ -15,6 +16,18 @@ final class RecordingVideoViewController: UIViewController {
         static let recordingButtonRadius: CGFloat = 0
         static let borderViewWidth: CGFloat = 60
     }
+    
+    private let dismissButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(
+            pointSize: 30, weight: .bold, scale: .default
+        )
+        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
+        button.tintColor = .gray
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     private let historyImageView: UIImageView = {
         let imageView = UIImageView()
@@ -52,9 +65,10 @@ final class RecordingVideoViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 50
         stackView.backgroundColor = .black.withAlphaComponent(0.5)
         stackView.layer.cornerRadius = 10
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -82,6 +96,21 @@ final class RecordingVideoViewController: UIViewController {
         return button
     }()
     
+    private var isAccessDevice: Bool = false
+    private let recordManager = RecordManager()
+    private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+        let preview = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
+        preview.bounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: view.bounds.width, height: view.bounds.height)
+        )
+        preview.connection?.videoOrientation = .portrait
+        preview.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        preview.videoGravity = .resizeAspectFill
+        
+        return preview
+    }()
+    
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
@@ -89,14 +118,65 @@ final class RecordingVideoViewController: UIViewController {
     var secondsOfTimer = 0
     
     override func viewDidLoad() {
+        requestDeviceRight()
+        setupPreview()
         configureLayout()
         connectTarget()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if isAccessDevice {
+            recordManager.startCaptureSession()
+        }
+    }
+    
+    private func requestDeviceRight() {
+        let videoPermission = PermissionChecker.checkPermission(about: .video)
+        let audioPermission = PermissionChecker.checkPermission(about: .audio)
+        
+        if videoPermission {
+            isAccessDevice = true
+            setupCamera()
+        }
+        
+        if audioPermission {
+            setupAudio(with: audioPermission)
+        }
+    }
+    
+    private func setupCamera() {
+        do {
+            try recordManager.setupCamera()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func setupAudio(with permission: Bool) {
+        do {
+            try recordManager.setupAudio(with: permission)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func setupPreview() {
+        self.view.layer.addSublayer(previewLayer)
+    }
+    
     private func configureLayout() {
         view.backgroundColor = .white
-        
+        configureDismissButtonLayout()
         configureRecordingPlayerViewLayout()
+    }
+    
+    private func configureDismissButtonLayout() {
+        view.addSubview(dismissButton)
+        
+        NSLayoutConstraint.activate([
+            dismissButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            dismissButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+        ])
     }
     
     private func configureRecordingPlayerViewLayout() {
@@ -131,11 +211,9 @@ final class RecordingVideoViewController: UIViewController {
         NSLayoutConstraint.activate([
             historyImageView.widthAnchor.constraint(equalToConstant: 50),
             historyImageView.heightAnchor.constraint(equalToConstant: 50),
-            historyImageView.leadingAnchor.constraint(equalTo: recordingPlayerView.leadingAnchor, constant: 7),
             
             borderView.widthAnchor.constraint(equalToConstant: Constant.borderViewWidth),
             borderView.heightAnchor.constraint(equalToConstant: Constant.borderViewWidth),
-            borderView.centerXAnchor.constraint(equalTo: recordingPlayerView.centerXAnchor),
             
             buttonWidthConstraint,
             buttonHeightConstraint,
@@ -149,6 +227,8 @@ final class RecordingVideoViewController: UIViewController {
     
     private func connectTarget() {
         recordingButton.addTarget(self, action: #selector(recordingButtonTapped), for: .touchUpInside)
+        switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Timer methods
@@ -168,10 +248,12 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     @objc
-    func recordingButtonTapped() {
+    private func recordingButtonTapped() {
+        guard isAccessDevice else { return }
         recordingButton.isSelected.toggle()
         
         recordingButton.isSelected ? self.startTimer() : self.stopTimer()
+        self.recordManager.processRecording(delegate: self)
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
             if self.recordingButton.isSelected {
@@ -186,8 +268,54 @@ final class RecordingVideoViewController: UIViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    @objc
+    private func switchCameraButtonTapped() {
+        guard isAccessDevice else { return }
+        recordManager.switchCamera()
+    }
+    
+    @objc
+    private func dismissButtonTapped() {
+        self.dismiss(animated: true)
+    }
 }
 
+// MARK: - Recoding Delegate methods
+extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        recordManager.generateThumbnail(videoURL: outputFileURL) { cgImage in
+            DispatchQueue.main.async { [weak self] in
+                guard let cgImage else { return }
+                let image = UIImage(cgImage: cgImage)
+                self?.historyImageView.image = image
+            }
+        }
+    }
+}
+
+// MARK: - 디바이스 권한 체커모델
+fileprivate struct PermissionChecker {
+    static func checkPermission(about device: AVMediaType) -> Bool {
+        let status = AVCaptureDevice.authorizationStatus(for: device)
+        var isAccessVideo = false
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: device) { granted in
+                isAccessVideo = granted
+            }
+        case .authorized:
+            return true
+        default:
+            return false
+        }
+        
+        return isAccessVideo
+    }
+}
+
+// MARK: - Timer 레이블 DateComponentsFormatter
 fileprivate extension Double {
     func format(units: NSCalendar.Unit) -> String? {
         let formatter = DateComponentsFormatter()
