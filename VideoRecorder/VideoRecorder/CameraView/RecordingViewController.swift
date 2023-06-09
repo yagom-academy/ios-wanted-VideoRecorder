@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 final class RecordingViewController: UIViewController {
-    private let closeButton = {
+    private let closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = .darkGray
@@ -17,18 +17,17 @@ final class RecordingViewController: UIViewController {
         
         return button
     }()
-    private let switchCameraButton = {
+    private let switchCameraButton: UIButton = {
         let button = UIButton()
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 25)
         let image = UIImage(systemName: "arrow.triangle.2.circlepath.camera", withConfiguration: imageConfiguration)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.setContentHuggingPriority(.required, for: .horizontal)
         button.tintColor = .white
         
         return button
     }()
-    private let timerLabel = {
+    private let timerLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
@@ -38,17 +37,16 @@ final class RecordingViewController: UIViewController {
         
         return label
     }()
-    private let thumbnailButton = {
+    private let thumbnailButton: UIButton = {
         let button = UIButton()
         button.imageView?.layer.cornerRadius = 10
         button.imageView?.contentMode = .scaleAspectFill
         button.imageEdgeInsets = UIEdgeInsets(top: 22, left: 5, bottom: 22, right: 5)
         button.imageView?.clipsToBounds = true
-        button.setContentHuggingPriority(.required, for: .horizontal)
         
         return button
     }()
-    private let recordingStackView = {
+    private let recordingStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -58,7 +56,7 @@ final class RecordingViewController: UIViewController {
         
         return stackView
     }()
-    private let opaqueView = {
+    private let opaqueView: UIView = {
         let opaqueView = UIView()
         opaqueView.layer.backgroundColor = UIColor.clear .withAlphaComponent(0.4).cgColor
         opaqueView.layer.cornerRadius = 15
@@ -67,9 +65,9 @@ final class RecordingViewController: UIViewController {
         return opaqueView
     }()
     
-    private let recordButton = RecordingButton()
+    private let recordButton: RecordingButton = RecordingButton()
 
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable> = []
     
     private let viewModel: RecordingViewModel
     
@@ -99,8 +97,7 @@ final class RecordingViewController: UIViewController {
     
     private func configureRootView() {
         let previewLayer = viewModel.previewLayer()
-        previewLayer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        previewLayer.frame = self.view.bounds
         
         self.view.layer.addSublayer(previewLayer)
         self.view.backgroundColor = .systemBackground

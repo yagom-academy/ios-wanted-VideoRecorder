@@ -23,6 +23,9 @@
 		ADCC84AB2A31BC1600A91EC6 /* VideoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */; };
 		ADCC84AD2A31C6C900A91EC6 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84AC2A31C6C900A91EC6 /* VideoListCell.swift */; };
 		ADCC84AF2A322D0200A91EC6 /* VideoListCellAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84AE2A322D0200A91EC6 /* VideoListCellAccessoryView.swift */; };
+		ADCC84B22A32FF3500A91EC6 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84B12A32FF3500A91EC6 /* VideoPlayerViewController.swift */; };
+		ADCC84B42A3300F600A91EC6 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84B32A3300F600A91EC6 /* VideoPlayerViewModel.swift */; };
+		ADCC84B62A3320A300A91EC6 /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC84B52A3320A300A91EC6 /* VideoControllerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoData.swift; sourceTree = "<group>"; };
 		ADCC84AC2A31C6C900A91EC6 /* VideoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListCell.swift; sourceTree = "<group>"; };
 		ADCC84AE2A322D0200A91EC6 /* VideoListCellAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListCellAccessoryView.swift; sourceTree = "<group>"; };
+		ADCC84B12A32FF3500A91EC6 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		ADCC84B32A3300F600A91EC6 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		ADCC84B52A3320A300A91EC6 /* VideoControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControllerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,7 @@
 				ADCC84A92A31BBE600A91EC6 /* Domain */,
 				AD599CDA2A2DA50B001609FA /* VideoListView */,
 				AD557B252A2E045B00679DAD /* CameraView */,
+				ADCC84B02A32FC9F00A91EC6 /* VideoPlayerView */,
 				ADCC84772A2F176600A91EC6 /* Extensions */,
 				AD599CDB2A2DA524001609FA /* Resources */,
 				AD599CD32A2D9887001609FA /* Info.plist */,
@@ -151,6 +158,16 @@
 				ADCC84AA2A31BC1600A91EC6 /* VideoData.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		ADCC84B02A32FC9F00A91EC6 /* VideoPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				ADCC84B12A32FF3500A91EC6 /* VideoPlayerViewController.swift */,
+				ADCC84B32A3300F600A91EC6 /* VideoPlayerViewModel.swift */,
+				ADCC84B52A3320A300A91EC6 /* VideoControllerView.swift */,
+			);
+			path = VideoPlayerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +245,8 @@
 				ADCC847B2A3066B700A91EC6 /* VideoListViewModel.swift in Sources */,
 				ADCC84A22A30EB6000A91EC6 /* AlbumRepository.swift in Sources */,
 				AD599CCA2A2D9887001609FA /* VideoListViewController.swift in Sources */,
+				ADCC84B42A3300F600A91EC6 /* VideoPlayerViewModel.swift in Sources */,
+				ADCC84B62A3320A300A91EC6 /* VideoControllerView.swift in Sources */,
 				AD599CC62A2D9887001609FA /* AppDelegate.swift in Sources */,
 				ADCC84A82A31ADAF00A91EC6 /* Array.swift in Sources */,
 				ADCC84A62A31499400A91EC6 /* VideoAlbumService.swift in Sources */,
@@ -235,6 +254,7 @@
 				ADCC84AD2A31C6C900A91EC6 /* VideoListCell.swift in Sources */,
 				AD7020902A2EC8F6004C85FF /* RecordingViewModel.swift in Sources */,
 				AD599CC82A2D9887001609FA /* SceneDelegate.swift in Sources */,
+				ADCC84B22A32FF3500A91EC6 /* VideoPlayerViewController.swift in Sources */,
 				ADCC84AF2A322D0200A91EC6 /* VideoListCellAccessoryView.swift in Sources */,
 				ADCC84AB2A31BC1600A91EC6 /* VideoData.swift in Sources */,
 			);

@@ -9,8 +9,9 @@ import UIKit
 import Photos
 
 final class VideoListViewController: UIViewController {
-    private let tableView = UITableView()
-    private let imageManager = PHCachingImageManager()
+    private let tableView: UITableView = UITableView()
+    
+    private let imageManager: PHCachingImageManager = PHCachingImageManager()
     
     private let viewModel: VideoListViewModel
     
@@ -28,7 +29,7 @@ final class VideoListViewController: UIViewController {
         configureRootView()
         configureNavigationBar()
         configureTableView()
-        configureLayout()
+        setupLayoutConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,7 +123,7 @@ final class VideoListViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func configureLayout() {
+    private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),

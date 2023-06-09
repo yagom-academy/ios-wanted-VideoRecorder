@@ -16,7 +16,7 @@ protocol EventHandleable {
 }
 
 final class RecordingViewModel: EventHandleable {
-    let videoRecordingService: VideoRecordingService
+    private let videoRecordingService: VideoRecordingService
     
     init(videoRecordingService: VideoRecordingService) {
         self.videoRecordingService = videoRecordingService
