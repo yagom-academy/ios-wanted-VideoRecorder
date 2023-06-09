@@ -188,6 +188,16 @@ extension VideoListViewController: UITableViewDataSource {
 extension VideoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let videoData = viewModel.videoDataList[safe: indexPath.row],
+              let fileURL = videoData.name else {
+            return
+        }
+        
+        let videoPlayerViewModel = VideoPlayerViewModel(fileURLString: fileURL)
+        let videoPlayerViewController = VideoPlayerViewController(viewModel: videoPlayerViewModel)
+        
+        self.navigationController?.pushViewController(videoPlayerViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
