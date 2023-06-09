@@ -41,6 +41,9 @@ final class VideoListCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
+        stackView.spacing = 20
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = .init(top: 20, left: 8, bottom: 8, right: 20)
         
         return stackView
     }()
@@ -76,11 +79,8 @@ final class VideoListCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        labelStackView.addArrangedSubview(UIView())
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(UIView())
         labelStackView.addArrangedSubview(dateLabel)
-        labelStackView.addArrangedSubview(UIView())
         
         mainStackView.addArrangedSubview(videoImageView)
         mainStackView.addArrangedSubview(labelStackView)
@@ -97,7 +97,7 @@ final class VideoListCell: UICollectionViewCell {
             mainStackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -4),
             mainStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -4),
             
-            labelStackView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 0.70)
+            labelStackView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 0.75)
         ])
     }
 }

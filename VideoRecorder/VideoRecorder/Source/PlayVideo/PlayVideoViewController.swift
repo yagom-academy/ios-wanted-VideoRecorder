@@ -17,27 +17,41 @@ final class PlayVideoViewController: UIViewController {
     private var player = AVPlayer()
     private lazy var playerLayer = {
         let layer = AVPlayerLayer(player: self.player)
-
+        
         layer.frame = CGRect(x: 0, y: 0,
                              width: view.bounds.width,
                              height: view.bounds.height)
-        layer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         layer.videoGravity = .resizeAspectFill
-                
+        
         return layer
     }()
+    
     private lazy var layerStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-                
+        
         return stackView
+    }()
+    
+    private let playTimeSlider: UISlider = {
+        let slider = UISlider()
+        
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 12)
+        let thumbImage = UIImage(systemName: "circle.fill", withConfiguration: imageConfiguration)
+        slider.setThumbImage(thumbImage, for: .normal)
+        slider.tintColor = .white
+        
+        return slider
     }()
     
     init(video: Video) {
         self.video = video
         self.viewModel = PlayVideoViewModel()
-        self.playControlView = PlayControlView(viewModel: viewModel)
+        self.playControlView = PlayControlView(viewModel: viewModel,
+                                               slider: playTimeSlider)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,14 +63,99 @@ final class PlayVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
-        addSubviews()
-        layout()
+        setupUIComponents()
+        setupPlayer()
+        addPlayerObserver()
         playVideo()
-        setupNavigationItems()
         bind()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removePlayerObserver()
+    }
+    
+    private func setupUIComponents() {
+        setupView()
+        addSubviews()
+        layout()
+        setupPlayTimeSlider()
+        setupNavigationItems()
+    }
+    
+    private func setupPlayer() {
+        guard let data = video.data,
+              let videoURL = createVideoURL(with: data) else { return }
+        
+        let item = AVPlayerItem(url: videoURL)
+        print(item.duration)
+        player.replaceCurrentItem(with: item)
+        
+        let interval = CMTime(seconds: 0.01, preferredTimescale: 600)
+        player.addPeriodicTimeObserver(forInterval:interval,
+                                       queue: DispatchQueue.main) { [weak self] currentTime in
+            print(item.duration)
+            self?.updateSlider(currentTime)
+            self?.updateCurrentTime(currentTime: currentTime)
+        }
+    }
+    
+    private func createVideoURL(with data: Data) -> URL? {
+        let temporaryURL = FileManager.default.temporaryDirectory
+        let fileName = "\(video.title)-\(UUID().uuidString).mp4"
+        let videoURL = temporaryURL.appendingPathComponent(fileName)
+        
+        do {
+            try data.write(to: videoURL)
+            return videoURL
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    private func playVideo() {
+        player.play()
+    }
+    
+    private func bind() {
+        viewModel.$isTouchUpBackwardButton
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.player.seek(to: .zero)
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$isPlaying
+            .dropFirst()
+            .sink { [weak self] isPlaying in
+                if isPlaying {
+                    self?.player.play()
+                } else {
+                    self?.player.pause()
+                }
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$isTouchUpShareButton
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.shareVideo()
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func shareVideo() {
+        let activityViewController = UIActivityViewController(
+            activityItems: [video],
+            applicationActivities: nil
+        )
+        
+        present(activityViewController, animated: true)
+    }
+    
+    // MARK: - Configure UI
     private func setupView() {
         view.backgroundColor = .white.withAlphaComponent(0.9)
     }
@@ -72,45 +171,78 @@ final class PlayVideoViewController: UIViewController {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-
-        ])
-        
-        NSLayoutConstraint.activate([
             layerStackView.topAnchor.constraint(equalTo: safe.topAnchor),
-            layerStackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            layerStackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            layerStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
+            layerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            layerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            layerStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             playControlView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 40),
             playControlView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -40),
-            playControlView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20),
-            playControlView.heightAnchor.constraint(equalToConstant: 140)
+            playControlView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20)
         ])
     }
+
+    // MARK: - Update time to slider and labels
+    private func setupPlayTimeSlider() {
+        playTimeSlider.addTarget(self,
+                                 action: #selector(didChangedPlayTimeSlider(_:)),
+                                 for: .valueChanged)
+    }
     
-    private func playVideo() {
-        guard let data = video.data,
-              let videoURL = createVideoURL(with: data) else { return }
+    private func updateCurrentTime(currentTime: CMTime) {
+        viewModel.updateCurrentTime(currentTime: currentTime)
+    }
+    
+    private func addPlayerObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(videoDidFinishPlaying(_:)),
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem
+        )
         
-        let item = AVPlayerItem(url: videoURL)
-        player.replaceCurrentItem(with: item)
-        player.play()
+        guard let currentItem = player.currentItem else { return }
+        
+        currentItem.addObserver(self, forKeyPath: "status", options: [.new], context: nil)
+    }
+    
+    private func removePlayerObserver() {
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        
+        player.currentItem?.removeObserver(self, forKeyPath: "status")
+    }
+    
+    @objc private func videoDidFinishPlaying(_ notification: Notification) {
+        viewModel.isPlaying = false
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard keyPath == "status",
+              let currentItem = player.currentItem,
+              currentItem.status == .readyToPlay else {
+            return
+        }
+        
+        viewModel.updateDuration(duration: currentItem.duration)
+    }
+    
+    private func updateSlider(_ currentTime: CMTime) {
+        guard let duration = player.currentItem?.duration else { return }
+        
+        playTimeSlider.value = Float(CMTimeGetSeconds(currentTime) / CMTimeGetSeconds(duration))
+    }
+    
+    @objc func didChangedPlayTimeSlider(_ sender: UISlider) {
+        guard let duration = player.currentItem?.duration else { return }
+        
+        let value = Float64(sender.value) * CMTimeGetSeconds(duration)
+        
+        let seekTime = CMTime(seconds: value, preferredTimescale: 1)
+        
+        player.seek(to: seekTime)
     }
 
-    private func createVideoURL(with data: Data) -> URL? {
-        let temporaryURL = FileManager.default.temporaryDirectory
-        let fileName = "\(video.title)-\(UUID().uuidString).mp4"
-        let videoURL = temporaryURL.appendingPathComponent(fileName)
-        
-        do {
-            try data.write(to: videoURL)
-            return videoURL
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-    
+    // MARK: - Configure UINavigationBar UI and Action
     private func setupNavigationItems() {
         setupLeftBarButton()
         setupRightBarButton()
@@ -159,41 +291,5 @@ final class PlayVideoViewController: UIViewController {
     
     @objc private func presentInformation() {
         // TODO
-    }
-    
-    private func bind() {
-        viewModel.$isTouchUpBackwardButton
-            .dropFirst()
-            .sink { [weak self] _ in
-                self?.player.seek(to: .zero)
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$isPlaying
-            .dropFirst()
-            .sink { [weak self] isPlaying in
-                if isPlaying {
-                    self?.player.play()
-                } else {
-                    self?.player.pause()
-                }
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$isTouchUpShareButton
-            .dropFirst()
-            .sink { [weak self] _ in
-                self?.shareVideo()
-            }
-            .store(in: &subscriptions)
-    }
-    
-    private func shareVideo() {
-        let activityViewController = UIActivityViewController(
-            activityItems: [video],
-            applicationActivities: nil
-        )
-        
-        present(activityViewController, animated: true)
     }
 }

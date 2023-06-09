@@ -14,7 +14,7 @@ final class VideoRecorderService {
     private let videoManager = VideoManager.shared
     
     private init() {
-        videoManager.read()
+//        videoManager.read()
     }
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {

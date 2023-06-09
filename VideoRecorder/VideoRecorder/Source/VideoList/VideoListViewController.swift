@@ -35,13 +35,7 @@ final class VideoListViewController: UIViewController {
         setupNavigationItems()
         setupCollectionView()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
         
-    }
-    
     private func setupView() {
         view.backgroundColor = .systemBackground
     }

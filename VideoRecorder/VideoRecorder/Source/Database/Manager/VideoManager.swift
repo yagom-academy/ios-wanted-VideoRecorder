@@ -15,7 +15,16 @@ final class VideoManager {
     
     private init() {}
     
-    @Published var videoList: [Video] = [Video(data: nil, title: "1번 Cell", date: Date()), Video(data: nil, title: "2번 Cell", date: Date())]
+    @Published var videoList: [Video] = [
+        Video(data: nil, title: "1번 Cell", date: Date()),
+        Video(data: nil, title: "2번 Cell", date: Date()),
+        Video(data: nil, title: "3번 Cell", date: Date()),
+        Video(data: nil, title: "4번 Cell", date: Date()),
+        Video(data: nil, title: "5번 Cell", date: Date()),
+        Video(data: nil, title: "6번 Cell", date: Date()),
+        Video(data: nil, title: "7번 Cell", date: Date()),
+        Video(data: nil, title: "8번 Cell", date: Date())
+    ]
     
     func create(video: Video) {
         if isContains(video) { return }

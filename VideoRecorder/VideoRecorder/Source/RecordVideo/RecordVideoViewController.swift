@@ -14,7 +14,6 @@ final class RecordVideoViewController: UIViewController {
         let layer = AVCaptureVideoPreviewLayer(session: viewModel.recorderCaptureSession)
 
         layer.bounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
-        layer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         layer.videoGravity = .resizeAspectFill
 
         return layer
