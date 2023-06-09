@@ -95,6 +95,7 @@ final class RecordingVideoViewController: UIViewController {
         
         return button
     }()
+    
     private var isAccessDevice: Bool = false
     private let recordManager = RecordManager()
     private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
@@ -221,6 +222,7 @@ final class RecordingVideoViewController: UIViewController {
     private func connectTarget() {
         recordingButton.addTarget(self, action: #selector(recordingButtonTapped), for: .touchUpInside)
         switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Timer methods
@@ -264,6 +266,11 @@ final class RecordingVideoViewController: UIViewController {
     private func switchCameraButtonTapped() {
         guard isAccessDevice else { return }
         recordManager.switchCamera()
+    }
+    
+    @objc
+    private func dismissButtonTapped() {
+        self.dismiss(animated: true)
     }
 }
 
