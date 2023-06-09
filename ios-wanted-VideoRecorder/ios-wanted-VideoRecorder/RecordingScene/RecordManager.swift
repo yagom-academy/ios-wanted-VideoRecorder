@@ -58,7 +58,7 @@ final class RecordManager {
     func processRecording(delegate: AVCaptureFileOutputRecordingDelegate) {
         guard let videoOutput else { return }
         
-        if videoOutput.isRecording {
+        if !videoOutput.isRecording {
             let connection = videoOutput.connection(with: AVMediaType.video)
             connection?.videoOrientation = .portrait
             
@@ -69,6 +69,8 @@ final class RecordManager {
             guard let outputFileURL else { return }
             
             videoOutput.startRecording(to: outputFileURL, recordingDelegate: delegate)
+        } else {
+            videoOutput.stopRecording()
         }
     }
     

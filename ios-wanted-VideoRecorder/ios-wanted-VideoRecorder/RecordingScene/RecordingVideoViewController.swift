@@ -247,6 +247,7 @@ final class RecordingVideoViewController: UIViewController {
         recordingButton.isSelected.toggle()
         
         recordingButton.isSelected ? self.startTimer() : self.stopTimer()
+        self.recordManager.processRecording(delegate: self)
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
             if self.recordingButton.isSelected {
@@ -271,6 +272,12 @@ final class RecordingVideoViewController: UIViewController {
     @objc
     private func dismissButtonTapped() {
         self.dismiss(animated: true)
+    }
+}
+
+extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        print(outputFileURL)
     }
 }
 
