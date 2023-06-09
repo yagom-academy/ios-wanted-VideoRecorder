@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class VideoPlayerViewController: UIViewController {
     private let videoControllerView: VideoControllerView = VideoControllerView()
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     private let viewModel: VideoPlayerViewModel
     
@@ -60,5 +63,23 @@ final class VideoPlayerViewController: UIViewController {
     private func setupSliderValue() {
         videoControllerView.slider.minimumValue = .zero
         videoControllerView.slider.maximumValue = viewModel.videoDuration
+    }
+    
+    private func bindAction() {
+        let sliderValue = videoControllerView.slider.publisher(for: .valueChanged)
+            .compactMap { [weak self] in
+                self?.videoControllerView.slider.value
+            }
+            .map { Double($0) }
+            .eraseToAnyPublisher()
+        
+        let input = VideoPlayerViewModel.Input(sliderValue: sliderValue)
+        
+        let output = viewModel.transform(input: input)
+        output.timeSearched
+            .sink { _ in
+                print("searching successed")
+            }
+            .store(in: &cancellables)
     }
 }

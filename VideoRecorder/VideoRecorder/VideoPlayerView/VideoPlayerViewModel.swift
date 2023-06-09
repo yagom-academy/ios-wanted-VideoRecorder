@@ -6,14 +6,16 @@
 //
 
 import AVFoundation
+import Combine
 
-final class VideoPlayerViewModel {
+final class VideoPlayerViewModel: EventHandleable {
     var playerLayer: AVPlayerLayer {
         return AVPlayerLayer(player: videoPlayer)
     }
     
     var videoDuration: Float {
-        guard let duration = videoItem?.duration else { return .zero }
+        guard videoItem?.status == .readyToPlay,
+              let duration = videoItem?.duration else { return .zero }
         
         return Float(CMTimeGetSeconds(duration))
     }
@@ -33,5 +35,22 @@ final class VideoPlayerViewModel {
         let item = AVPlayerItem(url: url)
         
         return item
+    }
+    
+    struct Input {
+        let sliderValue: AnyPublisher<Double, Never>
+    }
+    struct Output {
+        let timeSearched: AnyPublisher<Void, Never>
+    }
+    
+    func transform(input: Input) -> Output {
+        let timeSearched = input.sliderValue
+            .compactMap { [weak self] time in
+                self?.videoPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1))
+            }
+            .eraseToAnyPublisher()
+        
+        return Output(timeSearched: timeSearched)
     }
 }
