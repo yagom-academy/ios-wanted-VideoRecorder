@@ -11,7 +11,7 @@ import AVFoundation
 final class CameraViewModel: NSObject, ObservableObject {
     
     private var timer: Timer?
-    private var dbManager = LocalDBUseCase<VideoObject>()
+    private var dbManager: DBUseCase = LocalDBUseCase<VideoObject>()
     private var cameraManager: CameraUseCase = DefaultCameraUseCase()
     var isCameraPermission: Bool {
         return cameraManager.isCameraPermission

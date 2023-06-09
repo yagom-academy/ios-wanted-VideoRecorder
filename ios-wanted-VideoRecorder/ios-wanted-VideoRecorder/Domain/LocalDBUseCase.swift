@@ -9,23 +9,24 @@ import RealmSwift
 import Foundation
 
 struct LocalDBUseCase<T: Object>: DBUseCase {
+
     private var realm: Realm? {
         return try? Realm()
     }
     
-    func create(_ object: T) {
+    func create(_ object: RealmSwift.Object) {
         try? realm?.write {
             realm?.add(object)
         }
     }
-    
-    func read() -> [T]? {
+
+    func read() -> [RealmSwift.Object]? {
         guard let objects = realm?.objects(T.self) else { return nil }
         
         return Array(objects)
     }
-    
-    func update(_ object: T) {
+
+    func update(_ object: RealmSwift.Object) {
         try? realm?.write {
             realm?.add(object, update: .modified)
         }

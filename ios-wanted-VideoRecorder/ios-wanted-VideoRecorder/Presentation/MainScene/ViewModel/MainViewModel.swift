@@ -19,7 +19,7 @@ final class MainViewModel: ObservableObject {
         }
     }
     var targetVideo: Video? = nil
-    private let dbManager = LocalDBUseCase<VideoObject>()
+    private let dbManager: DBUseCase = LocalDBUseCase<VideoObject>()
     
     init() {
         searchVideos()

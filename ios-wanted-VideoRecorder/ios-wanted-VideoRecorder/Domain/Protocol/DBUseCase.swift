@@ -10,13 +10,11 @@ import RealmSwift
 
 protocol DBUseCase {
     
-    associatedtype T: Object
+    func create(_ object: Object)
     
-    func create(_ object: T)
+    func read() -> [Object]?
     
-    func read() -> [T]?
-    
-    func update(_ object: T)
+    func update(_ object: Object)
     
     func delete(_ id: UUID)
 }
