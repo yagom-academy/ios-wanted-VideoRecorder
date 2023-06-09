@@ -10,8 +10,10 @@ import Foundation
 
 struct LocalDBUseCase<T: Object>: DBUseCase {
 
-    private var realm: Realm? {
-        return try? Realm()
+    private var realm: Realm?
+    
+    init(realm: Realm? = try? Realm()) {
+        self.realm = realm
     }
     
     func create(_ object: RealmSwift.Object) {
