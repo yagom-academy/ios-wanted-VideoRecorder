@@ -12,7 +12,7 @@ final class VideoListViewController: UIViewController {
         case main
     }
     
-    private var dataSource: UITableViewDiffableDataSource<Section, Video>?
+    private var dataSource: UITableViewDiffableDataSource<Section, VideoInfo>?
     
     private let videoListTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -21,19 +21,13 @@ final class VideoListViewController: UIViewController {
         return tableView
     }()
     
-    private let videos: [Video] = [
-        Video(thumbnailImageName: "sample", playbackTime: "1:13:01", fileName: "file1.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file2.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "13:01", fileName: "file3.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "55:01", fileName: "file4.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "12:03:01", fileName: "file5.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file6.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file7.mp4", registrationDate: Date()),
-        Video(thumbnailImageName: "sample", playbackTime: "3:01", fileName: "file8.mp4", registrationDate: Date()),
+    private let videos: [VideoInfo] = [
+        VideoInfo(videoURL: URL(string: "www.naver.com")!, thumbnailImageName: UIImage(named: "Sample")!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(String(describing: VideoEntity.self))
         configureUIOption()
         configureVideoListTableView()
         configureDataSource()
@@ -72,25 +66,25 @@ final class VideoListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Video>(tableView: videoListTableView) {
+        dataSource = UITableViewDiffableDataSource<Section, VideoInfo>(tableView: videoListTableView) {
             [weak self] (tableView, indexPath, video) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier) as? VideoListCell else {
                 return UITableViewCell()
             }
-            
+
             let contents = self?.videos[indexPath.row]
-            cell.configure(thumbnailImageName: contents?.thumbnailImageName ?? "",
-                           playbackTime: contents?.playbackTime ?? "",
-                           fileName: contents?.fileName ?? "",
-                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
+//            cell.configure(thumbnailImageName: contents?.thumbnailImageName ?? "",
+//                           playbackTime: contents?.duration ?? "",
+//                           fileName: contents?.fileName ?? "",
+//                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
             return cell
         }
     }
     
     private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, VideoInfo>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(videos, toSection: .main)
+        snapshot.appendItems([VideoInfo(videoURL: URL(string: "www.naver.com")!, thumbnailImageName: UIImage(named: "Sample")!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())], toSection: .main)
         dataSource?.apply(snapshot)
     }
 }
