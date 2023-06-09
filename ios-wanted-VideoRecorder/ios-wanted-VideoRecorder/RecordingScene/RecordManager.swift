@@ -6,9 +6,10 @@
 //
 
 import AVFoundation
+import Combine
 
 final class RecordManager {
-    enum RecordingError: LocalizedError {
+    private enum RecordingError: LocalizedError {
         case noneCamera
         case noneAudioDevice
         case noneCameraInput
@@ -26,9 +27,13 @@ final class RecordManager {
         }
     }
     
-    let captureSession = AVCaptureSession()
-    var videoOutput: AVCaptureMovieFileOutput?
-    var outputURL: URL?
+    private let captureSession = AVCaptureSession()
+    private var videoOutput: AVCaptureMovieFileOutput?
+    private var outputURL: URL?
+    
+    var isRecording: Bool? {
+        videoOutput?.isRecording
+    }
     
     func setupCamera() throws {
         guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video) else {
@@ -62,6 +67,16 @@ final class RecordManager {
         captureSession.addInput(audioInput)
     }
     
+    func makePreview(size: CGSize) -> AVCaptureVideoPreviewLayer {
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.bounds = CGRect(origin: .zero, size: size)
+        previewLayer.connection?.videoOrientation = .portrait
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        
+        return previewLayer
+    }
+    
     func startCaptureSession() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession.startRunning()
@@ -69,10 +84,9 @@ final class RecordManager {
     }
     
     func processRecording(delegate: AVCaptureFileOutputRecordingDelegate) {
-        guard let videoOutput else { return }
-        
-        if !videoOutput.isRecording {
-            let connection = videoOutput.connection(with: AVMediaType.video)
+        guard let isRecording else { return }
+        if !isRecording {
+            let connection = videoOutput?.connection(with: AVMediaType.video)
             connection?.videoOrientation = .portrait
             
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -81,7 +95,7 @@ final class RecordManager {
             
             guard let outputFileURL else { return }
             
-            videoOutput.startRecording(to: outputFileURL, recordingDelegate: delegate)
+            videoOutput?.startRecording(to: outputFileURL, recordingDelegate: delegate)
         } else {
             stopRecording()
         }
@@ -133,7 +147,7 @@ final class RecordManager {
     
     private func camera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera, .builtInTrueDepthCamera],
+            deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera],
             mediaType: .video,
             position: .unspecified
         )

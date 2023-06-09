@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 final class RecordingVideoViewController: UIViewController {
     private enum Constant {
@@ -96,71 +97,44 @@ final class RecordingVideoViewController: UIViewController {
         return button
     }()
     
-    private var isAccessDevice: Bool = false
-    private let recordManager = RecordManager()
-    private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-        let preview = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
-        preview.bounds = CGRect(
-            origin: .zero,
-            size: CGSize(width: view.bounds.width, height: view.bounds.height)
-        )
-        preview.connection?.videoOrientation = .portrait
-        preview.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-        preview.videoGravity = .resizeAspectFill
-        
-        return preview
-    }()
-    
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
-    var timer: Timer?
-    var secondsOfTimer = 0
+    private var timer: Timer?
+    private var secondsOfTimer = 0
+    private let viewModel: RecordingViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(recordingViewModel: RecordingViewModel) {
+        self.viewModel = recordingViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
-        requestDeviceRight()
+        setupDevice()
         setupPreview()
         configureLayout()
-        connectTarget()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if isAccessDevice {
-            recordManager.startCaptureSession()
-        }
+        viewModel.startCaptureSession()
     }
     
-    private func requestDeviceRight() {
-        let videoPermission = PermissionChecker.checkPermission(about: .video)
-        let audioPermission = PermissionChecker.checkPermission(about: .audio)
-        
-        if videoPermission {
-            isAccessDevice = true
-            setupCamera()
-        }
-        
-        if audioPermission {
-            setupAudio(with: audioPermission)
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupCamera() {
+    private func setupDevice() {
         do {
-            try recordManager.setupCamera()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func setupAudio(with permission: Bool) {
-        do {
-            try recordManager.setupAudio(with: permission)
+            try viewModel.setupDevice()
         } catch {
             print(error.localizedDescription)
         }
     }
     
     private func setupPreview() {
+        let previewLayer = viewModel.makePreview(size: CGSize(width: view.frame.width, height: view.frame.height))
         self.view.layer.addSublayer(previewLayer)
     }
     
@@ -225,10 +199,37 @@ final class RecordingVideoViewController: UIViewController {
         ])
     }
     
-    private func connectTarget() {
-        recordingButton.addTarget(self, action: #selector(recordingButtonTapped), for: .touchUpInside)
-        switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
-        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+    private func bind() {
+        let input = RecordingViewModel.Input(
+            recordingButtonTappedEvent: recordingButton.buttonPublisher,
+            cameraSwitchButtonTappedEvent: switchCameraButton.buttonPublisher,
+            dismissButtonTappedEvent: dismissButton.buttonPublisher
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.isRecording
+            .sink { [weak self] isRecording in
+                guard let self, let isRecording else { return }
+                isRecording ? self.stopTimer() : self.startTimer()
+                changeRecordingButtonAppearance(with: isRecording)
+            }
+            .store(in: &cancellables)
+        
+        output.dismissTrigger
+            .sink { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.historyImagePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] cgImage in
+                guard let self else { return }
+                let image = UIImage(cgImage: cgImage)
+                self.historyImageView.image = image
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Timer methods
@@ -247,16 +248,9 @@ final class RecordingVideoViewController: UIViewController {
         self.timerLabel.text = "00:00"
     }
     
-    @objc
-    private func recordingButtonTapped() {
-        guard isAccessDevice else { return }
-        recordingButton.isSelected.toggle()
-        
-        recordingButton.isSelected ? self.startTimer() : self.stopTimer()
-        self.recordManager.processRecording(delegate: self)
-        
+    private func changeRecordingButtonAppearance(with isRecording: Bool) {
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
-            if self.recordingButton.isSelected {
+            if !isRecording {
                 self.buttonWidthConstraint.constant = Constant.RecordingButtonWidth
                 self.buttonHeightConstraint.constant = Constant.RecordingButtonWidth
                 self.recordingButton.layer.cornerRadius = Constant.recordingButtonRadius
@@ -267,51 +261,6 @@ final class RecordingVideoViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }, completion: nil)
-    }
-    
-    @objc
-    private func switchCameraButtonTapped() {
-        guard isAccessDevice else { return }
-        recordManager.switchCamera()
-    }
-    
-    @objc
-    private func dismissButtonTapped() {
-        self.dismiss(animated: true)
-    }
-}
-
-// MARK: - Recoding Delegate methods
-extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
-        recordManager.generateThumbnail(videoURL: outputFileURL) { cgImage in
-            DispatchQueue.main.async { [weak self] in
-                guard let cgImage else { return }
-                let image = UIImage(cgImage: cgImage)
-                self?.historyImageView.image = image
-            }
-        }
-    }
-}
-
-// MARK: - 디바이스 권한 체커모델
-fileprivate struct PermissionChecker {
-    static func checkPermission(about device: AVMediaType) -> Bool {
-        let status = AVCaptureDevice.authorizationStatus(for: device)
-        var isAccessVideo = false
-        switch status {
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: device) { granted in
-                isAccessVideo = granted
-            }
-        case .authorized:
-            return true
-        default:
-            return false
-        }
-        
-        return isAccessVideo
     }
 }
 

@@ -126,11 +126,11 @@ final class VideoListViewController: UIViewController {
     }
     
     @objc func presentRecordingScene() {
-        let recordingViewController = RecordingVideoViewController()
+        let viewModel = RecordingViewModel(recordManager: RecordManager())
+        let recordingViewController = RecordingVideoViewController(recordingViewModel: viewModel)
         recordingViewController.modalPresentationStyle = .fullScreen
         
         self.present(recordingViewController, animated: true)
-        
     }
 }
 
