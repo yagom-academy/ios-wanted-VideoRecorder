@@ -8,10 +8,10 @@
 import Foundation
 
 struct VideoEntity: Identifiable {
-    var thumbnail: Data
+    var id: UUID
     var name: String
     var date: Date
-    var videoURL: URL
     var duration: String
-    var id: UUID
+    var thumbnail: Data
+    var videoURL: URL
 }

@@ -27,11 +27,11 @@ final class VideoListViewController: UIViewController {
     private var dataSource: DataSource?
     
     private let videoList: [VideoEntity] = [
-        VideoEntity(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        VideoEntity(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        VideoEntity(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        VideoEntity(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        VideoEntity(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
+        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
+        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
+        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
+        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
+        VideoEntity(thumbnail: Data(), name: "mock", date: Date(), videoURL: URL(string: "www.what.com")!, duration: "32:24", id: UUID()),
     ]
     
     override func viewDidLoad() {
