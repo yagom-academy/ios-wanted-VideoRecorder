@@ -141,8 +141,10 @@ final class VideoPlayerViewController: UIViewController {
             
         
         viewModel.currentPlayTimeSubject
-            .sink { [weak self] timeValue in
-                self?.videoControllerView.slider.value = timeValue
+            .sink { [weak self] (timeValue, timeText) in
+                guard let self else { return }
+                self.videoControllerView.slider.value = timeValue
+                self.videoControllerView.currentTimeLabel.text = timeText
             }
             .store(in: &cancellables)
     }

@@ -13,7 +13,7 @@ final class VideoPlayerViewModel: EventHandleable {
         return AVPlayerLayer(player: videoPlayer)
     }
     
-    let currentPlayTimeSubject: PassthroughSubject<Float, Never> = .init()
+    let currentPlayTimeSubject: PassthroughSubject<(Float, String), Never> = .init()
     
     private var videoPlayer: AVPlayer = AVPlayer()
     private var isPlayingVideo: Bool = false
@@ -35,9 +35,9 @@ final class VideoPlayerViewModel: EventHandleable {
                 guard let self else { return (0, "") }
                 
                 let seconds = CMTimeGetSeconds(duration)
-                let timeString = self.convertToTimeString(from: seconds)
+                let durationText = self.convertToTimeString(from: seconds)
                 
-                return (Float(seconds), timeString)
+                return (Float(seconds), durationText)
             }
             .eraseToAnyPublisher()
     }
@@ -89,9 +89,12 @@ final class VideoPlayerViewModel: EventHandleable {
             forInterval: timeInterval,
             queue: .main
         ) { [weak self] currentTime in
+            guard let self else { return }
+            
             let seconds = CMTimeGetSeconds(currentTime)
             let value = Float(seconds)
-            self?.currentPlayTimeSubject.send(value)
+            let currentTimeText = self.convertToTimeString(from: seconds)
+            self.currentPlayTimeSubject.send((value, currentTimeText))
         }
     }
     
