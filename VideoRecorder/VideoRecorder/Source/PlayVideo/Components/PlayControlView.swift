@@ -25,8 +25,8 @@ class PlayControlView: UIStackView {
         let button = UIButton()
                 
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 60)
-        let recordImage = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
-        button.setImage(recordImage, for: .normal)
+        let pauseImage = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
+        button.setImage(pauseImage, for: .normal)
         button.tintColor = .white
         
         return button
@@ -43,7 +43,11 @@ class PlayControlView: UIStackView {
         return button
     }()
         
-    init() {
+    private let viewModel: PlayVideoViewModel
+    
+    init(viewModel: PlayVideoViewModel) {
+        self.viewModel = viewModel
+        
         super.init(frame: .zero)
         
         addSubviews()
@@ -80,27 +84,34 @@ class PlayControlView: UIStackView {
     }
     
     @objc private func touchUpBackwardButton() {
-
+        viewModel.isTouchUpBackwardButton.toggle()
     }
     
     @objc private func touchUpPlayOrStopButton() {
         isPlaying.toggle()
+        
+        viewModel.isPlaying = isPlaying
         configurePlayOrStopButtonImage()
     }
     
     @objc private func touchUpShareButton() {
-
+        viewModel.isTouchUpShareButton.toggle()
+        
+        isPlaying = false
+        
+        viewModel.isPlaying = isPlaying
+        configurePlayOrStopButtonImage()
     }
     
     private func configurePlayOrStopButtonImage() {
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 60)
         
         if isPlaying {
-            let recordImage = UIImage(systemName: "play.fill", withConfiguration: imageConfiguration)
-            playOrStopButton.setImage(recordImage, for: .normal)
+            let playImage = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
+            playOrStopButton.setImage(playImage, for: .normal)
         } else {
-            let recordImage = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
-            playOrStopButton.setImage(recordImage, for: .normal)
+            let pauseImage = UIImage(systemName: "play.fill", withConfiguration: imageConfiguration)
+            playOrStopButton.setImage(pauseImage, for: .normal)
         }
         
         playOrStopButton.tintColor = .white

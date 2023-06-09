@@ -7,10 +7,13 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 final class PlayVideoViewController: UIViewController {
     private let video: Video
-    private let playControlView = PlayControlView()
+    private let viewModel: PlayVideoViewModel
+    private var subscriptions = Set<AnyCancellable>()
+    private let playControlView: PlayControlView
     private var player = AVPlayer()
     private lazy var playerLayer = {
         let layer = AVPlayerLayer(player: self.player)
@@ -33,6 +36,8 @@ final class PlayVideoViewController: UIViewController {
     
     init(video: Video) {
         self.video = video
+        self.viewModel = PlayVideoViewModel()
+        self.playControlView = PlayControlView(viewModel: viewModel)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,6 +54,7 @@ final class PlayVideoViewController: UIViewController {
         layout()
         playVideo()
         setupNavigationItems()
+        bind()
     }
     
     private func setupView() {
@@ -152,6 +158,42 @@ final class PlayVideoViewController: UIViewController {
     }
     
     @objc private func presentInformation() {
-        // Todo
+        // TODO
+    }
+    
+    private func bind() {
+        viewModel.$isTouchUpBackwardButton
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.player.seek(to: .zero)
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$isPlaying
+            .dropFirst()
+            .sink { [weak self] isPlaying in
+                if isPlaying {
+                    self?.player.play()
+                } else {
+                    self?.player.pause()
+                }
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$isTouchUpShareButton
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.shareVideo()
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func shareVideo() {
+        let activityViewController = UIActivityViewController(
+            activityItems: [video],
+            applicationActivities: nil
+        )
+        
+        present(activityViewController, animated: true)
     }
 }

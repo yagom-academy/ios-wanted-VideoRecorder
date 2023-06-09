@@ -27,7 +27,7 @@ final class RecordVideoViewController: UIViewController {
     
     init() {
         viewModel = RecordVideoViewModel()
-        recordControlView = RecordControlView(recordVideoViewModel: viewModel)
+        recordControlView = RecordControlView(viewModel: viewModel)
         
         super.init(nibName: nil, bundle: nil)
     }

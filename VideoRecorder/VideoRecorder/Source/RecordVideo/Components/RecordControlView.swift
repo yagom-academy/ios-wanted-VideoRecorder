@@ -43,8 +43,8 @@ class RecordControlView: UIStackView {
     
     private let viewModel: RecordVideoViewModel
     
-    init(recordVideoViewModel: RecordVideoViewModel) {
-        viewModel = recordVideoViewModel
+    init(viewModel: RecordVideoViewModel) {
+        self.viewModel = viewModel
         
         super.init(frame: .zero)
         
