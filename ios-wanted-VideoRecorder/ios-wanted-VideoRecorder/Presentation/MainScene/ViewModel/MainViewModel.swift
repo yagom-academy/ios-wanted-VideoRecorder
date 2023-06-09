@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import AVFoundation
 
 final class MainViewModel: ObservableObject {
     @Published var changeText: String = ""
@@ -22,6 +23,8 @@ final class MainViewModel: ObservableObject {
     
     init() {
         searchVideos()
+        
+        AVCaptureDevice.requestAccess(for: .video) { _ in }
     }
 
     func updateTitleVideo() {
