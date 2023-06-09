@@ -21,6 +21,7 @@ final class VideoPlayerViewModel: EventHandleable {
     }
     
     private var videoPlayer: AVPlayer = AVPlayer()
+    private var isPlayingVideo: Bool = false
     
     private var videoItem: AVPlayerItem?
     
@@ -38,19 +39,38 @@ final class VideoPlayerViewModel: EventHandleable {
     }
     
     struct Input {
+        let playButtonTapped: AnyPublisher<Void, Never>
         let sliderValue: AnyPublisher<Double, Never>
     }
     struct Output {
+        let isPlayingVideo: AnyPublisher<Bool, Never>
         let timeSearched: AnyPublisher<Void, Never>
     }
     
     func transform(input: Input) -> Output {
+        let isPlayingVideo = input.playButtonTapped
+            .map { [weak self] in
+                guard let self else { return false }
+                
+                if self.isPlayingVideo {
+                    self.videoPlayer.pause()
+                    self.isPlayingVideo.toggle()
+                    return false
+                } else {
+                    self.videoPlayer.play()
+                    self.isPlayingVideo.toggle()
+                    return true
+                }
+            }
+            .eraseToAnyPublisher()
+        
         let timeSearched = input.sliderValue
             .compactMap { [weak self] time in
                 self?.videoPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1))
             }
             .eraseToAnyPublisher()
         
-        return Output(timeSearched: timeSearched)
+        return Output(isPlayingVideo: isPlayingVideo,
+                      timeSearched: timeSearched)
     }
 }

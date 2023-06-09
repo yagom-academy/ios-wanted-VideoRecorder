@@ -66,6 +66,9 @@ final class VideoPlayerViewController: UIViewController {
     }
     
     private func bindAction() {
+        let playButtonTapped = videoControllerView.playButton.publisher(for: .touchUpInside)
+            .eraseToAnyPublisher()
+        
         let sliderValue = videoControllerView.slider.publisher(for: .valueChanged)
             .compactMap { [weak self] in
                 self?.videoControllerView.slider.value
@@ -73,13 +76,33 @@ final class VideoPlayerViewController: UIViewController {
             .map { Double($0) }
             .eraseToAnyPublisher()
         
-        let input = VideoPlayerViewModel.Input(sliderValue: sliderValue)
+        let input = VideoPlayerViewModel.Input(
+            playButtonTapped: playButtonTapped,
+            sliderValue: sliderValue
+        )
         
         let output = viewModel.transform(input: input)
+        output.isPlayingVideo
+            .sink { [weak self] isPlayingVideo in
+                self?.setPlayButtonImage(for: isPlayingVideo)
+            }
+            .store(in: &cancellables)
+        
         output.timeSearched
             .sink { _ in
                 print("searching successed")
             }
             .store(in: &cancellables)
+        
+    }
+    
+    private func setPlayButtonImage(for isPlayingVideo: Bool) {
+        if isPlayingVideo {
+            let image = UIImage(systemName: "pause.fill")
+            videoControllerView.playButton.setImage(image, for: .normal)
+        } else {
+            let image = UIImage(systemName: "play.fill")
+            videoControllerView.playButton.setImage(image, for: .normal)
+        }
     }
 }
