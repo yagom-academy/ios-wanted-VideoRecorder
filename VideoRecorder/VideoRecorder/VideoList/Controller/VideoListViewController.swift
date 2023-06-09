@@ -8,6 +8,12 @@
 import UIKit
 
 final class VideoListViewController: UIViewController {
+    enum Section {
+        case main
+    }
+    
+    private var dataSource: UITableViewDiffableDataSource<Section, Video>?
+    
     private let videoListTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(VideoListCell.self, forCellReuseIdentifier: VideoListCell.identifier)
@@ -30,6 +36,8 @@ final class VideoListViewController: UIViewController {
         super.viewDidLoad()
         configureUIOption()
         configureVideoListTableView()
+        configureDataSource()
+        applySnapshot()
     }
     
     private func configureUIOption() {
@@ -53,7 +61,7 @@ final class VideoListViewController: UIViewController {
     private func configureVideoListTableView() {
         view.addSubview(videoListTableView)
         
-        videoListTableView.dataSource = self
+        videoListTableView.dataSource = dataSource
         
         NSLayoutConstraint.activate([
             videoListTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -62,23 +70,27 @@ final class VideoListViewController: UIViewController {
             videoListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-}
-
-extension VideoListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videos.count
+    
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Video>(tableView: videoListTableView) {
+            [weak self] (tableView, indexPath, video) -> UITableViewCell? in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier) as? VideoListCell else {
+                return UITableViewCell()
+            }
+            
+            let contents = self?.videos[indexPath.row]
+            cell.configure(thumbnailImageName: contents?.thumbnailImageName ?? "",
+                           playbackTime: contents?.playbackTime ?? "",
+                           fileName: contents?.fileName ?? "",
+                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
+            return cell
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier) as? VideoListCell else {
-            return UITableViewCell()
-        }
-        
-        let contents = videos[indexPath.row]
-        cell.configure(thumbnailImageName: contents.thumbnailImageName,
-                       playbackTime: contents.playbackTime,
-                       fileName: contents.fileName,
-                       date: contents.registrationDate.translateLocalizedFormat())
-        return cell
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(videos, toSection: .main)
+        dataSource?.apply(snapshot)
     }
 }

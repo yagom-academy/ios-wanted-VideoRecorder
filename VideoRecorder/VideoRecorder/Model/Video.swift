@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Video {
+struct Video: Hashable {
     let thumbnailImageName: String
     let playbackTime: String
     let fileName: String

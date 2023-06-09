@@ -97,7 +97,6 @@
 		BF9CA06B2A2F8A8F00BB9692 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
-				BF9CA06E2A2F8B3700BB9692 /* Model */,
 				BF9CA06C2A2F8AA200BB9692 /* View */,
 				BFCFEBB12A2E22EA005911F1 /* Controller */,
 			);
@@ -154,6 +153,7 @@
 				BF5C1A342A31F03900B82930 /* Utility */,
 				BF5C1A392A3234F900B82930 /* Extension */,
 				BF9CA06D2A2F8AC700BB9692 /* Protocol */,
+				BF9CA06E2A2F8B3700BB9692 /* Model */,
 				BF9CA06B2A2F8A8F00BB9692 /* VideoList */,
 				BF2ACD002A3096B800121A9F /* AddVideo */,
 			);
