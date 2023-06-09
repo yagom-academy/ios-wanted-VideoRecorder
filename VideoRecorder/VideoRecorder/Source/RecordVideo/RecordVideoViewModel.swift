@@ -11,6 +11,7 @@ import AVFoundation
 final class RecordVideoViewModel {
     private let recorder = Recorder()
     private let videoRecorderService = VideoRecorderService.shared
+    private let timerManager = TimerManager()
     
     var isImageButtonTapped: Bool = false  {
         didSet { /* Todo */ }
@@ -34,6 +35,8 @@ final class RecordVideoViewModel {
     var title: String? {
         didSet { createVideoIfNeeded() }
     }
+    private var runCountText: String?
+    
     @Published var isRecordingDoneButtonTapped: Bool = false
     @Published var isRecordingDone: Bool = false
     
@@ -59,6 +62,11 @@ final class RecordVideoViewModel {
             }
             .store(in: &subscriptions)
     }
+    
+    func runCountPublisher() -> AnyPublisher<Double, Never> {
+        return timerManager.$runCount
+            .eraseToAnyPublisher()
+    }
         
     func startCaptureSession() {
         recorder.startCaptureSession()
@@ -77,8 +85,14 @@ final class RecordVideoViewModel {
     private func recordVideo() {
         if isRecordButtonTapped {
             recorder.startRecording()
+            timerManager.start()
         } else {
             recorder.stopRecording()
+    
+            let runCount = timerManager.getRunCountAndStop()
+            let time = CMTime(seconds: runCount, preferredTimescale: 1)
+            runCountText = time.formattedTime
+            
             isRecordingDoneButtonTapped = true
         }
     }

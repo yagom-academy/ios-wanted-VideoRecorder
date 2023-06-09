@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import AVFoundation
 
 class RecordControlView: UIStackView {
     private let imageButton = {
@@ -19,6 +21,16 @@ class RecordControlView: UIStackView {
         return button
     }()
     
+    private let recordStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .center
+        
+        return stackView
+    }()
+    
     private let recordButton = {
         let button = UIButton()
                 
@@ -28,6 +40,16 @@ class RecordControlView: UIStackView {
         button.tintColor = .red
         
         return button
+    }()
+    
+    private let timerLabel = {
+        let label = UILabel()
+        
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .white
+        label.isHidden = true
+        
+        return label
     }()
     
     private let rotateButton = {
@@ -42,6 +64,7 @@ class RecordControlView: UIStackView {
     }()
     
     private let viewModel: RecordVideoViewModel
+    private var subscriptions = Set<AnyCancellable>()
     
     init(viewModel: RecordVideoViewModel) {
         self.viewModel = viewModel
@@ -51,15 +74,29 @@ class RecordControlView: UIStackView {
         addSubviews()
         setupView()
         addButtonActions()
+        bind()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func bind() {
+        viewModel.runCountPublisher()
+            .sink { [weak self] runCount in
+                let time = CMTime(seconds: runCount, preferredTimescale: 1)
+                
+                self?.timerLabel.text = time.formattedTime
+            }
+            .store(in: &subscriptions)
+    }
+    
     private func addSubviews() {
+        recordStackView.addArrangedSubview(recordButton)
+        recordStackView.addArrangedSubview(timerLabel)
+        
         addArrangedSubview(imageButton)
-        addArrangedSubview(recordButton)
+        addArrangedSubview(recordStackView)
         addArrangedSubview(rotateButton)
     }
     
@@ -88,14 +125,16 @@ class RecordControlView: UIStackView {
     @objc private func touchUpRecordButton() {
         viewModel.isRecordButtonTapped.toggle()
         
-        toggleButtonsActivation()
+        toggleUIActivation()
     }
     
     @objc private func touchUpRotateButton() {
         viewModel.isRotateButtonTapped.toggle()
     }
     
-    private func toggleButtonsActivation() {
+    private func toggleUIActivation() {
+        timerLabel.isHidden = false
+        
         imageButton.isEnabled.toggle()
         rotateButton.isEnabled.toggle()
     }

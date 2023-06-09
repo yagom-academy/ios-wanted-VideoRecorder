@@ -6,12 +6,13 @@
 //
 
 import AVFoundation
+import Combine
 
 final class Recorder: NSObject {
     let captureSession = AVCaptureSession()
-    var camera: AVCaptureDevice?
-    let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
-    let videoOutput = AVCaptureMovieFileOutput()
+    private var camera: AVCaptureDevice?
+    private let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
+    private let videoOutput = AVCaptureMovieFileOutput()
     
     @Published var videoData: Data?
     @Published var date: Date?
