@@ -25,18 +25,9 @@ final class RecordManager {
             throw RecordingError.noneCamera
         }
         
-        guard let audio = AVCaptureDevice.default(for: .audio) else {
-            throw RecordingError.noneAudioDevice
-        }
-        
         guard let backInput = try? AVCaptureDeviceInput(device: backCamera),
               captureSession.canAddInput(backInput) else {
             throw RecordingError.noneCameraInput
-        }
-        
-        guard let audioInput = try? AVCaptureDeviceInput(device: audio),
-              captureSession.canAddInput(audioInput) else {
-            throw RecordingError.noneAudioInput
         }
         
         videoOutput = AVCaptureMovieFileOutput()
@@ -45,8 +36,20 @@ final class RecordManager {
         }
         
         captureSession.addInput(backInput)
-        captureSession.addInput(audioInput)
         captureSession.addOutput(videoOutput)
+    }
+    
+    func setupAudio(with permission: Bool) throws {
+        guard let audio = AVCaptureDevice.default(for: .audio) else {
+            throw RecordingError.noneAudioDevice
+        }
+        
+        guard let audioInput = try? AVCaptureDeviceInput(device: audio),
+              captureSession.canAddInput(audioInput) else {
+            throw RecordingError.noneAudioInput
+        }
+        
+        captureSession.addInput(audioInput)
     }
     
     func startCaptureSession() {
@@ -70,8 +73,12 @@ final class RecordManager {
             
             videoOutput.startRecording(to: outputFileURL, recordingDelegate: delegate)
         } else {
-            videoOutput.stopRecording()
+            stopRecording()
         }
+    }
+    
+    func stopRecording() {
+        videoOutput?.stopRecording()
     }
     
     func switchCamera() {

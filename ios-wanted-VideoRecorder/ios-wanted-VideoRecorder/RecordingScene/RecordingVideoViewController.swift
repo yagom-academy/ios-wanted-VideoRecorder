@@ -119,6 +119,7 @@ final class RecordingVideoViewController: UIViewController {
     
     override func viewDidLoad() {
         requestDeviceRight()
+        setupPreview()
         configureLayout()
         connectTarget()
     }
@@ -130,25 +131,30 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     private func requestDeviceRight() {
-        var videoRight = false
-        var audioRight = false
-        AVCaptureDevice.requestAccess(for: .video) { isAccessVideo in
-            videoRight = isAccessVideo
-        }
-        AVCaptureDevice.requestAccess(for: .audio) { isAccessAudio in
-            audioRight = isAccessAudio
-        }
+        let videoPermission = PermissionChecker.checkPermission(about: .video)
+        let audioPermission = PermissionChecker.checkPermission(about: .audio)
         
-        if videoRight, audioRight {
+        if videoPermission {
             isAccessDevice = true
             setupCamera()
+        }
+        
+        if audioPermission {
+            setupAudio(with: audioPermission)
         }
     }
     
     private func setupCamera() {
         do {
             try recordManager.setupCamera()
-            setupPreview()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func setupAudio(with permission: Bool) {
+        do {
+            try recordManager.setupAudio(with: permission)
         } catch {
             print(error.localizedDescription)
         }
@@ -275,12 +281,34 @@ final class RecordingVideoViewController: UIViewController {
     }
 }
 
+// MARK: - Recoding Delegate methods
 extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         print(outputFileURL)
     }
 }
 
+// MARK: - 디바이스 권한 체커모델
+fileprivate struct PermissionChecker {
+    static func checkPermission(about device: AVMediaType) -> Bool {
+        let status = AVCaptureDevice.authorizationStatus(for: device)
+        var isAccessVideo = false
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: device) { granted in
+                isAccessVideo = granted
+            }
+        case .authorized:
+            return true
+        default:
+            return false
+        }
+        
+        return isAccessVideo
+    }
+}
+
+// MARK: - Timer 레이블 Dateformaate
 fileprivate extension Double {
     func format(units: NSCalendar.Unit) -> String? {
         let formatter = DateComponentsFormatter()
