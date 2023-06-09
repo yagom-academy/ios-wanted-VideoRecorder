@@ -63,15 +63,17 @@ final class VideoControllerView: UIView {
     }()
     let currentTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .callout)
+        label.font = .preferredFont(forTextStyle: .caption2)
         label.textColor = .white
+        label.text = "00:00"
         
         return label
     }()
     let runtimeLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .callout)
+        label.font = .preferredFont(forTextStyle: .caption2)
         label.textColor = .white
+        label.text = "00:00"
         
         return label
     }()
@@ -87,9 +89,9 @@ final class VideoControllerView: UIView {
     private let controllerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 5
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -113,8 +115,12 @@ final class VideoControllerView: UIView {
         timeLabelStackView.addArrangedSubview(currentTimeLabel)
         timeLabelStackView.addArrangedSubview(runtimeLabel)
         
-        controllerStackView.addArrangedSubview(slider)
-        controllerStackView.addArrangedSubview(timeLabelStackView)
+        let stackView = UIStackView(arrangedSubviews: [slider, timeLabelStackView])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        
+        controllerStackView.addArrangedSubview(stackView)
         controllerStackView.addArrangedSubview(buttonStackView)
         
         self.addSubview(controllerStackView)

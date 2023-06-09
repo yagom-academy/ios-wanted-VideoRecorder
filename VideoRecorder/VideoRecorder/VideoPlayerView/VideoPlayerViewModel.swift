@@ -26,13 +26,18 @@ final class VideoPlayerViewModel: EventHandleable {
         addObserverToPlayer()
     }
     
-    func itemStatusPublisher() -> AnyPublisher<Float, Never> {
+    func itemStatusPublisher() -> AnyPublisher<(Float, String), Never> {
         return videoItem.publisher(for: \.status)
             .compactMap { [weak self] status in
                 status == .readyToPlay ? self?.videoPlayer.currentItem?.duration : nil
             }
-            .map { duration in
-                return Float(CMTimeGetSeconds(duration))
+            .map { [weak self] duration in
+                guard let self else { return (0, "") }
+                
+                let seconds = CMTimeGetSeconds(duration)
+                let timeString = self.convertToTimeString(from: seconds)
+                
+                return (Float(seconds), timeString)
             }
             .eraseToAnyPublisher()
     }
@@ -84,8 +89,16 @@ final class VideoPlayerViewModel: EventHandleable {
             forInterval: timeInterval,
             queue: .main
         ) { [weak self] currentTime in
-            let value = Float(CMTimeGetSeconds(currentTime))
+            let seconds = CMTimeGetSeconds(currentTime)
+            let value = Float(seconds)
             self?.currentPlayTimeSubject.send(value)
         }
+    }
+    
+    private func convertToTimeString(from second: Float64) -> String {
+        let secondString = String(format: "%02d", Int(second.truncatingRemainder(dividingBy: 60)))
+        let minuteString = String(format: "%02d", Int(second / 60))
+        
+        return "\(minuteString):\(secondString)"
     }
 }

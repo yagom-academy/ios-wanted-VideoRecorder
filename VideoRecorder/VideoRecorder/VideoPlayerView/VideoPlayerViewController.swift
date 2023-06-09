@@ -122,8 +122,10 @@ final class VideoPlayerViewController: UIViewController {
     // MARK: - Bind State
     private func bindState() {
         viewModel.itemStatusPublisher()
-            .sink { [weak self] duration in
-                self?.setupSliderValue(maximumValue: duration)
+            .sink { [weak self] (duration, durationText) in
+                guard let self else { return }
+                self.setupSliderValue(maximumValue: duration)
+                self.videoControllerView.runtimeLabel.text = durationText
             }
             .store(in: &cancellables)
         
