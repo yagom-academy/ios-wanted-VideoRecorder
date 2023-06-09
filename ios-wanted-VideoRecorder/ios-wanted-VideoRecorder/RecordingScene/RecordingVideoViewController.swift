@@ -97,9 +97,6 @@ final class RecordingVideoViewController: UIViewController {
         return button
     }()
     
-    private var isAccessDevice: Bool = false
-    private let recordManager = RecordManager()
-    
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
@@ -112,7 +109,7 @@ final class RecordingVideoViewController: UIViewController {
         setupDevice()
         setupPreview()
         configureLayout()
-        bindUI()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -202,7 +199,7 @@ final class RecordingVideoViewController: UIViewController {
         ])
     }
     
-    private func bindUI() {
+    private func bind() {
         let input = RecordingViewModel.Input(
             recordingButtonTappedEvent: recordingButton.buttonPublisher,
             cameraSwitchButtonTappedEvent: switchCameraButton.buttonPublisher,
@@ -222,6 +219,15 @@ final class RecordingVideoViewController: UIViewController {
         output.dismissTrigger
             .sink { [weak self] in
                 self?.dismiss(animated: true)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.historyImagePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] cgImage in
+                guard let self else { return }
+                let image = UIImage(cgImage: cgImage)
+                self.historyImageView.image = image
             }
             .store(in: &cancellables)
     }

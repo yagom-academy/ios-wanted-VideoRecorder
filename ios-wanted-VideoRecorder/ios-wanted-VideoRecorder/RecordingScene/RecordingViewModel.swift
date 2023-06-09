@@ -10,6 +10,7 @@ import Combine
 
 final class RecordingViewModel: NSObject {
     private let recordManager: RecordManager
+    let historyImagePublisher = PassthroughSubject<CGImage, Never>()
     private var isAccessDevice = false
     var cancellables = Set<AnyCancellable>()
     
@@ -31,12 +32,12 @@ final class RecordingViewModel: NSObject {
     func setupDevice() throws {
         let videoPermission = PermissionChecker.checkPermission(about: .video)
         let audioPermission = PermissionChecker.checkPermission(about: .audio)
-
+        
         if videoPermission {
             isAccessDevice = true
             try recordManager.setupCamera()
         }
-
+        
         if audioPermission {
             try recordManager.setupAudio(with: audioPermission)
         }
@@ -83,7 +84,10 @@ final class RecordingViewModel: NSObject {
 
 extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print(outputFileURL)
+        recordManager.generateThumbnail(videoURL: outputFileURL) { [weak self] cgImage in
+            guard let self, let cgImage else { return }
+            self.historyImagePublisher.send(cgImage)
+        }
     }
 }
 
