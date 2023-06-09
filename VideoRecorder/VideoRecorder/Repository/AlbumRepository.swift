@@ -47,6 +47,12 @@ final class AlbumRepository {
         }
     }
     
+    func delete(video: PHAsset) {
+        PHPhotoLibrary.shared().performChanges {
+            PHAssetChangeRequest.deleteAssets([video] as NSArray)
+        }
+    }
+    
     private func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", Self.albumName)

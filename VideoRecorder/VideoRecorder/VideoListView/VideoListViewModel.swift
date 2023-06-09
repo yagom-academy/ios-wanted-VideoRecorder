@@ -11,12 +11,10 @@ final class VideoListViewModel {
     private(set) var fetchedAssets: [PHAsset] = []
     private(set) var videoDataList: [VideoData] = []
     
-    private let videoFetchService: VideoFetchService
-    private let dateFormatter: DateFormatter
+    private let videoFetchService: VideoAlbumService
     
-    init(videoFetchService: VideoFetchService, dateFormatter: DateFormatter) {
+    init(videoFetchService: VideoAlbumService) {
         self.videoFetchService = videoFetchService
-        self.dateFormatter = dateFormatter
     }
     
     func fetchedAssets(completion: @escaping ([PHAsset]) -> Void) {
@@ -32,8 +30,9 @@ final class VideoListViewModel {
         self.videoDataList = videoFetchService.domainList(from: fetchedAssets)
     }
     
-    func convertToString(_ date: Date?) -> String? {
-        guard let date = date else { return nil }
-        return dateFormatter.string(from: date)
+    func deleteVideo(at index: Int) {
+        videoDataList.remove(at: index)
+        let video = fetchedAssets.remove(at: index)
+        videoFetchService.delete(video: video)
     }
 }

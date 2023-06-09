@@ -9,13 +9,9 @@ import UIKit
 import Photos
 
 final class VideoListViewController: UIViewController {
-    enum Section {
-        case main
-    }
-    
     private let tableView = UITableView()
-    
     private let imageManager = PHCachingImageManager()
+    
     private let viewModel: VideoListViewModel
     
     init(viewModel: VideoListViewModel) {
@@ -84,7 +80,6 @@ final class VideoListViewController: UIViewController {
         stackView.addArrangedSubview(titleLabel)
         
         let leftBarButtonItem = UIBarButtonItem(customView: stackView)
-        
         let rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "video.fill.badge.plus"),
             style: .plain,
@@ -92,8 +87,13 @@ final class VideoListViewController: UIViewController {
             action: #selector(presentRecordingView)
         )
         rightBarButtonItem.tintColor = .systemIndigo
+        
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.backgroundColor = .white
+        
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        self.navigationController?.navigationBar.standardAppearance = barAppearance
     }
     
     @objc
@@ -164,7 +164,7 @@ extension VideoListViewController: UITableViewDataSource {
         }
         
         cell.titleLabel.text = videoData.name
-        cell.dateLabel.text = viewModel.convertToString(videoData.creationDate)
+        cell.dateLabel.text = videoData.creationDate
         cell.accessoryView = VideoListCellAccessoryView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
         
         let imageSize = CGSize(width: 80, height: 60)
@@ -180,6 +180,15 @@ extension VideoListViewController: UITableViewDataSource {
 
 extension VideoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completion in
+            self?.viewModel.deleteVideo(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
         
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

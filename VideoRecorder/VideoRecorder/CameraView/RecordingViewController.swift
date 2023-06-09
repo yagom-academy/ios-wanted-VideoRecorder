@@ -11,8 +11,7 @@ import Combine
 final class RecordingViewController: UIViewController {
     private let closeButton = {
         let button = UIButton()
-        var image = UIImage(systemName: "xmark.circle.fill")
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,7 +54,7 @@ final class RecordingViewController: UIViewController {
     }()
     private let opaqueView = {
         let opaqueView = UIView()
-        opaqueView.layer.backgroundColor = UIColor.clear.withAlphaComponent(0.2).cgColor
+        opaqueView.layer.backgroundColor = UIColor.clear .withAlphaComponent(0.4).cgColor
         opaqueView.layer.cornerRadius = 15
         opaqueView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -138,7 +137,7 @@ final class RecordingViewController: UIViewController {
             opaqueView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
             opaqueView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             opaqueView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -70),
-            opaqueView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 650)
+            opaqueView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.15)
         ])
     }
 

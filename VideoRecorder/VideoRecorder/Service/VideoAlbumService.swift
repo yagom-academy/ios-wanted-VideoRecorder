@@ -8,15 +8,17 @@
 import Foundation
 import Photos
 
-final class VideoFetchService {
+final class VideoAlbumService {
     var repository: AlbumRepository {
         return self.albumRepository
     }
     
     private let albumRepository: AlbumRepository
+    private let dateFormatter: DateFormatter
     
-    init(albumRepository: AlbumRepository) {
+    init(albumRepository: AlbumRepository, dateFormatter: DateFormatter) {
         self.albumRepository = albumRepository
+        self.dateFormatter = dateFormatter
     }
     
     func fetchAssets(completion: @escaping ([PHAsset]) -> Void) {
@@ -36,12 +38,19 @@ final class VideoFetchService {
         let videoDataList = videoAssets.map { asset in
             let resource = PHAssetResource.assetResources(for: asset)
             
-            guard let fileName = resource.first?.originalFilename else {
-                return VideoData(name: "", creationDate: asset.creationDate)
+            guard let fileName = resource.first?.originalFilename,
+                  let date = asset.creationDate else {
+                return VideoData(name: "", creationDate: "")
             }
-            return VideoData(name: fileName, creationDate: asset.creationDate)
+            let dateString = dateFormatter.string(from: date)
+            
+            return VideoData(name: fileName, creationDate: dateString)
         }
         
         return videoDataList
+    }
+    
+    func delete(video: PHAsset) {
+        albumRepository.delete(video: video)
     }
 }

@@ -9,5 +9,5 @@ import Foundation
 
 struct VideoData: Hashable {
     let name: String?
-    let creationDate: Date?
+    let creationDate: String?
 }

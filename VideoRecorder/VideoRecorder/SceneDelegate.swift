@@ -19,9 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         dateFormatter.dateFormat = "yyyy-MM-dd"
        
         let albumRepository = AlbumRepository()
-        let videoFetchService = VideoFetchService(albumRepository: albumRepository)
-        let videoListViewModel = VideoListViewModel(videoFetchService: videoFetchService,
-                                                    dateFormatter: dateFormatter)
+        let videoFetchService = VideoAlbumService(albumRepository: albumRepository,  dateFormatter: dateFormatter)
+        let videoListViewModel = VideoListViewModel(videoFetchService: videoFetchService)
         
         window.rootViewController = UINavigationController(
             rootViewController: VideoListViewController(viewModel: videoListViewModel)
