@@ -15,10 +15,13 @@ final class RecordingViewModel: NSObject {
     
     struct Input {
         let recordingButtonTappedEvent: AnyPublisher<Void, Never>
+        let cameraSwitchButtonTappedEvent: AnyPublisher<Void, Never>
+        let dismissButtonTappedEvent: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let isRecording = PassthroughSubject<Bool?, Never>()
+        let dismissTrigger = PassthroughSubject<Void, Never>()
     }
     
     init(recordManager: RecordManager) {
@@ -55,9 +58,22 @@ final class RecordingViewModel: NSObject {
         
         input.recordingButtonTappedEvent
             .sink { [weak self] in
-                guard let self else { return }
+                guard let self, isAccessDevice else { return }
                 self.recordManager.processRecording(delegate: self)
                 output.isRecording.send(self.recordManager.isRecording)
+            }
+            .store(in: &cancellables)
+        
+        input.cameraSwitchButtonTappedEvent
+            .sink { [weak self] in
+                guard let self, isAccessDevice else { return }
+                self.recordManager.switchCamera()
+            }
+            .store(in: &cancellables)
+        
+        input.dismissButtonTappedEvent
+            .sink {
+                output.dismissTrigger.send(())
             }
             .store(in: &cancellables)
         

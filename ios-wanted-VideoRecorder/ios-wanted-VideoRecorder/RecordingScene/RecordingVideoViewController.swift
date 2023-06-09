@@ -112,7 +112,6 @@ final class RecordingVideoViewController: UIViewController {
         setupDevice()
         setupPreview()
         configureLayout()
-        connectTarget()
         bindUI()
     }
     
@@ -203,14 +202,11 @@ final class RecordingVideoViewController: UIViewController {
         ])
     }
     
-    private func connectTarget() {
-        switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
-        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
-    }
-    
     private func bindUI() {
         let input = RecordingViewModel.Input(
-            recordingButtonTappedEvent: recordingButton.buttonPublisher
+            recordingButtonTappedEvent: recordingButton.buttonPublisher,
+            cameraSwitchButtonTappedEvent: switchCameraButton.buttonPublisher,
+            dismissButtonTappedEvent: dismissButton.buttonPublisher
         )
         
         let output = viewModel.transform(input: input)
@@ -220,6 +216,12 @@ final class RecordingVideoViewController: UIViewController {
                 guard let self, let isRecording else { return }
                 isRecording ? self.stopTimer() : self.startTimer()
                 changeRecordingButtonAppearance(with: isRecording)
+            }
+            .store(in: &cancellables)
+        
+        output.dismissTrigger
+            .sink { [weak self] in
+                self?.dismiss(animated: true)
             }
             .store(in: &cancellables)
     }
@@ -253,17 +255,6 @@ final class RecordingVideoViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }, completion: nil)
-    }
-    
-    @objc
-    private func switchCameraButtonTapped() {
-        guard isAccessDevice else { return }
-        recordManager.switchCamera()
-    }
-    
-    @objc
-    private func dismissButtonTapped() {
-        self.dismiss(animated: true)
     }
 }
 
