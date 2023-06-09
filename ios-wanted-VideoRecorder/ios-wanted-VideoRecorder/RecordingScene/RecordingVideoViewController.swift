@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 final class RecordingVideoViewController: UIViewController {
     private enum Constant {
@@ -105,12 +106,14 @@ final class RecordingVideoViewController: UIViewController {
     var timer: Timer?
     var secondsOfTimer = 0
     let viewModel: RecordingViewModel
+    var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         setupDevice()
         setupPreview()
         configureLayout()
         connectTarget()
+        bindUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -201,9 +204,24 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     private func connectTarget() {
-        recordingButton.addTarget(self, action: #selector(recordingButtonTapped), for: .touchUpInside)
         switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
         dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+    }
+    
+    private func bindUI() {
+        let input = RecordingViewModel.Input(
+            recordingButtonTappedEvent: recordingButton.buttonPublisher
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.isRecording
+            .sink { [weak self] isRecording in
+                guard let self, let isRecording else { return }
+                isRecording ? self.stopTimer() : self.startTimer()
+                changeRecordingButtonAppearance(with: isRecording)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Timer methods
@@ -222,16 +240,9 @@ final class RecordingVideoViewController: UIViewController {
         self.timerLabel.text = "00:00"
     }
     
-    @objc
-    private func recordingButtonTapped() {
-        guard isAccessDevice else { return }
-        recordingButton.isSelected.toggle()
-        
-        recordingButton.isSelected ? self.startTimer() : self.stopTimer()
-        self.recordManager.processRecording(delegate: self)
-        
+    private func changeRecordingButtonAppearance(with isRecording: Bool) {
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
-            if self.recordingButton.isSelected {
+            if !isRecording {
                 self.buttonWidthConstraint.constant = Constant.RecordingButtonWidth
                 self.buttonHeightConstraint.constant = Constant.RecordingButtonWidth
                 self.recordingButton.layer.cornerRadius = Constant.recordingButtonRadius
@@ -253,20 +264,6 @@ final class RecordingVideoViewController: UIViewController {
     @objc
     private func dismissButtonTapped() {
         self.dismiss(animated: true)
-    }
-}
-
-// MARK: - Recoding Delegate methods
-extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
-        recordManager.generateThumbnail(videoURL: outputFileURL) { cgImage in
-            DispatchQueue.main.async { [weak self] in
-                guard let cgImage else { return }
-                let image = UIImage(cgImage: cgImage)
-                self?.historyImageView.image = image
-            }
-        }
     }
 }
 

@@ -6,10 +6,20 @@
 //
 
 import AVFoundation
+import Combine
 
-final class RecordingViewModel {
+final class RecordingViewModel: NSObject {
     private let recordManager: RecordManager
     private var isAccessDevice = false
+    var cancellables = Set<AnyCancellable>()
+    
+    struct Input {
+        let recordingButtonTappedEvent: AnyPublisher<Void, Never>
+    }
+    
+    struct Output {
+        let isRecording = PassthroughSubject<Bool?, Never>()
+    }
     
     init(recordManager: RecordManager) {
         self.recordManager = recordManager
@@ -38,6 +48,26 @@ final class RecordingViewModel {
         if isAccessDevice {
             recordManager.startCaptureSession()
         }
+    }
+    
+    func transform(input: Input) -> Output {
+        let output = Output()
+        
+        input.recordingButtonTappedEvent
+            .sink { [weak self] in
+                guard let self else { return }
+                self.recordManager.processRecording(delegate: self)
+                output.isRecording.send(self.recordManager.isRecording)
+            }
+            .store(in: &cancellables)
+        
+        return output
+    }
+}
+
+extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        print(outputFileURL)
     }
 }
 
