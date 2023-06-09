@@ -8,10 +8,6 @@
 import AVFoundation
 
 final class RecordManager {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        <#code#>
-    }
-    
     enum RecordingError: Error {
         case noneCamera
         case noneAudioDevice
@@ -85,11 +81,22 @@ final class RecordManager {
     }
     
     func switchCamera() {
-        captureSession.beginConfiguration()
-        guard let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput else { return }
-        captureSession.removeInput(currentInput)
+        guard videoOutput?.isRecording == false else { return }
         
-        guard let newCameraDevice = currentInput.device.position == .back ? camera(with: .front) : camera(with: .back) else {
+        captureSession.beginConfiguration()
+        let currentVideoInput = captureSession.inputs.first(where: { input in
+            guard let input = input as? AVCaptureDeviceInput else {
+                return false
+            }
+            
+            return input.device.hasMediaType(.video)
+        }) as? AVCaptureDeviceInput
+        
+        guard let currentVideoInput else { return }
+        
+        captureSession.removeInput(currentVideoInput)
+        
+        guard let newCameraDevice = currentVideoInput.device.position == .back ? camera(with: .front) : camera(with: .back) else {
             return
         }
         guard let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice) else {
@@ -102,7 +109,7 @@ final class RecordManager {
     
     private func camera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera],
+            deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera, .builtInTrueDepthCamera],
             mediaType: .video,
             position: .unspecified
         )

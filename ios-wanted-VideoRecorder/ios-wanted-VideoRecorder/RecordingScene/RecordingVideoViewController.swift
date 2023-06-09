@@ -94,10 +94,20 @@ final class RecordingVideoViewController: UIViewController {
         
         return button
     }()
-    
+    private var isAccessDevice: Bool = false
     private let recordManager = RecordManager()
-    
-    private var previewLayer: AVCaptureVideoPreviewLayer?
+    private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+        let preview = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
+        preview.bounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: view.bounds.width, height: view.bounds.height)
+        )
+        preview.connection?.videoOrientation = .portrait
+        preview.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        preview.videoGravity = .resizeAspectFill
+        
+        return preview
+    }()
     
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
@@ -106,8 +116,44 @@ final class RecordingVideoViewController: UIViewController {
     var secondsOfTimer = 0
     
     override func viewDidLoad() {
+        requestDeviceRight()
         configureLayout()
         connectTarget()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isAccessDevice {
+            recordManager.startCaptureSession()
+        }
+    }
+    
+    private func requestDeviceRight() {
+        var videoRight = false
+        var audioRight = false
+        AVCaptureDevice.requestAccess(for: .video) { isAccessVideo in
+            videoRight = isAccessVideo
+        }
+        AVCaptureDevice.requestAccess(for: .audio) { isAccessAudio in
+            audioRight = isAccessAudio
+        }
+        
+        if videoRight, audioRight {
+            isAccessDevice = true
+            setupCamera()
+        }
+    }
+    
+    private func setupCamera() {
+        do {
+            try recordManager.setupCamera()
+            setupPreview()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func setupPreview() {
+        self.view.layer.addSublayer(previewLayer)
     }
     
     private func configureLayout() {
@@ -175,6 +221,7 @@ final class RecordingVideoViewController: UIViewController {
     
     private func connectTarget() {
         recordingButton.addTarget(self, action: #selector(recordingButtonTapped), for: .touchUpInside)
+        switchCameraButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Timer methods
@@ -194,7 +241,8 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     @objc
-    func recordingButtonTapped() {
+    private func recordingButtonTapped() {
+        guard isAccessDevice else { return }
         recordingButton.isSelected.toggle()
         
         recordingButton.isSelected ? self.startTimer() : self.stopTimer()
@@ -211,6 +259,12 @@ final class RecordingVideoViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    @objc
+    private func switchCameraButtonTapped() {
+        guard isAccessDevice else { return }
+        recordManager.switchCamera()
     }
 }
 
