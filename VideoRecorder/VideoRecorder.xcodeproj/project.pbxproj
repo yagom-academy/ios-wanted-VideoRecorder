@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA11D0D12A32E279007B6A1F /* VideoRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11D0D02A32E279007B6A1F /* VideoRecorderService.swift */; };
 		AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */; };
 		AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D82A30B24A0086F82D /* RecordControlView.swift */; };
 		AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DC2A31033D0086F82D /* DataTransferObject.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA11D0D02A32E279007B6A1F /* VideoRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecorderService.swift; sourceTree = "<group>"; };
 		AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoViewModel.swift; sourceTree = "<group>"; };
 		AA4465D82A30B24A0086F82D /* RecordControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordControlView.swift; sourceTree = "<group>"; };
 		AA4465DC2A31033D0086F82D /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8518472A2EF11100554FA7 /* VideoManager.swift */,
+				AA11D0D02A32E279007B6A1F /* VideoRecorderService.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */,
 				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
 				AA4465E42A3199730086F82D /* Recorder.swift in Sources */,
+				AA11D0D12A32E279007B6A1F /* VideoRecorderService.swift in Sources */,
 				AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */,
 				AA8518442A2EF05900554FA7 /* VideoListViewModel.swift in Sources */,
 				AA8518362A2E0E7700554FA7 /* RecordVideoViewController.swift in Sources */,

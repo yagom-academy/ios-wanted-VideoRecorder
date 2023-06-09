@@ -8,10 +8,9 @@
 import Combine
 
 final class VideoListViewModel {
-    private let videoManager = VideoManager.shared
+    private let videoRecorderService = VideoRecorderService.shared
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {
-        return videoManager.$videoList
-            .eraseToAnyPublisher()
+        return videoRecorderService.videoPublisher()
     }
 }

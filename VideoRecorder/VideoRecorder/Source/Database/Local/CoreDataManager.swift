@@ -67,7 +67,7 @@ final class CoreDataManager {
         save()
     }
     
-    func delete<DAO: NSManagedObject & DataAccessObject, DTO: DataTransferObject>(type: DAO.Type, data: DTO) throws {
+    func delete<DAO: NSManagedObject & DataAccessObject, DTO: DataTransferObject>(type: DAO.Type, data: DTO) {
         guard let storage = search(type: type, by: data.identifier) else { return }
         
         context.delete(storage)

@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol DataTransferObject {
-    associatedtype DataAccessObject
-    
+protocol DataTransferObject {    
     var identifier: UUID { get }
-    
-    static func getModels(from dataList: [DataAccessObject]) -> [Self]
 }

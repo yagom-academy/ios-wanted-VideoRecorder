@@ -10,7 +10,7 @@ import AVFoundation
 
 final class RecordVideoViewModel {
     private let recorder = Recorder()
-    private let videoManager = VideoManager.shared
+    private let videoRecorderService = VideoRecorderService.shared
     
     var isImageButtonTapped: Bool = false  {
         didSet { /* Todo */ }
@@ -93,9 +93,6 @@ final class RecordVideoViewModel {
     func addVideo() {
         guard let video else { return }
         
-        videoManager.create(video: video)
-        
-        let coreData = CoreDataManager.shared
-        coreData.create(type: VideoEntity.self, data: video)
+        videoRecorderService.create(video: video)
     }
 }
