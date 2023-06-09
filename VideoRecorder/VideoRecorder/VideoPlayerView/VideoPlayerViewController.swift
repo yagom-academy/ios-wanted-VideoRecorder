@@ -29,6 +29,9 @@ final class VideoPlayerViewController: UIViewController {
         configureNavigationBar()
         configureRootView()
         setupLayoutConstraints()
+        setupSliderValue()
+        bindAction()
+        bindState()
     }
     
     private func configureNavigationBar() {
@@ -65,6 +68,7 @@ final class VideoPlayerViewController: UIViewController {
         videoControllerView.slider.maximumValue = viewModel.videoDuration
     }
     
+    // MARK: - Bind Action
     private func bindAction() {
         let playButtonTapped = videoControllerView.playButton.publisher(for: .touchUpInside)
             .eraseToAnyPublisher()
@@ -104,5 +108,14 @@ final class VideoPlayerViewController: UIViewController {
             let image = UIImage(systemName: "play.fill")
             videoControllerView.playButton.setImage(image, for: .normal)
         }
+    }
+    
+    // MARK: - Bind State
+    private func bindState() {
+        viewModel.currentPlayTimeSubject
+            .sink { [weak self] timeValue in
+                self?.videoControllerView.slider.value = timeValue
+            }
+            .store(in: &cancellables)
     }
 }

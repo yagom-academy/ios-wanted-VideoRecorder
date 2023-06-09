@@ -20,15 +20,17 @@ final class VideoPlayerViewModel: EventHandleable {
         return Float(CMTimeGetSeconds(duration))
     }
     
+    let currentPlayTimeSubject: PassthroughSubject<Float, Never> = .init()
+    
     private var videoPlayer: AVPlayer = AVPlayer()
     private var isPlayingVideo: Bool = false
-    
     private var videoItem: AVPlayerItem?
     
     init(fileURLString: String) {
         let item = playerItem(fileURL: fileURLString)
         self.videoItem = item
         videoPlayer.replaceCurrentItem(with: item)
+        addObserverToPlayer()
     }
     
     private func playerItem(fileURL: String) -> AVPlayerItem? {
@@ -36,6 +38,19 @@ final class VideoPlayerViewModel: EventHandleable {
         let item = AVPlayerItem(url: url)
         
         return item
+    }
+    
+    private func addObserverToPlayer() {
+        let timeInterval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
+        videoPlayer.addPeriodicTimeObserver(
+            forInterval: timeInterval,
+            queue: .main
+        ) { [weak self] currentTime in
+            guard let item = self?.videoItem else { return }
+            
+            let value = Float(CMTimeGetSeconds(currentTime) / CMTimeGetSeconds(item.duration))
+            self?.currentPlayTimeSubject.send(value)
+        }
     }
     
     struct Input {
@@ -52,25 +67,31 @@ final class VideoPlayerViewModel: EventHandleable {
             .map { [weak self] in
                 guard let self else { return false }
                 
-                if self.isPlayingVideo {
-                    self.videoPlayer.pause()
-                    self.isPlayingVideo.toggle()
-                    return false
-                } else {
-                    self.videoPlayer.play()
-                    self.isPlayingVideo.toggle()
-                    return true
-                }
+                return self.playVideo()
             }
             .eraseToAnyPublisher()
         
         let timeSearched = input.sliderValue
             .compactMap { [weak self] time in
-                self?.videoPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1))
+                self?.videoPlayer.seek(
+                    to: CMTime(seconds: time, preferredTimescale: Int32(NSEC_PER_SEC))
+                )
             }
             .eraseToAnyPublisher()
         
         return Output(isPlayingVideo: isPlayingVideo,
                       timeSearched: timeSearched)
+    }
+    
+    private func playVideo() -> Bool {
+        if isPlayingVideo {
+            videoPlayer.pause()
+            isPlayingVideo.toggle()
+            return false
+        } else {
+            videoPlayer.play()
+            isPlayingVideo.toggle()
+            return true
+        }
     }
 }
