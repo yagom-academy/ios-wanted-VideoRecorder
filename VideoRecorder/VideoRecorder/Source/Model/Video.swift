@@ -26,3 +26,27 @@ extension Video {
         return Video(data: nil, title: self.title, date: self.date)
     }
 }
+
+extension Video {
+    typealias DataAccessObject = VideoEntity
+    
+    static func getModels(from dataList: [DataAccessObject]) -> [Video] {
+        var videoList = [Video]()
+        
+        dataList.forEach { videoEntity in
+            guard let identifier = videoEntity.identifier,
+                  let data = videoEntity.data,
+                  let title = videoEntity.title,
+                  let date = videoEntity.date else { return }
+            
+            let video = Video(identifier: identifier,
+                              data: data,
+                              title: title,
+                              date: date)
+            
+            videoList.append(video)
+        }
+        
+        return videoList
+    }
+}

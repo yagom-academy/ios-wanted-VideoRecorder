@@ -15,24 +15,24 @@ public class VideoEntity: NSManagedObject {
     }
     
     @NSManaged public var identifier: UUID?
-    @NSManaged public var date: Date?
-    @NSManaged public var title: String?
     @NSManaged public var data: Data?
+    @NSManaged public var title: String?
+    @NSManaged public var date: Date?
 }
 
 extension VideoEntity: DataAccessObject {
     typealias DataTransferObject = Video
     
-    func setValues(from model: DataTransferObject) {
+    func setValues(from model: Video) {
         identifier = model.identifier
+        data = model.data
         date = model.date
         title = model.title
-        data = model.data
     }
     
-    func updateValues(from model: DataTransferObject) {
+    func updateValues(from model: Video) {
+        data = model.data
         date = model.date
         title = model.title
-        data = model.data
     }
 }

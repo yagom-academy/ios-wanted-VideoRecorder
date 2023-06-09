@@ -13,9 +13,7 @@ final class VideoManager {
     
     private init() {}
     
-    @Published var videoList: [Video] = [
-        Video(data: nil, title: "111111", date: Date())
-    ]
+    @Published var videoList: [Video] = []
     
     func create(video: Video) {
         videoList.append(video)

@@ -94,5 +94,8 @@ final class RecordVideoViewModel {
         guard let video else { return }
         
         videoManager.create(video: video)
+        
+        let coreData = CoreDataManager.shared
+        coreData.create(type: VideoEntity.self, data: video)
     }
 }
