@@ -9,11 +9,7 @@ import Foundation
 import Photos
 
 final class VideoAlbumService {
-    var repository: AlbumRepository {
-        return self.albumRepository
-    }
-    
-    private let albumRepository: AlbumRepository
+    let albumRepository: AlbumRepository
     private let dateFormatter: DateFormatter
     
     init(albumRepository: AlbumRepository, dateFormatter: DateFormatter) {

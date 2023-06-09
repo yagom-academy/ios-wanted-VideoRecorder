@@ -99,9 +99,11 @@ final class VideoListViewController: UIViewController {
     @objc
     private func presentRecordingView() {
         let thumbnail = UIImage(systemName: "photo")
-        let videoRecordingService = VideoRecordingService(deviceOrientation: .portrait)
+        let videoRecordingService = VideoRecordingService(albumRepository: viewModel.albumRepository,
+                                                          deviceOrientation: .portrait)
         let recordingViewModel = RecordingViewModel(videoRecordingService: videoRecordingService)
-        let recordingViewController = RecordingViewController(viewModel: recordingViewModel, thumbnailImage: thumbnail)
+        let recordingViewController = RecordingViewController(viewModel: recordingViewModel,
+                                                              thumbnailImage: thumbnail)
         recordingViewController.modalPresentationStyle = .fullScreen
         
         self.present(recordingViewController, animated: true)

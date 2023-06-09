@@ -11,6 +11,10 @@ final class VideoListViewModel {
     private(set) var fetchedAssets: [PHAsset] = []
     private(set) var videoDataList: [VideoData] = []
     
+    var albumRepository: AlbumRepository {
+        return videoFetchService.albumRepository
+    }
+    
     private let videoFetchService: VideoAlbumService
     
     init(videoFetchService: VideoAlbumService) {

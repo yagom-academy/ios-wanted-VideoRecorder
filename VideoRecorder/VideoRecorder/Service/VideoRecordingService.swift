@@ -40,10 +40,7 @@ final class VideoRecordingService: NSObject {
     
     private var deviceOrientation: AVCaptureVideoOrientation
     
-    init(
-        albumRepository: AlbumRepository = AlbumRepository(),
-        deviceOrientation: AVCaptureVideoOrientation
-    ) {
+    init(albumRepository: AlbumRepository, deviceOrientation: AVCaptureVideoOrientation) {
         self.albumRepository = albumRepository
         self.deviceOrientation = deviceOrientation
     }
