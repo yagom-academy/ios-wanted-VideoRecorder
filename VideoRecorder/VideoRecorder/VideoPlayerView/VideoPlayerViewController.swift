@@ -18,6 +18,8 @@ final class VideoPlayerViewController: UIViewController {
     }()
     private let videoControllerView: VideoControllerView = {
         let controllerView = VideoControllerView(frame: .zero)
+        controllerView.backgroundColor = .clear.withAlphaComponent(0.7)
+        controllerView.layer.cornerRadius = 20
         controllerView.translatesAutoresizingMaskIntoConstraints = false
         
         return controllerView
@@ -41,11 +43,10 @@ final class VideoPlayerViewController: UIViewController {
         configureNavigationBar()
         configureRootView()
         setupLayoutConstraints()
-        setupSliderValue()
         bindAction()
         bindState()
     }
-    
+
     private func configureNavigationBar() {
         let rightImage = UIImage(systemName: "info.circle")
         let rightButton = UIBarButtonItem(image: rightImage,
@@ -55,7 +56,11 @@ final class VideoPlayerViewController: UIViewController {
         rightButton.tintColor = .systemGray
         navigationItem.rightBarButtonItem = rightButton
         
-        navigationController?.navigationBar.backgroundColor = .white
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.backgroundColor = .white
+        
+        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+        
     }
     
     private func configureRootView() {
@@ -82,11 +87,6 @@ final class VideoPlayerViewController: UIViewController {
             videoControllerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -18),
             videoControllerView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
         ])
-    }
-    
-    private func setupSliderValue() {
-        videoControllerView.slider.minimumValue = .zero
-        videoControllerView.slider.maximumValue = viewModel.videoDuration
     }
     
     // MARK: - Bind Action
@@ -123,20 +123,34 @@ final class VideoPlayerViewController: UIViewController {
     
     private func setPlayButtonImage(for isPlayingVideo: Bool) {
         if isPlayingVideo {
-            let image = UIImage(systemName: "pause.fill")
+            let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
+            let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfiguration)
             videoControllerView.playButton.setImage(image, for: .normal)
         } else {
-            let image = UIImage(systemName: "play.fill")
+            let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
+            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfiguration)
             videoControllerView.playButton.setImage(image, for: .normal)
         }
     }
     
     // MARK: - Bind State
     private func bindState() {
+        viewModel.itemStatusPublisher()
+            .sink { [weak self] duration in
+                self?.setupSliderValue(maximumValue: duration)
+            }
+            .store(in: &cancellables)
+            
+        
         viewModel.currentPlayTimeSubject
             .sink { [weak self] timeValue in
                 self?.videoControllerView.slider.value = timeValue
             }
             .store(in: &cancellables)
+    }
+    
+    private func setupSliderValue(maximumValue: Float) {
+        videoControllerView.slider.minimumValue = .zero
+        videoControllerView.slider.maximumValue = maximumValue
     }
 }

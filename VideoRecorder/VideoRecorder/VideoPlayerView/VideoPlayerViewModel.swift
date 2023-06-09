@@ -13,18 +13,11 @@ final class VideoPlayerViewModel: EventHandleable {
         return AVPlayerLayer(player: videoPlayer)
     }
     
-    var videoDuration: Float {
-        guard videoItem?.status == .readyToPlay,
-              let duration = videoItem?.duration else { return .zero }
-        
-        return Float(CMTimeGetSeconds(duration))
-    }
-    
     let currentPlayTimeSubject: PassthroughSubject<Float, Never> = .init()
     
     private var videoPlayer: AVPlayer = AVPlayer()
     private var isPlayingVideo: Bool = false
-    private var videoItem: AVPlayerItem?
+    private var videoItem: AVPlayerItem
     
     init(fileURL: URL) {
         let item = AVPlayerItem(url: fileURL)
@@ -33,17 +26,19 @@ final class VideoPlayerViewModel: EventHandleable {
         addObserverToPlayer()
     }
     
-    private func addObserverToPlayer() {
-        let timeInterval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
-        videoPlayer.addPeriodicTimeObserver(
-            forInterval: timeInterval,
-            queue: .main
-        ) { [weak self] currentTime in
-            guard let item = self?.videoItem else { return }
-            
-            let value = Float(CMTimeGetSeconds(currentTime) / CMTimeGetSeconds(item.duration))
-            self?.currentPlayTimeSubject.send(value)
-        }
+    func itemStatusPublisher() -> AnyPublisher<Float, Never> {
+        return videoItem.publisher(for: \.status)
+            .compactMap { [weak self] status in
+                if status == .readyToPlay {
+                    return self?.videoPlayer.currentItem?.duration
+                }
+                
+                return nil
+            }
+            .map { duration in
+                return Float(CMTimeGetSeconds(duration))
+            }
+            .eraseToAnyPublisher()
     }
     
     struct Input {
@@ -85,6 +80,17 @@ final class VideoPlayerViewModel: EventHandleable {
             videoPlayer.play()
             isPlayingVideo.toggle()
             return true
+        }
+    }
+    
+    private func addObserverToPlayer() {
+        let timeInterval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
+        videoPlayer.addPeriodicTimeObserver(
+            forInterval: timeInterval,
+            queue: .main
+        ) { [weak self] currentTime in
+            let value = Float(CMTimeGetSeconds(currentTime))
+            self?.currentPlayTimeSubject.send(value)
         }
     }
 }

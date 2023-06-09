@@ -11,7 +11,8 @@ final class VideoControllerView: UIView {
     let slider: UISlider = UISlider()
     let backwardButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "backward.end.fill")
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "backward.end.fill", withConfiguration: imageConfiguration)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.setContentHuggingPriority(.required, for: .horizontal)
@@ -22,7 +23,8 @@ final class VideoControllerView: UIView {
     }()
     let playButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "play.fill")
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
+        let image = UIImage(systemName: "play.fill", withConfiguration: imageConfiguration)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.setContentHuggingPriority(.required, for: .horizontal)
@@ -33,7 +35,8 @@ final class VideoControllerView: UIView {
     }()
     let shareButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "square.and.arrow.up")
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "square.and.arrow.up", withConfiguration: imageConfiguration)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.setContentHuggingPriority(.required, for: .horizontal)
@@ -112,15 +115,6 @@ final class VideoControllerView: UIView {
     
     private func setupLayoutConstraints() {
         NSLayoutConstraint.activate([
-//            backwardButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
-//            backwardButton.heightAnchor.constraint(equalTo: backwardButton.widthAnchor),
-//
-//            playButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.2),
-//            playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor),
-//
-//            shareButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 0.1),
-//            shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor),
-            
             buttonStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),
             timeLabelStackView.widthAnchor.constraint(equalTo: slider.widthAnchor),
             
