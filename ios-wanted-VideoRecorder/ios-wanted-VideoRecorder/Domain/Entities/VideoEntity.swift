@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Video: Identifiable {
+struct VideoEntity: Identifiable {
+    var thumbnail: Data
     var name: String
-    var fileExtension: String
     var date: Date
-    var url: String
+    var videoURL: URL
     var duration: String
-    var id = UUID()
+    var id: UUID
 }

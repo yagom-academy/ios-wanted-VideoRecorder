@@ -110,7 +110,7 @@ final class VideoCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func provide(_ video: Video) {
+    func provide(_ video: VideoEntity) {
         titleLabel.text = video.name
         dateLabel.text = video.date.description
     }
