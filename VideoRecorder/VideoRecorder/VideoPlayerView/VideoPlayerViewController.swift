@@ -18,7 +18,7 @@ final class VideoPlayerViewController: UIViewController {
     }()
     private let videoControllerView: VideoControllerView = {
         let controllerView = VideoControllerView(frame: .zero)
-        controllerView.backgroundColor = .clear.withAlphaComponent(0.7)
+        controllerView.backgroundColor = .clear.withAlphaComponent(0.8)
         controllerView.layer.cornerRadius = 20
         controllerView.translatesAutoresizingMaskIntoConstraints = false
         

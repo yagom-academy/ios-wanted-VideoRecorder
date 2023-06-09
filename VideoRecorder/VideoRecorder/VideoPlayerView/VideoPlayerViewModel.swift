@@ -84,7 +84,7 @@ final class VideoPlayerViewModel: EventHandleable {
     }
     
     private func addObserverToPlayer() {
-        let timeInterval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
+        let timeInterval = CMTimeMakeWithSeconds(0.001, preferredTimescale: Int32(NSEC_PER_SEC))
         videoPlayer.addPeriodicTimeObserver(
             forInterval: timeInterval,
             queue: .main

@@ -8,7 +8,14 @@
 import UIKit
 
 final class VideoControllerView: UIView {
-    let slider: UISlider = UISlider()
+    let slider: UISlider = {
+        let slider = UISlider()
+        slider.minimumTrackTintColor = .lightGray
+        slider.maximumTrackTintColor = .systemGray4
+
+        return slider
+        
+    }()
     let backwardButton: UIButton = {
         let button = UIButton()
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 20)
