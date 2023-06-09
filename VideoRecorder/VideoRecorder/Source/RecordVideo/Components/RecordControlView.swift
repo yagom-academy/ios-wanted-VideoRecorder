@@ -19,7 +19,7 @@ class RecordControlView: UIStackView {
         return button
     }()
     
-    let recordButton = {
+    private let recordButton = {
         let button = UIButton()
                 
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 60)

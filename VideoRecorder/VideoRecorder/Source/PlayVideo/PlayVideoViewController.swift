@@ -10,6 +10,7 @@ import AVFoundation
 
 final class PlayVideoViewController: UIViewController {
     private let video: Video
+    private let playControlView = PlayControlView()
     private var player = AVPlayer()
     private lazy var playerLayer = {
         let layer = AVPlayerLayer(player: self.player)
@@ -25,11 +26,8 @@ final class PlayVideoViewController: UIViewController {
     private lazy var layerStackView = {
         let stackView = UIStackView()
         
-        stackView.layer.addSublayer(playerLayer)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(stackView)
-        
+                
         return stackView
     }()
     
@@ -47,6 +45,7 @@ final class PlayVideoViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        addSubviews()
         layout()
         playVideo()
         setupNavigationItems()
@@ -56,14 +55,30 @@ final class PlayVideoViewController: UIViewController {
         view.backgroundColor = .white.withAlphaComponent(0.9)
     }
     
+    private func addSubviews() {
+        layerStackView.layer.addSublayer(playerLayer)
+        
+        view.addSubview(layerStackView)
+        view.addSubview(playControlView)
+    }
+    
     private func layout() {
         let safe = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+
+        ])
         
         NSLayoutConstraint.activate([
             layerStackView.topAnchor.constraint(equalTo: safe.topAnchor),
             layerStackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             layerStackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            layerStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            layerStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
+            
+            playControlView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 40),
+            playControlView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -40),
+            playControlView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20),
+            playControlView.heightAnchor.constraint(equalToConstant: 140)
         ])
     }
     

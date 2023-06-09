@@ -10,6 +10,7 @@
 		AA11D0D12A32E279007B6A1F /* VideoRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11D0D02A32E279007B6A1F /* VideoRecorderService.swift */; };
 		AA11D0D32A32FBDB007B6A1F /* Array+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11D0D22A32FBDB007B6A1F /* Array+Subscript.swift */; };
 		AA11D0D62A330870007B6A1F /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11D0D52A330870007B6A1F /* PlayVideoViewController.swift */; };
+		AA11D0D92A3328B8007B6A1F /* PlayControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11D0D82A3328B8007B6A1F /* PlayControlView.swift */; };
 		AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */; };
 		AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465D82A30B24A0086F82D /* RecordControlView.swift */; };
 		AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465DC2A31033D0086F82D /* DataTransferObject.swift */; };
@@ -40,6 +41,7 @@
 		AA11D0D02A32E279007B6A1F /* VideoRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecorderService.swift; sourceTree = "<group>"; };
 		AA11D0D22A32FBDB007B6A1F /* Array+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Subscript.swift"; sourceTree = "<group>"; };
 		AA11D0D52A330870007B6A1F /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
+		AA11D0D82A3328B8007B6A1F /* PlayControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayControlView.swift; sourceTree = "<group>"; };
 		AA4465D62A30A3440086F82D /* RecordVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoViewModel.swift; sourceTree = "<group>"; };
 		AA4465D82A30B24A0086F82D /* RecordControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordControlView.swift; sourceTree = "<group>"; };
 		AA4465DC2A31033D0086F82D /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
@@ -82,9 +84,18 @@
 		AA11D0D42A330834007B6A1F /* PlayVideo */ = {
 			isa = PBXGroup;
 			children = (
+				AA11D0D72A332899007B6A1F /* Components */,
 				AA11D0D52A330870007B6A1F /* PlayVideoViewController.swift */,
 			);
 			path = PlayVideo;
+			sourceTree = "<group>";
+		};
+		AA11D0D72A332899007B6A1F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AA11D0D82A3328B8007B6A1F /* PlayControlView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AA4465DA2A30CABF0086F82D /* Components */ = {
@@ -352,6 +363,7 @@
 				AA4465D72A30A3440086F82D /* RecordVideoViewModel.swift in Sources */,
 				AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */,
 				AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */,
+				AA11D0D92A3328B8007B6A1F /* PlayControlView.swift in Sources */,
 				AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */,
 				AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */,
 				AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */,
