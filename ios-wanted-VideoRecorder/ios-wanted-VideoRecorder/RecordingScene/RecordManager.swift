@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import Combine
 
 final class RecordManager {
     enum RecordingError: LocalizedError {
@@ -60,6 +61,16 @@ final class RecordManager {
         }
         
         captureSession.addInput(audioInput)
+    }
+    
+    func makePreview(size: CGSize) -> AVCaptureVideoPreviewLayer {
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.bounds = CGRect(origin: .zero, size: size)
+        previewLayer.connection?.videoOrientation = .portrait
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        
+        return previewLayer
     }
     
     func startCaptureSession() {

@@ -98,69 +98,44 @@ final class RecordingVideoViewController: UIViewController {
     
     private var isAccessDevice: Bool = false
     private let recordManager = RecordManager()
-    private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-        let preview = AVCaptureVideoPreviewLayer(session: recordManager.captureSession)
-        preview.bounds = CGRect(
-            origin: .zero,
-            size: CGSize(width: view.bounds.width, height: view.bounds.height)
-        )
-        preview.connection?.videoOrientation = .portrait
-        preview.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-        preview.videoGravity = .resizeAspectFill
-        
-        return preview
-    }()
     
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
     var timer: Timer?
     var secondsOfTimer = 0
+    let viewModel: RecordingViewModel
     
     override func viewDidLoad() {
-        requestDeviceRight()
+        setupDevice()
         setupPreview()
         configureLayout()
         connectTarget()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if isAccessDevice {
-            recordManager.startCaptureSession()
-        }
+        viewModel.startCaptureSession()
     }
     
-    private func requestDeviceRight() {
-        let videoPermission = PermissionChecker.checkPermission(about: .video)
-        let audioPermission = PermissionChecker.checkPermission(about: .audio)
-        
-        if videoPermission {
-            isAccessDevice = true
-            setupCamera()
-        }
-        
-        if audioPermission {
-            setupAudio(with: audioPermission)
-        }
+    init(recordingViewModel: RecordingViewModel) {
+        self.viewModel = recordingViewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
-    private func setupCamera() {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupDevice() {
         do {
-            try recordManager.setupCamera()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func setupAudio(with permission: Bool) {
-        do {
-            try recordManager.setupAudio(with: permission)
+            try viewModel.setupDevice()
         } catch {
             print(error.localizedDescription)
         }
     }
     
     private func setupPreview() {
+        let previewLayer = viewModel.makePreview(size: CGSize(width: view.frame.width, height: view.frame.height))
         self.view.layer.addSublayer(previewLayer)
     }
     
@@ -292,26 +267,6 @@ extension RecordingVideoViewController: AVCaptureFileOutputRecordingDelegate {
                 self?.historyImageView.image = image
             }
         }
-    }
-}
-
-// MARK: - 디바이스 권한 체커모델
-fileprivate struct PermissionChecker {
-    static func checkPermission(about device: AVMediaType) -> Bool {
-        let status = AVCaptureDevice.authorizationStatus(for: device)
-        var isAccessVideo = false
-        switch status {
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: device) { granted in
-                isAccessVideo = granted
-            }
-        case .authorized:
-            return true
-        default:
-            return false
-        }
-        
-        return isAccessVideo
     }
 }
 
