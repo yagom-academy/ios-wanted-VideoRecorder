@@ -82,5 +82,31 @@ final class LocalDBUseCaseTests: XCTestCase {
         XCTAssertEqual(editingVideoObject, resultVideoObject)
         XCTAssertEqual(exceptionTitle, resultTitle)
     }
-
+    
+    func test_delete메서드를_사용하여_특정object를_삭제할_수_있다() {
+        // given
+        let deletedVideo = Video(title: "", date: Date(), videoLength: "")
+        let targetVideo = Video(title: "Target", date: Date(), videoLength: "00:23")
+        let deletedVideoObject = Video.toRealmObject(deletedVideo)
+        let targetVideoObject = Video.toRealmObject(targetVideo)
+        
+        let afterCreatedCount = 2
+        let afterDeletedCount = 1
+        
+        // when
+        sut.create(deletedVideoObject)
+        sut.create(targetVideoObject)
+        
+        let createdObjectCount = sut.read()!.count
+        
+        sut.delete(deletedVideo.id)
+        
+        let deletedObjectCount = sut.read()!.count
+        let targetObject = sut.read()!.first! as! VideoObject
+        
+        // then
+        XCTAssertEqual(afterCreatedCount, createdObjectCount)
+        XCTAssertEqual(afterDeletedCount, deletedObjectCount)
+        XCTAssertEqual(targetVideoObject, targetObject)
+    }
 }
