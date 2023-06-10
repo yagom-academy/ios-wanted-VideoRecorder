@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Video)
+@objc(CoreDataVideoEntity)
 public class CoreDataVideoEntity: NSManagedObject {
     static let coreDataVideoEntityName = "CoreDataVideoEntity"
 }
