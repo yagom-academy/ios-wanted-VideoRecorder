@@ -34,7 +34,6 @@ final class VideoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.backgroundColor = .white
         let imageSize = CGSize(width: 80, height: 60)
         startImageCaching(imageSize: imageSize)
         tableView.reloadData()
@@ -68,6 +67,10 @@ final class VideoListViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.backgroundColor = .white
+        self.navigationController?.navigationBar.standardAppearance = barAppearance
     }
     
     private func makeLeftBarButtonItem() -> UIBarButtonItem {

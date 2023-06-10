@@ -50,7 +50,6 @@ final class VideoPlayerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.backgroundColor = .lightGray
     }
 
     private func configureNavigationBar() {
@@ -94,8 +93,7 @@ final class VideoPlayerViewController: UIViewController {
         self.view.addSubview(videoControllerView)
         
         let playerLayer = viewModel.playerLayer
-        let frameHeight = view.frame.height - view.safeAreaInsets.top
-        playerLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: frameHeight)
+        playerLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         playerLayer.videoGravity = .resizeAspectFill
         
         videoView.layer.addSublayer(playerLayer)

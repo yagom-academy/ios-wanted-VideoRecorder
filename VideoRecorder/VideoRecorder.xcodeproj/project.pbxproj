@@ -63,13 +63,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AD557B252A2E045B00679DAD /* CameraView */ = {
+		AD557B252A2E045B00679DAD /* RecordingView */ = {
 			isa = PBXGroup;
 			children = (
 				AD557B262A2E048000679DAD /* RecordingViewController.swift */,
 				AD70208F2A2EC8F6004C85FF /* RecordingViewModel.swift */,
 			);
-			path = CameraView;
+			path = RecordingView;
 			sourceTree = "<group>";
 		};
 		AD599CB92A2D9887001609FA = {
@@ -97,7 +97,7 @@
 				ADCC84A02A30EB2900A91EC6 /* Repository */,
 				ADCC84A92A31BBE600A91EC6 /* Domain */,
 				AD599CDA2A2DA50B001609FA /* VideoListView */,
-				AD557B252A2E045B00679DAD /* CameraView */,
+				AD557B252A2E045B00679DAD /* RecordingView */,
 				ADCC84B02A32FC9F00A91EC6 /* VideoPlayerView */,
 				ADCC84772A2F176600A91EC6 /* Extensions */,
 				AD599CDB2A2DA524001609FA /* Resources */,
