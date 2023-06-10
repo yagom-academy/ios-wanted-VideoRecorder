@@ -31,8 +31,4 @@ struct VideoGenerator {
         
         return UUID(uuidString: components[0])
     }
-    
-    func makeVideoName() {
-        
-    }
 }
