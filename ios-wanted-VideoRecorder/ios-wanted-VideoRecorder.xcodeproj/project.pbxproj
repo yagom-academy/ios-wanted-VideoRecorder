@@ -21,6 +21,11 @@
 		6280CE1B2A3420C000186985 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1A2A3420C000186985 /* VideoGenerator.swift */; };
 		6280CE1D2A342B8100186985 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1C2A342B8100186985 /* Double+Extension.swift */; };
 		6280CE1F2A342DA600186985 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1E2A342DA600186985 /* CGImage+Extension.swift */; };
+		6280CE212A347A6D00186985 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE202A347A6D00186985 /* VideoListViewModel.swift */; };
+		6280CE232A347EB000186985 /* FetchVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE222A347EB000186985 /* FetchVideoUseCase.swift */; };
+		6280CE252A347F1A00186985 /* FetchVideoUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE242A347F1A00186985 /* FetchVideoUseCaseProtocol.swift */; };
+		6280CE272A348FF700186985 /* RefreshVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE262A348FF700186985 /* RefreshVideoUseCase.swift */; };
+		6280CE292A34900F00186985 /* RefreshVideoUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE282A34900F00186985 /* RefreshVideoUseCaseProtocol.swift */; };
 		62922A072A31B5D70031559F /* RecordingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A062A31B5D70031559F /* RecordingVideoViewController.swift */; };
 		62922A0D2A321E660031559F /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62922A0C2A321E660031559F /* RecordManager.swift */; };
 		62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C495F92A30110500818DF1 /* VideoCell.swift */; };
@@ -52,6 +57,11 @@
 		6280CE1A2A3420C000186985 /* VideoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
 		6280CE1C2A342B8100186985 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Double+Extension.swift"; path = "Combine/Double+Extension.swift"; sourceTree = "<group>"; };
 		6280CE1E2A342DA600186985 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
+		6280CE202A347A6D00186985 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
+		6280CE222A347EB000186985 /* FetchVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchVideoUseCase.swift; sourceTree = "<group>"; };
+		6280CE242A347F1A00186985 /* FetchVideoUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchVideoUseCaseProtocol.swift; sourceTree = "<group>"; };
+		6280CE262A348FF700186985 /* RefreshVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshVideoUseCase.swift; sourceTree = "<group>"; };
+		6280CE282A34900F00186985 /* RefreshVideoUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshVideoUseCaseProtocol.swift; sourceTree = "<group>"; };
 		62922A062A31B5D70031559F /* RecordingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingVideoViewController.swift; sourceTree = "<group>"; };
 		62922A0C2A321E660031559F /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		62C495F92A30110500818DF1 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
@@ -149,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				6280CE102A34107600186985 /* CreateVideoUseCase.swift */,
+				6280CE222A347EB000186985 /* FetchVideoUseCase.swift */,
+				6280CE262A348FF700186985 /* RefreshVideoUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -166,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				6280CE182A34181100186985 /* CreateVideoUseCaseProtocol.swift */,
+				6280CE242A347F1A00186985 /* FetchVideoUseCaseProtocol.swift */,
+				6280CE282A34900F00186985 /* RefreshVideoUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -193,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				62DAA7A22A30074D00EBCDAC /* VideoListViewController.swift */,
+				6280CE202A347A6D00186985 /* VideoListViewModel.swift */,
 				62C495F92A30110500818DF1 /* VideoCell.swift */,
 			);
 			path = VideoScene;
@@ -332,12 +347,15 @@
 				6280CE012A335AFA00186985 /* CoreDataPersistenceService.swift in Sources */,
 				6280CE172A34162D00186985 /* VideoRepositoryProtocol.swift in Sources */,
 				62CA437C2A300CD000834D80 /* Video+CoreDataClass.swift in Sources */,
+				6280CE272A348FF700186985 /* RefreshVideoUseCase.swift in Sources */,
 				6280CE042A335F5F00186985 /* CoreDataVideoEntityPersistenceService.swift in Sources */,
 				6280CDFB2A3307DA00186985 /* UIControl+Combine.swift in Sources */,
+				6280CE252A347F1A00186985 /* FetchVideoUseCaseProtocol.swift in Sources */,
 				6280CE1B2A3420C000186985 /* VideoGenerator.swift in Sources */,
 				62C495FA2A30110500818DF1 /* VideoCell.swift in Sources */,
 				62DAA7A32A30074D00EBCDAC /* VideoListViewController.swift in Sources */,
 				6280CE0D2A33791700186985 /* CoreDataVideoPersistenceServiceProtocol.swift in Sources */,
+				6280CE292A34900F00186985 /* RefreshVideoUseCaseProtocol.swift in Sources */,
 				62DAA79F2A30074D00EBCDAC /* AppDelegate.swift in Sources */,
 				62DAA7A92A30074D00EBCDAC /* model.xcdatamodeld in Sources */,
 				62C495FE2A301A8800818DF1 /* VideoEntity.swift in Sources */,
@@ -352,6 +370,8 @@
 				6280CE0B2A33788700186985 /* VideoRepository.swift in Sources */,
 				6280CE112A34107600186985 /* CreateVideoUseCase.swift in Sources */,
 				62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */,
+				6280CE212A347A6D00186985 /* VideoListViewModel.swift in Sources */,
+				6280CE232A347EB000186985 /* FetchVideoUseCase.swift in Sources */,
 				6280CE1F2A342DA600186985 /* CGImage+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

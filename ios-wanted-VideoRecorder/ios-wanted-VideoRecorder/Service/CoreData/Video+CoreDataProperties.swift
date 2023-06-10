@@ -19,7 +19,7 @@ extension CoreDataVideoEntity {
     @NSManaged public var videoURL: URL?
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataVideoEntity> {
-        return NSFetchRequest<CoreDataVideoEntity>(entityName: "Video")
+        return NSFetchRequest<CoreDataVideoEntity>(entityName: "CoreDataVideoEntity")
     }
     
     func toVideoEntity() -> VideoEntity? {
