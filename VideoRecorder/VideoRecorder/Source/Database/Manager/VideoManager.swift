@@ -16,6 +16,7 @@ final class VideoManager {
     static let shared = VideoManager()
     
     private let coreDataManager = CoreDataManager.shared
+    private let firebaseManager = FirebaseManager.shared
     
     private init() {}
     
@@ -25,8 +26,9 @@ final class VideoManager {
     func create(video: Video) {
         if isContains(video) { return }
         
-        videoList.append(video)
+        videoList.insert(video, at: 0)
         coreDataManager.create(type: VideoEntity.self, data: video)
+        firebaseManager.create(model: video, fileName: video.title)
     }
     
     func read() {
@@ -56,6 +58,7 @@ final class VideoManager {
         }
         
         coreDataManager.delete(type: VideoEntity.self, data: video)
+        firebaseManager.delete(fileName: video.title)
     }
     
     func delete(by indexPath: IndexPath) {
@@ -66,6 +69,7 @@ final class VideoManager {
         }
         
         coreDataManager.delete(type: VideoEntity.self, data: video)
+        firebaseManager.delete(fileName: video.title)
     }
     
     func requestVideo(by indexPath: IndexPath) -> Video? {

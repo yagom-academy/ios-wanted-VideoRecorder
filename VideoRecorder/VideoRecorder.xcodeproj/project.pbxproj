@@ -22,6 +22,8 @@
 		AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */; };
 		AA4465ED2A31AE3C0086F82D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AA4465EC2A31AE3C0086F82D /* FirebaseStorage */; };
 		AA4E03BB2A3422A70043E761 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E03BA2A3422A70043E761 /* LoadingView.swift */; };
+		AA4E03BE2A3444730043E761 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E03BD2A3444730043E761 /* FirebaseManager.swift */; };
+		AA4E03C02A344E6E0043E761 /* CodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E03BF2A344E6E0043E761 /* CodeManager.swift */; };
 		AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */; };
 		AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */; };
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
@@ -57,6 +59,8 @@
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA4E03BA2A3422A70043E761 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		AA4E03BD2A3444730043E761 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseManager.swift; path = VideoRecorder/Source/VideoList/FirebaseManager.swift; sourceTree = SOURCE_ROOT; };
+		AA4E03BF2A344E6E0043E761 /* CodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeManager.swift; path = VideoRecorder/Source/VideoList/CodeManager.swift; sourceTree = SOURCE_ROOT; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		AA4465F12A31E67A0086F82D /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				AA4E03BD2A3444730043E761 /* FirebaseManager.swift */,
+				AA4E03BF2A344E6E0043E761 /* CodeManager.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -388,6 +394,8 @@
 				AA4465DD2A31033D0086F82D /* DataTransferObject.swift in Sources */,
 				AA11D0D92A3328B8007B6A1F /* PlayControlView.swift in Sources */,
 				AA97DC3A2A32112000AFBC7B /* DateFormatter+dateToText.swift in Sources */,
+				AA4E03BE2A3444730043E761 /* FirebaseManager.swift in Sources */,
+				AA4E03C02A344E6E0043E761 /* CodeManager.swift in Sources */,
 				AA11D0DD2A3354A7007B6A1F /* CMTime+formattedTime.swift in Sources */,
 				AA4465DF2A3103730086F82D /* DataAccessObject.swift in Sources */,
 				AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */,

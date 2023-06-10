@@ -25,3 +25,5 @@ struct Video: Hashable, DataTransferObject {
         }
     }
 }
+
+extension Video: Codable {}
