@@ -24,14 +24,14 @@ final class RecordingViewModel: EventHandleable {
         .map { [weak self] date in
             guard let self,
                   let isRecording = self.videoRecordingService.isRecording
-            else { return }
+            else { return Double.zero }
             
             if isRecording {
                 self.recordingTime += Double(0.001)
+                return self.recordingTime
             }
-        }
-        .compactMap { [weak self] in
-            return self?.recordingTime
+            
+            return Double.zero
         }
         .map { second in
             let secondString = String(format: "%02d", Int(second.truncatingRemainder(dividingBy: 60)))
