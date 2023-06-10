@@ -30,7 +30,7 @@ final class RecordManager {
     private let captureSession = AVCaptureSession()
     private var videoOutput: AVCaptureMovieFileOutput?
     private var outputURL: URL?
-    
+
     var isRecording: Bool? {
         videoOutput?.isRecording
     }

@@ -12,6 +12,6 @@ struct VideoEntity: Identifiable {
     var name: String
     var date: Date
     var duration: String
-    var thumbnail: Data
+    var thumbnail: String
     var videoURL: URL
 }

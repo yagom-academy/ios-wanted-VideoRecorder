@@ -5,7 +5,7 @@
         <attribute name="duration" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="thumbnail" optional="YES" attributeType="Binary"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <attribute name="videoURL" optional="YES" attributeType="URI"/>
     </entity>
 </model>

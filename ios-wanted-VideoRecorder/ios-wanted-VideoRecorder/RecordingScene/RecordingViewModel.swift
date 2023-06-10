@@ -59,9 +59,7 @@ final class RecordingViewModel: NSObject {
     }
     
     func startCaptureSession() {
-        if isAccessDevice {
-            recordManager.startCaptureSession()
-        }
+        recordManager.startCaptureSession()
     }
     
     func startTimer() {
@@ -110,13 +108,17 @@ extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
         recordManager.generateThumbnail(videoURL: outputFileURL) { [weak self] cgImage in
             guard let self, let cgImage else { return }
             self.historyImagePublisher.send(cgImage)
-            let imageData = cgImage.convertToData()
             let videoEntity = videoGenreator.makeVideo(
                 videoURL: outputFileURL,
-                duration: savedTime,
-                imageData: imageData
+                duration: savedTime
             )
+            ImageFileManager.shared.saveImageToDocumentDirectory(
+                image: cgImage,
+                fileName: videoEntity?.thumbnail
+            )
+            
             guard let videoEntity else { return }
+            
             print(videoEntity.id)
             _ = createVideoUseCase.createVideo(videoEntity)
                 .sink { completion in
