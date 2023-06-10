@@ -14,6 +14,7 @@ final class VideoListViewController: UIViewController {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoEntity.ID>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, VideoEntity.ID>
+    private let coreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol
     
     private lazy var videoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewListLayout())
@@ -36,6 +37,15 @@ final class VideoListViewController: UIViewController {
         VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
         VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
     ]
+    
+    init(coreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol) {
+        self.coreDataVideoEntityPersistenceService = coreDataVideoEntityPersistenceService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +139,10 @@ final class VideoListViewController: UIViewController {
     }
     
     @objc func presentRecordingScene() {
-        let viewModel = RecordingViewModel(recordManager: RecordManager())
+        let recordManager = RecordManager()
+        let videoRepository = VideoRepository(videoEntityPersistenceService: coreDataVideoEntityPersistenceService)
+        let createUseCase = CreateVideoUseCase(videoRepository: videoRepository)
+        let viewModel = RecordingViewModel(recordManager: recordManager, createVideoUseCase: createUseCase)
         let recordingViewController = RecordingVideoViewController(recordingViewModel: viewModel)
         recordingViewController.modalPresentationStyle = .fullScreen
         
