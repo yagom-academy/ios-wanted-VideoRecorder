@@ -12,6 +12,7 @@ final class VideoListViewController: UIViewController {
         case main
     }
     
+    private var videoInfoList: [VideoInfo]?
     private var dataSource: UITableViewDiffableDataSource<Section, VideoInfo>?
     
     private let videoListTableView: UITableView = {
@@ -30,6 +31,11 @@ final class VideoListViewController: UIViewController {
         configureUIOption()
         configureVideoListTableView()
         configureDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchVideoInfo()
         applySnapshot()
     }
     
@@ -48,7 +54,12 @@ final class VideoListViewController: UIViewController {
     
     @objc private func pushAddVideoViewController() {
         let addVideoViewController = AddVideoViewController()
+        
         navigationController?.pushViewController(addVideoViewController, animated: true)
+    }
+    
+    private func fetchVideoInfo() {
+        videoInfoList = CoreDataManager.shared.fetch()
     }
     
     private func configureVideoListTableView() {
@@ -71,7 +82,8 @@ final class VideoListViewController: UIViewController {
                 return UITableViewCell()
             }
 
-            let contents = self?.videos[indexPath.row]
+            let contents = self?.videoInfoList?[indexPath.row]
+            
             cell.configure(playbackTime: contents?.duration ?? 0.5,
                            fileName: contents?.fileName ?? "",
                            date: contents?.registrationDate.translateLocalizedFormat() ?? "")
@@ -81,8 +93,11 @@ final class VideoListViewController: UIViewController {
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, VideoInfo>()
+        
+        guard let videoInfoList else { return }
+        
         snapshot.appendSections([.main])
-        snapshot.appendItems(videos, toSection: .main)
+        snapshot.appendItems(videoInfoList, toSection: .main)
         dataSource?.apply(snapshot)
     }
 }

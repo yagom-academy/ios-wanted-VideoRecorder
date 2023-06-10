@@ -13,8 +13,7 @@ final class AddVideoViewController: UIViewController {
     let movieOutput = AVCaptureMovieFileOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
     
-//    private var videoInfo: VideoInfo?
-    private let fileName = "fileName.mp4" // 미정
+    private lazy var fileName = "video\((CoreDataManager.shared.fetch()?.count ?? 0) + 1).mp4"
     
     private let thumbnailIButton: UIButton = {
         let button = UIButton()
@@ -137,6 +136,7 @@ extension AddVideoViewController {
                 
                 DispatchQueue.main.async { [weak self] in
                     self?.session?.startRunning()
+                    self?.setUpCamera()
                 }
             }
         case .restricted:
@@ -213,7 +213,7 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
         let documentDirectory = fileManager.urls(for: .documentDirectory,
                                                  in: .userDomainMask).first
         
-        guard let destinationURL = documentDirectory?.appendingPathComponent("\(UUID())") else {
+        guard let destinationURL = documentDirectory?.appendingPathComponent("\(fileName)") else {
             print("destination URL 생성 실패")
             return
         }

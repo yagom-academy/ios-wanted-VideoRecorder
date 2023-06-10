@@ -14,4 +14,5 @@ enum SystemImageName {
     static let backward = "backward.end.fill"
     static let play = "play.fill"
     static let sharing = "square.and.arrow.up"
+    static let noThumbnailImage = "questionmark.video"
 }

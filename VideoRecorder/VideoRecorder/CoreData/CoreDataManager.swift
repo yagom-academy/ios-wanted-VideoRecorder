@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 final class CoreDataManager {
     static let shared = CoreDataManager()
@@ -26,6 +27,18 @@ final class CoreDataManager {
     
     private var context: NSManagedObjectContext { persistentContainer.viewContext }
     
+    func fetch() -> [VideoInfo]? {
+        let fetchRequest = NSFetchRequest<VideoEntity>(entityName: String(describing: VideoEntity.self))
+        
+        do {
+            let fetchedData = try context.fetch(fetchRequest)
+            return convertToVideoInfo(from: fetchedData)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
     func create(videoInfo: VideoInfo) {
         let storage = VideoEntity(context: context)
         
@@ -41,5 +54,24 @@ final class CoreDataManager {
         } catch {
             print(error)
         }
+    }
+    
+    private func convertToVideoInfo(from videoEntities: [VideoEntity]) -> [VideoInfo]? {
+        var videoInfos = [VideoInfo]()
+        
+        guard let noImageData = UIImage(systemName: SystemImageName.noThumbnailImage)?.pngData() else { return nil }
+        
+        videoEntities.forEach {
+            var videoInfo = VideoInfo(id: $0.id ?? UUID(),
+                                      videoURL: $0.videoURL,
+                                      thumbnailImage: $0.thumbnailImage ?? noImageData,
+                                      duration: $0.duration,
+                                      fileName: $0.fileName ?? "untitle",
+                                      registrationDate: $0.registrationDate ?? Date())
+            
+            videoInfos.append(videoInfo)
+        }
+        
+        return videoInfos
     }
 }

@@ -20,7 +20,6 @@ final class ShutterButton: UIButton {
         let outerCirclePath = UIBezierPath(roundedRect: outerCircleRect,
                                            cornerRadius: outerCircleRect.size.width / 2.0)
         
-        
         outerCirclePath.addClip()
         
         context.setFillColor(UIColor.clear.cgColor)
