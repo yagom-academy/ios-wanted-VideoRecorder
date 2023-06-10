@@ -140,9 +140,14 @@ final class VideoListViewController: UIViewController {
     
     @objc func presentRecordingScene() {
         let recordManager = RecordManager()
+        let videoGenerator = VideoGenerator()
         let videoRepository = VideoRepository(videoEntityPersistenceService: coreDataVideoEntityPersistenceService)
         let createUseCase = CreateVideoUseCase(videoRepository: videoRepository)
-        let viewModel = RecordingViewModel(recordManager: recordManager, createVideoUseCase: createUseCase)
+        let viewModel = RecordingViewModel(
+            recordManager: recordManager,
+            videoGenerator: videoGenerator,
+            createVideoUseCase: createUseCase
+        )
         let recordingViewController = RecordingVideoViewController(recordingViewModel: viewModel)
         recordingViewController.modalPresentationStyle = .fullScreen
         

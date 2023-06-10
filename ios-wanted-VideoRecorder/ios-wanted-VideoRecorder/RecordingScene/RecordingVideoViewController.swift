@@ -253,15 +253,3 @@ final class RecordingVideoViewController: UIViewController {
         }, completion: nil)
     }
 }
-
-// MARK: - Timer 레이블 DateComponentsFormatter
-fileprivate extension Double {
-    func format(units: NSCalendar.Unit) -> String? {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = units
-        formatter.zeroFormattingBehavior = [.pad]
-        
-        return formatter.string(from: self)
-    }
-}
-

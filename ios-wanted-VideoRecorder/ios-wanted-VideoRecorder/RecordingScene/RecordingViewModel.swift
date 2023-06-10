@@ -11,7 +11,9 @@ import Combine
 final class RecordingViewModel: NSObject {
     @Published var secondsOfTimer = 0
     let historyImagePublisher = PassthroughSubject<CGImage, Never>()
+    private var savedTime = 0
     private let recordManager: RecordManager
+    private let videoGenreator: VideoGenerator
     private let createVideoUseCase: CreateVideoUseCaseProtocol
     private var isAccessDevice = false
     private var cancellables = Set<AnyCancellable>()
@@ -28,8 +30,12 @@ final class RecordingViewModel: NSObject {
         let dismissTrigger = PassthroughSubject<Void, Never>()
     }
     
-    init(recordManager: RecordManager, createVideoUseCase: CreateVideoUseCaseProtocol) {
+    init(
+        recordManager: RecordManager,
+        videoGenerator: VideoGenerator,
+        createVideoUseCase: CreateVideoUseCaseProtocol) {
         self.recordManager = recordManager
+        self.videoGenreator = videoGenerator
         self.createVideoUseCase = createVideoUseCase
     }
     
@@ -61,13 +67,13 @@ final class RecordingViewModel: NSObject {
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
             guard let self else { return }
-            
             self.secondsOfTimer += 1
         }
     }
     
     func stopTimer() {
         timer?.invalidate()
+        savedTime = secondsOfTimer
         secondsOfTimer = 0
     }
     
@@ -104,8 +110,20 @@ extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
         recordManager.generateThumbnail(videoURL: outputFileURL) { [weak self] cgImage in
             guard let self, let cgImage else { return }
             self.historyImagePublisher.send(cgImage)
+            let imageData = cgImage.convertToData()
+            let videoEntity = videoGenreator.makeVideo(
+                videoURL: outputFileURL,
+                duration: savedTime,
+                imageData: imageData
+            )
+            guard let videoEntity else { return }
             
-            // createVideo.
+            _ = createVideoUseCase.createVideo(videoEntity)
+                .sink { completion in
+                    if case .failure(let error) = completion {
+                        print(error.localizedDescription)
+                    }
+                } receiveValue: { _ in }
         }
     }
 }
