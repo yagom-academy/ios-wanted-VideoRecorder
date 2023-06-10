@@ -10,22 +10,23 @@ import Combine
 import AVFoundation
 
 class RecordControlView: UIStackView {
-    private let previousImageView = {
-        let imageView = UIImageView()
-                        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
-    private let recordStackView = {
+    private let buttonStackView = {
         let stackView = UIStackView()
         
-        stackView.axis = .vertical
+        stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.alignment = .center
+        stackView.distribution = .fillEqually
         
         return stackView
+    }()
+    
+    private let previousImageView = {
+        let imageView = UIImageView()
+        
+        imageView.contentMode = .scaleAspectFill
+                                
+        return imageView
     }()
     
     private let recordButton = {
@@ -39,16 +40,6 @@ class RecordControlView: UIStackView {
         return button
     }()
     
-    private let timerLabel = {
-        let label = UILabel()
-        
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .white
-        label.isHidden = true
-        
-        return label
-    }()
-    
     private let rotateButton = {
         let button = UIButton()
                 
@@ -58,6 +49,16 @@ class RecordControlView: UIStackView {
         button.tintColor = .white
         
         return button
+    }()
+    
+    private let timerLabel = {
+        let label = UILabel()
+        
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .white
+        label.isHidden = true
+        
+        return label
     }()
     
     private let viewModel: RecordVideoViewModel
@@ -98,21 +99,22 @@ class RecordControlView: UIStackView {
     }
     
     private func addSubviews() {
-        recordStackView.addArrangedSubview(recordButton)
-        recordStackView.addArrangedSubview(timerLabel)
+        buttonStackView.addArrangedSubview(previousImageView)
+        buttonStackView.addArrangedSubview(recordButton)
+        buttonStackView.addArrangedSubview(rotateButton)
+        let stackView = UIStackView()
         
-        addArrangedSubview(previousImageView)
-        addArrangedSubview(recordStackView)
-        addArrangedSubview(rotateButton)
+        addArrangedSubview(buttonStackView)
+        addArrangedSubview(timerLabel)
     }
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         
-        distribution = .fillEqually
-        axis = .horizontal
+        alignment = .center
+        axis = .vertical
         spacing = 12
-        layoutMargins = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        layoutMargins = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         isLayoutMarginsRelativeArrangement = true
         layer.cornerRadius = 20
         backgroundColor = .black.withAlphaComponent(0.4)
