@@ -65,7 +65,7 @@ final class RecordingViewController: UIViewController {
         return opaqueView
     }()
     
-    private let recordButton: RecordingButton = RecordingButton()
+    private let recordButton: RecordButton = RecordButton()
 
     private var cancellables: Set<AnyCancellable> = []
     
@@ -171,6 +171,7 @@ final class RecordingViewController: UIViewController {
                 print("Recording process excuted")
             })
             .store(in: &cancellables)
+        
         output.switchingError
             .sink(receiveCompletion: { error in
                 print(error)
@@ -178,6 +179,7 @@ final class RecordingViewController: UIViewController {
                 print("Camera position switched")
             })
             .store(in: &cancellables)
+        
         output.isDismissNeeded
             .sink { isDismissNeeded in
                 if isDismissNeeded {
@@ -190,7 +192,7 @@ final class RecordingViewController: UIViewController {
 }
 
 // MARK: - RecordingButton
-private final class RecordingButton: UIButton {
+private final class RecordButton: UIButton {
     override func draw(_ rect: CGRect) {
         let width = self.bounds.width
         let height = self.bounds.height
@@ -216,7 +218,5 @@ private final class RecordingButton: UIButton {
         )
         UIColor.systemRed.setFill()
         innerCirclePath.fill()
-        
-        if self.isSelected { }
     }
 }

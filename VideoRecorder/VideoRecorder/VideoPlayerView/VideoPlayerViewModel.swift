@@ -98,7 +98,7 @@ final class VideoPlayerViewModel: EventHandleable {
         }
     }
     
-    private func convertToTimeString(from second: Float64) -> String {
+    private func convertToTimeString(from second: Double) -> String {
         let secondString = String(format: "%02d", Int(second.truncatingRemainder(dividingBy: 60)))
         let minuteString = String(format: "%02d", Int(second / 60))
         

@@ -16,6 +16,30 @@ protocol EventHandleable {
 }
 
 final class RecordingViewModel: EventHandleable {
+    private var recordingTime: Double = 0
+    
+    lazy var recordingTimer = Timer
+        .TimerPublisher(interval: 0.001, runLoop: .main, mode: .default)
+        .autoconnect()
+        .map { [weak self] date in
+            guard let self,
+                  let isRecording = self.videoRecordingService.isRecording
+            else { return }
+            
+            if isRecording {
+                self.recordingTime += Double(0.001)
+            }
+        }
+        .compactMap { [weak self] in
+            return self?.recordingTime
+        }
+        .map { second in
+            let secondString = String(format: "%02d", Int(second.truncatingRemainder(dividingBy: 60)))
+            let minuteString = String(format: "%02d", Int(second / 60))
+            
+            return "\(minuteString):\(secondString)"
+        }
+    
     private let videoRecordingService: VideoRecordingService
     
     init(videoRecordingService: VideoRecordingService) {
