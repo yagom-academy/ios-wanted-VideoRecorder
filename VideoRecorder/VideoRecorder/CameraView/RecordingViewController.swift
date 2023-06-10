@@ -88,6 +88,7 @@ final class RecordingViewController: UIViewController {
         setupViewHierarchy()
         setupLayoutConstraints()
         bindAction()
+        bindState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -189,6 +190,14 @@ final class RecordingViewController: UIViewController {
             .store(in: &cancellables)
     }
     
+    private func bindState() {
+        viewModel.recordingTimer
+            .sink { [weak self] labelText in
+                guard let self else { return }
+                self.timerLabel.text = labelText
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - RecordingButton
