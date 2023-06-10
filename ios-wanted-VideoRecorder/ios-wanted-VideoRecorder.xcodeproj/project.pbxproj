@@ -28,6 +28,7 @@
 		26AAEFF52A2F76BB003BB339 /* DefaultCameraUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF32A2F76BB003BB339 /* DefaultCameraUseCase.swift */; };
 		26AAEFF72A2F7809003BB339 /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF62A2F7809003BB339 /* VideoObject.swift */; };
 		26AAEFF92A2F78E6003BB339 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */; };
+		26AE9B172A341F8700A5BEAA /* VideoUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE9B162A341F8700A5BEAA /* VideoUseCaseTests.swift */; };
 		26C100FC2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */; };
 		26C101002A2D7FD000F31C56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C100FF2A2D7FD000F31C56 /* Assets.xcassets */; };
 		26C101032A2D7FD000F31C56 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C101022A2D7FD000F31C56 /* Preview Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		26AAEFF32A2F76BB003BB339 /* DefaultCameraUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCameraUseCase.swift; sourceTree = "<group>"; };
 		26AAEFF62A2F7809003BB339 /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
 		26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
+		26AE9B162A341F8700A5BEAA /* VideoUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUseCaseTests.swift; sourceTree = "<group>"; };
 		26C100F82A2D7FD000F31C56 /* ios-wanted-VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-wanted-VideoRecorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C100FB2A2D7FD000F31C56 /* ios_wanted_VideoRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_wanted_VideoRecorderApp.swift; sourceTree = "<group>"; };
 		26C100FF2A2D7FD000F31C56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,7 +206,7 @@
 		261FA1DD2A3374EE009A7B4E /* VideoRecorderTests */ = {
 			isa = PBXGroup;
 			children = (
-				261FA1DE2A3374EE009A7B4E /* LocalDBUseCaseTests.swift */,
+				26AE9B152A341F6700A5BEAA /* Tests */,
 			);
 			path = VideoRecorderTests;
 			sourceTree = "<group>";
@@ -244,6 +246,15 @@
 				26AAEFF82A2F78E6003BB339 /* LocalDBUseCase.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		26AE9B152A341F6700A5BEAA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				261FA1DE2A3374EE009A7B4E /* LocalDBUseCaseTests.swift */,
+				26AE9B162A341F8700A5BEAA /* VideoUseCaseTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		26C100EF2A2D7FCF00F31C56 = {
@@ -460,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				261FA1DF2A3374EE009A7B4E /* LocalDBUseCaseTests.swift in Sources */,
+				26AE9B172A341F8700A5BEAA /* VideoUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
