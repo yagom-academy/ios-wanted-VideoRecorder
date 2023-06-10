@@ -14,7 +14,6 @@ class RecordControlView: UIStackView {
         let imageView = UIImageView()
                         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.8).isActive = true
         
         return imageView
     }()
@@ -91,7 +90,9 @@ class RecordControlView: UIStackView {
         viewModel.firstImagePublisher()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] image in
-                self?.previousImageView.image = image
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 32))
+                let resizedImage = renderer.image(actions: { _ in image?.draw(in: CGRect(x: 0, y: 0, width: 40, height: 32))})
+                self?.previousImageView.image = resizedImage
             }
             .store(in: &subscriptions)
     }
@@ -133,8 +134,7 @@ class RecordControlView: UIStackView {
     }
     
     private func toggleUIActivation() {
-        timerLabel.isHidden = false
-        
+        timerLabel.isHidden.toggle()
         rotateButton.isEnabled.toggle()
     }
 }

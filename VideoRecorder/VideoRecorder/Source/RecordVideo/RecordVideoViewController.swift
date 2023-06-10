@@ -99,9 +99,13 @@ final class RecordVideoViewController: UIViewController {
                 
                 self?.viewModel.stopCaptureSession()
                 
-                let alert = AlertManager().createSaveVideoAlert { [weak self] text in
-                    self?.viewModel.title = text
-                }
+                let alert = AlertManager().createSaveVideoAlert(
+                    okCompletion: { [weak self] text in
+                        self?.viewModel.title = text
+                    },
+                    cancelCompletion: {
+                        self?.viewModel.startCaptureSession()
+                    })
                 
                 self?.present(alert, animated: true, completion: nil)
             }

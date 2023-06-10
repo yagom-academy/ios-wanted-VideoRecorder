@@ -59,8 +59,8 @@
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA4E03BA2A3422A70043E761 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		AA4E03BD2A3444730043E761 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseManager.swift; path = VideoRecorder/Source/VideoList/FirebaseManager.swift; sourceTree = SOURCE_ROOT; };
-		AA4E03BF2A344E6E0043E761 /* CodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeManager.swift; path = VideoRecorder/Source/VideoList/CodeManager.swift; sourceTree = SOURCE_ROOT; };
+		AA4E03BD2A3444730043E761 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseManager.swift; path = VideoRecorder/Source/Database/Remote/FirebaseManager.swift; sourceTree = SOURCE_ROOT; };
+		AA4E03BF2A344E6E0043E761 /* CodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeManager.swift; path = VideoRecorder/Source/Database/Remote/CodeManager.swift; sourceTree = SOURCE_ROOT; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,15 +139,6 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		AA4465F12A31E67A0086F82D /* Remote */ = {
-			isa = PBXGroup;
-			children = (
-				AA4E03BD2A3444730043E761 /* FirebaseManager.swift */,
-				AA4E03BF2A344E6E0043E761 /* CodeManager.swift */,
-			);
-			path = Remote;
-			sourceTree = "<group>";
-		};
 		AA4465F22A31E6800086F82D /* Local */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +147,15 @@
 				AA97DC372A31EBCF00AFBC7B /* CoreDataManager.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		AA79A87B2A34744800BF0A3B /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				AA4E03BD2A3444730043E761 /* FirebaseManager.swift */,
+				AA4E03BF2A344E6E0043E761 /* CodeManager.swift */,
+			);
+			path = Remote;
 			sourceTree = "<group>";
 		};
 		AA8518102A2DBC5E00554FA7 = {
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				AA4465F22A31E6800086F82D /* Local */,
-				AA4465F12A31E67A0086F82D /* Remote */,
+				AA79A87B2A34744800BF0A3B /* Remote */,
 				AA8518462A2EF10200554FA7 /* Manager */,
 			);
 			path = Database;

@@ -8,7 +8,7 @@
 import UIKit
 
 struct AlertManager {
-    func createSaveVideoAlert(_ completion: @escaping (String) -> ()) -> UIAlertController {
+    func createSaveVideoAlert(okCompletion: @escaping (String) -> (), cancelCompletion: @escaping () -> ()) -> UIAlertController {
         let alertController = UIAlertController(title: "다음 이름으로 저장", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { textField in
@@ -19,11 +19,13 @@ struct AlertManager {
             if let textFields = alertController.textFields,
                let textField = textFields.first,
                let text = textField.text {
-                completion(text)
+                okCompletion(text)
             }
         }
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { _ in
+            cancelCompletion()
+        }
                 
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)

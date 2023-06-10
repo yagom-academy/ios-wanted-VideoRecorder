@@ -13,6 +13,7 @@ final class TimerManager {
     @Published var runCount: Double = 0
     
     func start() {
+        runCount = 0
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(countTime), userInfo: nil, repeats: true)
     }
     
