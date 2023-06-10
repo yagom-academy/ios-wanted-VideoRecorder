@@ -44,10 +44,12 @@ final class LocalDBUseCaseTests: XCTestCase {
         // given
         let videoObject = VideoObject()
         let exceptionValue = [videoObject]
-        sut.create(videoObject)
+
         // when
+        sut.create(videoObject)
+        
         guard let objects = sut.read() else {
-            XCTFail("저장되지 않음")
+            XCTFail("test_create메서드를_통해_저장하는_객체와_read메서드의_반환값_객체는_같다")
             return
         }
         
@@ -57,6 +59,28 @@ final class LocalDBUseCaseTests: XCTestCase {
         
         // then
         XCTAssertEqual(exceptionValue, resultValue)
+    }
+    
+    func test_update메서드를_통해_title을_바꿀수있다() {
+        // given
+        var video = Video(title: "Video Title", date: Date(), videoLength: "00:30")
+        let videoObject = Video.toRealmObject(video)
+        let exceptionTitle = "Title"
+        video.title = exceptionTitle
+        
+        let editingVideoObject = Video.toRealmObject(video)
+        // when
+        sut.create(videoObject)
+        sut.update(editingVideoObject)
+        
+        let objects = sut.realm!.objects(VideoObject.self)
+        let videoObjects = Array(objects)
+        let resultVideoObject = videoObjects.first!
+        let resultTitle = resultVideoObject.title
+        
+        // then
+        XCTAssertEqual(editingVideoObject, resultVideoObject)
+        XCTAssertEqual(exceptionTitle, resultTitle)
     }
 
 }
