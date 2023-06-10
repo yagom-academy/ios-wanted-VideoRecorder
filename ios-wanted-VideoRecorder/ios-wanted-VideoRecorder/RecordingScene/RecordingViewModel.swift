@@ -87,6 +87,8 @@ extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
         recordManager.generateThumbnail(videoURL: outputFileURL) { [weak self] cgImage in
             guard let self, let cgImage else { return }
             self.historyImagePublisher.send(cgImage)
+            
+            // createVideo.
         }
     }
 }

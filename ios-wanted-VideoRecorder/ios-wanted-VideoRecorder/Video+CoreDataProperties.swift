@@ -11,18 +11,38 @@ import CoreData
 
 
 extension CoreDataVideoEntity {
-
+    @NSManaged public var id: UUID?
+    @NSManaged public var name: String?
+    @NSManaged public var date: Date?
+    @NSManaged public var duration: String?
+    @NSManaged public var thumbnail: Data?
+    @NSManaged public var videoURL: URL?
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataVideoEntity> {
         return NSFetchRequest<CoreDataVideoEntity>(entityName: "Video")
     }
-
-    @NSManaged public var name: String?
-    @NSManaged public var fileExtension: String?
-    @NSManaged public var date: Date?
-    @NSManaged public var url: String?
-    @NSManaged public var duration: String?
-    @NSManaged public var id: UUID?
-
+    
+    func toVideoEntity() -> VideoEntity? {
+        guard let id, let name, let date, let duration, let thumbnail, let videoURL else { return nil }
+        
+        return VideoEntity(
+            id: id,
+            name: name,
+            date: date,
+            duration: duration,
+            thumbnail: thumbnail,
+            videoURL: videoURL
+        )
+    }
+    
+    func update(_ videoEntity: VideoEntity) {
+        self.id = videoEntity.id
+        self.name = videoEntity.name
+        self.date = videoEntity.date
+        self.duration = videoEntity.duration
+        self.thumbnail = videoEntity.thumbnail
+        self.videoURL = videoEntity.videoURL
+    }
 }
 
 extension CoreDataVideoEntity : Identifiable {

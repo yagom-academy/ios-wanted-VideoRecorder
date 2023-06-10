@@ -12,8 +12,8 @@ final class VideoListViewController: UIViewController {
         case videos
     }
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Video.ID>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Video.ID>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoEntity.ID>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, VideoEntity.ID>
     
     private lazy var videoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewListLayout())
@@ -26,12 +26,15 @@ final class VideoListViewController: UIViewController {
     
     private var dataSource: DataSource?
     
-    private let videoList: [Video] = [
-        Video(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        Video(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        Video(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        Video(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
-        Video(name: "mcok", fileExtension: "mp4", date: Date(), url: "www.what.com", duration: "32:24"),
+    private let videoList: [VideoEntity] = [
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
+        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
     ]
     
     override func viewDidLoad() {
@@ -65,7 +68,7 @@ final class VideoListViewController: UIViewController {
         stackView.spacing = 5
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stackView)
-
+        
         let rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "video.fill.badge.plus", withConfiguration: config),
             style: .plain,
@@ -92,7 +95,7 @@ final class VideoListViewController: UIViewController {
         dataSource = DataSource(collectionView: videoCollectionView, cellProvider: cellProvider)
     }
     
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Video.ID) -> UICollectionViewCell? {
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: VideoEntity.ID) -> UICollectionViewCell? {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: VideoCell.identifier,
             for: indexPath

@@ -11,5 +11,5 @@ import CoreData
 
 @objc(Video)
 public class CoreDataVideoEntity: NSManagedObject {
-
+    static let coreDataVideoEntityName = "CoreDataVideoEntity"
 }
