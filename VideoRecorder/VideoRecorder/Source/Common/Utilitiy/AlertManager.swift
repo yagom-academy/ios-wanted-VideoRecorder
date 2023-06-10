@@ -23,7 +23,10 @@ struct AlertManager {
             }
         }
         
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                
         alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
         
         return alertController
     }

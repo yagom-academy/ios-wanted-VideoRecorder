@@ -10,15 +10,13 @@ import Combine
 import AVFoundation
 
 class RecordControlView: UIStackView {
-    private let imageButton = {
-        let button = UIButton()
-                
-        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
-        let recordImage = UIImage(systemName: "rectangle", withConfiguration: imageConfiguration)
-        button.setImage(recordImage, for: .normal)
-        button.tintColor = .black.withAlphaComponent(0)
+    private let previousImageView = {
+        let imageView = UIImageView()
+                        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.8).isActive = true
         
-        return button
+        return imageView
     }()
     
     private let recordStackView = {
@@ -89,13 +87,20 @@ class RecordControlView: UIStackView {
                 self?.timerLabel.text = time.formattedTime
             }
             .store(in: &subscriptions)
+        
+        viewModel.firstImagePublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                self?.previousImageView.image = image
+            }
+            .store(in: &subscriptions)
     }
     
     private func addSubviews() {
         recordStackView.addArrangedSubview(recordButton)
         recordStackView.addArrangedSubview(timerLabel)
         
-        addArrangedSubview(imageButton)
+        addArrangedSubview(previousImageView)
         addArrangedSubview(recordStackView)
         addArrangedSubview(rotateButton)
     }
@@ -113,13 +118,8 @@ class RecordControlView: UIStackView {
     }
     
     private func addButtonActions() {
-        imageButton.addTarget(self, action: #selector(touchUpImageButton), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(touchUpRecordButton), for: .touchUpInside)
         rotateButton.addTarget(self, action: #selector(touchUpRotateButton), for: .touchUpInside)
-    }
-    
-    @objc private func touchUpImageButton() {
-        viewModel.isImageButtonTapped.toggle()
     }
     
     @objc private func touchUpRecordButton() {
@@ -135,7 +135,6 @@ class RecordControlView: UIStackView {
     private func toggleUIActivation() {
         timerLabel.isHidden = false
         
-        imageButton.isEnabled.toggle()
         rotateButton.isEnabled.toggle()
     }
 }

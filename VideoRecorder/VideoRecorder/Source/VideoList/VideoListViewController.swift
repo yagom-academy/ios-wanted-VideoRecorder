@@ -167,7 +167,7 @@ final class VideoListViewController: UIViewController {
             
             cell.configure(title: video.title, date: video.date)
             
-            self?.thumbnailManager.generateThumbnail(for: video) { image in
+            self?.thumbnailManager.generateThumbnail(for: video.data) { image in
                 guard let image else { return }
                 
                 DispatchQueue.main.async {
@@ -175,7 +175,7 @@ final class VideoListViewController: UIViewController {
                 }
             }
             
-            if let thumbnailText = self?.thumbnailManager.getVideoPlayTime(for: video) {
+            if let thumbnailText = self?.thumbnailManager.getVideoPlayTime(for: video.data) {
                 cell.configureThumbnail(timeText: thumbnailText)
             }
             

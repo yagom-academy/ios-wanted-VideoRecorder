@@ -5,6 +5,7 @@
 //  Created by kokkilE on 2023/06/08.
 //
 
+import UIKit
 import AVFoundation
 import Combine
 
@@ -13,7 +14,9 @@ final class Recorder: NSObject {
     private var camera: AVCaptureDevice?
     private let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera, .builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
     private let videoOutput = AVCaptureMovieFileOutput()
+    private var outputURL: URL?
     
+    @Published var firstImage: UIImage?
     @Published var videoData: Data?
     @Published var date: Date?
     
@@ -85,6 +88,15 @@ final class Recorder: NSObject {
             videoOutput.stopRecording()
         }
     }
+    
+    private func configureFirstImage(data: Data?) {
+        guard let data else { return }
+        
+        let thumbnailManager = ThumbnailManager()
+        thumbnailManager.generateThumbnail(for: data) { [weak self] image in
+            self?.firstImage = image
+        }
+    }
 }
 
 extension Recorder: AVCaptureFileOutputRecordingDelegate {
@@ -92,6 +104,8 @@ extension Recorder: AVCaptureFileOutputRecordingDelegate {
         do {
             videoData = try Data(contentsOf: outputFileURL)
             date = Date()
+            
+            configureFirstImage(data: videoData)
         } catch {
             print(error.localizedDescription)
         }

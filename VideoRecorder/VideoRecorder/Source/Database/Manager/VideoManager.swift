@@ -28,7 +28,7 @@ final class VideoManager {
         
         videoList.insert(video, at: 0)
         coreDataManager.create(type: VideoEntity.self, data: video)
-        firebaseManager.create(model: video, fileName: video.title)
+        firebaseManager.upload(model: video, fileName: video.title)
     }
     
     func read() {

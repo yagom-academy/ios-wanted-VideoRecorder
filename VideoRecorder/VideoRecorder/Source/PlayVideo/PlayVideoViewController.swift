@@ -217,7 +217,7 @@ final class PlayVideoViewController: UIViewController {
     
     private func setupDuration() {
         let thumbnailManager = ThumbnailManager()
-        guard let duration = thumbnailManager.getVideoPlayTime(for: video) else { return }
+        guard let duration = thumbnailManager.getVideoPlayTime(for: video.data) else { return }
         
         viewModel.updateDuration(duration: duration)
     }

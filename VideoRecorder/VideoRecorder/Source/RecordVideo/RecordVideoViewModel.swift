@@ -7,6 +7,7 @@
 
 import Combine
 import AVFoundation
+import UIKit
 
 final class RecordVideoViewModel {
     private let recorder = Recorder()
@@ -65,6 +66,11 @@ final class RecordVideoViewModel {
     
     func runCountPublisher() -> AnyPublisher<Double, Never> {
         return timerManager.$runCount
+            .eraseToAnyPublisher()
+    }
+    
+    func firstImagePublisher() -> AnyPublisher<UIImage?, Never> {
+        return recorder.$firstImage
             .eraseToAnyPublisher()
     }
         

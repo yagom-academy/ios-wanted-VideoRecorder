@@ -9,8 +9,8 @@ import UIKit
 import AVFoundation
 
 final class ThumbnailManager {
-    func generateThumbnail(for video: Video, completion: @escaping (UIImage?) -> Void) {
-        guard let videoURL = createVideoURL(with: video) else { return }
+    func generateThumbnail(for data: Data?, completion: @escaping (UIImage?) -> Void) {
+        guard let videoURL = createVideoURL(with: data) else { return }
         
         let asset = AVAsset(url: videoURL)
         let imageGenerator = AVAssetImageGenerator(asset: asset)
@@ -35,8 +35,8 @@ final class ThumbnailManager {
         }
     }
     
-    func getVideoPlayTime(for video: Video) -> String? {
-        guard let videoURL = createVideoURL(with: video) else { return nil }
+    func getVideoPlayTime(for data: Data?) -> String? {
+        guard let videoURL = createVideoURL(with: data) else { return nil }
         
         let asset = AVAsset(url: videoURL)
         let playTime = asset.duration
@@ -44,11 +44,11 @@ final class ThumbnailManager {
         return playTime.formattedTime
     }
     
-    private func createVideoURL(with video: Video) -> URL? {
-        guard let data = video.data else { return nil }
+    private func createVideoURL(with data: Data?) -> URL? {
+        guard let data else { return nil }
         
         let temporaryURL = FileManager.default.temporaryDirectory
-        let fileName = "\(video.title)-\(UUID().uuidString).mp4"
+        let fileName = "\(UUID().uuidString).mp4"
         let videoURL = temporaryURL.appendingPathComponent(fileName)
         
         do {

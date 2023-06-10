@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseStorage
+import UIKit
 
 final class FirebaseManager {
     enum Path {
@@ -17,11 +18,13 @@ final class FirebaseManager {
     
     private let codeManager = CodeManager()
     private let storage = Storage.storage()
-    private lazy var storageReference = storage.reference(withPath: Path.video)
+    private var storageReference: StorageReference {
+        storage.reference(withPath: Path.video)
+    }
     
     private init() {}
     
-    func create<DTO: DataTransferObject & Codable>(model: DTO, fileName: String) {
+    func upload<DTO: DataTransferObject & Codable>(model: DTO, fileName: String) {
         guard let data = codeManager.encode(model) else { return }
         
         let uploadReference = storageReference.child("\(fileName)")
