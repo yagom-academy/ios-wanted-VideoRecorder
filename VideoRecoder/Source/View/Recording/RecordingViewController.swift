@@ -113,7 +113,7 @@ class RecordingViewController: UIViewController {
         
         
         guard let newCameraPosition = currentInput.device.position == .back ? camera(with: .front) : camera(with: .back) else { return }
-
+        
         do {
             let newVideoInput = try AVCaptureDeviceInput(device: newCameraPosition)
             captureSession.addInput(newVideoInput)
@@ -121,7 +121,7 @@ class RecordingViewController: UIViewController {
         catch {
             print(error)
         }
-
+        
         captureSession.commitConfiguration()
     }
     
@@ -225,6 +225,22 @@ class RecordingViewController: UIViewController {
         self.timerLabel.text = "00:00:00"
         self.secondsOfTimer = 0
     }
+    
+    private func createThumbnailImage(completion: @escaping (CGImage?) -> Void) {
+        guard let outputURL = self.outputURL else { return }
+        
+        let avAsset = AVAsset(url: outputURL)
+        let imageGenerator = AVAssetImageGenerator(asset: avAsset)
+        let time = CMTime(value: 600, timescale: 600)
+        let times = [NSValue(time: time)]
+        imageGenerator.generateCGImagesAsynchronously(forTimes: times) {_,image,_,_,_ in
+            if let image = image {
+                completion(image)
+            }
+            
+            completion(nil)
+        }
+    }
 }
 
 extension RecordingViewController: AVCaptureFileOutputRecordingDelegate {
@@ -261,6 +277,14 @@ extension RecordingViewController: AVCaptureFileOutputRecordingDelegate {
             stopTimer()
             let videoRecorded = outputURL! as URL
             UISaveVideoAtPathToSavedPhotosAlbum(videoRecorded.path, nil, nil, nil)
+            
+            createThumbnailImage { [weak self] image in
+                guard let validImage = image else { return }
+                
+                DispatchQueue.main.async {
+                    self?.thumbnailImageView.image = UIImage(cgImage: validImage)
+                }
+            }
         }
     }
 }
