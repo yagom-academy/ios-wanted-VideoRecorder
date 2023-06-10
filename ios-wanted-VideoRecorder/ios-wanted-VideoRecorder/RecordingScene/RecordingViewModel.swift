@@ -9,11 +9,13 @@ import AVFoundation
 import Combine
 
 final class RecordingViewModel: NSObject {
+    @Published var secondsOfTimer = 0
     let historyImagePublisher = PassthroughSubject<CGImage, Never>()
     private let recordManager: RecordManager
     private let createVideoUseCase: CreateVideoUseCaseProtocol
     private var isAccessDevice = false
     private var cancellables = Set<AnyCancellable>()
+    private var timer: Timer?
     
     struct Input {
         let recordingButtonTappedEvent: AnyPublisher<Void, Never>
@@ -54,6 +56,19 @@ final class RecordingViewModel: NSObject {
         if isAccessDevice {
             recordManager.startCaptureSession()
         }
+    }
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+            guard let self else { return }
+            
+            self.secondsOfTimer += 1
+        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        secondsOfTimer = 0
     }
     
     func transform(input: Input) -> Output {
