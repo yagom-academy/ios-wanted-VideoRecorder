@@ -34,6 +34,7 @@ final class VideoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.backgroundColor = .white
         let imageSize = CGSize(width: 80, height: 60)
         startImageCaching(imageSize: imageSize)
         tableView.reloadData()
@@ -51,18 +52,32 @@ final class VideoListViewController: UIViewController {
     }
 
     private func configureRootView() {
-        view.backgroundColor = .white
-        view.addSubview(tableView)
+        self.view.backgroundColor = .white
+        self.view.addSubview(tableView)
     }
     
     private func configureNavigationBar() {
-        let listImage = UIImage(systemName: "list.triangle")
-        let titleText = "Video List"
+        let leftBarButtonItem = makeLeftBarButtonItem()
+        let rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "video.fill.badge.plus"),
+            style: .plain,
+            target: self,
+            action: #selector(presentRecordingView)
+        )
+        rightBarButtonItem.tintColor = .systemIndigo
+        
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    private func makeLeftBarButtonItem() -> UIBarButtonItem {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let listImage = UIImage(systemName: "list.triangle", withConfiguration: configuration)
         let listImageView = UIImageView(image: listImage)
         listImageView.tintColor = .black
         let titleLabel = {
             let label = UILabel()
-            label.text = titleText
+            label.text = "Video List"
             label.font = .systemFont(ofSize: 24, weight: .heavy)
             label.textColor = .black
             
@@ -80,21 +95,7 @@ final class VideoListViewController: UIViewController {
         stackView.addArrangedSubview(listImageView)
         stackView.addArrangedSubview(titleLabel)
         
-        let leftBarButtonItem = UIBarButtonItem(customView: stackView)
-        let rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "video.fill.badge.plus"),
-            style: .plain,
-            target: self,
-            action: #selector(presentRecordingView)
-        )
-        rightBarButtonItem.tintColor = .systemIndigo
-        
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.backgroundColor = .white
-        
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        self.navigationController?.navigationBar.standardAppearance = barAppearance
+        return UIBarButtonItem(customView: stackView)
     }
     
     @objc

@@ -47,6 +47,10 @@ final class VideoPlayerViewModel: EventHandleable {
             .eraseToAnyPublisher()
     }
     
+    func stopPlaying() {
+        videoPlayer.pause()
+    }
+    
     struct Input {
         let playButtonTapped: AnyPublisher<Void, Never>
         let sliderValue: AnyPublisher<Double, Never>

@@ -47,6 +47,11 @@ final class VideoPlayerViewController: UIViewController {
         bindState()
         setupTapGestureRecognizer()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.backgroundColor = .lightGray
+    }
 
     private func configureNavigationBar() {
         let rightImage = UIImage(systemName: "info.circle")
@@ -55,16 +60,36 @@ final class VideoPlayerViewController: UIViewController {
                                           target: nil,
                                           action: nil)
         rightButton.tintColor = .systemGray
-        navigationItem.rightBarButtonItem = rightButton
+        self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationItem.leftBarButtonItem = makeLeftBarButtonItem()
+    }
+    
+    private func makeLeftBarButtonItem() -> UIBarButtonItem {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let backwardImage = UIImage(systemName: "chevron.backward", withConfiguration: configuration)
+        let button = {
+            let button = UIButton()
+            button.setTitle("Video List", for: .normal)
+            button.titleLabel?.font = .systemFont(ofSize: 24, weight: .heavy)
+            button.setTitleColor(.black, for: .normal)
+            button.setImage(backwardImage, for: .normal)
+            button.imageView?.tintColor = .black
+            button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+            
+            return button
+        }()
         
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.backgroundColor = .white
-        
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
-        
+        return UIBarButtonItem(customView: button)
+    }
+    
+    @objc
+    private func backButtonTapped() {
+        viewModel.stopPlaying()
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func configureRootView() {
+        self.view.backgroundColor = .lightGray
         self.view.addSubview(videoView)
         self.view.addSubview(videoControllerView)
         
