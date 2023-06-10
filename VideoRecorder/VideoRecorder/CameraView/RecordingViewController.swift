@@ -11,7 +11,9 @@ import Combine
 final class RecordingViewController: UIViewController {
     private let closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 25)
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: imageConfiguration)
+        button.setImage(image, for: .normal)
         button.tintColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         

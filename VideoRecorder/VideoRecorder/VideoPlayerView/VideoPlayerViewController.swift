@@ -45,6 +45,7 @@ final class VideoPlayerViewController: UIViewController {
         setupLayoutConstraints()
         bindAction()
         bindState()
+        setupTapGestureRecognizer()
     }
 
     private func configureNavigationBar() {
@@ -158,5 +159,17 @@ final class VideoPlayerViewController: UIViewController {
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
         let image = UIImage(systemName: systemName, withConfiguration: imageConfiguration)
         videoControllerView.playButton.setImage(image, for: .normal)
+    }
+}
+
+extension VideoPlayerViewController {
+    private func setupTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    private func handleTap() {
+        self.videoControllerView.isHidden.toggle()
     }
 }
