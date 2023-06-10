@@ -10,7 +10,7 @@ import Foundation
 
 struct LocalDBUseCase<T: Object>: DBUseCase {
 
-    private var realm: Realm?
+    var realm: Realm?
     
     init(realm: Realm? = try? Realm()) {
         self.realm = realm

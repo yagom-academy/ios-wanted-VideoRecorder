@@ -14,19 +14,30 @@ final class LocalDBUseCaseTests: XCTestCase {
     private var sut: LocalDBUseCase<VideoObject>!
 
     override func setUpWithError() throws {
-        sut = LocalDBUseCase<VideoObject>()
+        var config = Realm.Configuration()
+        config.inMemoryIdentifier = "LocalDBUseCaseTests"
+        let realm = try! Realm(configuration: config)
+        sut = LocalDBUseCase<VideoObject>(realm: realm)
     }
 
     override func tearDownWithError() throws {
         sut = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func test_2개를_저장할경우_2개가_저장된다() throws {
+        // given
+        let oneVideoObject = VideoObject()
+        let twoVideoObject = VideoObject()
+        let exceptionValue = 2
+        
+        // when
+        sut.create(oneVideoObject)
+        sut.create(twoVideoObject)
+        
+        let resultValue = sut.realm!.objects(VideoObject.self).count
+        
+        // then
+        XCTAssertEqual(exceptionValue, resultValue)
     }
 
 }

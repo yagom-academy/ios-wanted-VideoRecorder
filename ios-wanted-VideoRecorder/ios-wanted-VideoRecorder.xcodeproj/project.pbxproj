@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260BD20C2A3403D700F4F233 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 260BD20B2A3403D700F4F233 /* Realm */; };
 		26167A4F2A2DB8C00048B21D /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26167A4E2A2DB8C00048B21D /* Date++Extension.swift */; };
 		26167A592A2DD1C40048B21D /* MainListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26167A582A2DD1C40048B21D /* MainListCell.swift */; };
 		26167A5B2A2DD32E0048B21D /* ThumbnailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26167A5A2A2DD32E0048B21D /* ThumbnailImage.swift */; };
 		26167A602A2DF9340048B21D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26167A5F2A2DF9340048B21D /* MainViewModel.swift */; };
 		26167A6F2A2E23040048B21D /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26167A6E2A2E23040048B21D /* CameraViewModel.swift */; };
 		261FA1DF2A3374EE009A7B4E /* LocalDBUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261FA1DE2A3374EE009A7B4E /* LocalDBUseCaseTests.swift */; };
-		261FA1E72A33762F009A7B4E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 261FA1E62A33762F009A7B4E /* RealmSwift */; };
 		262049E52A2F21F200E49EBF /* StopCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E42A2F21F200E49EBF /* StopCircle.swift */; };
 		262049E72A2F222700E49EBF /* PlayCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E62A2F222700E49EBF /* PlayCircle.swift */; };
 		262049E92A2F224600E49EBF /* CameraInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262049E82A2F224600E49EBF /* CameraInterfaceView.swift */; };
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				261FA1E72A33762F009A7B4E /* RealmSwift in Frameworks */,
+				260BD20C2A3403D700F4F233 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +368,7 @@
 			);
 			name = VideoRecorderTests;
 			packageProductDependencies = (
-				261FA1E62A33762F009A7B4E /* RealmSwift */,
+				260BD20B2A3403D700F4F233 /* Realm */,
 			);
 			productName = VideoRecorderTests;
 			productReference = 261FA1DC2A3374EE009A7B4E /* VideoRecorderTests.xctest */;
@@ -776,10 +776,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		261FA1E62A33762F009A7B4E /* RealmSwift */ = {
+		260BD20B2A3403D700F4F233 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 26AAEFE32A2F756D003BB339 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
+			productName = Realm;
 		};
 		26AAEFE42A2F756D003BB339 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
