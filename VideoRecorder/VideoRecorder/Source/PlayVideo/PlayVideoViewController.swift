@@ -66,6 +66,7 @@ final class PlayVideoViewController: UIViewController {
         setupUIComponents()
         setupPlayer()
         addPlayerObserver()
+        setupDuration()
         playVideo()
         bind()
     }
@@ -76,11 +77,17 @@ final class PlayVideoViewController: UIViewController {
         removePlayerObserver()
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        togglePlayControlViewVisibleStatusWithAnimation()
+    }
+    
     private func setupUIComponents() {
         setupView()
         addSubviews()
         layout()
-        setupPlayTimeSlider()
+        setupPlayTimer()
         setupNavigationItems()
     }
     
@@ -181,12 +188,38 @@ final class PlayVideoViewController: UIViewController {
             playControlView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20)
         ])
     }
+    
+    private func togglePlayControlViewVisibleStatusWithAnimation() {
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard let self else { return }
+            
+            if self.playControlView.isHidden {
+                self.playControlView.isHidden.toggle()
+                self.playControlView.alpha = 1.0
+            } else {
+                self.playControlView.alpha = 0.0
+            }
+        }, completion: { _ in
+            if self.playControlView.alpha == 0.0 {
+                self.playControlView.isHidden.toggle()
+            }
+        })
+    }
 
     // MARK: - Update time to slider and labels
-    private func setupPlayTimeSlider() {
+    private func setupPlayTimer() {
         playTimeSlider.addTarget(self,
                                  action: #selector(didChangedPlayTimeSlider(_:)),
                                  for: .valueChanged)
+        
+        setupDuration()
+    }
+    
+    private func setupDuration() {
+        let thumbnailManager = ThumbnailManager()
+        guard let duration = thumbnailManager.getVideoPlayTime(for: video) else { return }
+        
+        viewModel.updateDuration(duration: duration)
     }
     
     private func updateCurrentTime(currentTime: CMTime) {
@@ -216,16 +249,6 @@ final class PlayVideoViewController: UIViewController {
         viewModel.isPlaying = false
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard keyPath == "status",
-              let currentItem = player.currentItem,
-              currentItem.status == .readyToPlay else {
-            return
-        }
-        
-        viewModel.updateDuration(duration: currentItem.duration)
-    }
-    
     private func updateSlider(_ currentTime: CMTime) {
         guard let duration = player.currentItem?.duration else { return }
         
@@ -241,6 +264,8 @@ final class PlayVideoViewController: UIViewController {
         
         player.seek(to: seekTime)
     }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {}
 
     // MARK: - Configure UINavigationBar UI and Action
     private func setupNavigationItems() {

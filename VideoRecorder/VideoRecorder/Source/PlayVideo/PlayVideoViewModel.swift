@@ -20,7 +20,7 @@ final class PlayVideoViewModel {
         self.currentTime = currentTime.formattedTime
     }
     
-    func updateDuration(duration: CMTime) {
-        self.duration = duration.formattedTime
+    func updateDuration(duration: String) {
+        self.duration = duration
     }
 }

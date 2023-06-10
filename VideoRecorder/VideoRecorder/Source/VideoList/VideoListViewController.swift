@@ -109,7 +109,7 @@ final class VideoListViewController: UIViewController {
     
     private func createListLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { [weak self] _, layoutEnvironment in
-            var config = UICollectionLayoutListConfiguration(appearance: .grouped)
+            var config = UICollectionLayoutListConfiguration(appearance: .plain)
             config.showsSeparators = true
             config.backgroundColor = .systemBackground
             config.headerMode = .firstItemInSection

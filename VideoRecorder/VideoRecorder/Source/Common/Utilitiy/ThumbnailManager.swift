@@ -25,12 +25,13 @@ final class ThumbnailManager {
                 return
             }
             
-            if let thumbnail {
-                let image = UIImage(cgImage: thumbnail)
-                completion(image)
-            } else {
+            guard let thumbnail else {
                 completion(nil)
+                return
             }
+
+            let image = UIImage(cgImage: thumbnail)
+            completion(image)
         }
     }
     
