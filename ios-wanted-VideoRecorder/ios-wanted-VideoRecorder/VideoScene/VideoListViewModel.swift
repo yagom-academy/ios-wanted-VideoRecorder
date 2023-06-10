@@ -7,12 +7,12 @@
 import Combine
 
 final class VideoListViewModel {
-    @Published var videoEntities: [VideoEntity] = []
+    let videoEntitiesPublisher = CurrentValueSubject<[VideoEntity], Never>([])
     private let fetchVideoUseCase: FetchVideoUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
     
     struct Input {
-        let viewDidLoadEvent: AnyPublisher<Void, Never>
+        let viewDidLoadEvent: Just<Void>
     }
     
     init(fetchVideoUseCase: FetchVideoUseCaseProtocol) {
@@ -21,8 +21,19 @@ final class VideoListViewModel {
     
     func transform(from input: Input) {
         input.viewDidLoadEvent
-            .sink {
-                self.fetchVideo
+            .flatMap { [weak self] _ -> AnyPublisher<[VideoEntity], Error> in
+                guard let self else {
+                    return Empty().eraseToAnyPublisher()
+                }
+                return self.fetchVideoUseCase.fetchVideo()
             }
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { videos in
+                self.videoEntitiesPublisher.send((videos))
+            }
+            .store(in: &cancellables)
     }
 }

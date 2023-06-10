@@ -7,7 +7,7 @@
 
 import Combine
 
-final class FetchVideoUseCase {
+final class FetchVideoUseCase: FetchVideoUseCaseProtocol {
     private let videoRepository: VideoRepositoryProtocol
     init(videoRepository: VideoRepositoryProtocol) {
         self.videoRepository = videoRepository

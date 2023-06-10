@@ -6,15 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class VideoListViewController: UIViewController {
     private enum Section: Hashable {
         case videos
     }
-    
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoEntity.ID>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, VideoEntity.ID>
-    private let coreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol
     
     private lazy var videoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewListLayout())
@@ -25,21 +22,16 @@ final class VideoListViewController: UIViewController {
         return collectionView
     }()
     
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoEntity.ID>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, VideoEntity.ID>
+    private let videoListViewModel: VideoListViewModel
+    private let videoRepository: VideoRepositoryProtocol
+    private var cancellables = Set<AnyCancellable>()
     private var dataSource: DataSource?
     
-    private let videoList: [VideoEntity] = [
-        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
-        
-        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
-        
-        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
-        
-        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
-        VideoEntity(id: UUID(), name: "mock", date: Date(), duration: "32:24", thumbnail: Data(), videoURL: URL(string: "www.what.com")!),
-    ]
-    
-    init(coreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol) {
-        self.coreDataVideoEntityPersistenceService = coreDataVideoEntityPersistenceService
+    init(videoListViewModel: VideoListViewModel, videoRepository: VideoRepositoryProtocol) {
+        self.videoListViewModel = videoListViewModel
+        self.videoRepository = videoRepository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,7 +45,7 @@ final class VideoListViewController: UIViewController {
         configureNavigationBar()
         configureLayout()
         configureDataSource()
-        applySnapshot()
+        bind()
     }
     
     private func configureRootView() {
@@ -115,7 +107,7 @@ final class VideoListViewController: UIViewController {
             .disclosureIndicator()
         ]
         
-        let video = self.videoList[indexPath.row]
+        let video = self.videoListViewModel.videoEntitiesPublisher.value[indexPath.row]
         
         cell?.provide(video)
         
@@ -129,8 +121,19 @@ final class VideoListViewController: UIViewController {
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
-    private func applySnapshot() {
-        let videoIDList = videoList.map { $0.id }
+    private func bind() {
+        let input = VideoListViewModel.Input(viewDidLoadEvent: Just(()))
+        videoListViewModel.transform(from: input)
+        
+        videoListViewModel.videoEntitiesPublisher
+            .sink { videoEntities in
+                self.applySnapshot(videoEntities: videoEntities)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func applySnapshot(videoEntities: [VideoEntity]) {
+        let videoIDList = videoEntities.map { $0.id }
         
         var snapshot = Snapshot()
         snapshot.appendSections([.videos])
@@ -138,10 +141,11 @@ final class VideoListViewController: UIViewController {
         dataSource?.apply(snapshot)
     }
     
+    // 주입이 안된다..
+    //
     @objc func presentRecordingScene() {
         let recordManager = RecordManager()
         let videoGenerator = VideoGenerator()
-        let videoRepository = VideoRepository(videoEntityPersistenceService: coreDataVideoEntityPersistenceService)
         let createUseCase = CreateVideoUseCase(videoRepository: videoRepository)
         let viewModel = RecordingViewModel(
             recordManager: recordManager,
