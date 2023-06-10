@@ -15,8 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
+        let coreDataService = CoreDataPersistenceService()
+        let coreDataVideoEntityPersistenceService = CoreDataVideoEntityPersistenceService(
+            coreDataPersistenceService: coreDataService
+        )
         window?.rootViewController = UINavigationController(
-            rootViewController: VideoListViewController()
+            rootViewController: VideoListViewController(coreDataVideoEntityPersistenceService: coreDataVideoEntityPersistenceService)
         )
         window?.makeKeyAndVisible()
     }

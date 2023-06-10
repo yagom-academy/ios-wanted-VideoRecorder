@@ -11,6 +11,7 @@ import Combine
 final class RecordingViewModel: NSObject {
     let historyImagePublisher = PassthroughSubject<CGImage, Never>()
     private let recordManager: RecordManager
+    private let createVideoUseCase: CreateVideoUseCaseProtocol
     private var isAccessDevice = false
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,8 +26,9 @@ final class RecordingViewModel: NSObject {
         let dismissTrigger = PassthroughSubject<Void, Never>()
     }
     
-    init(recordManager: RecordManager) {
+    init(recordManager: RecordManager, createVideoUseCase: CreateVideoUseCaseProtocol) {
         self.recordManager = recordManager
+        self.createVideoUseCase = createVideoUseCase
     }
     
     func setupDevice() throws {

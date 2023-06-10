@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class VideoRepository {
+final class VideoRepository: VideoRepositoryProtocol {
     private let videoEntityPersistenceService: CoreDataVideoPersistenceServiceProtocol
     let createdVideo = PassthroughSubject<VideoEntity, Never>()
 

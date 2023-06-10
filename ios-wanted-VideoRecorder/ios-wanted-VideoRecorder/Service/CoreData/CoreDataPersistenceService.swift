@@ -7,7 +7,7 @@
 
 import CoreData
 
-final class CoreDataPersistenceService {
+final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
     private let coreDataModelName = "model"
     
     lazy var context: NSManagedObjectContext? = {

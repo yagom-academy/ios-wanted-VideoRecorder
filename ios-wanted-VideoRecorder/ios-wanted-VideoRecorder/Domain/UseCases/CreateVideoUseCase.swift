@@ -7,13 +7,13 @@
 
 import Combine
 
-final class CreateVideoUseCase {
+final class CreateVideoUseCase: CreateVideoUseCaseProtocol {
     private let videoRepository: VideoRepositoryProtocol
     init(videoRepository: VideoRepositoryProtocol) {
         self.videoRepository = videoRepository
     }
     
     func createVideo(_ videoEntity: VideoEntity) -> AnyPublisher<VideoEntity, Error> {
-        return videoRepository.createdVideo(videoEntity)
+        return videoRepository.createVideo(videoEntity)
     }
 }
