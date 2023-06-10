@@ -213,7 +213,7 @@
 		AA8518332A2DBD9700554FA7 /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
-				AA8518492A2F54AB00554FA7 /* Cell */,
+				AA8518492A2F54AB00554FA7 /* Components */,
 				AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */,
 				AA8518432A2EF05900554FA7 /* VideoListViewModel.swift */,
 			);
@@ -270,13 +270,13 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		AA8518492A2F54AB00554FA7 /* Cell */ = {
+		AA8518492A2F54AB00554FA7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				AA8518412A2ED07600554FA7 /* VideoListCell.swift */,
 				AA4E03BA2A3422A70043E761 /* LoadingView.swift */,
 			);
-			path = Cell;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AA97DC3B2A322BCE00AFBC7B /* Utilitiy */ = {

@@ -10,7 +10,7 @@ import Foundation
 
 final class VideoManager {
     enum Pagination {
-        static let countLimit = 8
+        static let countLimit = 10
     }
     
     static let shared = VideoManager()
@@ -31,7 +31,8 @@ final class VideoManager {
     
     func read() {
         guard let entityList = coreDataManager.read(type: VideoEntity.self,
-                                                    countLimit: Pagination.countLimit) else { return }
+                                                    countLimit: Pagination.countLimit,
+                                                    sortKey: "date") else { return }
         
         if entityList.isEmpty {
             isLastData = true

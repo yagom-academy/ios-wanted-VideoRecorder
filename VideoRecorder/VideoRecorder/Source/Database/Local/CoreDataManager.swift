@@ -45,10 +45,12 @@ final class CoreDataManager {
         save()
     }
         
-    func read<DAO: NSManagedObject & DataAccessObject>(type: DAO.Type, countLimit: Int) -> [DAO]? {
+    func read<DAO: NSManagedObject & DataAccessObject>(type: DAO.Type, countLimit: Int, sortKey: String) -> [DAO]? {
         guard let entityName = DAO.entity().name else { return nil }
         
+        let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: false)
         let fetchRequest = NSFetchRequest<DAO>(entityName: entityName)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = countLimit
         fetchRequest.fetchOffset = currentOffset
         currentOffset += countLimit

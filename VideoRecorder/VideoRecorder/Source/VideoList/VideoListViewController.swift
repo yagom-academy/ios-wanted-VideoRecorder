@@ -130,6 +130,7 @@ final class VideoListViewController: UIViewController {
         }
     }
     
+    // MARK: - Configure CollectionView
     private func createListLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { [weak self] _, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -221,13 +222,11 @@ extension VideoListViewController: UIScrollViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
+        let isScrollingBottom = offsetY > (contentHeight - height)
         
-        guard offsetY > (contentHeight - height),
-              !isLastData, !isPaging else {
-            return
+        if isScrollingBottom && !isLastData && !isPaging {
+            beginPaging()
         }
-        
-        beginPaging()
     }
     
     func beginPaging() {
