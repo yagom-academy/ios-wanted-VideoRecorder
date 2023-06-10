@@ -16,6 +16,10 @@ final class VideoRepository {
         self.videoEntityPersistenceService = videoEntityPersistenceService
     }
     
+    func fetchVideo() -> AnyPublisher<[VideoEntity], Error> {
+        return videoEntityPersistenceService.fetchVideoEntities()
+    }
+    
     func createVideo(_ videoEntity: VideoEntity) -> AnyPublisher<VideoEntity, Error> {
         return videoEntityPersistenceService.createVideoEntity(videoEntity)
             .flatMap { [weak self] videoEntity -> AnyPublisher<VideoEntity, Error> in
