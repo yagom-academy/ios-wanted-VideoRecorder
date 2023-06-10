@@ -21,7 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         )
         let videoRepository = VideoRepository(videoEntityPersistenceService: coreDataVideoEntityPersistenceService)
         let fetchVideoUseCase = FetchVideoUseCase(videoRepository: videoRepository)
-        let videoListViewModel = VideoListViewModel(fetchVideoUseCase: fetchVideoUseCase)
+        let refreshVideoUseCase = RefreshVideoUseCase(videoRepository: videoRepository)
+        let videoListViewModel = VideoListViewModel(
+            fetchVideoUseCase: fetchVideoUseCase,
+            refreshVideoUseCase: refreshVideoUseCase
+        )
         window?.rootViewController = UINavigationController(
             rootViewController: VideoListViewController(
                 videoListViewModel: videoListViewModel,

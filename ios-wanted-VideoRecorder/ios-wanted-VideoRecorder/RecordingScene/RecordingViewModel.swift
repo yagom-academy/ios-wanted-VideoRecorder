@@ -117,13 +117,14 @@ extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
                 imageData: imageData
             )
             guard let videoEntity else { return }
-            
+            print(videoEntity.id)
             _ = createVideoUseCase.createVideo(videoEntity)
                 .sink { completion in
                     if case .failure(let error) = completion {
                         print(error.localizedDescription)
                     }
                 } receiveValue: { _ in }
+                .store(in: &cancellables)
         }
     }
 }

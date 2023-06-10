@@ -9,14 +9,19 @@ import Combine
 final class VideoListViewModel {
     let videoEntitiesPublisher = CurrentValueSubject<[VideoEntity], Never>([])
     private let fetchVideoUseCase: FetchVideoUseCaseProtocol
+    private let refreshVideoUseCase: RefreshVideoUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
     
     struct Input {
         let viewDidLoadEvent: Just<Void>
     }
     
-    init(fetchVideoUseCase: FetchVideoUseCaseProtocol) {
+    init(
+        fetchVideoUseCase: FetchVideoUseCaseProtocol,
+        refreshVideoUseCase: RefreshVideoUseCaseProtocol
+    ) {
         self.fetchVideoUseCase = fetchVideoUseCase
+        self.refreshVideoUseCase = refreshVideoUseCase
     }
     
     func transform(from input: Input) {
@@ -33,6 +38,13 @@ final class VideoListViewModel {
                 }
             } receiveValue: { videos in
                 self.videoEntitiesPublisher.send((videos))
+            }
+            .store(in: &cancellables)
+        
+        refreshVideoUseCase.refreshVideo()
+            .sink { videoEntity in
+                let currentVideoList = self.videoEntitiesPublisher.value
+                self.videoEntitiesPublisher.send(currentVideoList + [videoEntity])
             }
             .store(in: &cancellables)
     }

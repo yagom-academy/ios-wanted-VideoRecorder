@@ -24,7 +24,6 @@ final class VideoRepository: VideoRepositoryProtocol {
         return videoEntityPersistenceService.createVideoEntity(videoEntity)
             .flatMap { [weak self] videoEntity -> AnyPublisher<VideoEntity, Error> in
                 self?.createdVideo.send(videoEntity)
-                
                 return Just(videoEntity)
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()

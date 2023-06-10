@@ -126,11 +126,10 @@ final class VideoCell: UICollectionViewListCell {
             imageContainerView.heightAnchor.constraint(equalToConstant: 70),
         ])
         
-        imageLabelView.addSubview(imageLabel)
-        
         imageContainerView.addSubview(imageView)
         imageContainerView.addSubview(imageLabelView)
         
+        imageLabelView.addSubview(imageLabel)
         
         NSLayoutConstraint.activate([
             imageLabelView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 5),
@@ -146,6 +145,7 @@ final class VideoCell: UICollectionViewListCell {
             imageView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor),
             imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor),
+            imageView.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor),
             imageView.widthAnchor.constraint(equalTo: imageContainerView.widthAnchor),
             imageView.heightAnchor.constraint(equalTo: imageContainerView.heightAnchor)
         ])
