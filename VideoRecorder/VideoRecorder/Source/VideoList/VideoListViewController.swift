@@ -11,12 +11,21 @@ import Combine
 final class VideoListViewController: UIViewController {
     enum Section {
         case videoList
+        case loading
     }
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Video>?
+    private var videoListDataSource: UICollectionViewDiffableDataSource<Section, Video>?
+    private var loadingDataSource: UICollectionViewDiffableDataSource<Section, Bool>?
     private let viewModel = VideoListViewModel()
     private let thumbnailManager = ThumbnailManager()
     private var subscriptions = Set<AnyCancellable>()
+    private var loadingView = LoadingView()
+    private var isPaging = false {
+        didSet {
+            configureLoadingStatus()
+        }
+    }
+    private var isLastData = false
     
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
@@ -89,11 +98,12 @@ final class VideoListViewController: UIViewController {
         addSubviews()
         layout()
         setupDataSource()
-        bindSnapshot()
+        bind()
     }
     
     private func addSubviews() {
         view.addSubview(collectionView)
+        view.addSubview(loadingView)
     }
     
     private func layout() {
@@ -103,8 +113,21 @@ final class VideoListViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
             collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8),
+            
+            loadingView.centerXAnchor.constraint(equalTo: safe.centerXAnchor, constant: -8),
+            loadingView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8),
+            loadingView.widthAnchor.constraint(equalTo: safe.widthAnchor, multiplier: 0.4),
+            loadingView.heightAnchor.constraint(equalTo: safe.widthAnchor, multiplier: 0.4)
         ])
+    }
+    
+    private func configureLoadingStatus() {
+        if self.isPaging {
+            self.loadingView.start()
+        } else {
+            self.loadingView.stop()
+        }
     }
     
     private func createListLayout() -> UICollectionViewLayout {
@@ -134,7 +157,7 @@ final class VideoListViewController: UIViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { [weak self] collectionView, indexPath, video in
+        videoListDataSource = UICollectionViewDiffableDataSource<Section, Video>(collectionView: collectionView) { [weak self] collectionView, indexPath, video in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VideoListCell.reuseIdentifier,
                 for: indexPath) as? VideoListCell else {
@@ -159,17 +182,27 @@ final class VideoListViewController: UIViewController {
         }
     }
         
-    private func bindSnapshot() {
+    private func bind() {
         viewModel.videoPublisher()
+            .receive(on: DispatchQueue.global())
             .sink { [weak self] videoList in
-                var imageSnapshot = NSDiffableDataSourceSnapshot<Section, Video>()
-                
-                imageSnapshot.appendSections([.videoList])
-                imageSnapshot.appendItems(videoList)
-                
-                self?.dataSource?.apply(imageSnapshot)
+                self?.applyVideoListCellSnapshot(by: videoList)
+                self?.isPaging = false
             }
             .store(in: &subscriptions)
+        
+        viewModel.isLastDataPublisher()
+            .assign(to: \.isLastData, on: self)
+            .store(in: &subscriptions)
+    }
+    
+    private func applyVideoListCellSnapshot(by videoList: [Video]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Video>()
+
+        snapshot.appendSections([.videoList])
+        snapshot.appendItems(videoList)
+
+        videoListDataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -180,5 +213,27 @@ extension VideoListViewController: UICollectionViewDelegate {
         let playVideoViewController = PlayVideoViewController(video: video)
         
         navigationController?.pushViewController(playVideoViewController, animated: true)
+    }
+}
+
+extension VideoListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        guard offsetY > (contentHeight - height),
+              !isLastData, !isPaging else {
+            return
+        }
+        
+        beginPaging()
+    }
+    
+    func beginPaging() {
+        isPaging = true
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            self.viewModel.requestFetchVideo()
+        }
     }
 }

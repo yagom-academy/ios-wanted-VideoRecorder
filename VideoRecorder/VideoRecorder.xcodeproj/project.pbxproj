@@ -21,6 +21,7 @@
 		AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4465E72A319E3C0086F82D /* URL+createURL.swift */; };
 		AA4465EA2A31A8BA0086F82D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */; };
 		AA4465ED2A31AE3C0086F82D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AA4465EC2A31AE3C0086F82D /* FirebaseStorage */; };
+		AA4E03BB2A3422A70043E761 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E03BA2A3422A70043E761 /* LoadingView.swift */; };
 		AA85181D2A2DBC5E00554FA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */; };
 		AA85181F2A2DBC5E00554FA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */; };
 		AA8518212A2DBC5E00554FA7 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8518202A2DBC5E00554FA7 /* VideoListViewController.swift */; };
@@ -55,6 +56,7 @@
 		AA4465E32A3199730086F82D /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		AA4465E72A319E3C0086F82D /* URL+createURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+createURL.swift"; sourceTree = "<group>"; };
 		AA4465E92A31A8BA0086F82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AA4E03BA2A3422A70043E761 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		AA8518192A2DBC5E00554FA7 /* VideoRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85181C2A2DBC5E00554FA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85181E2A2DBC5E00554FA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8518412A2ED07600554FA7 /* VideoListCell.swift */,
+				AA4E03BA2A3422A70043E761 /* LoadingView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				AA97DC352A31EB2D00AFBC7B /* VideoEntity+CoreDataClass.swift in Sources */,
 				AADDCD0D2A33821E0090D55B /* TimerManager.swift in Sources */,
 				AA4465E82A319E3C0086F82D /* URL+createURL.swift in Sources */,
+				AA4E03BB2A3422A70043E761 /* LoadingView.swift in Sources */,
 				AA4465D92A30B24A0086F82D /* RecordControlView.swift in Sources */,
 				AA11D0D62A330870007B6A1F /* PlayVideoViewController.swift in Sources */,
 				AA11D0DB2A333AF6007B6A1F /* PlayVideoViewModel.swift in Sources */,

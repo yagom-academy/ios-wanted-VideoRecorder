@@ -28,20 +28,20 @@ final class VideoListCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
-                
+        
         return imageView
     }()
     
     private let thumbnailTimeLabelStackView = {
         let stackView = UIStackView()
-
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .black.withAlphaComponent(0.6)
         stackView.layer.cornerRadius = 4
         stackView.layer.masksToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
-
+        
         return stackView
     }()
     

@@ -14,11 +14,16 @@ final class VideoRecorderService {
     private let videoManager = VideoManager.shared
     
     private init() {
-        videoManager.read()
+        read()
     }
     
     func videoPublisher() -> AnyPublisher<[Video], Never> {
         return videoManager.$videoList
+            .eraseToAnyPublisher()
+    }
+    
+    func isLastDataPublisher() -> AnyPublisher<Bool, Never> {
+        return videoManager.$isLastData
             .eraseToAnyPublisher()
     }
     

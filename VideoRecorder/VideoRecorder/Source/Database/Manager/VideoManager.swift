@@ -9,22 +9,18 @@ import Combine
 import Foundation
 
 final class VideoManager {
+    enum Pagination {
+        static let countLimit = 8
+    }
+    
     static let shared = VideoManager()
     
     private let coreDataManager = CoreDataManager.shared
     
     private init() {}
     
-    @Published var videoList: [Video] = [
-        Video(data: nil, title: "1번 Cell", date: Date()),
-        Video(data: nil, title: "2번 Cell", date: Date()),
-        Video(data: nil, title: "3번 Cell", date: Date()),
-        Video(data: nil, title: "4번 Cell", date: Date()),
-        Video(data: nil, title: "5번 Cell", date: Date()),
-        Video(data: nil, title: "6번 Cell", date: Date()),
-        Video(data: nil, title: "7번 Cell", date: Date()),
-        Video(data: nil, title: "8번 Cell", date: Date())
-    ]
+    @Published var videoList: [Video] = []
+    @Published var isLastData = false
     
     func create(video: Video) {
         if isContains(video) { return }
@@ -34,9 +30,15 @@ final class VideoManager {
     }
     
     func read() {
-        guard let entityList = coreDataManager.read(type: VideoEntity.self) else { return }
+        guard let entityList = coreDataManager.read(type: VideoEntity.self,
+                                                    countLimit: Pagination.countLimit) else { return }
         
-        videoList = getModels(from: entityList)
+        if entityList.isEmpty {
+            isLastData = true
+        }
+        
+        let fetchedVideoList = getModels(from: entityList)
+        videoList.append(contentsOf: fetchedVideoList)
     }
     
     func update(video: Video) {

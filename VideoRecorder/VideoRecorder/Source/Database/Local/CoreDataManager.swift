@@ -15,8 +15,6 @@ final class CoreDataManager {
     
     static let shared = CoreDataManager()
     
-    private init() { }
-    
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: Constant.container)
         
@@ -30,6 +28,9 @@ final class CoreDataManager {
     }()
     
     private var context: NSManagedObjectContext { persistentContainer.viewContext }
+    private var currentOffset = 0
+    
+    private init() { }
     
     func create<DAO: NSManagedObject & DataAccessObject, DTO: DataTransferObject>(type: DAO.Type, data: DTO) where DTO == DAO.DataTransferObject {
         guard let entityName = DAO.entity().name,
@@ -43,8 +44,26 @@ final class CoreDataManager {
         
         save()
     }
+        
+    func read<DAO: NSManagedObject & DataAccessObject>(type: DAO.Type, countLimit: Int) -> [DAO]? {
+        guard let entityName = DAO.entity().name else { return nil }
+        
+        let fetchRequest = NSFetchRequest<DAO>(entityName: entityName)
+        fetchRequest.fetchLimit = countLimit
+        fetchRequest.fetchOffset = currentOffset
+        currentOffset += countLimit
+        
+        do {
+            let fetchedData = try context.fetch(fetchRequest)
+            
+            return fetchedData
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
     
-    func read<DAO: NSManagedObject & DataAccessObject>(type: DAO.Type) -> [DAO]? {
+    func readAll<DAO: NSManagedObject & DataAccessObject>(type: DAO.Type) -> [DAO]? {
         guard let entityName = DAO.entity().name else { return nil }
         
         let fetchRequest = NSFetchRequest<DAO>(entityName: entityName)

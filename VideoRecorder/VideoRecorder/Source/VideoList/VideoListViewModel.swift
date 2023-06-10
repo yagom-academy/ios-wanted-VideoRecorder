@@ -15,11 +15,19 @@ final class VideoListViewModel {
         return videoRecorderService.videoPublisher()
     }
     
+    func isLastDataPublisher() -> AnyPublisher<Bool, Never> {
+        return videoRecorderService.isLastDataPublisher()
+    }
+    
     func delete(by indexPath: IndexPath) {
         videoRecorderService.delete(by: indexPath)
     }
     
     func requestVideo(by indexPath: IndexPath) -> Video? {
         return videoRecorderService.requestVideo(by: indexPath)
+    }
+    
+    func requestFetchVideo() {
+        videoRecorderService.read()
     }
 }
