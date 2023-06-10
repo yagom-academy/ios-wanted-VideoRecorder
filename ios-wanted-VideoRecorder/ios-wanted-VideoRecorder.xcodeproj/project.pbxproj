@@ -110,6 +110,8 @@
 			children = (
 				6280CE002A335AFA00186985 /* CoreDataPersistenceService.swift */,
 				6280CE032A335F5F00186985 /* CoreDataVideoEntityPersistenceService.swift */,
+				62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */,
+				62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -236,8 +238,6 @@
 				62922A082A31B5FF0031559F /* RecordingScene */,
 				6280CDF82A3307AD00186985 /* Extension */,
 				6280CDFE2A33577100186985 /* Service */,
-				62CA437A2A300CD000834D80 /* Video+CoreDataClass.swift */,
-				62CA437B2A300CD000834D80 /* Video+CoreDataProperties.swift */,
 				62DAA79E2A30074D00EBCDAC /* AppDelegate.swift */,
 				62DAA7A02A30074D00EBCDAC /* SceneDelegate.swift */,
 				62DAA7AA2A30074E00EBCDAC /* Assets.xcassets */,
