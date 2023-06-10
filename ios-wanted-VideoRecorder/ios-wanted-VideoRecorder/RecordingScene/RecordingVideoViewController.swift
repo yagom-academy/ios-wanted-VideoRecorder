@@ -100,8 +100,6 @@ final class RecordingVideoViewController: UIViewController {
     private var buttonWidthConstraint: NSLayoutConstraint!
     private var buttonHeightConstraint: NSLayoutConstraint!
     
-    private var timer: Timer?
-    private var secondsOfTimer = 0
     private let viewModel: RecordingViewModel
     private var cancellables = Set<AnyCancellable>()
     
@@ -211,7 +209,7 @@ final class RecordingVideoViewController: UIViewController {
         output.isRecording
             .sink { [weak self] isRecording in
                 guard let self, let isRecording else { return }
-                isRecording ? self.stopTimer() : self.startTimer()
+                isRecording ? self.viewModel.stopTimer() : self.viewModel.startTimer()
                 changeRecordingButtonAppearance(with: isRecording)
             }
             .store(in: &cancellables)
@@ -219,6 +217,14 @@ final class RecordingVideoViewController: UIViewController {
         output.dismissTrigger
             .sink { [weak self] in
                 self?.dismiss(animated: true)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$secondsOfTimer
+            .sink { [weak self] time in
+                self?.timerLabel.text = (time == 0)
+                ? "00:00"
+                : Double(time).format(units: [.minute, .second])
             }
             .store(in: &cancellables)
         
@@ -230,22 +236,6 @@ final class RecordingVideoViewController: UIViewController {
                 self.historyImageView.image = image
             }
             .store(in: &cancellables)
-    }
-    
-    // MARK: - Timer methods
-    private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-            guard let self else { return }
-            
-            self.secondsOfTimer += 1
-            self.timerLabel.text = Double(self.secondsOfTimer).format(units: [.minute, .second])
-        }
-    }
-    
-    private func stopTimer() {
-        timer?.invalidate()
-        secondsOfTimer = 0
-        self.timerLabel.text = "00:00"
     }
     
     private func changeRecordingButtonAppearance(with isRecording: Bool) {
