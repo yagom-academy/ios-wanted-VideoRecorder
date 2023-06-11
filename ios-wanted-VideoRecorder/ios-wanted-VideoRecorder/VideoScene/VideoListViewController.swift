@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AVKit
 
 final class VideoListViewController: UIViewController {
     private enum Section: Hashable {
@@ -89,6 +90,7 @@ final class VideoListViewController: UIViewController {
     }
     
     private func configureLayout() {
+        self.videoCollectionView.delegate = self
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -182,6 +184,18 @@ final class VideoListViewController: UIViewController {
         recordingViewController.modalPresentationStyle = .fullScreen
         
         self.present(recordingViewController, animated: true)
+    }
+}
+
+extension VideoListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let video = videoListViewModel.videoEntity(at: indexPath.row)
+        
+        let player = AVPlayer(url: video.videoURL)
+        let vcPlayer = AVPlayerViewController()
+        vcPlayer.player = player
+        self.present(vcPlayer, animated: true)
     }
 }
 

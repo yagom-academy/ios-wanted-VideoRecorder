@@ -33,6 +33,7 @@ final class RecordingVideoViewController: UIViewController {
     private let historyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mockImage")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -262,6 +263,5 @@ final class RecordingVideoViewController: UIViewController {
         default:
             return
         }
-        
     }
 }
