@@ -5,6 +5,7 @@
 //  Created by brody on 2023/06/10.
 //
 import Combine
+import Foundation
 
 final class VideoListViewModel {
     let videoEntitiesPublisher = CurrentValueSubject<[VideoEntity], Never>([])
@@ -47,5 +48,14 @@ final class VideoListViewModel {
                 self.videoEntitiesPublisher.send(currentVideoList + [videoEntity])
             }
             .store(in: &cancellables)
+    }
+    
+    func videoEntity(at index: Int) -> VideoEntity {
+        return videoEntitiesPublisher.value[index]
+    }
+    
+    func delete(VideoID: UUID) {
+        // 코어데이터로 먼저 지우고 받은 id를 publisher에 주면?
+        
     }
 }

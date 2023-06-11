@@ -123,6 +123,31 @@ final class VideoListViewController: UIViewController {
     private func collectionViewListLayout() -> UICollectionViewLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
+        listConfiguration.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+            guard let self else {
+                return UISwipeActionsConfiguration()
+            }
+            
+            let actionHandler: UIContextualAction.Handler = { [weak self] action, view, completion in
+                guard let video = self?.videoListViewModel.videoEntity(at: indexPath.row) else {
+                    return
+                }
+                do {
+                    try self?.videoListViewModel.delete(VideoID: video.id)
+                } catch {
+                    print(error)
+                }
+                completion(true)
+            }
+            
+            let action = UIContextualAction(
+                style: .destructive,
+                title: "Delete",
+                handler: actionHandler
+            )
+            
+            return UISwipeActionsConfiguration(actions: [action])
+        }
         
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
