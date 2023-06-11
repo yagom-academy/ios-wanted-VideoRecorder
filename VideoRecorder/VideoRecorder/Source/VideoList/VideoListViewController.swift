@@ -229,7 +229,7 @@ extension VideoListViewController: UIScrollViewDelegate {
         }
     }
     
-    func beginPaging() {
+    private func beginPaging() {
         isPaging = true
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
             self.viewModel.requestFetchVideo()
