@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF042BCB2A35A7D200E90DEC /* TimeInterval+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF042BCA2A35A7D200E90DEC /* TimeInterval+.swift */; };
+		BF042BCE2A35A9F400E90DEC /* WatchVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF042BCD2A35A9F400E90DEC /* WatchVideoViewController.swift */; };
 		BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */; };
 		BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A352A31F06900B82930 /* SystemImageName.swift */; };
 		BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C1A372A322FA900B82930 /* PaddingLabel.swift */; };
@@ -30,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		BF042BCA2A35A7D200E90DEC /* TimeInterval+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+.swift"; sourceTree = "<group>"; };
+		BF042BCD2A35A9F400E90DEC /* WatchVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchVideoViewController.swift; sourceTree = "<group>"; };
+		BF042BD02A35C80900E90DEC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BF042BD22A35C81100E90DEC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoViewController.swift; sourceTree = "<group>"; };
 		BF5C1A352A31F06900B82930 /* SystemImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageName.swift; sourceTree = "<group>"; };
 		BF5C1A372A322FA900B82930 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -63,6 +67,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF042BCC2A35A9B500E90DEC /* WatchVideo */ = {
+			isa = PBXGroup;
+			children = (
+				BF31CF0C2A35EC85008639EE /* Controller */,
+			);
+			path = WatchVideo;
+			sourceTree = "<group>";
+		};
+		BF042BCF2A35C80900E90DEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF042BD22A35C81100E90DEC /* AVKit.framework */,
+				BF042BD02A35C80900E90DEC /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BF2ACD002A3096B800121A9F /* AddVideo */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +97,14 @@
 			isa = PBXGroup;
 			children = (
 				BF2ACD022A30972A00121A9F /* AddVideoViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BF31CF0C2A35EC85008639EE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BF042BCD2A35A9F400E90DEC /* WatchVideoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -156,6 +185,7 @@
 			children = (
 				BFCFEB9A2A2E2135005911F1 /* VideoRecorder */,
 				BFCFEB992A2E2135005911F1 /* Products */,
+				BF042BCF2A35C80900E90DEC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,6 +209,7 @@
 				BF9CA06E2A2F8B3700BB9692 /* Model */,
 				BF9CA06B2A2F8A8F00BB9692 /* VideoList */,
 				BF2ACD002A3096B800121A9F /* AddVideo */,
+				BF042BCC2A35A9B500E90DEC /* WatchVideo */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
@@ -290,6 +321,7 @@
 				BFCFEB9C2A2E2135005911F1 /* AppDelegate.swift in Sources */,
 				BF9CA0702A2F8B4600BB9692 /* VideoInfo.swift in Sources */,
 				BF5C1A382A322FA900B82930 /* PaddingLabel.swift in Sources */,
+				BF042BCE2A35A9F400E90DEC /* WatchVideoViewController.swift in Sources */,
 				BF5C1A362A31F06900B82930 /* SystemImageName.swift in Sources */,
 				BF5C1A402A3248BB00B82930 /* ShutterButton.swift in Sources */,
 				BF2ACD032A30972A00121A9F /* AddVideoViewController.swift in Sources */,

@@ -241,13 +241,12 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
         let documentDirectory = fileManager.urls(for: .documentDirectory,
                                                  in: .userDomainMask).first
         
-        guard let destinationURL = documentDirectory?.appendingPathComponent(id.uuidString) else {
+        guard let destinationURL = documentDirectory?.appendingPathComponent("\(id.uuidString).mp4") else {
             print("Failed to create destination URL")
             return
         }
         
         do {
-            print(destinationURL)
             try fileManager.moveItem(at: url, to: destinationURL)
             createVideo(id: id, url: destinationURL, thumbnail: thumbnail)
         } catch {

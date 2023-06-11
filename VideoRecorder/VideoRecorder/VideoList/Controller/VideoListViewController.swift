@@ -111,7 +111,11 @@ final class VideoListViewController: UIViewController {
 
 extension VideoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedVideoInfo = videoInfoList?[indexPath.row] else { return }
         
+        let watchVideoViewController = WatchVideoViewController(videoInfo: selectedVideoInfo)
+        
+        navigationController?.pushViewController(watchVideoViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView,
@@ -130,8 +134,6 @@ extension VideoListViewController: UITableViewDelegate {
     private func removeVideo(id: UUID, url: URL) {
         let fileManager = FileManager.default
         let filePath = url.path
-        
-        print(filePath)
         
         if fileManager.fileExists(atPath: filePath) {
             do {
