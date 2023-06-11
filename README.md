@@ -42,7 +42,7 @@
 # 🌳 프로젝트 구조
 
 ## UML Class Diagram
-![](https://hackmd.io/_uploads/ryUnu0Wwn.jpg)
+![VideoRecorder_ClassDiagram](https://github.com/Kyeongjun2/ios-wanted-VideoRecorder/assets/114981173/b9232afe-9415-4ee8-bb5c-c2ba55fdc365)
 
 </br>
 
