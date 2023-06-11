@@ -22,8 +22,7 @@
 2. [프로젝트 구조](#-프로젝트-구조)
 3. [실행화면](#-실행화면)
 4. [트러블 슈팅](#-트러블-슈팅)
-5. [핵심경험](#-핵심경험)
-6. [참고 링크](#-참고-링크)
+5. [참고 링크](#-참고-링크)
 
 </br>
 
@@ -43,7 +42,7 @@
 # 🌳 프로젝트 구조
 
 ## UML Class Diagram
-![](https://hackmd.io/_uploads/BkGzMLQP3.png)
+<img width="1295" alt="image" src="https://github.com/seunghyunCheon/ios-wanted-VideoRecorder/assets/70146658/0ab7fdef-7392-4ecc-9860-393f0d475554">
 
 </br>
 
