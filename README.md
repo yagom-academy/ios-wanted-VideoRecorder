@@ -12,7 +12,7 @@
 ## ⭐️ 팀원
 | kokkilE |
 | :---: |
-| <Img src = "https://hackmd.io/_uploads/SJL_ZRGw2.jpg"  height="300"/> |
+| <img src = "https://hackmd.io/_uploads/SkuFjXXP3.jpg" height=300> |
 | [Github Profile](https://github.com/kokkilE) |
 
 </br>
@@ -34,7 +34,7 @@
 
 </br>
 
-# 📆 타임라인
+# 📆 타임 라인
 | 일자 | <center>구현 내용 |
 | :---: | --- |
 | 23.06.05(월) | - 요구사항 분석 </br> - 목록 화면의 컬렉션뷰 레이아웃 구성 |
@@ -47,7 +47,7 @@
 
 </br>
 
-# ⚒️ 프로젝트 구조
+# ⚒ 프로젝트 구조
 ## Fire Tree
 
 <details>
