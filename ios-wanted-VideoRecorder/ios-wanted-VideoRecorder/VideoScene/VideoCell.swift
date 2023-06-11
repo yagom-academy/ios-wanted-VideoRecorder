@@ -132,9 +132,9 @@ final class VideoCell: UICollectionViewListCell {
         NSLayoutConstraint.activate([
             imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             imageContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            imageContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            imageContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageContainerView.widthAnchor.constraint(equalToConstant: 90),
-            imageContainerView.heightAnchor.constraint(equalToConstant: 70),
+            imageContainerView.heightAnchor.constraint(lessThanOrEqualToConstant: 70),
         ])
         
         imageContainerView.addSubview(imageView)
