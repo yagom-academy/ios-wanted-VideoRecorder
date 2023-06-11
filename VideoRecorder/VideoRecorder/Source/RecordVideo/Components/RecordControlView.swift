@@ -102,7 +102,6 @@ class RecordControlView: UIStackView {
         buttonStackView.addArrangedSubview(previousImageView)
         buttonStackView.addArrangedSubview(recordButton)
         buttonStackView.addArrangedSubview(rotateButton)
-        let stackView = UIStackView()
         
         addArrangedSubview(buttonStackView)
         addArrangedSubview(timerLabel)

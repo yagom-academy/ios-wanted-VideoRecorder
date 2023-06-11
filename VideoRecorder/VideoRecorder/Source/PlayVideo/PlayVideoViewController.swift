@@ -316,6 +316,9 @@ final class PlayVideoViewController: UIViewController {
     }
     
     @objc private func presentInformation() {
-        // TODO
+        let alertManager = AlertManager()
+        let alert = alertManager.createInformationAlert(video: video)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

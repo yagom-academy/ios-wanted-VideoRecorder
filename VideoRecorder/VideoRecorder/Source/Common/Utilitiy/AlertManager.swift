@@ -32,4 +32,20 @@ struct AlertManager {
         
         return alertController
     }
+    
+    func createInformationAlert(video: Video) -> UIAlertController {
+        let title = video.title
+        let message = """
+        식별자: \(video.identifier)
+        촬영일자: \(DateFormatter.dateToText(video.date))
+        """
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        
+        alertController.addAction(confirmAction)
+        
+        return alertController
+    }
 }
