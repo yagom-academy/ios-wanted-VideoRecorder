@@ -21,33 +21,12 @@ final class VideoCell: UICollectionViewListCell {
     private var imageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.text = "3:21"
         label.textColor = .white
+        label.backgroundColor = .black.withAlphaComponent(0.5)
+        label.layer.cornerRadius = 4
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    private var imageLabelView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        view.layer.cornerRadius = 4
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private var imageContainerView: UIView = {
-        let view = UIView()
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 1
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
     }()
     
     private var titleLabel: UILabel = {
@@ -64,7 +43,7 @@ final class VideoCell: UICollectionViewListCell {
     private var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "2022-09-22"
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .systemGray
         label.adjustsFontForContentSizeCategory = true
         
@@ -75,6 +54,7 @@ final class VideoCell: UICollectionViewListCell {
     private let informationStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = 10
         
         return stackView
     }()
@@ -96,6 +76,11 @@ final class VideoCell: UICollectionViewListCell {
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 15
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -127,53 +112,28 @@ final class VideoCell: UICollectionViewListCell {
     }
     
     private func configureContentLayout() {
-        contentView.addSubview(imageContainerView)
-        
-        NSLayoutConstraint.activate([
-            imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            imageContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            imageContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageContainerView.widthAnchor.constraint(equalToConstant: 90),
-            imageContainerView.heightAnchor.constraint(lessThanOrEqualToConstant: 70),
-        ])
-        
-        imageContainerView.addSubview(imageView)
-        imageContainerView.addSubview(imageLabelView)
-        
-        imageLabelView.addSubview(imageLabel)
-        
-        NSLayoutConstraint.activate([
-            imageLabelView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 5),
-            imageLabelView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -5),
-            imageLabelView.widthAnchor.constraint(greaterThanOrEqualToConstant: 15),
-            imageLabelView.heightAnchor.constraint(greaterThanOrEqualToConstant: 5),
-            
-            imageLabel.topAnchor.constraint(equalTo: imageLabelView.topAnchor, constant: 2),
-            imageLabel.bottomAnchor.constraint(equalTo: imageLabelView.bottomAnchor, constant: -2),
-            imageLabel.leadingAnchor.constraint(equalTo: imageLabelView.leadingAnchor, constant: 2),
-            imageLabel.trailingAnchor.constraint(equalTo: imageLabelView.trailingAnchor, constant: -2),
-            
-            imageView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor),
-            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor),
-            imageView.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageContainerView.widthAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageContainerView.heightAnchor)
-        ])
-        
         informationStackView.addArrangedSubview(titleLabel)
         informationStackView.addArrangedSubview(dateLabel)
         
+        imageView.addSubview(imageLabel)
+        
+        contentStackView.addArrangedSubview(imageView)
         contentStackView.addArrangedSubview(informationStackView)
         contentStackView.addArrangedSubview(moreButton)
         
         contentView.addSubview(contentStackView)
         
         NSLayoutConstraint.activate([
-            contentStackView.leadingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: 10),
-            contentStackView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.8),
+            
+            imageLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 5),
+            imageLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -5),
         ])
     }
     
