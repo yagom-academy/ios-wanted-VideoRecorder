@@ -109,10 +109,10 @@ final class RecordingVideoViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        setupDevice()
         setupPreview()
         configureLayout()
         bind()
+        checkPermission(about: .video)
     }
     
     required init?(coder: NSCoder) {
@@ -122,6 +122,7 @@ final class RecordingVideoViewController: UIViewController {
     private func setupDevice() {
         do {
             try viewModel.setupDevice()
+            viewModel.startCaptureSession()
         } catch {
             print(error.localizedDescription)
         }
@@ -247,5 +248,20 @@ final class RecordingVideoViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    func checkPermission(about device: AVMediaType) {
+        let status = AVCaptureDevice.authorizationStatus(for: device)
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: device) { granted in
+                self.setupDevice()
+            }
+        case .authorized:
+            self.setupDevice()
+        default:
+            return
+        }
+        
     }
 }

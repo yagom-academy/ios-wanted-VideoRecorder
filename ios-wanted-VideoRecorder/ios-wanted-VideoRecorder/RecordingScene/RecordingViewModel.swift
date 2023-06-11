@@ -15,7 +15,7 @@ final class RecordingViewModel: NSObject {
     private let recordManager: RecordManager
     private let videoGenreator: VideoGenerator
     private let createVideoUseCase: CreateVideoUseCaseProtocol
-    private var isAccessDevice = false
+    private var isAccessDevice = true
     private var cancellables = Set<AnyCancellable>()
     private var timer: Timer?
     
@@ -33,24 +33,16 @@ final class RecordingViewModel: NSObject {
     init(
         recordManager: RecordManager,
         videoGenerator: VideoGenerator,
-        createVideoUseCase: CreateVideoUseCaseProtocol) {
+        createVideoUseCase: CreateVideoUseCaseProtocol
+    ) {
         self.recordManager = recordManager
         self.videoGenreator = videoGenerator
         self.createVideoUseCase = createVideoUseCase
     }
     
     func setupDevice() throws {
-        let videoPermission = PermissionChecker.checkPermission(about: .video)
-        let audioPermission = PermissionChecker.checkPermission(about: .audio)
-        
-        if videoPermission {
-            isAccessDevice = true
-            try recordManager.setupCamera()
-        }
-        
-        if audioPermission {
-            try recordManager.setupAudio(with: audioPermission)
-        }
+        try recordManager.setupCamera()
+        try recordManager.setupAudio()
     }
     
     func makePreview(size: CGSize) -> AVCaptureVideoPreviewLayer {
@@ -128,25 +120,5 @@ extension RecordingViewModel: AVCaptureFileOutputRecordingDelegate {
                 } receiveValue: { _ in }
                 .store(in: &cancellables)
         }
-    }
-}
-
-// MARK: - 디바이스 권한 체커모델
-fileprivate struct PermissionChecker {
-    static func checkPermission(about device: AVMediaType) -> Bool {
-        let status = AVCaptureDevice.authorizationStatus(for: device)
-        var isAccessVideo = false
-        switch status {
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: device) { granted in
-                isAccessVideo = granted
-            }
-        case .authorized:
-            return true
-        default:
-            return false
-        }
-        
-        return isAccessVideo
     }
 }

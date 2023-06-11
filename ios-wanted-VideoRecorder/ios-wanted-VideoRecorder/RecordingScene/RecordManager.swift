@@ -54,7 +54,7 @@ final class RecordManager {
         captureSession.addOutput(videoOutput)
     }
     
-    func setupAudio(with permission: Bool) throws {
+    func setupAudio() throws {
         guard let audio = AVCaptureDevice.default(for: .audio) else {
             throw RecordingError.noneAudioDevice
         }

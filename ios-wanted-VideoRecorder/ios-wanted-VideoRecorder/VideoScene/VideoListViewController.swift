@@ -141,8 +141,6 @@ final class VideoListViewController: UIViewController {
         dataSource?.apply(snapshot)
     }
     
-    // 주입이 안된다..
-    //
     @objc func presentRecordingScene() {
         let recordManager = RecordManager()
         let videoGenerator = VideoGenerator()
