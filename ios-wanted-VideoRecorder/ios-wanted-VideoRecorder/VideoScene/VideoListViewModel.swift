@@ -48,7 +48,7 @@ final class VideoListViewModel {
         refreshVideoUseCase.refreshVideo()
             .sink { videoEntity in
                 let currentVideoList = self.videoEntitiesPublisher.value
-                self.videoEntitiesPublisher.send(currentVideoList + [videoEntity])
+                self.videoEntitiesPublisher.send([videoEntity] + currentVideoList)
             }
             .store(in: &cancellables)
     }

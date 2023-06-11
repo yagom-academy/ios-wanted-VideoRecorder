@@ -44,7 +44,7 @@ final class CoreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServi
         return Future { promise in
             context.perform {
                 let fetchRequest = CoreDataVideoEntity.fetchRequest()
-                
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 do {
                     let fetchResult = try context.fetch(fetchRequest)
                     promise(.success(fetchResult.compactMap { $0.toVideoEntity() }))
