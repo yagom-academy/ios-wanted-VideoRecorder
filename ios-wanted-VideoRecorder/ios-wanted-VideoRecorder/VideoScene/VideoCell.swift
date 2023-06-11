@@ -11,6 +11,7 @@ final class VideoCell: UICollectionViewListCell {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mockImage")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +25,7 @@ final class VideoCell: UICollectionViewListCell {
         label.textColor = .white
         label.backgroundColor = .black.withAlphaComponent(0.5)
         label.layer.cornerRadius = 4
+        label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
