@@ -4,7 +4,6 @@
 //
 //  Created by brody on 2023/06/07.
 //
-
 import UIKit
 import Combine
 import AVKit
@@ -198,4 +197,3 @@ extension VideoListViewController: UICollectionViewDelegate {
         self.present(vcPlayer, animated: true)
     }
 }
-

@@ -5,10 +5,8 @@
 //  Created by brody on 2023/06/07.
 //
 //
-
 import Foundation
 import CoreData
-
 
 extension CoreDataVideoEntity {
     @NSManaged public var id: UUID?
@@ -45,6 +43,4 @@ extension CoreDataVideoEntity {
     }
 }
 
-extension CoreDataVideoEntity : Identifiable {
-    
-}
+extension CoreDataVideoEntity : Identifiable { }

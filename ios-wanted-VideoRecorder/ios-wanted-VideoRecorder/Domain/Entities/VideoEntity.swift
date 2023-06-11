@@ -4,7 +4,6 @@
 //
 //  Created by brody on 2023/06/07.
 //
-
 import Foundation
 
 struct VideoEntity: Identifiable, Equatable {

@@ -20,7 +20,6 @@
 		6280CE192A34181100186985 /* CreateVideoUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE182A34181100186985 /* CreateVideoUseCaseProtocol.swift */; };
 		6280CE1B2A3420C000186985 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1A2A3420C000186985 /* VideoGenerator.swift */; };
 		6280CE1D2A342B8100186985 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1C2A342B8100186985 /* Double+Extension.swift */; };
-		6280CE1F2A342DA600186985 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE1E2A342DA600186985 /* CGImage+Extension.swift */; };
 		6280CE212A347A6D00186985 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE202A347A6D00186985 /* VideoListViewModel.swift */; };
 		6280CE232A347EB000186985 /* FetchVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE222A347EB000186985 /* FetchVideoUseCase.swift */; };
 		6280CE252A347F1A00186985 /* FetchVideoUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CE242A347F1A00186985 /* FetchVideoUseCaseProtocol.swift */; };
@@ -59,7 +58,6 @@
 		6280CE182A34181100186985 /* CreateVideoUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVideoUseCaseProtocol.swift; sourceTree = "<group>"; };
 		6280CE1A2A3420C000186985 /* VideoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
 		6280CE1C2A342B8100186985 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Double+Extension.swift"; path = "Combine/Double+Extension.swift"; sourceTree = "<group>"; };
-		6280CE1E2A342DA600186985 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
 		6280CE202A347A6D00186985 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		6280CE222A347EB000186985 /* FetchVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchVideoUseCase.swift; sourceTree = "<group>"; };
 		6280CE242A347F1A00186985 /* FetchVideoUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchVideoUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			children = (
 				6280CDF92A3307BD00186985 /* Combine */,
 				6280CE1C2A342B8100186985 /* Double+Extension.swift */,
-				6280CE1E2A342DA600186985 /* CGImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -392,7 +389,6 @@
 				62CA437D2A300CD000834D80 /* Video+CoreDataProperties.swift in Sources */,
 				6280CE212A347A6D00186985 /* VideoListViewModel.swift in Sources */,
 				6280CE232A347EB000186985 /* FetchVideoUseCase.swift in Sources */,
-				6280CE1F2A342DA600186985 /* CGImage+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
