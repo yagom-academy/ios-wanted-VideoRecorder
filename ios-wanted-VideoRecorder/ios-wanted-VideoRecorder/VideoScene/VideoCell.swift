@@ -176,4 +176,12 @@ final class VideoCell: UICollectionViewListCell {
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.titleLabel.text = ""
+        self.dateLabel.text = ""
+        self.imageLabel.text = ""
+        self.imageView.image = nil
+    }
 }
