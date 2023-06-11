@@ -47,10 +47,6 @@ final class VideoPlayerViewController: UIViewController {
         bindState()
         setupTapGestureRecognizer()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
 
     private func configureNavigationBar() {
         let rightImage = UIImage(systemName: "info.circle")
@@ -93,7 +89,7 @@ final class VideoPlayerViewController: UIViewController {
         self.view.addSubview(videoControllerView)
         
         let playerLayer = viewModel.playerLayer
-        playerLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        playerLayer.frame = self.view.bounds
         playerLayer.videoGravity = .resizeAspectFill
         
         videoView.layer.addSublayer(playerLayer)

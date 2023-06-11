@@ -38,17 +38,6 @@ final class VideoListViewController: UIViewController {
         startImageCaching(imageSize: imageSize)
         tableView.reloadData()
     }
-    
-    private func startImageCaching(imageSize: CGSize) {
-        viewModel.fetchedAssets { [weak self] videoAssets in
-            self?.imageManager.startCachingImages(
-                for: videoAssets,
-                targetSize: imageSize,
-                contentMode: .aspectFit,
-                options: nil
-            )
-        }
-    }
 
     private func configureRootView() {
         self.view.backgroundColor = .white
@@ -134,6 +123,17 @@ final class VideoListViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
+    }
+    
+    private func startImageCaching(imageSize: CGSize) {
+        viewModel.fetchedAssets { [weak self] videoAssets in
+            self?.imageManager.startCachingImages(
+                for: videoAssets,
+                targetSize: imageSize,
+                contentMode: .aspectFit,
+                options: nil
+            )
+        }
     }
     
     private func requestImage(
