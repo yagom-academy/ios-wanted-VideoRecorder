@@ -57,6 +57,7 @@ final class VideoCell: UICollectionViewListCell {
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.adjustsFontForContentSizeCategory = true
         
+        
         return label
     }()
     
@@ -67,13 +68,13 @@ final class VideoCell: UICollectionViewListCell {
         label.textColor = .systemGray
         label.adjustsFontForContentSizeCategory = true
         
+        
         return label
     }()
     
     private let informationStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
         
         return stackView
     }()
@@ -87,6 +88,7 @@ final class VideoCell: UICollectionViewListCell {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 2, height: 4)
         button.layer.shadowRadius = 1
+        button.contentHorizontalAlignment = .trailing
         
         return button
     }()
@@ -110,9 +112,11 @@ final class VideoCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func provide(_ video: VideoEntity) {
+    func provide(_ video: VideoEntity, _ dateFormatter: DateFormatter) {
         titleLabel.text = video.name
-        dateLabel.text = video.date.description
+        dateLabel.text = dateFormatter.string(from: video.date)
+        imageLabel.text = video.duration
+        
         DispatchQueue.global().async {
             let image = ImageFileManager.shared.loadImageFromDocumentsDirectory(fileName: video.thumbnail)
             
@@ -120,7 +124,6 @@ final class VideoCell: UICollectionViewListCell {
                 self.imageView.image = image
             }
         }
-        
     }
     
     private func configureContentLayout() {

@@ -28,6 +28,12 @@ final class VideoListViewController: UIViewController {
     private let videoRepository: VideoRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
     private var dataSource: DataSource?
+    private let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter
+    }()
     
     init(videoListViewModel: VideoListViewModel, videoRepository: VideoRepositoryProtocol) {
         self.videoListViewModel = videoListViewModel
@@ -109,7 +115,7 @@ final class VideoListViewController: UIViewController {
         
         let video = self.videoListViewModel.videoEntitiesPublisher.value[indexPath.row]
         
-        cell?.provide(video)
+        cell?.provide(video, dateFormatter)
         
         return cell
     }
