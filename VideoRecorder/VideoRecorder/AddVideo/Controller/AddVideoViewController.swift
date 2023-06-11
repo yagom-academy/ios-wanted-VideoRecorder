@@ -12,7 +12,11 @@ final class AddVideoViewController: UIViewController {
     var session: AVCaptureSession?
     let movieOutput = AVCaptureMovieFileOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
+    
     private lazy var fileName = "\(Date().translateTimeFormat()).mp4"
+    private lazy var duration: TimeInterval = 0
+    private var recordingTimer: Timer?
+    private var recordingStartTime: Date?
     
     private let thumbnailIButton: UIButton = {
         let button = UIButton()
@@ -182,28 +186,53 @@ extension AddVideoViewController {
         if movieOutput.isRecording {
             sender.isSelected = false
             movieOutput.stopRecording()
+            stopRecordingTimer()
         } else {
             sender.isSelected = true
             let outputPath = NSTemporaryDirectory() + fileName
             let outputURL = URL(fileURLWithPath: outputPath)
             movieOutput.startRecording(to: outputURL, recordingDelegate: self)
+            startRecordingTimer()
         }
+    }
+
+    private func startRecordingTimer() {
+        recordingStartTime = Date()
+        recordingTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                              target: self,
+                                              selector: #selector(updateRecordingTimer),
+                                              userInfo: nil,
+                                              repeats: true)
+    }
+    
+    private func stopRecordingTimer() {
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+        timerLabel.text = "00:00"
+    }
+    
+    @objc private func updateRecordingTimer() {
+        guard let startTime = recordingStartTime else { return }
+        
+        let currentTime = Date()
+        let elapsedSeconds = currentTime.timeIntervalSince(startTime)
+        let formattedTime = elapsedSeconds.formatTime()
+        
+        duration = elapsedSeconds
+        timerLabel.text = formattedTime
     }
 }
 
 // MARK: - AVCapture File Output Recording Delegate
 
 extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
-        print("녹화 시작")
-    }
-    
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error {
             print("Recording error: \(error)")
         } else {
             guard let thumbnailImage = generateThumbnailImage(from: outputFileURL) else { return }
             saveVideoToDocumentDirectory(id: UUID(), url: outputFileURL, thumbnail: thumbnailImage)
+            thumbnailIButton.setImage(thumbnailImage, for: .normal)
         }
     }
     
@@ -252,10 +281,11 @@ extension AddVideoViewController {
         let videoInfo = VideoInfo(id: id,
                                   videoURL: url,
                                   thumbnailImage: thumbnailData,
-                                  duration: 1.6,
+                                  duration: duration,
                                   fileName: fileName,
                                   registrationDate: Date())
         
         CoreDataManager.shared.create(videoInfo: videoInfo)
+        duration = 0
     }
 }

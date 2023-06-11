@@ -50,7 +50,7 @@ final class VideoListCell: UITableViewCell {
     }
     
     func configure(playbackTime: TimeInterval, fileName: String, date: String, thumbNail: Data) {
-        playbackTimeLabel.text = "\(playbackTime)"
+        playbackTimeLabel.text = playbackTime.formatTime()
         fileNameLabel.text = fileName
         dateLabel.text = date
         thumbnailImageView.image = UIImage(data: thumbNail)
