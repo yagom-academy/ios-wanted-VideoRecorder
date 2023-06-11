@@ -28,6 +28,12 @@ final class VideoListViewController: UIViewController {
     private let videoRepository: VideoRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
     private var dataSource: DataSource?
+    private let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter
+    }()
     
     init(videoListViewModel: VideoListViewModel, videoRepository: VideoRepositoryProtocol) {
         self.videoListViewModel = videoListViewModel
@@ -109,7 +115,7 @@ final class VideoListViewController: UIViewController {
         
         let video = self.videoListViewModel.videoEntitiesPublisher.value[indexPath.row]
         
-        cell?.provide(video)
+        cell?.provide(video, dateFormatter)
         
         return cell
     }
@@ -117,6 +123,28 @@ final class VideoListViewController: UIViewController {
     private func collectionViewListLayout() -> UICollectionViewLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
+        listConfiguration.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+            guard let self else {
+                return UISwipeActionsConfiguration()
+            }
+            
+            let actionHandler: UIContextualAction.Handler = { [weak self] action, view, completion in
+                guard let video = self?.videoListViewModel.videoEntity(at: indexPath.row) else {
+                    return
+                }
+                
+                 self?.videoListViewModel.delete(videoID: video.id)
+                completion(true)
+            }
+            
+            let action = UIContextualAction(
+                style: .destructive,
+                title: "Delete",
+                handler: actionHandler
+            )
+            
+            return UISwipeActionsConfiguration(actions: [action])
+        }
         
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }

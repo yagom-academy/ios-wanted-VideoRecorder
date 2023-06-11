@@ -6,8 +6,10 @@
 //
 
 import Combine
+import Foundation
 
 protocol CoreDataVideoPersistenceServiceProtocol {
     func fetchVideoEntities() -> AnyPublisher<[VideoEntity], Error>
     func createVideoEntity(_ videoEntity: VideoEntity) -> AnyPublisher<VideoEntity, Error>
+    func deleteVideoEntity(videoID id: UUID) -> AnyPublisher<VideoEntity?, Error>
 }

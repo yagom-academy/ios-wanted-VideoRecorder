@@ -12,6 +12,7 @@ fileprivate enum CoreDataVideoEntityPersistenceServiceError: LocalizedError {
     case failedToInitializeCoreDataContainer
     case failedToCreateVideo
     case failedToFetchVideo
+    case failedToDeleteVideo
     
     var errorDescription: String? {
         switch self {
@@ -21,6 +22,8 @@ fileprivate enum CoreDataVideoEntityPersistenceServiceError: LocalizedError {
             return "Video 엔티티 생성에 실패했습니다."
         case .failedToFetchVideo:
             return "Video를 불러오지 못했습니다."
+        case .failedToDeleteVideo:
+            return "Video를 삭제하지 못했습니다."
         }
     }
 }
@@ -41,7 +44,7 @@ final class CoreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServi
         return Future { promise in
             context.perform {
                 let fetchRequest = CoreDataVideoEntity.fetchRequest()
-                
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 do {
                     let fetchResult = try context.fetch(fetchRequest)
                     promise(.success(fetchResult.compactMap { $0.toVideoEntity() }))
@@ -69,6 +72,29 @@ final class CoreDataVideoEntityPersistenceService: CoreDataVideoPersistenceServi
                 } catch {
                     promise(.failure(CoreDataVideoEntityPersistenceServiceError.failedToCreateVideo))
                 }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deleteVideoEntity(videoID id: UUID) -> AnyPublisher<VideoEntity?, Error> {
+        guard let context = coreDataPersistenceService.context else {
+            return Fail(error: CoreDataVideoEntityPersistenceServiceError.failedToInitializeCoreDataContainer)
+                .eraseToAnyPublisher()
+        }
+        
+        return Future { promise in
+            do {
+                let fetchRequest = CoreDataVideoEntity.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "id == %@", id.uuidString)
+                let fetchResult = try context.fetch(fetchRequest)
+                guard let target = fetchResult.first else { throw CoreDataVideoEntityPersistenceServiceError.failedToDeleteVideo }
+                let deletedVideoEntity = target.toVideoEntity()
+                context.delete(target)
+                try context.save()
+                return promise(.success(deletedVideoEntity))
+            } catch {
+                return promise(.failure(CoreDataVideoEntityPersistenceServiceError.failedToDeleteVideo))
             }
         }
         .eraseToAnyPublisher()

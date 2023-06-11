@@ -30,4 +30,8 @@ final class VideoRepository: VideoRepositoryProtocol {
             }
             .eraseToAnyPublisher()
     }
+    
+    func deleteVideoEntity(videoID id: UUID) -> AnyPublisher<VideoEntity?, Error> {
+        return videoEntityPersistenceService.deleteVideoEntity(videoID: id)
+    }
 }
