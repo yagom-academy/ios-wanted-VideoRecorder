@@ -56,13 +56,24 @@ final class CoreDataManager {
         }
     }
     
+    func delete(id: UUID) {
+        do {
+            guard let searchVideo = searchVideo(id: id) else { return }
+            
+            context.delete(searchVideo)
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
     private func convertToVideoInfo(from videoEntities: [VideoEntity]) -> [VideoInfo]? {
         var videoInfos = [VideoInfo]()
         
         guard let noImageData = UIImage(systemName: SystemImageName.noThumbnailImage)?.pngData() else { return nil }
         
         videoEntities.forEach {
-            var videoInfo = VideoInfo(id: $0.id ?? UUID(),
+            let videoInfo = VideoInfo(id: $0.id ?? UUID(),
                                       videoURL: $0.videoURL,
                                       thumbnailImage: $0.thumbnailImage ?? noImageData,
                                       duration: $0.duration,
@@ -73,5 +84,20 @@ final class CoreDataManager {
         }
         
         return videoInfos
+    }
+    
+    private func searchVideo(id: UUID) -> VideoEntity? {
+        let fetchRequest = NSFetchRequest<VideoEntity>(entityName: String(describing: VideoEntity.self))
+        let searchCondition = "id == %@"
+        
+        fetchRequest.predicate = NSPredicate(format: searchCondition, id.uuidString)
+        
+        do {
+            guard let result = try context.fetch(fetchRequest).first else { return nil }
+            return result
+        } catch {
+            print(error)
+            return nil
+        }
     }
 }

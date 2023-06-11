@@ -66,6 +66,7 @@ final class VideoListViewController: UIViewController {
         view.addSubview(videoListTableView)
         
         videoListTableView.dataSource = dataSource
+        videoListTableView.delegate = self
         
         NSLayoutConstraint.activate([
             videoListTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -99,5 +100,44 @@ final class VideoListViewController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(videoInfoList, toSection: .main)
         dataSource?.apply(snapshot)
+    }
+}
+
+// MARK: - Table view delegate
+
+extension VideoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let videoInfo = videoInfoList?[indexPath.row] else { return nil }
+        
+        let removeAction = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, _ in
+            self?.videoInfoList?.remove(at: indexPath.row)
+            self?.removeVideo(id: videoInfo.id, url: videoInfo.videoURL)
+            self?.applySnapshot()
+        }
+        
+        return UISwipeActionsConfiguration(actions: [removeAction])
+    }
+    
+    private func removeVideo(id: UUID, url: URL) {
+        let fileManager = FileManager.default
+        let filePath = url.path
+        
+        print(filePath)
+        
+        if fileManager.fileExists(atPath: filePath) {
+            do {
+                try fileManager.removeItem(atPath: filePath)
+                CoreDataManager.shared.delete(id: id)
+            } catch {
+                print("remove failed: \(error)")
+            }
+        } else {
+            print("File not found at path: \(filePath)")
+        }
     }
 }

@@ -13,7 +13,7 @@ final class AddVideoViewController: UIViewController {
     let movieOutput = AVCaptureMovieFileOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
     
-    private lazy var fileName = "video\((CoreDataManager.shared.fetch()?.count ?? 0) + 1).mp4"
+    private lazy var fileName = "\(Date()).mp4"
     
     private let thumbnailIButton: UIButton = {
         let button = UIButton()
@@ -203,39 +203,40 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
         if let error {
             print("Recording error: \(error)")
         } else {
-            saveVideoToDocumentDirectory(url: outputFileURL)
-            createVideo(url: outputFileURL)
+            saveVideoToDocumentDirectory(id: UUID(), url: outputFileURL)
         }
     }
     
-    private func saveVideoToDocumentDirectory(url: URL) {
+    private func saveVideoToDocumentDirectory(id: UUID, url: URL) {
         let fileManager = FileManager.default
         let documentDirectory = fileManager.urls(for: .documentDirectory,
                                                  in: .userDomainMask).first
         
-        guard let destinationURL = documentDirectory?.appendingPathComponent("\(fileName)") else {
-            print("destination URL 생성 실패")
+        guard let destinationURL = documentDirectory?.appendingPathComponent(id.uuidString) else {
+            print("Failed to create destination URL")
             return
         }
         
         do {
+            print(destinationURL)
             try fileManager.moveItem(at: url, to: destinationURL)
+            createVideo(id: id, url: destinationURL)
         } catch {
-            print("documents directory에 저장 실패")
+            print("Failed to save documents directory")
         }
     }
 }
 
-// MARK: - Core data CRUD
+// MARK: - Core data
 
 extension AddVideoViewController {
-    private func createVideo(url: URL) {
+    private func createVideo(id: UUID, url: URL) {
         guard let thumbnailData = thumbnailIButton.imageView?.image?.pngData() else {
             print("Failed to convert thumbnail image to Data")
             return
         }
         
-        let videoInfo = VideoInfo(id: UUID(),
+        let videoInfo = VideoInfo(id: id,
                                   videoURL: url,
                                   thumbnailImage: thumbnailData,
                                   duration: 1.6,
