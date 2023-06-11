@@ -27,7 +27,7 @@ final class FirebaseManager {
     func upload<DTO: DataTransferObject & Codable>(model: DTO, fileName: String) {
         guard let data = codeManager.encode(model) else { return }
         
-        let uploadReference = storageReference.child("\(fileName)")
+        let uploadReference = storageReference.child("\(fileName)-\(model.identifier.uuidString)")
         let uploadTask = uploadReference.putData(data)
         
         DispatchQueue.global(qos: .background).async {
@@ -38,8 +38,8 @@ final class FirebaseManager {
     func download() {
     }
     
-    func delete(fileName: String) {
-        let deleteReference = storageReference.child("\(fileName)")
+    func delete<DTO: DataTransferObject & Codable>(model: DTO, fileName: String) {
+        let deleteReference = storageReference.child("\(fileName)-\(model.identifier.uuidString)")
         
         deleteReference.delete { error in
             if let error {

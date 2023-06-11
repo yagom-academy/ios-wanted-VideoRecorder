@@ -58,7 +58,7 @@ final class VideoManager {
         }
         
         coreDataManager.delete(type: VideoEntity.self, data: video)
-        firebaseManager.delete(fileName: video.title)
+        firebaseManager.delete(model: video, fileName: video.title)
     }
     
     func delete(by indexPath: IndexPath) {
@@ -69,7 +69,7 @@ final class VideoManager {
         }
         
         coreDataManager.delete(type: VideoEntity.self, data: video)
-        firebaseManager.delete(fileName: video.title)
+        firebaseManager.delete(model: video, fileName: video.title)
     }
     
     func requestVideo(by indexPath: IndexPath) -> Video? {
