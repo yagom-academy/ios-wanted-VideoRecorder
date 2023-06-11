@@ -7,18 +7,18 @@
 import Foundation
 
 struct VideoGenerator {
-    func makeVideo(videoURL: URL, duration: Int, imageData: Data?) -> VideoEntity? {
-        guard let imageData,
-              let uuid = extractUUID(from: videoURL) else { return nil }
+    func makeVideo(videoURL: URL, duration: Int) -> VideoEntity? {
+        guard let uuid = extractUUID(from: videoURL) else { return nil }
         let videoName = String(uuid.uuidString.suffix(6))
         let videoDuration = Double(duration).format(units: [.minute, .second])
+        let thumbnailName = videoName + "image"
         
         return VideoEntity(
             id: uuid,
             name: videoName,
             date: Date(),
             duration: videoDuration ?? "00:00",
-            thumbnail: imageData,
+            thumbnail: thumbnailName,
             videoURL: videoURL
         )
     }

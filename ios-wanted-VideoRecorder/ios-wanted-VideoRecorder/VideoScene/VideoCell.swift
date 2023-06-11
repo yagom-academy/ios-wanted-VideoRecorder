@@ -113,6 +113,14 @@ final class VideoCell: UICollectionViewListCell {
     func provide(_ video: VideoEntity) {
         titleLabel.text = video.name
         dateLabel.text = video.date.description
+        DispatchQueue.global().async {
+            let image = ImageFileManager.shared.loadImageFromDocumentsDirectory(fileName: video.thumbnail)
+            
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+        }
+        
     }
     
     private func configureContentLayout() {

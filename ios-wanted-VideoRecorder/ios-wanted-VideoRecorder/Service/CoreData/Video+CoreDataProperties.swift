@@ -15,7 +15,7 @@ extension CoreDataVideoEntity {
     @NSManaged public var name: String?
     @NSManaged public var date: Date?
     @NSManaged public var duration: String?
-    @NSManaged public var thumbnail: Data?
+    @NSManaged public var thumbnail: String?
     @NSManaged public var videoURL: URL?
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataVideoEntity> {

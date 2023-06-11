@@ -30,7 +30,7 @@ final class RecordManager {
     private let captureSession = AVCaptureSession()
     private var videoOutput: AVCaptureMovieFileOutput?
     private var outputURL: URL?
-    
+
     var isRecording: Bool? {
         videoOutput?.isRecording
     }
@@ -54,7 +54,7 @@ final class RecordManager {
         captureSession.addOutput(videoOutput)
     }
     
-    func setupAudio(with permission: Bool) throws {
+    func setupAudio() throws {
         guard let audio = AVCaptureDevice.default(for: .audio) else {
             throw RecordingError.noneAudioDevice
         }
