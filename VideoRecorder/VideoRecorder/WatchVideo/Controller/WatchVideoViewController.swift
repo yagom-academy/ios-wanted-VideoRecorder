@@ -30,7 +30,7 @@ final class WatchVideoViewController: UIViewController {
         super.viewDidLoad()
         configureUIOption()
         configureLayout()
-        configure()
+        playVideo()
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,7 +61,7 @@ final class WatchVideoViewController: UIViewController {
                                                             action: nil)
     }
     
-    private func configure() {
+    private func playVideo() {
         guard let videoURL = videoInfo?.videoURL else { return }
         
         let url = URL(fileURLWithPath: videoURL.path)
