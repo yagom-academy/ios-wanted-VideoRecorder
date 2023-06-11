@@ -12,8 +12,7 @@ final class AddVideoViewController: UIViewController {
     var session: AVCaptureSession?
     let movieOutput = AVCaptureMovieFileOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
-    
-    private lazy var fileName = "\(Date()).mp4"
+    private lazy var fileName = "\(Date().translateTimeFormat()).mp4"
     
     private let thumbnailIButton: UIButton = {
         let button = UIButton()
@@ -203,11 +202,12 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
         if let error {
             print("Recording error: \(error)")
         } else {
-            saveVideoToDocumentDirectory(id: UUID(), url: outputFileURL)
+            guard let thumbnailImage = generateThumbnailImage(from: outputFileURL) else { return }
+            saveVideoToDocumentDirectory(id: UUID(), url: outputFileURL, thumbnail: thumbnailImage)
         }
     }
     
-    private func saveVideoToDocumentDirectory(id: UUID, url: URL) {
+    private func saveVideoToDocumentDirectory(id: UUID, url: URL, thumbnail: UIImage) {
         let fileManager = FileManager.default
         let documentDirectory = fileManager.urls(for: .documentDirectory,
                                                  in: .userDomainMask).first
@@ -220,9 +220,22 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
         do {
             print(destinationURL)
             try fileManager.moveItem(at: url, to: destinationURL)
-            createVideo(id: id, url: destinationURL)
+            createVideo(id: id, url: destinationURL, thumbnail: thumbnail)
         } catch {
             print("Failed to save documents directory")
+        }
+    }
+    
+    private func generateThumbnailImage(from url: URL) -> UIImage? {
+        do {
+            let asset = AVURLAsset(url: url)
+            let imageGenerator = AVAssetImageGenerator(asset: asset)
+            let time = CMTime(seconds: 0.0, preferredTimescale: 1)
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            return UIImage(cgImage: thumbnailCGImage)
+        } catch {
+            print("Failed to create Thumbnail Image: \(error)")
+            return nil
         }
     }
 }
@@ -230,8 +243,8 @@ extension AddVideoViewController: AVCaptureFileOutputRecordingDelegate {
 // MARK: - Core data
 
 extension AddVideoViewController {
-    private func createVideo(id: UUID, url: URL) {
-        guard let thumbnailData = thumbnailIButton.imageView?.image?.pngData() else {
+    private func createVideo(id: UUID, url: URL, thumbnail: UIImage) {
+        guard let thumbnailData = thumbnail.pngData() else {
             print("Failed to convert thumbnail image to Data")
             return
         }

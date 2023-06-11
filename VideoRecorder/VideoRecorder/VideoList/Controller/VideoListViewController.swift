@@ -22,10 +22,6 @@ final class VideoListViewController: UIViewController {
         return tableView
     }()
     
-    private let videos: [VideoInfo] = [
-        VideoInfo(id: UUID(), videoURL: URL(string: "www.naver.com")!, thumbnailImage: (UIImage(named: "sample")?.pngData())!, duration: 0.3, fileName: "file1.mp4", registrationDate: Date())
-    ]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUIOption()
@@ -82,12 +78,20 @@ final class VideoListViewController: UIViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoListCell.identifier) as? VideoListCell else {
                 return UITableViewCell()
             }
-
+            
             let contents = self?.videoInfoList?[indexPath.row]
             
-            cell.configure(playbackTime: contents?.duration ?? 0.5,
-                           fileName: contents?.fileName ?? "",
-                           date: contents?.registrationDate.translateLocalizedFormat() ?? "")
+            guard let playbackTime = contents?.duration,
+                  let fileName = contents?.fileName,
+                  let date = contents?.registrationDate.translateDayFormat(),
+                  let thumbnailData = contents?.thumbnailImage else {
+                return UITableViewCell()
+            }
+            
+            cell.configure(playbackTime: playbackTime,
+                           fileName: fileName,
+                           date: date,
+                           thumbNail: thumbnailData)
             return cell
         }
     }

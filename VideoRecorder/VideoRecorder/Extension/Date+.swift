@@ -8,10 +8,19 @@
 import Foundation
 
 extension Date {
-    func translateLocalizedFormat() -> String {
+    static let formatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? Locale.current.identifier)
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: self)
+        return formatter
+    }()
+    
+    func translateDayFormat() -> String {
+        Date.formatter.dateFormat = "yyyy-MM-dd"
+        return Date.formatter.string(from: self)
+    }
+    
+    func translateTimeFormat() -> String {
+        Date.formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return Date.formatter.string(from: self)
     }
 }
