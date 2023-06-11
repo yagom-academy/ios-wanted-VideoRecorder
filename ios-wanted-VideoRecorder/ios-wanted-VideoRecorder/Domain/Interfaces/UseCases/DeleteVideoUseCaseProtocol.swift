@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol DeleteVideoUseCaseProtocol {
-    func deleteVideo(videoID: UUID) -> AnyPublisher<VideoEntity, Error>
+    func deleteVideo(videoID: UUID) -> AnyPublisher<VideoEntity?, Error>
 }

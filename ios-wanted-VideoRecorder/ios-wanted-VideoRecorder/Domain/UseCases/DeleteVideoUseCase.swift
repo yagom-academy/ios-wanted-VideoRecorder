@@ -16,7 +16,7 @@ final class DeleteVideoUseCase: DeleteVideoUseCaseProtocol {
         self.videoRepository = videoRepository
     }
     
-    func deleteVideo(videoID id: UUID) -> AnyPublisher<VideoEntity, Error> {
-        return videoRepository.deleteVideo(videoID: id)
+    func deleteVideo(videoID id: UUID) -> AnyPublisher<VideoEntity?, Error> {
+        return videoRepository.deleteVideoEntity(videoID: id)
     }
 }

@@ -11,6 +11,7 @@ final class VideoListViewModel {
     let videoEntitiesPublisher = CurrentValueSubject<[VideoEntity], Never>([])
     private let fetchVideoUseCase: FetchVideoUseCaseProtocol
     private let refreshVideoUseCase: RefreshVideoUseCaseProtocol
+    private let deleteVideoUseCase: DeleteVideoUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
     
     struct Input {
@@ -19,10 +20,12 @@ final class VideoListViewModel {
     
     init(
         fetchVideoUseCase: FetchVideoUseCaseProtocol,
-        refreshVideoUseCase: RefreshVideoUseCaseProtocol
+        refreshVideoUseCase: RefreshVideoUseCaseProtocol,
+        deleteVideoUseCase: DeleteVideoUseCaseProtocol
     ) {
         self.fetchVideoUseCase = fetchVideoUseCase
         self.refreshVideoUseCase = refreshVideoUseCase
+        self.deleteVideoUseCase = deleteVideoUseCase
     }
     
     func transform(from input: Input) {
@@ -54,8 +57,17 @@ final class VideoListViewModel {
         return videoEntitiesPublisher.value[index]
     }
     
-    func delete(VideoID: UUID) {
-        // 코어데이터로 먼저 지우고 받은 id를 publisher에 주면?
-        
+    func delete(videoID id: UUID) {
+        deleteVideoUseCase.deleteVideo(videoID: id)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { deletedVideo in
+                let filteredVideoEntities = self.videoEntitiesPublisher.value
+                    .filter { $0 != deletedVideo }
+                self.videoEntitiesPublisher.send(filteredVideoEntities)
+            }
+            .store(in: &cancellables)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VideoEntity: Identifiable {
+struct VideoEntity: Identifiable, Equatable {
     var id: UUID
     var name: String
     var date: Date

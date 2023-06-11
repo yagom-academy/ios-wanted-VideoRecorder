@@ -132,11 +132,8 @@ final class VideoListViewController: UIViewController {
                 guard let video = self?.videoListViewModel.videoEntity(at: indexPath.row) else {
                     return
                 }
-                do {
-                    try self?.videoListViewModel.delete(VideoID: video.id)
-                } catch {
-                    print(error)
-                }
+                
+                 self?.videoListViewModel.delete(videoID: video.id)
                 completion(true)
             }
             
