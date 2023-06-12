@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>304606200767-bommpknuhs5hsopqlpk0jnm8p92erdff.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.304606200767-bommpknuhs5hsopqlpk0jnm8p92erdff</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDA5-fzS_5smhUXKR95xAsKUXhcCaMEemo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>304606200767</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.seunghyun.ios-wanted-VideoRecorder-brody</string>
+	<key>PROJECT_ID</key>
+	<string>ios-wanted-videorecorder-a6350</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ios-wanted-videorecorder-a6350.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:304606200767:ios:3848879ab3b49682f8970a</string>
+</dict>
+</plist>
